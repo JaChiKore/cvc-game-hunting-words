@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import edu.uab.cvc.huntingwords.models.UserInfo;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -56,13 +57,11 @@ public class GetRanking extends AsyncTask<String, Void, String[]> {
     @Override
     protected void onPostExecute(String[] a) {}
 
-    private void startAsyncTask(String input) {
-        Observable.just(input)
-                .map(this::doInBackground)
-                .subscribeOn(Schedulers.io())
+    private void startRx(UserInfo userInfo) {
+        Observable.just("one", "two", "three", "four", "five")
+                .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe(this::onPreExecute)
-                .subscribe(this::onPostExecute);
+                .subscribe(/* an Observer */);
     }
 
 }
