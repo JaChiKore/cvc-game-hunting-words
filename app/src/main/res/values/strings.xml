@@ -1,0 +1,56 @@
+<resources>
+    <string name="app_name">Caça-paraules</string>
+    <string name="play">Play</string>
+    <string name="exit">Exit</string>
+    <string name="login">Login</string>
+    <string name="session">My session</string>
+    <string name="ranking">Ranking</string>
+    <string name="signin">signin</string>
+    <string name="username_text">Username</string>
+    <string name="password_text">Password</string>
+    <string name="return_text">Return</string>
+    <string name="match_game" translatable="false">Match Game</string>
+    <string name="difference_game" translatable="false">Difference Game</string>
+    <string name="how_to_play">How to Play?</string>
+    <string name="no_more_images">No more images to play;wait until new images come...</string>
+    <string name="match_game_score">Match Game Score</string>
+    <string name="difference_game_score">Difference Game Score</string>
+    <string name="downloading_fix_text">Downloading static files... (wait and don\'t turn off the screen)</string>
+    <string name="downloading_text">Downloading files... (wait and don\'t turn off the screen)</string>
+    <string name="no_internet">No internet connection</string>
+    <string name="minigame_select">Please select a minigame</string>
+    <string name="highscore">Highscore</string>
+    <string name="initializing_game">Initializing the game...</string>
+    <string name="logout">Logout</string>
+    <string name="users_text">Users</string>
+    <string name="top_10">Top 10</string>
+    <string name="logged_success">Login Success!</string>
+    <string name="logged_fail">Login failed...</string>
+    <string name="signin_success">User created successfully!</string>
+    <string name="signin_fail">User creation failed...</string>
+    <string name="language_text">Language</string>
+    <string name="ca" translatable="false">Català</string>
+    <string name="zh" translatable="false">中文</string>
+    <string name="en" translatable="false">English</string>
+    <string name="es" translatable="false">Español</string>
+    <string name="options">Options</string>
+    <string name="resume">Resume</string>
+    <string name="play_again">Play Again</string>
+    <string name="none_of_these">None of these</string>
+    <string name="score">Score</string>
+    <string name="lose">You lose!</string>
+    <string name="starts_zero">Starts the game with 0 points</string>
+    <string name="win">You win!</string>
+    <string name="starts_x_points">Starts with last game points</string>
+    <string name="more_than_one_different">More than one;different</string>
+    <string name="all_same">They are the same</string>
+    <string name="next_level">Next level</string>
+    <string name="round">Round</string>
+    <string name="easy">Easy</string>
+    <string name="normal">Normal</string>
+    <string name="hard">Hard</string>
+    <string name="level">Level</string>
+    <string name="anonym">Anonymous</string>
+    <string name="language_type">english</string>
+    <string name="title_connect">Parameters</string>
+</resources>
