@@ -9,7 +9,7 @@ public class UserInfo {
    private  String ranking;
 
    public UserInfo() {
-       
+
    }
 
     public UserInfo (String username, String ranking) {

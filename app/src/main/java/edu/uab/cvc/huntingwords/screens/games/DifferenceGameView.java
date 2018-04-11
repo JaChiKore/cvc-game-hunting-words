@@ -27,6 +27,7 @@ import java.util.Date;
 import java.util.Random;
 
 import edu.uab.cvc.huntingwords.R;
+import edu.uab.cvc.huntingwords.tasks.GetRanking;
 import edu.uab.cvc.huntingwords.tasks.updates.UpdateClusters;
 import edu.uab.cvc.huntingwords.tasks.updates.UpdatePlayTimes;
 import edu.uab.cvc.huntingwords.tasks.updates.UpdateScore;

@@ -57,11 +57,5 @@ public class GetRanking extends AsyncTask<String, Void, String[]> {
     @Override
     protected void onPostExecute(String[] a) {}
 
-    private void startRx(UserInfo userInfo) {
-        Observable.just("one", "two", "three", "four", "five")
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(/* an Observer */);
-    }
 
 }

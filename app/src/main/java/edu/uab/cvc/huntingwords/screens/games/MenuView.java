@@ -36,6 +36,9 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import edu.uab.cvc.huntingwords.R;
+import edu.uab.cvc.huntingwords.tasks.GetRanking;
+import edu.uab.cvc.huntingwords.tasks.InsertUser;
+import edu.uab.cvc.huntingwords.tasks.Login;
 import edu.uab.cvc.huntingwords.tasks.checks.CheckDifferenceGameImages;
 import edu.uab.cvc.huntingwords.tasks.checks.CheckMatchGameImages;
 import edu.uab.cvc.huntingwords.tasks.checks.CheckNewDifferenceGameFixClusters;
@@ -2596,7 +2599,7 @@ public class MenuView extends SurfaceView implements Runnable {
                                         }
                                     } else {
                                         try {
-                                            logged = new Login().execute(user_textBox.getText(), pass_textBox.getText()).get();
+                                            logged = new Login(new Boolean(true)).execute(user_textBox.getText(), pass_textBox.getText()).get();
                                             if (logged) {
                                                 login_status = NOT_PRESSED;
                                                 log_sign_text_status = LOGGED_SUCCESS;
