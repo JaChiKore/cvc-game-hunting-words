@@ -3,9 +3,6 @@ package edu.uab.cvc.huntingwords.screens.fragments;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +23,8 @@ public class Init extends Fragment {
         int color = Utils.GetBackgroundColour(this.getActivity());
         view.setBackgroundColor(color);
 
+
+
         return view;
 
     }
@@ -45,7 +44,7 @@ public class Init extends Fragment {
     @OnClick(R.id.login)
     public void clickLogin(){
         Fragment myfragment;
-        myfragment = new Login();
+        myfragment = new Connect();
 
 
         FragmentManager fm = getFragmentManager();

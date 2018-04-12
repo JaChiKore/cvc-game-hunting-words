@@ -8,4 +8,6 @@ public interface LoginView {
 
     //TODO add updates
     void updateLogin(String username);
+
+    void setUpLoginParameters(String username, String passw);
 }

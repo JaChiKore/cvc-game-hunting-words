@@ -51,6 +51,7 @@ import edu.uab.cvc.huntingwords.tasks.match.GetImagesMatchGame;
 import edu.uab.cvc.huntingwords.tasks.match.GetMatchGameFixInfo;
 import edu.uab.cvc.huntingwords.tasks.match.GetMatchGameInfo;
 import edu.uab.cvc.huntingwords.tasks.updates.UpdatePlayTimes;
+import rx.subjects.BehaviorSubject;
 
 
 @SuppressLint("ViewConstructor")
@@ -2599,7 +2600,7 @@ public class MenuView extends SurfaceView implements Runnable {
                                         }
                                     } else {
                                         try {
-                                            logged = new Login(new Boolean(true)).execute(user_textBox.getText(), pass_textBox.getText()).get();
+                                            logged = new Login(BehaviorSubject.create()).execute(user_textBox.getText(), pass_textBox.getText()).get();
                                             if (logged) {
                                                 login_status = NOT_PRESSED;
                                                 log_sign_text_status = LOGGED_SUCCESS;

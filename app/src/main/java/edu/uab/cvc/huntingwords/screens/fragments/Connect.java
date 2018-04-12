@@ -1,6 +1,8 @@
 package edu.uab.cvc.huntingwords.screens.fragments;
 
 import android.app.Fragment;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,17 +14,18 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import edu.uab.cvc.huntingwords.R;
-import edu.uab.cvc.huntingwords.presenters.LoginPresenter;
-import edu.uab.cvc.huntingwords.presenters.LoginPresenterImpl;
+import edu.uab.cvc.huntingwords.presenters.ConnectPresenter;
+import edu.uab.cvc.huntingwords.presenters.ConnectPresenterImpl;
 import edu.uab.cvc.huntingwords.screens.Utils;
 import edu.uab.cvc.huntingwords.screens.views.LoginView;
+import edu.uab.cvc.huntingwords.utils.Constants;
 
 /**
  * Created by carlosb on 05/04/18.
  */
 
-public class Login extends Fragment implements LoginView {
-    private LoginPresenter presenter;
+public class Connect extends Fragment implements LoginView {
+    private ConnectPresenter presenter;
 
     @BindView(R.id.edit_username)
     EditText username;
@@ -36,7 +39,7 @@ public class Login extends Fragment implements LoginView {
         int color = Utils.GetBackgroundColour(this.getActivity());
         view.setBackgroundColor(color);
 
-        presenter = new LoginPresenterImpl(this);
+        presenter = new ConnectPresenterImpl(this);
         return view;
     }
 
@@ -60,5 +63,15 @@ public class Login extends Fragment implements LoginView {
     public void updateLogin(String username) {
         TextView textView = (TextView)getActivity().findViewById(R.id.logged_user);
         textView.setText(username);
+    }
+
+    @Override
+    public void setUpLoginParameters(String username, String passw) {
+        SharedPreferences preferences = getActivity().getSharedPreferences(
+                getString(R.string.preferences_file), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(Constants.PARAM_USERNAME,username);
+        editor.putString(Constants.PARAM_PASSWORD,passw);
+        editor.commit();
     }
 }

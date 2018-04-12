@@ -53,4 +53,5 @@
     <string name="anonym">Anonymous</string>
     <string name="language_type">english</string>
     <string name="title_connect">Parameters</string>
+    <string name="preferences_file">hunting_words_prefs</string>
 </resources>

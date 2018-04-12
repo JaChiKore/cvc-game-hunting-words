@@ -1,26 +1,21 @@
 package edu.uab.cvc.huntingwords.tasks;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import edu.uab.cvc.huntingwords.models.UserInfo;
-import rx.subjects.BehaviorSubject;
 import rx.subjects.Subject;
 
 @SuppressWarnings("WeakerAccess")
-public class Login extends AsyncTask<String, Void, Boolean> {
+public class InsertUser2 extends AsyncTask<String, Void, Boolean> {
 
-    private Subject logged;
-    public Login(Subject logged) {
-        this.logged = logged;
+    private Subject signedIn;
+    public InsertUser2(Subject signedIn) {
+        this.signedIn = signedIn;
     }
-
-
 
     protected void onPreExecute() {}
 
@@ -32,7 +27,7 @@ public class Login extends AsyncTask<String, Void, Boolean> {
         boolean correct;
 
         try {
-            link = "http://158.109.8.50/app_mobile/login.php?username=" + arg[0] + "&password=" + arg[1];  // base link: http://158.109.8.50/app_mobile/
+            link = "http://158.109.8.50/app_mobile/insertUser.php?username=" + arg[0] + "&password=" + arg[1];  // base link: http://158.109.8.50/app_mobile/
             URL url = new URL(link);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
@@ -41,10 +36,12 @@ public class Login extends AsyncTask<String, Void, Boolean> {
             con.connect();
 
             bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
+
+
             next = bufferedReader.readLine();
 
             correct = next.contentEquals("true");
-            logged.onNext(correct);
+            signedIn.onNext(correct);
 
         } catch (Exception e) {
             e.printStackTrace();
