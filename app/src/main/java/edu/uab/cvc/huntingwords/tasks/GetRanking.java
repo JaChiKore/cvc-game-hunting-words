@@ -7,11 +7,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import edu.uab.cvc.huntingwords.models.UserInfo;
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
-
 @SuppressWarnings("WeakerAccess")
 public class GetRanking extends AsyncTask<String, Void, String[]> {
 

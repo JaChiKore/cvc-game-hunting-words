@@ -4,28 +4,28 @@
     android:layout_height="match_parent">
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/but_catalan"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="@string/ca" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/but_spanish"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="@string/es" />
 
     <Button
-        android:id="@+id/button9"
+        android:id="@+id/but_english"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="@string/en" />
 
     <Button
-        android:id="@+id/button11"
+        android:id="@+id/but_chinese"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"

@@ -1,15 +1,12 @@
 package edu.uab.cvc.huntingwords.tasks;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import edu.uab.cvc.huntingwords.models.UserInfo;
-import rx.subjects.BehaviorSubject;
 import rx.subjects.Subject;
 
 @SuppressWarnings("WeakerAccess")

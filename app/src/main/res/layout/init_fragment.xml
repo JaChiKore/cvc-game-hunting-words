@@ -8,6 +8,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+
             <Button
                 android:id="@+id/login"
                 android:layout_width="wrap_content"
@@ -19,6 +20,7 @@
                 android:layout_toLeftOf="@+id/language"
                 android:layout_toStartOf="@+id/language"
                 android:text="@string/login" />
+
 
             <Button
                 android:id="@+id/language"
