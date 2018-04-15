@@ -32,7 +32,7 @@
     <string name="resume">Seguir</string>
     <string name="play_again">Tornar a jugar</string>
     <string name="none_of_these">Cap d\'aquestes</string>
-    <string name="score">Puntuació</string>
+    <string name="score">"Puntuació "</string>
     <string name="lose">Has perdut!</string>
     <string name="starts_zero">Comences amb 0 punts</string>
     <string name="win">Has guanyat!</string>

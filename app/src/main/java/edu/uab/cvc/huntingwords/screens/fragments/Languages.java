@@ -49,9 +49,9 @@ public class Languages extends Fragment {
     @OnClick(R.id.but_catalan)
     public void clickCatalan() {
         setLocale(new Locale(CATALAN_TAG));
-        FragmentManager fm = getActivity().getFragmentManager();
-        EditNameDialogFragment frag = EditNameDialogFragment.newInstance("tried");
-        frag.show(fm,"aa");
+ //       FragmentManager fm = getActivity().getFragmentManager();
+//        EditNameDialogFragment frag = EditNameDialogFragment.newInstance("tried");
+//        frag.show(fm,"aa");
      //   fragment.show(fm,"Tried2");
     }
     @OnClick(R.id.but_chinese)

@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.Hashtable;
+
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import edu.uab.cvc.huntingwords.R;
@@ -33,14 +35,27 @@ public class Play extends Fragment {
     }
 
 
+    //TODO check results
+    private Hashtable results = new Hashtable();
+
     @OnClick(R.id.match)
     public void playMatch () {
+        Fragment myfragment;
+        myfragment = MatchGame.newInstance(results);
+
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fm.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_switch, myfragment);
+        fragmentTransaction.commit();
+        /*
         Intent intent = new Intent(getActivity(), MatchGameActivity.class);
         intent.putExtra(MatchGameActivity.USERNAME,"anonim");
         intent.putExtra(MatchGameActivity.NUM_GAMES,"2");
         intent.putExtra(MatchGameActivity.BD_FILENAME,"matchGameInfo.txt");
         intent.putExtra(MatchGameActivity.BD_FIX_FILENAME,"matchGameFixInfo.txt");
         startActivity(intent);
+        */
+
     }
 
     @OnClick(R.id.difference)

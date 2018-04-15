@@ -32,7 +32,7 @@
     <string name="resume">继续</string>
     <string name="play_again">再来一局</string>
     <string name="none_of_these">都不是</string>
-    <string name="score">得分</string>
+    <string name="score">"得分 "</string>
     <string name="lose">不好意思，你输啦!</string>
     <string name="starts_zero">以零分开始游戏</string>
     <string name="win">恭喜你，你赢啦!</string>

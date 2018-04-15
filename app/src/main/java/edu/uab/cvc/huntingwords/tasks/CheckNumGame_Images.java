@@ -1,4 +1,4 @@
-package edu.uab.cvc.huntingwords.tasks.checks;
+package edu.uab.cvc.huntingwords.tasks;
 
 import android.os.AsyncTask;
 import java.io.BufferedReader;

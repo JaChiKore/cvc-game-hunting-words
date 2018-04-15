@@ -37,7 +37,7 @@
     <string name="resume">Resume</string>
     <string name="play_again">Play Again</string>
     <string name="none_of_these">None of these</string>
-    <string name="score">Score</string>
+    <string name="score">"Score "</string>
     <string name="lose">You lose!</string>
     <string name="starts_zero">Starts the game with 0 points</string>
     <string name="win">You win!</string>

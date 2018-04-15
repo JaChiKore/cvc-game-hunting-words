@@ -32,7 +32,7 @@
     <string name="resume">Seguir</string>
     <string name="play_again">Volver a jugar</string>
     <string name="none_of_these">Ninguna de estas</string>
-    <string name="score">Puntuación</string>
+    <string name="score">"Puntuación "</string>
     <string name="lose">Has perdido!</string>
     <string name="starts_zero">Comienzas con 0 puntos</string>
     <string name="win">Has ganado!</string>
