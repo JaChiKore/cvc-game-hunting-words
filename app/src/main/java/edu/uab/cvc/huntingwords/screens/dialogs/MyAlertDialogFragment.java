@@ -1,4 +1,4 @@
-package edu.uab.cvc.huntingwords.screens.fragments;
+package edu.uab.cvc.huntingwords.screens.dialogs;
 
 import android.app.AlertDialog;
 import android.app.Dialog;

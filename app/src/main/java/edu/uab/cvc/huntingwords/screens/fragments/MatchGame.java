@@ -2,10 +2,8 @@ package edu.uab.cvc.huntingwords.screens.fragments;
 
 import android.app.Fragment;
 import android.content.res.Resources;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.RippleDrawable;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.annotation.ColorInt;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -13,9 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import java.util.Hashtable;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Optional;
@@ -23,6 +23,7 @@ import edu.uab.cvc.huntingwords.R;
 import edu.uab.cvc.huntingwords.presenters.MatchGamePresenter;
 import edu.uab.cvc.huntingwords.presenters.MatchGamePresenterImpl;
 import edu.uab.cvc.huntingwords.screens.Utils;
+import edu.uab.cvc.huntingwords.screens.dialogs.PlayAgainFragment;
 import edu.uab.cvc.huntingwords.screens.views.MatchView;
 
 /**
@@ -31,8 +32,17 @@ import edu.uab.cvc.huntingwords.screens.views.MatchView;
 
 public class MatchGame  extends Fragment implements MatchView {
     public static final String TABLE_RESULTS = "tableResults";
+    public static final int MAX_TIME = 30000;
+    public static final int COUNT_DOWN_INTERVAL = 1000;
     @ColorInt int colorPrimary;
     private MatchGamePresenter presenter;
+
+    @BindView(R.id.value_time)
+    public TextView time;
+    //TODO define
+    private int score;
+
+    private   Hashtable correctValues;
 
     public static MatchGame newInstance(Hashtable correctResults) {
         MatchGame frag = new MatchGame();
@@ -55,11 +65,18 @@ public class MatchGame  extends Fragment implements MatchView {
         theme.resolveAttribute(R.attr.colorPrimary, typedValue, true);
          colorPrimary = typedValue.data;
 
-        Hashtable correctValues = (Hashtable) getArguments().getSerializable(TABLE_RESULTS);
+        correctValues = (Hashtable) getArguments().getSerializable(TABLE_RESULTS);
         presenter = new MatchGamePresenterImpl(this,correctValues);
+        this.score = 0;
 
 
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        startCountdown();
     }
 
 
@@ -67,9 +84,19 @@ public class MatchGame  extends Fragment implements MatchView {
 
     @Override
     public void cleanResult(int idImage, int idButton) {
+        if ( this.getActivity() == null ||   this.getActivity().findViewById(idImage) == null) {
+            return;
+        }
         this.getActivity().findViewById(idImage).setBackgroundColor(getResources().getColor(R.color.white));
 
         this.clickedImage = -1;
+        //TODO remove this!!
+        //tryAgainDialog();
+        PlayAgainFragment dialogFragment = new PlayAgainFragment();
+        Bundle args = new Bundle();
+        args.putSerializable(TABLE_RESULTS, correctValues);
+        dialogFragment.setArguments(args);
+        dialogFragment.show(this.getActivity().getFragmentManager(),"");
     }
 
     @Override
@@ -102,5 +129,19 @@ public class MatchGame  extends Fragment implements MatchView {
         //TODO clean when it eliminate two
     }
 
+    private void startCountdown()  {
+        new CountDownTimer(MAX_TIME, COUNT_DOWN_INTERVAL) {
+
+            public void onTick(long millisUntilFinished) {
+                time.setText(String.valueOf(millisUntilFinished / 1000));
+            }
+
+            public void onFinish() {
+                time.setText("done!");
+            }
+        }.start();
+
+
+    }
 
 }

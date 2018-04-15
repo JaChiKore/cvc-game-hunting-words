@@ -40,7 +40,7 @@
     <string name="more_than_one_different">不止一个;不同</string>
     <string name="all_same">都是一样的</string>
     <string name="next_level">下一关</string>
-    <string name="round">回合</string>
+    <string name="round">"回合 "</string>
     <string name="easy">简单</string>
     <string name="normal">普通</string>
     <string name="hard">难</string>

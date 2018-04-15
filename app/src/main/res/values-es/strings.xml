@@ -40,7 +40,7 @@
     <string name="more_than_one_different">Hay más de;uno diferente</string>
     <string name="all_same">Todos son iguales</string>
     <string name="next_level">Siguiente nivel</string>
-    <string name="round">Ronda</string>
+    <string name="round">"Ronda "</string>
     <string name="easy">Fácil</string>
     <string name="normal">Medio</string>
     <string name="hard">Difícil</string>

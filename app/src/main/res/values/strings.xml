@@ -45,7 +45,7 @@
     <string name="more_than_one_different">More than one;different</string>
     <string name="all_same">They are the same</string>
     <string name="next_level">Next level</string>
-    <string name="round">Round</string>
+    <string name="round">"Round "</string>
     <string name="easy">Easy</string>
     <string name="normal">Normal</string>
     <string name="hard">Hard</string>
