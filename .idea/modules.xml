@@ -4,6 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/MarvelSuperHeroes.iml" filepath="$PROJECT_DIR$/MarvelSuperHeroes.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/edu-uab-cvc-game-hunting-words.iml" filepath="$PROJECT_DIR$/edu-uab-cvc-game-hunting-words.iml" />
       <module fileurl="file://$PROJECT_DIR$/edu-uab-cvc-game-hunting-words.iml" filepath="$PROJECT_DIR$/edu-uab-cvc-game-hunting-words.iml" />
       <module fileurl="file://$PROJECT_DIR$/hunting-words.iml" filepath="$PROJECT_DIR$/hunting-words.iml" />
       <module fileurl="file://$PROJECT_DIR$/marvel.iml" filepath="$PROJECT_DIR$/marvel.iml" />

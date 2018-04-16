@@ -91,12 +91,13 @@ public class MatchGame  extends Fragment implements MatchView {
 
         this.clickedImage = -1;
         //TODO remove this!!
-        //tryAgainDialog();
+/*
         PlayAgainFragment dialogFragment = new PlayAgainFragment();
         Bundle args = new Bundle();
         args.putSerializable(TABLE_RESULTS, correctValues);
         dialogFragment.setArguments(args);
         dialogFragment.show(this.getActivity().getFragmentManager(),"");
+        */
     }
 
     @Override

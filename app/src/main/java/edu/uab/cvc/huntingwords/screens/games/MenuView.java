@@ -50,7 +50,7 @@ import edu.uab.cvc.huntingwords.tasks.difference.GetImagesDifferenceGame;
 import edu.uab.cvc.huntingwords.tasks.match.GetImagesMatchGame;
 import edu.uab.cvc.huntingwords.tasks.match.GetMatchGameFixInfo;
 import edu.uab.cvc.huntingwords.tasks.match.GetMatchGameInfo;
-import edu.uab.cvc.huntingwords.tasks.updates.UpdatePlayTimes;
+import edu.uab.cvc.huntingwords.tasks.UpdatePlayTimes;
 import rx.subjects.BehaviorSubject;
 
 

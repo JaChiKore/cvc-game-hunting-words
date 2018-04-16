@@ -1,4 +1,4 @@
-package edu.uab.cvc.huntingwords.tasks.updates;
+package edu.uab.cvc.huntingwords.tasks.difference;
 
 import android.os.AsyncTask;
 

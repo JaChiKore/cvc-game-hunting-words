@@ -20,9 +20,9 @@ import java.util.Random;
 
 import edu.uab.cvc.huntingwords.R;
 import edu.uab.cvc.huntingwords.tasks.GetRanking;
-import edu.uab.cvc.huntingwords.tasks.updates.UpdatePlayTimes;
-import edu.uab.cvc.huntingwords.tasks.updates.UpdateScore;
-import edu.uab.cvc.huntingwords.tasks.updates.UpdateTranscriptions;
+import edu.uab.cvc.huntingwords.tasks.UpdatePlayTimes;
+import edu.uab.cvc.huntingwords.tasks.UpdateScore;
+import edu.uab.cvc.huntingwords.tasks.match.UpdateTranscriptions;
 
 import static edu.uab.cvc.huntingwords.screens.games.MenuView.BIG;
 import static edu.uab.cvc.huntingwords.screens.games.MenuView.MEGA;

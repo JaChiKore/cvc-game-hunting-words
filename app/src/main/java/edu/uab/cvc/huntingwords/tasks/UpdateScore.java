@@ -1,4 +1,4 @@
-package edu.uab.cvc.huntingwords.tasks.updates;
+package edu.uab.cvc.huntingwords.tasks;
 
 import android.os.AsyncTask;
 
@@ -8,9 +8,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 @SuppressWarnings("WeakerAccess")
-public class UpdatePlayTimes extends AsyncTask<String, Void, Boolean> {
+public class UpdateScore extends AsyncTask<String, Void, Boolean> {
 
-    public UpdatePlayTimes() {}
+    public UpdateScore() {}
 
     protected void onPreExecute() {}
 
@@ -22,7 +22,7 @@ public class UpdatePlayTimes extends AsyncTask<String, Void, Boolean> {
         BufferedReader bufferedReader;
 
         try {
-            link = "http://158.109.8.50/app_mobile/updatePlayTimes.php?username=" + arg[0] + "&game=" + arg[1];  // base link: http://158.109.8.50/app_mobile/ http://158.109.9.209/
+            link = "http://158.109.8.50/app_mobile/updateScore.php?username=" + arg[0] + "&match_game=" + arg[1] + "&difference_game=" + arg[2];  // base link: http://158.109.8.50/app_mobile/ http://158.109.9.209/
             URL url = new URL(link);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
@@ -45,3 +45,4 @@ public class UpdatePlayTimes extends AsyncTask<String, Void, Boolean> {
     @Override
     protected void onPostExecute(Boolean a) {}
 }
+
