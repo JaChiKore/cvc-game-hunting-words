@@ -2,6 +2,8 @@ package edu.uab.cvc.huntingwords.screens.fragments;
 
 import android.app.Fragment;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.ColorInt;
@@ -13,7 +15,10 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.squareup.haha.trove.TIntHashingStrategy;
+
 import java.util.Hashtable;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,13 +30,13 @@ import edu.uab.cvc.huntingwords.presenters.MatchGamePresenterImpl;
 import edu.uab.cvc.huntingwords.screens.Utils;
 import edu.uab.cvc.huntingwords.screens.dialogs.PlayAgainFragment;
 import edu.uab.cvc.huntingwords.screens.views.MatchView;
+import timber.log.Timber;
 
 /**
  * Created by carlosb on 4/15/18.
  */
 
 public class MatchGame  extends Fragment implements MatchView {
-    public static final String TABLE_RESULTS = "tableResults";
     public static final int MAX_TIME = 30000;
     public static final int COUNT_DOWN_INTERVAL = 1000;
     @ColorInt int colorPrimary;
@@ -42,13 +47,9 @@ public class MatchGame  extends Fragment implements MatchView {
     //TODO define
     private int score;
 
-    private   Hashtable correctValues;
 
-    public static MatchGame newInstance(Hashtable correctResults) {
+    public static MatchGame newInstance() {
         MatchGame frag = new MatchGame();
-        Bundle args = new Bundle();
-        args.putSerializable(TABLE_RESULTS, correctResults);
-        frag.setArguments(args);
         return frag;
     }
 
@@ -65,12 +66,44 @@ public class MatchGame  extends Fragment implements MatchView {
         theme.resolveAttribute(R.attr.colorPrimary, typedValue, true);
          colorPrimary = typedValue.data;
 
-        correctValues = (Hashtable) getArguments().getSerializable(TABLE_RESULTS);
-        presenter = new MatchGamePresenterImpl(this,correctValues);
+        presenter = new MatchGamePresenterImpl(this);
         this.score = 0;
 
-
         return view;
+    }
+
+    private static int [] idImages = {R.id.match_img_0_0, R.id.match_img_0_1, R.id.match_img_0_2, R.id.match_img_1_0, R.id.match_img_1_1, R.id.match_img_1_2
+            , R.id.match_img_2_0, R.id.match_img_2_1, R.id.match_img_2_2, R.id.match_img_3_0, R.id.match_img_3_1, R.id.match_img_3_2};
+    private static int [] idButtons = {R.id.match_but_0, R.id.match_but_1, R.id.match_but_2, R.id.match_but_3, R.id.match_but_4};
+
+    @Override
+    public void newRoundPlay(List<String> filepaths, List<String> buttons) {
+        if (filepaths.size()!=idImages.length) {
+            Timber.i("It doesn't have enough images");
+            return;
+        }
+        if (buttons.size() !=buttons.size()) {
+            Timber.i("It doesn't have buttons");
+            return;
+        }
+        for (int i = 0; i<idImages.length; i++) {
+            updateImageButton(idImages[i],filepaths.get(i));
+        }
+
+        for (int i=0; i < idButtons.length; i++) {
+            updateInfoButton(idButtons[i],buttons.get(i));
+        }
+
+    }
+
+    private void updateInfoButton(int idButton, String text) {
+        Button button = (Button) this.getActivity().findViewById(idButton);
+        button.setText(text);
+    }
+
+    private void updateImageButton(int idImage, String filepath) {
+            ImageButton imageButton = (ImageButton) this.getActivity().findViewById(idImage);
+            imageButton.setImageBitmap(BitmapFactory.decodeFile(filepath));
     }
 
     @Override

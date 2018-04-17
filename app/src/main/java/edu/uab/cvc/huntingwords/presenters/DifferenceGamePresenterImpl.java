@@ -11,6 +11,6 @@ import edu.uab.cvc.huntingwords.screens.views.DifferenceView;
  */
 
 public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
-    public DifferenceGamePresenterImpl(DifferenceView differenceGame, Hashtable correctValues) {
+    public DifferenceGamePresenterImpl(DifferenceView differenceGame) {
     }
 }

@@ -156,14 +156,14 @@ public class Play extends Fragment implements PlayView{
     @Override
     public void runMatchGame() {
         this.getActivity().runOnUiThread(() -> {
-            countDownProgressToStartFragment(MatchGame.newInstance(results));
+            countDownProgressToStartFragment(MatchGame.newInstance());
         });
     }
 
     @Override
     public void runDifferenceGame() {
         this.getActivity().runOnUiThread(() -> {
-            countDownProgressToStartFragment(DifferenceGame.newInstance(results));
+            countDownProgressToStartFragment(DifferenceGame.newInstance());
         });
     }
 

@@ -31,7 +31,6 @@ import edu.uab.cvc.huntingwords.screens.views.MatchView;
  */
 
 public class DifferenceGame extends Fragment implements DifferenceView {
-    public static final String TABLE_RESULTS = "tableResults";
     public static final int MAX_TIME = 30000;
     public static final int COUNT_DOWN_INTERVAL = 1000;
     @ColorInt
@@ -43,14 +42,8 @@ public class DifferenceGame extends Fragment implements DifferenceView {
     //TODO define
     private int score;
 
-    private Hashtable correctValues;
-
-
-    public static DifferenceGame newInstance(Hashtable correctResults) {
+    public static DifferenceGame newInstance() {
         DifferenceGame frag = new DifferenceGame();
-        Bundle args = new Bundle();
-        args.putSerializable(TABLE_RESULTS, correctResults);
-        frag.setArguments(args);
         return frag;
     }
 
@@ -67,8 +60,7 @@ public class DifferenceGame extends Fragment implements DifferenceView {
         theme.resolveAttribute(R.attr.colorPrimary, typedValue, true);
         colorPrimary = typedValue.data;
 
-        correctValues = (Hashtable) getArguments().getSerializable(TABLE_RESULTS);
-        presenter = new DifferenceGamePresenterImpl(this, correctValues);
+        presenter = new DifferenceGamePresenterImpl(this);
         this.score = 0;
 
 

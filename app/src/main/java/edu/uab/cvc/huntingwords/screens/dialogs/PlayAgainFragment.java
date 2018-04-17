@@ -29,18 +29,14 @@ public class PlayAgainFragment extends DialogFragment
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState)
     {
-        Hashtable results = (Hashtable) getArguments().getSerializable(MatchGame.TABLE_RESULTS);
         View view = getActivity().getLayoutInflater().inflate(R.layout.play_again, new LinearLayout(getActivity()), false);
-
         // Retrieve layout elements
         Button ok = (Button) view.findViewById(R.id.play_again_button_ok);
         Button cancel = (Button) view.findViewById(R.id.play_again_button_cancel);
 
         ok.setOnClickListener(v -> {
             dismiss();
-            Fragment myfragment;
-            myfragment = MatchGame.newInstance(results);
-
+            Fragment myfragment = MatchGame.newInstance();
             FragmentManager fm = getFragmentManager();
             FragmentTransaction fragmentTransaction = fm.beginTransaction();
             fragmentTransaction.replace(R.id.fragment_switch, myfragment);
