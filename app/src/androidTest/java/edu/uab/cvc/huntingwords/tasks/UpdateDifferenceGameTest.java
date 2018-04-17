@@ -5,6 +5,9 @@ import android.support.test.runner.AndroidJUnit4;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import edu.uab.cvc.huntingwords.tasks.loaders.UpdateDifferenceGame;
+import edu.uab.cvc.huntingwords.tasks.loaders.UpdateMatchGame;
+
 import static android.support.test.InstrumentationRegistry.getTargetContext;
 
 /**
