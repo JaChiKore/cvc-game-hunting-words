@@ -9,6 +9,10 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import edu.uab.cvc.huntingwords.models.DifferenceFixGameInformation;
+import edu.uab.cvc.huntingwords.models.DifferenceGameInformation;
+import edu.uab.cvc.huntingwords.models.MatchFixGameInformation;
+import edu.uab.cvc.huntingwords.models.MatchGameInformation;
 
 /**
  * Created by carlosb on 17/04/18.
@@ -18,13 +22,26 @@ public class GameInfoModule {
 
     @Singleton
     @Provides
-    public Hashtable<String, List<Pair<String, Boolean>>> differenceGameInformation () {
-        return new Hashtable<> ();
+    public DifferenceGameInformation getDifferenceInfo () {
+        return new DifferenceGameInformation ();
     }
 
     @Singleton
     @Provides
-    public Hashtable<String, Pair<List<String>, String>> matchGameInformation () {
-        return new Hashtable<> ();
+    public MatchGameInformation getMatchInfo () {
+        return new MatchGameInformation ();
     }
+
+    @Singleton
+    @Provides
+    public DifferenceFixGameInformation getDifferenceFixInfo () {
+        return new DifferenceFixGameInformation ();
+    }
+
+    @Singleton
+    @Provides
+    public MatchFixGameInformation getMatchFixInfo () {
+        return new MatchFixGameInformation();
+    }
+
 }

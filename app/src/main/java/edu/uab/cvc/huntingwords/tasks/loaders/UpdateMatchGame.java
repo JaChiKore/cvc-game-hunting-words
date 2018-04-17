@@ -17,6 +17,7 @@ import edu.uab.cvc.huntingwords.tasks.match.CheckNewMatchGameFixImages;
 import edu.uab.cvc.huntingwords.tasks.match.GetImagesMatchGame;
 import edu.uab.cvc.huntingwords.tasks.match.GetMatchGameFixInfo;
 import edu.uab.cvc.huntingwords.tasks.match.GetMatchGameInfo;
+import timber.log.Timber;
 
 /**
  * Created by carlosb on 16/04/18.
@@ -48,8 +49,11 @@ public class UpdateMatchGame {
             /* check it is the DB online with images!! */
             numImagesMatchGameInBBDD = new CheckNumGame_Images().execute("1").get();
         } catch (InterruptedException e ) {
+            Timber.e(e);
             return false;
         } catch (ExecutionException e) {
+            Timber.e(e);
+
             return false;
         }
         if (numImagesMatchGameInBBDD == 0) {

@@ -52,7 +52,7 @@ public class AppController extends Application {
         }
     }
 
-    public static AppComponent getNetComponent() {
+    public static AppComponent getComponent() {
         return appComponent;
     }
 

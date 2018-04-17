@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import java.util.Hashtable;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import edu.uab.cvc.huntingwords.R;
@@ -42,6 +44,7 @@ public class DifferenceGame extends Fragment implements DifferenceView {
     private int score;
 
     private Hashtable correctValues;
+
 
     public static DifferenceGame newInstance(Hashtable correctResults) {
         DifferenceGame frag = new DifferenceGame();

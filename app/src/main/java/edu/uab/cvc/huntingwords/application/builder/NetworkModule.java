@@ -20,7 +20,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 public class NetworkModule {
 
-    @AppScope
     @Provides
     OkHttpClient provideHttpClient(HttpLoggingInterceptor logger, Cache cache) {
 
@@ -30,7 +29,6 @@ public class NetworkModule {
         return builder.build();
     }
 
-    @AppScope
     @Provides
     HttpLoggingInterceptor provideInterceptor() {
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
@@ -38,19 +36,16 @@ public class NetworkModule {
         return httpLoggingInterceptor;
     }
 
-    @AppScope
     @Provides
     Cache provideCache(File file) {
         return new Cache(file, 10 * 10 * 1000);
     }
 
-    @AppScope
     @Provides
     File provideCacheFile(Context context) {
         return context.getFilesDir();
     }
 
-    @AppScope
     @Provides
     RxJavaCallAdapterFactory provideRxAdapter() {
         return RxJavaCallAdapterFactory.createWithScheduler(AppRxSchedulers.INTERNET_SCHEDULERS);
