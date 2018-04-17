@@ -1,6 +1,8 @@
-package edu.uab.cvc.huntingwords.tasks;
+package edu.uab.cvc.huntingwords.tasks.loaders;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.RectF;
 import android.util.Log;
 
 import java.io.BufferedReader;
@@ -9,67 +11,76 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
-import edu.uab.cvc.huntingwords.tasks.match.CheckMatchGameImages;
-import edu.uab.cvc.huntingwords.tasks.match.CheckNewMatchGameFixImages;
-import edu.uab.cvc.huntingwords.tasks.match.GetImagesMatchGame;
-import edu.uab.cvc.huntingwords.tasks.match.GetMatchGameFixInfo;
-import edu.uab.cvc.huntingwords.tasks.match.GetMatchGameInfo;
+import edu.uab.cvc.huntingwords.tasks.CheckNumGame_Images;
+import edu.uab.cvc.huntingwords.tasks.difference.CheckDifferenceGameImages;
+import edu.uab.cvc.huntingwords.tasks.difference.CheckNewDifferenceGameFixClusters;
+import edu.uab.cvc.huntingwords.tasks.difference.GetDifferenceGameFixInfo;
+import edu.uab.cvc.huntingwords.tasks.difference.GetDifferenceGameInfo;
+import edu.uab.cvc.huntingwords.tasks.difference.GetImagesDifferenceGame;
 
 /**
  * Created by carlosb on 16/04/18.
  */
 
-public class UpdateMatchGame {
+public class UpdateDifferenceGame {
+    private String differenceGameInfoFilename = "differenceGameInfo.txt";
+    private String differenceGameFixInfoFilename = "differenceGameFixInfo.txt";
 
-    private String matchGameInfoFilename = "matchGameInfo.txt";
-    private String matchGameFixInfoFilename = "matchGameFixInfo.txt";
+    public void cleanFiles(Context context) {
+        File file =  context.getFilesDir();
+        File [] files = file.listFiles();
+        for (File fil : files) {
+                if (fil.getName().equals(differenceGameInfoFilename))  {
+                    fil.delete();
+                }
+                if (fil.getName().equals(differenceGameFixInfoFilename))  {
+                    fil.delete();
+                }
+        }
 
+    }
 
     public boolean update(Context context) {
-        /* check  */
-        Integer numImagesMatchGameInBBDD = null;
-        try {
-            /* check it is the DB online with images!! */
-            numImagesMatchGameInBBDD = new CheckNumGame_Images().execute("1").get();
-        } catch (InterruptedException e ) {
-            return false;
-        } catch (ExecutionException e) {
-            return false;
-        }
-        if (numImagesMatchGameInBBDD == 0) {
-            return false;
-        }
-
         Boolean needDownloadFix = false;
         Boolean needDownload = false;
 
-        Boolean downMatchGameFix = false;
-        Boolean down = false;
         String downImages = "-2";
+        Boolean down = false;
+        Boolean downDifferenceGameFix = false;
+
+        Integer  numClusterDifferenceGameBBDD;
+        try {
+            numClusterDifferenceGameBBDD = new CheckNumGame_Images().execute("0").get();
+            if (numClusterDifferenceGameBBDD == 0) {
+                return false;
+            }
+        } catch (Exception e) {
+            Log.e("Error", "Failed checking num of images.");
+            return false;
+        }
 
 
-
-        File ffix = new File(context.getFilesDir(), matchGameFixInfoFilename);
+        File ffix = new File(context.getFilesDir(), differenceGameFixInfoFilename);
         int fFixNumImgs = 0;
 
         if (ffix.exists()) {
             String row;
             String[] columns;
 
-            /* if it is exists in th DB the image*/
             try {
                 BufferedReader br = new BufferedReader(new FileReader(ffix));
                 File auxImage;
                 ArrayList<String> imageNames = new ArrayList<>();
 
-                if (br.readLine() != null) {
-                    while ((row = br.readLine()) != null) {
+                if (!br.readLine().contains("0")) {
+                    while ((row = br.readLine()) != null) {/*
+                                                    if (row.contains("0")) {
+                                                        break;
+                                                    }*/
                         columns = row.split(";");
                         // this function returns 0 if need erase the image and 1 if still need the image
-                        /* check for golden images*/
-                        int correct = new CheckMatchGameImages().execute(columns[0], "1").get();
+                        int correct = new CheckDifferenceGameImages().execute(columns[0], "1").get();
                         if (correct != -1) {
                             if (correct == 1) {
                                 imageNames.add(row);
@@ -85,57 +96,61 @@ public class UpdateMatchGame {
                             }
                         }
                     }
+
+                    if (ffix.exists()) {
+                        ffix.delete();
+                        ffix.createNewFile();
+                    }
+
+                    BufferedWriter bw = new BufferedWriter(new FileWriter(ffix));
+
+                    System.out.println("Check fix imageNames size: " + imageNames.size());
+                    if (imageNames.size() > 0) {
+                        bw.write(String.valueOf(imageNames.size()));
+                        bw.write(System.getProperty("line.separator"));
+
+                        for (int i = 0; i < imageNames.size(); i++) {
+                            bw.write(imageNames.get(i));
+                            bw.write(System.getProperty("line.separator"));
+                        }
+
+                        bw.close();
+                    } else {
+                        needDownloadFix = true;
+                    }
                 }
                 br.close();
 
-                /* clean info and rebuild ffix info*/
-                if (ffix.exists()) {
-                    ffix.delete();
-                    ffix.createNewFile();
-                }
-
-                BufferedWriter bw = new BufferedWriter(new FileWriter(ffix));
-
-                System.out.println("Check fix imageNames size: " + imageNames.size());
-                if (imageNames.size() > 0) {
-                    bw.write(String.valueOf(imageNames.size()));
-                    bw.write(System.getProperty("line.separator"));
-
-                    for (int i = 0; i < imageNames.size(); i++) {
-                        bw.write(imageNames.get(i));
-                        bw.write(System.getProperty("line.separator"));
-                    }
-
-                    bw.close();
-                } else {
-                    needDownloadFix = true;
-                }
 
             } catch (Exception e) {
                 Log.e("Error", "Failed checking old fix images.");
             }
 
-            try {
-                BufferedReader br = new BufferedReader(new FileReader(ffix));
-                String next;
+            if (ffix.exists()) {
+                try {
+                    BufferedReader br = new BufferedReader(new FileReader(ffix));
+                    String next;
 
-                fFixNumImgs = Integer.valueOf(br.readLine());
+                    fFixNumImgs = Integer.valueOf(br.readLine());
 
-                System.out.println("num of fix images: " + fFixNumImgs);
+                    System.out.println("num of fix images: " + fFixNumImgs);
 
-                if (fFixNumImgs > 0) {
-                    String list = "'" + br.readLine().split(";")[0] + "'";
-                    while ((next = br.readLine()) != null) {
-                        list += ",'" + next.split(";")[0] + "'";
+                    if (fFixNumImgs > 0) {
+                        String list = "'" + br.readLine().split(";")[0] + "'";
+                        while ((next = br.readLine()) != null) {
+                            list += ",'" + next.split(";")[0] + "'";
+                        }
+
+                        needDownloadFix = new CheckNewDifferenceGameFixClusters().execute(list).get();
+                    } else {
+                        needDownloadFix = true;
                     }
 
-                    needDownloadFix = new CheckNewMatchGameFixImages().execute(list).get();
-                } else {
-                    needDownloadFix = true;
+                } catch (Exception e) {
+                    Log.e("Error", "Failed checking fix images of difference game.");
                 }
-
-            } catch (Exception e) {
-                Log.e("Error", "Failed checking fix images of match game.");
+            } else {
+                needDownloadFix = true;
             }
         } else {
             needDownloadFix = true;
@@ -143,9 +158,7 @@ public class UpdateMatchGame {
 
         System.out.println("Check ffix need download:" + needDownload + ", " + needDownloadFix);
 
-
-
-        File f = new File(context.getFilesDir(), matchGameInfoFilename);
+        File f = new File(context.getFilesDir(), differenceGameInfoFilename);
         if (f.exists()) {
             String row;
             String[] columns;
@@ -155,12 +168,11 @@ public class UpdateMatchGame {
                 File auxImage;
                 ArrayList<String> imageNames = new ArrayList<>();
 
-                /* verify if it exist yet in db*/
                 if (br.readLine() != null) {
                     while ((row = br.readLine()) != null) {
                         columns = row.split(";");
                         // this function returns 0 if need erase the image and 1 if still need the image
-                        int correct = new CheckMatchGameImages().execute(columns[0], "0").get();
+                        int correct = new CheckDifferenceGameImages().execute(columns[0], "0").get();
                         if (correct != -1) {
                             if (correct == 1) {
                                 imageNames.add(row);
@@ -179,7 +191,6 @@ public class UpdateMatchGame {
                 }
                 br.close();
 
-                /* rebuild file with image */
                 if (f.exists()) {
                     f.delete();
                     f.createNewFile();
@@ -206,11 +217,6 @@ public class UpdateMatchGame {
                 Log.e("Error", "Failed checking old images.");
             }
 
-
-
-
-
-            /*  start if it is necessary download not verify images */
             if (!needDownload) {
                 try {
                     System.out.println("Checking images...");
@@ -218,7 +224,7 @@ public class UpdateMatchGame {
 
                     int fNumImgs = Integer.valueOf(br.readLine());
 
-                    if ((fFixNumImgs + fNumImgs) < Math.min(12, numImagesMatchGameInBBDD)) {
+                    if ((fFixNumImgs + fNumImgs) < Math.min(12, numClusterDifferenceGameBBDD)) {
                         needDownload = true;
                     } else {
                         while ((row = br.readLine()) != null) {
@@ -236,19 +242,19 @@ public class UpdateMatchGame {
             }
         } else {
             needDownload = true;
-            //TODO CHECK DOWNLOAD
-            //lastTextTimeForDown = System.currentTimeMillis();
+           // lastTextTimeForDown = System.currentTimeMillis();
         }
+
+        System.out.println("Check f need download:" + needDownload + ", " + needDownloadFix);
 
 
         if (needDownloadFix) {
-        /* get match info */
-            System.out.println("Downloading match game fix images");
-            File ffix2 = new File(context.getFilesDir(), matchGameFixInfoFilename);
+            System.out.println("Downloading difference game fix images");
+            ffix = new File(context.getFilesDir(), differenceGameFixInfoFilename);
+            String list = "''";
             try {
-                String list;
-                if (ffix2.exists()) {
-                    BufferedReader br = new BufferedReader(new FileReader(ffix2));
+                if (ffix.exists()) {
+                    BufferedReader br = new BufferedReader(new FileReader(ffix));
 
                     if (Integer.valueOf(br.readLine()) > 0) {
                         String next;
@@ -259,63 +265,73 @@ public class UpdateMatchGame {
                     } else {
                         list = "''";
                     }
-                } else {
-                    list = "''";
                 }
-
-                 downMatchGameFix = new GetMatchGameFixInfo(context).execute(matchGameFixInfoFilename, list).get();
             } catch (Exception e) {
-                Log.e("Error:", "Failed downloading txt of fix match game images.");
+                Log.e("Error:", "Failed reading the difference game fix txt.");
+            }
+
+            try {
+                downDifferenceGameFix = new GetDifferenceGameFixInfo(context).execute(differenceGameFixInfoFilename, list).get();
+            } catch (Exception e) {
+                Log.e("Error:", "Failed downloading txt of fix difference game images.");
             }
         }
 
-
-
         if (needDownload) {
-            System.out.println("Downloading match game images");
-            File f2 = new File(context.getFilesDir(), matchGameInfoFilename);
-            System.out.println(f.getAbsolutePath());
+            System.out.println("Downloading difference game images");
+            f = new File(context.getFilesDir(), differenceGameInfoFilename);
+            String list = "''";
+            int numImgs = 0;
             try {
-                String list;
-                int numFImgs = 0;
-                if (f2.exists()) {
-                    BufferedReader br = new BufferedReader(new FileReader(f2));
-                    String readLine = br.readLine();
-                    if (readLine == null) {
-                        numFImgs = 0;
-                    } else {
-                        numFImgs = Integer.valueOf(readLine);
-                    }
-                    if (numFImgs > 0) {
+                if (f.exists()) {
+                    BufferedReader br = new BufferedReader(new FileReader(f));
+                    numImgs = Integer.valueOf(br.readLine());
+                    if (numImgs > 0) {
                         String next;
                         list = "'" + br.readLine().split(";")[0] + "'";
                         while ((next = br.readLine()) != null) {
                             list += ",'" + next.split(";")[0] + "'";
                         }
                     } else {
-                        System.out.println("list void");
                         list = "''";
                     }
-                } else {
-                    list = "''";
+                }
+            } catch (Exception e) {
+                Log.e("Error:", "Failed reading the difference game txt.");
+            }
+
+            try {
+                int limit = 50;
+                if (ffix.exists()) {
+                    BufferedReader br = new BufferedReader(new FileReader(ffix));
+                    String num;
+                    if ((num = br.readLine()) != null) {
+                        limit = 50 - (numImgs + Integer.valueOf(num));
+                    } else {
+                        limit = 50 - numImgs;
+                    }
                 }
 
-                int limit = 50 - (numFImgs);
-                System.out.println("list: " + list + "; limit: " + limit);
-                downImages = new GetMatchGameInfo(context).execute(matchGameInfoFilename, list, String.valueOf(limit)).get();
+                System.out.println("the limit is: " + limit);
+
+                if (limit > 0) {
+                    downImages = new GetDifferenceGameInfo(context).execute(differenceGameInfoFilename, list, String.valueOf(limit)).get();
+                } else {
+                    downImages = "3";
+                }
             } catch (Exception e) {
-                Log.e("Error:", "Failed downloading txt of match game images.");
+                Log.e("Error:", "Failed downloading txt of difference game images.");
             }
         }
 
-
-        if (downImages.contentEquals("1")) {
+        if (downImages.contentEquals("3")) {
             down = true;
         }
 
-        if (downImages.contentEquals("1") && down || downMatchGameFix) {
-            if (downMatchGameFix) {
-                File fDown2 = new File(context.getFilesDir(), matchGameFixInfoFilename);
+
+        if (downImages.contentEquals("3") && down || downDifferenceGameFix) {
+            if (downDifferenceGameFix) {
+                File fDown2 = new File(context.getFilesDir(), differenceGameFixInfoFilename);
 
                 try {
                     BufferedReader br = new BufferedReader(new FileReader(fDown2));
@@ -326,20 +342,19 @@ public class UpdateMatchGame {
                     int numWords = Integer.valueOf(num);
 
                     if (numWords > 0) {
-
                         int[] downloadedFiles = new int[numWords];
 
                         for (int i = 0; i < downloadedFiles.length; i++) {
                             downloadedFiles[i] = -2;
                         }
                         int i = 0;
-                        GetImagesMatchGame getImagesMatchGame;
+                        GetImagesDifferenceGame getImagesDifferenceGame;
 
                         while ((row = br.readLine()) != null) {
                             columns = row.split(";");
 
-                            getImagesMatchGame = new GetImagesMatchGame(context, downloadedFiles, i);
-                            getImagesMatchGame.doInForeground(columns[0], "0");
+                            getImagesDifferenceGame = new GetImagesDifferenceGame(context, downloadedFiles, i);
+                            getImagesDifferenceGame.doInForeground(columns[0], "0");
                             i++;
                         }
                     }
@@ -348,11 +363,11 @@ public class UpdateMatchGame {
                 } catch (Exception e) {
                     Log.e("Error","Failed downloading fix images of match game");
                 }
-                downMatchGameFix = false;
+                downDifferenceGameFix = false;
             }
 
             if (down) {
-                File fDown = new File(context.getFilesDir(), matchGameInfoFilename);
+                File fDown = new File(context.getFilesDir(), differenceGameInfoFilename);
                 try {
                     BufferedReader br = new BufferedReader(new FileReader(fDown));
                     String row;
@@ -362,19 +377,19 @@ public class UpdateMatchGame {
                     int numWords = Integer.valueOf(num);
 
                     if ((numWords > 0) && down) {
-
                         int[] downloadedFiles = new int[numWords];
 
                         for (int i = 0; i < downloadedFiles.length; i++) {
                             downloadedFiles[i] = -2;
                         }
                         int i = 0;
-                        GetImagesMatchGame getImagesMatchGame;
+                        GetImagesDifferenceGame getImagesDifferenceGame;
+
                         while ((row = br.readLine()) != null) {
                             columns = row.split(";");
 
-                            getImagesMatchGame = new GetImagesMatchGame(context, downloadedFiles, i);
-                            getImagesMatchGame.doInForeground(columns[0], "0");
+                            getImagesDifferenceGame = new GetImagesDifferenceGame(context, downloadedFiles, i);
+                            getImagesDifferenceGame.doInForeground(columns[0], "0");
                             i++;
                         }
                     }
@@ -386,11 +401,11 @@ public class UpdateMatchGame {
                 }
                 down = false;
             }
-
         }
+
+
 
         return true;
 
     }
-
 }
