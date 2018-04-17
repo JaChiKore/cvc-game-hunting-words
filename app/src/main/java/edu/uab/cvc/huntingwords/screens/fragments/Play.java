@@ -25,6 +25,7 @@ import java.util.concurrent.TimeUnit;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import edu.uab.cvc.huntingwords.R;
+import edu.uab.cvc.huntingwords.presenters.PlayPresenter;
 import edu.uab.cvc.huntingwords.screens.FragmentActivity;
 import edu.uab.cvc.huntingwords.screens.Utils;
 import edu.uab.cvc.huntingwords.screens.games.DifferenceGameActivity;
@@ -103,41 +104,94 @@ public class Play extends Fragment {
         fragmentTransaction.commit();
     }
 
-    public void startProgressDialog() {
-        final ProgressDialog progress = new ProgressDialog(this.getActivity());
-        //progress.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        progress.setCancelable(false);
-        progress.setIndeterminate(true);
+        public void startProgressDialog() {
+            final ProgressDialog progress = new ProgressDialog(this.getActivity());
+            //progress.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            progress.setCancelable(false);
+            progress.setIndeterminate(true);
 
-        new CountDownTimer(5000, 1000) {
+            new CountDownTimer(5000, 1000) {
 
-            public void onTick(long millisUntilFinished) {
-                long seconds = millisUntilFinished / 1000;
-                String countdown = String.format("%02d", seconds / 60) + ":" + String.format("%02d", seconds % 60);
-                progress.setMessage(countdown);
+                public void onTick(long millisUntilFinished) {
+                    long seconds = millisUntilFinished / 1000;
+                    String countdown = String.format("%02d", seconds / 60) + ":" + String.format("%02d", seconds % 60);
+                    progress.setMessage(countdown);
 
+                }
+
+                public void onFinish() {
+                    progress.dismiss();
+                    Fragment myfragment;
+                    myfragment = MatchGame.newInstance(results);
+
+                    FragmentManager fm = getFragmentManager();
+                    FragmentTransaction fragmentTransaction = fm.beginTransaction();
+                    fragmentTransaction.replace(R.id.fragment_switch, myfragment);
+                    fragmentTransaction.commit();
+
+                }
+            }.start();
+
+            progress.show();
+
+        }
+
+        private class LoadDifferenceAsyncTask extends AsyncTask<Void, Void, Void> {
+            private final ProgressDialog dialog;
+            private final PlayPresenter presenter;
+
+            public LoadDifferenceAsyncTask(FragmentActivity activity, PlayPresenter presenter) {
+                this.dialog = new ProgressDialog(activity);
+                this.presenter = presenter;
             }
 
-            public void onFinish() {
-                progress.dismiss();
-                Fragment myfragment;
-                myfragment = MatchGame.newInstance(results);
-
-                FragmentManager fm = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fm.beginTransaction();
-                fragmentTransaction.replace(R.id.fragment_switch, myfragment);
-                fragmentTransaction.commit();
-
+            @Override
+            protected void onPreExecute() {
+                dialog.setMessage(getString(R.string.downloading_text));
+                dialog.show();
             }
-        }.start();
 
-        progress.show();
+            protected Void doInBackground(Void... args) {
+                presenter.loadDifferenceInfo();
+                return null;
+            }
 
-    }
+            protected void onPostExecute(Void result) {
+                // do UI work here
+                if (dialog.isShowing()) {
+                    dialog.dismiss();
+                }
+            }
+        }
+
+        private class LoadMatchAsyncTask extends AsyncTask<Void, Void, Void> {
+            private final ProgressDialog dialog;
+            private final PlayPresenter presenter;
+
+            public LoadMatchAsyncTask(FragmentActivity activity, PlayPresenter presenter) {
+                this.dialog = new ProgressDialog(activity);
+                this.presenter = presenter;
+            }
 
 
+            @Override
+            protected void onPreExecute() {
+                dialog.setMessage(getString(R.string.downloading_text));
+                dialog.show();
+            }
 
+            protected Void doInBackground(Void... args) {
+                presenter.loadMatchInfo();
+                return null;
+            }
 
+            protected void onPostExecute(Void result) {
+                // do UI work here
+                if (dialog.isShowing()) {
+                    dialog.dismiss();
+                }
+            }
 
+        }
 
 }
