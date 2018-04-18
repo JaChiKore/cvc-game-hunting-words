@@ -41,9 +41,6 @@ public class Play extends Fragment implements PlayView{
     }
 
 
-    //TODO check results
-    private Hashtable results = new Hashtable();
-
     @OnClick(R.id.match)
     public void playMatch () {
         startMatchDialog();

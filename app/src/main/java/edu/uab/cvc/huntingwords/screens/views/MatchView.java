@@ -12,4 +12,16 @@ public interface MatchView {
     void cleanResult(int idImage, int idButton);
 
     void hideButton(int idImage);
+
+    void messageNotEnoughImages();
+
+    void updateButtons(List<String> nameWords);
+
+
+    void updateOK(int idImage, float currentScore);
+
+    void updateFail();
+
+    void runPlayAgainDialog();
+
 }

@@ -1,4 +1,4 @@
-package edu.uab.cvc.huntingwords.screens.games;
+package edu.uab.cvc.huntingwords.screens;
 
 
 import android.content.Context;
@@ -12,10 +12,10 @@ import java.io.IOException;
 
 @SuppressWarnings("WeakerAccess")
 public class Sounds {
-    SoundPool soundPool;
-    int fail = -1;
-    int pass = -1;
-    int won = -1;
+    public SoundPool soundPool;
+    public int fail = -1;
+    public int pass = -1;
+    public int won = -1;
 
     public Sounds(Context context) {
         //noinspection deprecation
@@ -25,13 +25,13 @@ public class Sounds {
             AssetManager assetManager = context.getAssets();
             AssetFileDescriptor descriptor;
 
-            descriptor = assetManager.openFd("sounds/fail.wav");
+            descriptor = assetManager.openFd("raw/fail.wav");
             fail = soundPool.load(descriptor, 0);
 
-            descriptor = assetManager.openFd("sounds/pass.wav");
+            descriptor = assetManager.openFd("raw/pass.wav");
             pass = soundPool.load(descriptor, 0);
 
-            descriptor = assetManager.openFd("sounds/won.wav");
+            descriptor = assetManager.openFd("raw/won.wav");
             won = soundPool.load(descriptor, 0);
 
         } catch (IOException e) {
