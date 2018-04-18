@@ -24,10 +24,5 @@
         </activity>
 
 
-        <activity android:name=".screens.games.MatchGameActivity"
-            android:screenOrientation="landscape"/>
-        <activity android:name=".screens.games.DifferenceGameActivity"
-            android:screenOrientation="landscape"/>
-
     </application>
 </manifest>

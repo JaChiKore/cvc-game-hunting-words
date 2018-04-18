@@ -8,10 +8,13 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.UTFDataFormatException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
+
+import edu.uab.cvc.huntingwords.Utils;
 
 /**
  * Created by carlosb on 16/04/18.
@@ -22,7 +25,7 @@ public class LoaderMatchGameInformation {
     private final String matchGameInfoFilename = "matchGameInfo.txt";
     private final String matchGameFixInfoFilename = "matchGameFixInfo.txt";
 
-    public static String ANY_CORRECT = "0";
+
 
 
 
@@ -77,7 +80,7 @@ public class LoaderMatchGameInformation {
                     if (columns[3].equals("1")) {
                         outputResult = results.get(0);
                     } else {
-                        outputResult = ANY_CORRECT;
+                        outputResult = Utils.ANY_CORRECT;
                     }
                     matchGameImages.put(filename, Pair.create(results, outputResult));
                 }

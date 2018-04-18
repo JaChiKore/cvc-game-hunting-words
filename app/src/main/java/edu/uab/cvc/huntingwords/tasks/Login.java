@@ -1,21 +1,28 @@
 package edu.uab.cvc.huntingwords.tasks;
 
 import android.os.AsyncTask;
+import android.support.annotation.Nullable;
+import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import butterknife.BindView;
+import edu.uab.cvc.huntingwords.R;
+import edu.uab.cvc.huntingwords.presenters.ConnectCallback;
 import rx.subjects.Subject;
 
 @SuppressWarnings("WeakerAccess")
 public class Login extends AsyncTask<String, Void, Boolean> {
 
-    private Subject logged;
-    public Login(Subject logged) {
-        this.logged = logged;
+    private ConnectCallback onResult;
+    public Login(ConnectCallback onResult) {
+        this.onResult = onResult;
     }
+
+
 
 
 
@@ -41,7 +48,7 @@ public class Login extends AsyncTask<String, Void, Boolean> {
             next = bufferedReader.readLine();
 
             correct = next.contentEquals("true");
-            logged.onNext(correct);
+            onResult.updateLogin(arg[0],arg[1]);
 
         } catch (Exception e) {
             e.printStackTrace();

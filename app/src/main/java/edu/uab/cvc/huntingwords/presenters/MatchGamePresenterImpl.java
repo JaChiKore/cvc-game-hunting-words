@@ -24,6 +24,8 @@ import edu.uab.cvc.huntingwords.screens.views.MatchView;
 
 public class MatchGamePresenterImpl implements MatchGamePresenter {
 
+    public static final int NUM_IMAGES_FOR_ROUND = 12;
+
     class MyComparator implements Comparator<Score> {
         public int compare(Score a, Score b) {
             if (a.score == b.score) {
@@ -71,7 +73,6 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
         }
     }
 
-    private final int SIZE_IMAGES = 12;
 
     @Inject
     MatchGameInformation matchInfo;
@@ -86,6 +87,7 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
 
     private MatchLevel level = MatchLevel.EASY;
     private int numRounds = 0;
+    private int numOks;
     private final MatchView view;
 
     TreeSet matchSortedInfo;
@@ -123,28 +125,57 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
             Pair<List<String>, String> newInfo = Pair.create(info.first,textSolution);
             this.matchInfo.put(filepathImage,newInfo);
             this.view.updateOK(idImage,currentScore);
+            numOks++;
             //update
         } else {
             Pair<List<String>, String> info = this.matchFixInfo.get(filepathImage);
             if (info.second.equals(textSolution)) {
                 currentScore+= Utils.VALUE_POINT;
                 this.view.updateOK(idImage,currentScore);
+                numOks++;
             } else {
                 this.view.updateFail();
             }
-
+        }
+        if (numOks == NUM_IMAGES_FOR_ROUND) {
+            finishRound();
         }
     }
 
     @Override
     public void newGame() {
+        currentScore = 0;
+        restartGame();
+    }
+
+    @Override
+    public void updateButtonsByImage(String nameFile) {
+        List<String> nameWords;
+        assert(this.matchInfo.containsKey(nameFile) ||this.matchFixInfo.containsKey(nameFile) );
+        if (this.matchInfo.containsKey(nameFile)) {
+            nameWords = this.matchInfo.get(nameFile).first;
+        } else  {
+            nameWords = this.matchFixInfo.get(nameFile).first;
+        }
+        Collections.shuffle(nameWords);
+       this.view.updateButtons(nameWords);
+    }
+
+    @Override
+    public void finishRound() {
+        this.view.runPlayAgainDialog(currentScore);
+    }
+
+    @Override
+    public void restartGame() {
         updateLevel();
+        numOks = 0;
         numRounds++;
         int numMatchs = level.getNum();
         int numMatchsFix = level.getNumFix();
         if (this.matchSortedInfo.size() < numMatchs || this.matchSortedFixInfo.size() < numMatchsFix) {
-           this.view.messageNotEnoughImages();
-           return;
+            this.view.messageNotEnoughImages();
+            return;
         }
 
 
@@ -157,7 +188,7 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
         imagesCurrentRound = imagesToUse;
         imagesFixCurrentRound = imagesFixToUse;
 
-        List<String> allImages = new ArrayList<String>(imagesCurrentRound);
+        List<String> allImages = new ArrayList<>(imagesCurrentRound);
         allImages.addAll(imagesFixCurrentRound);
         /* randomize  */
         Collections.shuffle(allImages);
@@ -175,29 +206,8 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
         } else  {
             nameWords = this.matchFixInfo.get(nameFile).first;
         }
-
-        currentScore = 0;
-
+        Collections.shuffle(nameWords);
         this.view.newRoundPlay(allImages,nameWords);
-    }
-
-    @Override
-    public void updateButtonsByImage(String nameFile) {
-        List<String> nameWords;
-        assert(this.matchInfo.containsKey(nameFile) ||this.matchFixInfo.containsKey(nameFile) );
-        if (this.matchInfo.containsKey(nameFile)) {
-            nameWords = this.matchInfo.get(nameFile).first;
-        } else  {
-            nameWords = this.matchFixInfo.get(nameFile).first;
-        }
-       this.view.updateButtons(nameWords);
-    }
-
-    @Override
-    public void finishRound() {
-
-
-        this.view.runPlayAgainDialog();
     }
 
     private void extractInfo(int numMatchs, TreeSet sortedInfo, List<String> imagesToUse) {

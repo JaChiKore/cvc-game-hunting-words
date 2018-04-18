@@ -35,6 +35,8 @@ import edu.uab.cvc.huntingwords.screens.dialogs.PlayAgainFragment;
 import edu.uab.cvc.huntingwords.screens.views.MatchView;
 import timber.log.Timber;
 
+import static edu.uab.cvc.huntingwords.Utils.ANY_CORRECT;
+
 /**
  * Created by carlosb on 4/15/18.
  */
@@ -53,8 +55,7 @@ public class MatchGame  extends Fragment implements MatchView {
     public TextView points;
 
     private Sounds sounds;
-
-
+    public static String NONE_VALUE = "0";
 
 
     public static MatchGame newInstance() {
@@ -96,6 +97,7 @@ public class MatchGame  extends Fragment implements MatchView {
             Timber.i("It doesn't have buttons");
             return;
         }
+        startCountdown();
         for (int i = 0; i<idImages.length; i++) {
             updateImageButton(idImages[i],filepaths.get(i));
         }
@@ -103,6 +105,8 @@ public class MatchGame  extends Fragment implements MatchView {
         for (int i=0; i < idButtons.length; i++) {
             updateInfoButton(idButtons[i],buttons.get(i));
         }
+        ((Button) this.getActivity().findViewById(R.id.match_but_4)).setTag(ANY_CORRECT);
+        ((Button) this.getActivity().findViewById(R.id.match_but_4)).setText(getString(R.string.none_of_these));
     }
 
     @Override
@@ -114,12 +118,15 @@ public class MatchGame  extends Fragment implements MatchView {
         for (int i=0; i < idButtons.length; i++) {
             updateInfoButton(idButtons[i],buttons.get(i));
         }
+        ((Button) this.getActivity().findViewById(R.id.match_but_4)).setTag(ANY_CORRECT);
+        ((Button) this.getActivity().findViewById(R.id.match_but_4)).setText(getString(R.string.none_of_these));
     }
 
     public void cleanButtons() {
         for (int i=0; i < idButtons.length; i++) {
             updateInfoButton(idButtons[i],"");
         }
+        updateInfoButton(R.id.match_but_4,"");
     }
 
 
@@ -137,8 +144,6 @@ public class MatchGame  extends Fragment implements MatchView {
 
 
 
-
-
     private void updateInfoButton(int idButton, String text) {
         Button button = (Button) this.getActivity().findViewById(idButton);
         button.setTag(text);
@@ -148,6 +153,7 @@ public class MatchGame  extends Fragment implements MatchView {
     private float scaledWidth = 250f;
     private void updateImageButton(int idImage, String filepath) {
             ImageButton imageButton = (ImageButton) this.getActivity().findViewById(idImage);
+            getActivity().findViewById(idImage).setVisibility(View.VISIBLE);
             imageButton.setTag(filepath);
             File file =  new File(getActivity().getFilesDir(),filepath);
             Bitmap image = BitmapFactory.decodeFile(file.getAbsolutePath());
@@ -160,7 +166,6 @@ public class MatchGame  extends Fragment implements MatchView {
     public void onStart() {
         super.onStart();
         this.presenter.newGame();
-        startCountdown();
         sounds = new Sounds(this.getActivity());
 
     }
@@ -231,10 +236,10 @@ public class MatchGame  extends Fragment implements MatchView {
     }
 
     @Override
-    public void runPlayAgainDialog() {
+    public void runPlayAgainDialog(float currentScore) {
         FragmentManager fm = this.getFragmentManager();
-        PlayAgainFragment dialog = new PlayAgainFragment();
-        dialog.show(fm, "fragment_edit_name");
+        PlayAgainFragment dialog = new PlayAgainFragment(this.presenter,currentScore);
+        dialog.show(fm, "");
 
     }
 
@@ -266,8 +271,6 @@ public class MatchGame  extends Fragment implements MatchView {
     @Optional
     @OnClick({ R.id.match_but_0, R.id.match_but_1, R.id.match_but_2, R.id.match_but_3, R.id.match_but_4 })
     public void clickMatchButton(Button button) {
-
-
         if (clickedImage==-1) {
             return;
         }
@@ -277,7 +280,8 @@ public class MatchGame  extends Fragment implements MatchView {
         //TODO clean when it eliminate two
     }
 
-    private void startCountdown()  {
+
+    public void startCountdown()  {
         new CountDownTimer(MAX_TIME, COUNT_DOWN_INTERVAL) {
 
             public void onTick(long millisUntilFinished) {

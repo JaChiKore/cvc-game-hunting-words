@@ -12,4 +12,6 @@ public interface MatchGamePresenter {
     void updateButtonsByImage(String tag);
 
     void finishRound();
+
+    void restartGame();
 }

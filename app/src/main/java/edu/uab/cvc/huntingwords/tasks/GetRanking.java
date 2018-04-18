@@ -1,16 +1,28 @@
 package edu.uab.cvc.huntingwords.tasks;
 
 import android.os.AsyncTask;
+import android.util.Pair;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import edu.uab.cvc.huntingwords.presenters.ConnectCallback;
+import edu.uab.cvc.huntingwords.presenters.ConnectPresenterImpl;
+import rx.subjects.BehaviorSubject;
+import timber.log.Timber;
+
 @SuppressWarnings("WeakerAccess")
 public class GetRanking extends AsyncTask<String, Void, String[]> {
 
-    public GetRanking() {}
+
+
+    private final ConnectCallback onResult;
+    public GetRanking(ConnectCallback onResult) {
+        this.onResult = onResult;
+    }
+
 
     protected void onPreExecute() {}
 
@@ -42,8 +54,9 @@ public class GetRanking extends AsyncTask<String, Void, String[]> {
                 next = bufferedReader.readLine();
                 rows = next.split(",");
             }
+            onResult.updateScore(Integer.valueOf(rows[1]),Integer.valueOf(rows[0]));
         } catch (Exception e) {
-            e.printStackTrace();
+            Timber.e(e);
         }
 
         return rows;

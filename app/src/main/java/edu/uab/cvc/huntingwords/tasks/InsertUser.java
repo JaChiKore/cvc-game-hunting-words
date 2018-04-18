@@ -7,10 +7,17 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import edu.uab.cvc.huntingwords.presenters.ConnectCallback;
+import edu.uab.cvc.huntingwords.presenters.ConnectPresenterImpl;
+import rx.subjects.Subject;
+
 @SuppressWarnings("WeakerAccess")
 public class InsertUser extends AsyncTask<String, Void, Boolean> {
 
-    public InsertUser() {}
+    private ConnectCallback onResult;
+    public InsertUser(ConnectCallback onResult) {
+        this.onResult = onResult;
+    }
 
     protected void onPreExecute() {}
 
@@ -36,6 +43,7 @@ public class InsertUser extends AsyncTask<String, Void, Boolean> {
             next = bufferedReader.readLine();
 
             correct = next.contentEquals("true");
+            onResult.updateLogin(arg[0],arg[1]);
 
         } catch (Exception e) {
             e.printStackTrace();

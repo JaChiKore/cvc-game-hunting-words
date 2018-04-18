@@ -22,6 +22,6 @@ public interface MatchView {
 
     void updateFail();
 
-    void runPlayAgainDialog();
+    void runPlayAgainDialog(float currentScore);
 
 }

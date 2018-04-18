@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,7 +63,32 @@ public class Connect extends Fragment implements LoginView {
     @Override
     public void updateLogin(String username) {
         TextView textView = (TextView)getActivity().findViewById(R.id.logged_user);
-        textView.setText(username);
+        new Thread() {
+                public void run() {
+                    getActivity().runOnUiThread(
+                            () -> {
+                                getActivity().runOnUiThread( () ->  textView.setText(username));
+                            });
+
+                }
+            }.start();
+
+    }
+
+    @Override
+    public void updateScore(int matchScore, int diffScore) {
+        TextView valueMatchScore = (TextView)this.getActivity().findViewById(R.id.value_match_total_score);
+        TextView valueDiffScore = (TextView)this.getActivity().findViewById(R.id.value_diff_total_score);
+        new Thread() {
+            public void run() {
+                getActivity().runOnUiThread(
+                        () -> {
+                            valueMatchScore.setText(String.valueOf(matchScore));
+                            valueDiffScore.setText(String.valueOf(diffScore));
+                        });
+
+            }
+        }.start();
     }
 
     @Override
