@@ -136,7 +136,6 @@ public class Init extends Fragment  implements InitView {
             public void run() {
                 getActivity().runOnUiThread(
                         () -> {
-                           // String [] arr = {"1","2"};
                             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                             builder.setTitle(getString(R.string.ranking))
                                     .setItems( arr, new DialogInterface.OnClickListener() {

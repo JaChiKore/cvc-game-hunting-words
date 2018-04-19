@@ -16,6 +16,7 @@ import edu.uab.cvc.huntingwords.Utils;
 import edu.uab.cvc.huntingwords.application.AppController;
 import edu.uab.cvc.huntingwords.models.MatchFixGameInformation;
 import edu.uab.cvc.huntingwords.models.MatchGameInformation;
+import edu.uab.cvc.huntingwords.presenters.utils.GameLevel;
 import edu.uab.cvc.huntingwords.screens.views.MatchView;
 
 /**
@@ -47,31 +48,6 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
     }
 
 
-    private  enum MatchLevel {
-        EASY (0,4,8),
-        MEDIUM(1,6,6),
-        HARD(2,8,4);
-
-        private final int level;
-        private final int num;
-        private final int numFix;
-        MatchLevel(int level, int num, int numFix) {
-            this.level = level;
-            this.num = num;
-            this.numFix = numFix;
-        }
-        public int getLevel() {
-            return level;
-        }
-
-        public int getNum() {
-            return num;
-        }
-
-        public int getNumFix() {
-            return numFix;
-        }
-    }
 
 
     @Inject
@@ -85,11 +61,13 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
 
     private float currentScore;
 
-    private MatchLevel level = MatchLevel.EASY;
+    private GameLevel level = GameLevel.EASY;
     private int numRounds = 0;
     private int numOks;
     private final MatchView view;
 
+
+    //TODO IT IS NECESSARY, WE ONLY NEED TO CHECK THAT IT I
     TreeSet matchSortedInfo;
     TreeSet matchSortedFixInfo;
 
@@ -227,13 +205,13 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
 
     private void updateLevel() {
         if (numRounds < 4) {
-            level = MatchLevel.EASY;
+            level = GameLevel.EASY;
 
         } else if (numRounds < 8) {
-            level = MatchLevel.MEDIUM;
+            level = GameLevel.MEDIUM;
 
         } else {
-            level = MatchLevel.HARD;
+            level = GameLevel.HARD;
         }
     }
 }

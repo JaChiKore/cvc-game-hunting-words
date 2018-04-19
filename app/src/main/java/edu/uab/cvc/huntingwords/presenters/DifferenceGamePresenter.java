@@ -5,4 +5,13 @@ package edu.uab.cvc.huntingwords.presenters;
  */
 
 public interface DifferenceGamePresenter {
+    void newGame();
+
+    void updateGame();
+
+    void checkImage(String tag);
+
+    void checkDifferent();
+
+    void checkSame();
 }

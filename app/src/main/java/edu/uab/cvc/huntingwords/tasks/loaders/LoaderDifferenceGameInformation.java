@@ -55,11 +55,10 @@ public class LoaderDifferenceGameInformation {
                     gameInfo.put(numCluster, listFilenames);
 
                     /* delete not syncronized cluster */
-                    /*
                     for (String nameCluster: notSyncronizedClusters) {
                         gameInfo.remove(nameCluster);
                     }
-                    */
+
 
                 }
             }
@@ -111,11 +110,10 @@ public class LoaderDifferenceGameInformation {
                     gameInfo.put(numCluster, listFilenames);
 
                     /* delete not syncronized cluster */
-                    /*
                     for (String nameCluster: notSyncronizedClusters) {
                         gameInfo.remove(nameCluster);
                     }
-                    */
+
 
                 }
             }

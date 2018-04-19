@@ -58,7 +58,6 @@ public class MatchGame  extends Fragment implements MatchView {
     public TextView points;
 
     private Sounds sounds;
-    public static String NONE_VALUE = "0";
 
 
     public static MatchGame newInstance() {
@@ -108,7 +107,7 @@ public class MatchGame  extends Fragment implements MatchView {
         for (int i=0; i < idButtons.length; i++) {
             updateInfoButton(idButtons[i],buttons.get(i));
         }
-        ((Button) this.getActivity().findViewById(R.id.match_but_4)).setTag(ANY_CORRECT);
+        (this.getActivity().findViewById(R.id.match_but_4)).setTag(ANY_CORRECT);
         ((Button) this.getActivity().findViewById(R.id.match_but_4)).setText(getString(R.string.none_of_these));
     }
 
@@ -121,7 +120,7 @@ public class MatchGame  extends Fragment implements MatchView {
         for (int i=0; i < idButtons.length; i++) {
             updateInfoButton(idButtons[i],buttons.get(i));
         }
-        ((Button) this.getActivity().findViewById(R.id.match_but_4)).setTag(ANY_CORRECT);
+        (this.getActivity().findViewById(R.id.match_but_4)).setTag(ANY_CORRECT);
         ((Button) this.getActivity().findViewById(R.id.match_but_4)).setText(getString(R.string.none_of_these));
     }
 

@@ -1,10 +1,8 @@
 package edu.uab.cvc.huntingwords.presenters;
 
-import edu.uab.cvc.huntingwords.presenters.callbacks.TotalRankingCallback;
-import edu.uab.cvc.huntingwords.screens.fragments.Init;
+import edu.uab.cvc.huntingwords.presenters.callbacks.TotalRankingCallback;;
 import edu.uab.cvc.huntingwords.screens.views.InitView;
 import edu.uab.cvc.huntingwords.tasks.GetTotalRanking;
-import timber.log.Timber;
 
 /**
  * Created by carlosb on 19/04/18.

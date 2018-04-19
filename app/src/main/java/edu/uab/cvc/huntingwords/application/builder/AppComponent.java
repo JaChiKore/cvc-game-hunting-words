@@ -5,6 +5,7 @@ import javax.inject.Singleton;
 import dagger.Component;
 import edu.uab.cvc.huntingwords.models.UserInformation;
 import edu.uab.cvc.huntingwords.presenters.ConnectPresenterImpl;
+import edu.uab.cvc.huntingwords.presenters.DifferenceGamePresenterImpl;
 import edu.uab.cvc.huntingwords.presenters.MatchGamePresenterImpl;
 import edu.uab.cvc.huntingwords.presenters.PlayPresenter;
 import edu.uab.cvc.huntingwords.presenters.PlayPresenterImpl;
@@ -21,4 +22,5 @@ public interface AppComponent {
     void inject (PlayPresenterImpl presenter);
     void inject(MatchGamePresenterImpl matchGamePresenter);
     void inject(ConnectPresenterImpl connectPresenter);
+    void inject(DifferenceGamePresenterImpl differenceGamePresenter);
 }
