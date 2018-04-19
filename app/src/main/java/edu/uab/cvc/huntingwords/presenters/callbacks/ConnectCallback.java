@@ -1,4 +1,4 @@
-package edu.uab.cvc.huntingwords.presenters;
+package edu.uab.cvc.huntingwords.presenters.callbacks;
 
 /**
  * Created by carlosb on 18/04/18.

@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import edu.uab.cvc.huntingwords.application.AppController;
 import edu.uab.cvc.huntingwords.models.UserInformation;
+import edu.uab.cvc.huntingwords.presenters.callbacks.ConnectCallback;
 import edu.uab.cvc.huntingwords.screens.views.LoginView;
 import edu.uab.cvc.huntingwords.tasks.GetRanking;
 import edu.uab.cvc.huntingwords.tasks.InsertUser;

@@ -1,18 +1,13 @@
 package edu.uab.cvc.huntingwords.tasks;
 
 import android.os.AsyncTask;
-import android.support.annotation.Nullable;
-import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import butterknife.BindView;
-import edu.uab.cvc.huntingwords.R;
-import edu.uab.cvc.huntingwords.presenters.ConnectCallback;
-import rx.subjects.Subject;
+import edu.uab.cvc.huntingwords.presenters.callbacks.ConnectCallback;
 
 @SuppressWarnings("WeakerAccess")
 public class Login extends AsyncTask<String, Void, Boolean> {

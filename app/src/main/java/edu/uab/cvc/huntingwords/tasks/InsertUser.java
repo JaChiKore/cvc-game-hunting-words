@@ -7,9 +7,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import edu.uab.cvc.huntingwords.presenters.ConnectCallback;
-import edu.uab.cvc.huntingwords.presenters.ConnectPresenterImpl;
-import rx.subjects.Subject;
+import edu.uab.cvc.huntingwords.presenters.callbacks.ConnectCallback;
 
 @SuppressWarnings("WeakerAccess")
 public class InsertUser extends AsyncTask<String, Void, Boolean> {
