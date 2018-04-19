@@ -1,7 +1,10 @@
 package edu.uab.cvc.huntingwords.screens.fragments;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -237,9 +240,27 @@ public class MatchGame  extends Fragment implements MatchView {
 
     @Override
     public void runPlayAgainDialog(float currentScore) {
-        FragmentManager fm = this.getFragmentManager();
-        PlayAgainFragment dialog = new PlayAgainFragment(this.presenter,currentScore);
-        dialog.show(fm, "");
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+                presenter.restartGame();
+
+            }
+        });
+        builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+                FragmentManager fm = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fm.beginTransaction();
+                fragmentTransaction.replace(R.id.fragment_switch, new Init());
+                fragmentTransaction.commit();
+            }
+        });
+        builder.setTitle(getString(R.string.play_again));
+        builder.setMessage(getString(R.string.score)+" "+currentScore);
+        AlertDialog dialog = builder.create();
+        dialog.show();
 
     }
 

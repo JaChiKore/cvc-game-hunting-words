@@ -30,8 +30,11 @@ import edu.uab.cvc.huntingwords.screens.views.MatchView;
 public class PlayAgainFragment extends DialogFragment
 {
 
-    private final float currentScore;
-    private  final MatchGamePresenter presenter;
+    private  float currentScore;
+    private   MatchGamePresenter presenter;
+
+
+
     @SuppressLint("ValidFragment")
     public PlayAgainFragment(MatchGamePresenter presenter, float currentScore) {
         this.presenter = presenter;
