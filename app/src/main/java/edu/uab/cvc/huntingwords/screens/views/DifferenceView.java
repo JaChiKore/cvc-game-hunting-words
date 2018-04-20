@@ -8,4 +8,14 @@ import java.util.List;
 
 public interface DifferenceView {
     void newRoundPlay (List<String> filepaths);
+
+    void notAvailableImages();
+
+    void updateOK(float currentScore);
+
+    void updateFail();
+
+    void runPlayAgainDialog(float currentScore);
+
+    void startCountdown();
 }

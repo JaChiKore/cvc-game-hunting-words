@@ -41,7 +41,9 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
 
     private final DifferenceView view;
     private String keyCurrentPlay;
-    private List<String> usedClusters, usedFixClusters;
+    private List<String> usedClusters;
+    private List<String> usedFixClusters;
+
 
     public DifferenceGamePresenterImpl(DifferenceView view) {
         AppController.getComponent().inject(this);
@@ -59,9 +61,22 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
 
 
     private void setUpCluster(List<String> listClusters, int sizeForLevel, SecureRandom random) {
+        //TODO CHECK SIZE
         while (listClusters.size() < diffInfo.size() && listClusters.size() <sizeForLevel ) {
             int randomIndex = random.nextInt(diffInfo.keySet().size());
             String cluster = new ArrayList<>(diffInfo.keySet()).get(randomIndex);
+            if (!listClusters.contains(cluster))  {
+                listClusters.add(cluster);
+            }
+        }
+    }
+
+
+    private void setUpFixCluster(List<String> listClusters, int sizeForLevel, SecureRandom random) {
+        //TODO CHECK SIZE
+        while (listClusters.size() < diffFixInfo.size() && listClusters.size() <sizeForLevel ) {
+            int randomIndex = random.nextInt(diffFixInfo.keySet().size());
+            String cluster = new ArrayList<>(diffFixInfo.keySet()).get(randomIndex);
             if (!listClusters.contains(cluster))  {
                 listClusters.add(cluster);
             }
@@ -72,16 +87,27 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
         numRounds++;
         List<String> listClusters = new ArrayList<>();
         List<String> listFixClusters = new ArrayList<>();
-
         SecureRandom random = new SecureRandom();
+        if(usedClusters.size() >= diffInfo.size()  ||   usedFixClusters.size() >= diffFixInfo.size()) {
+                this.view.notAvailableImages();
+        }
         setUpCluster(listClusters,level.getNum(), random);
-        setUpCluster(listFixClusters,level.getNumFix(), random);
+        setUpFixCluster(listFixClusters,level.getNumFix(), random);
 
         clustersToPlay = new ArrayList<>(listClusters);
         clustersToPlay.addAll(listFixClusters);
         Collections.shuffle(clustersToPlay);
+        view.startCountdown();
 
     }
+
+    @Override
+    public void restartGame() {
+        clustersToPlay.clear();
+        updateGame();
+
+    }
+
 
     @Override
     public void updateGame() {
@@ -100,8 +126,6 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
         }
         Collections.shuffle(filepaths);
         this.view.newRoundPlay(filepaths);
-
-
     }
 
     private List<Pair<String, Boolean>> getImageInfo(String keyCurrentPlay) {
@@ -125,6 +149,11 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
     }
 
     @Override
+    public void finishRound() {
+        this.view.runPlayAgainDialog(currentScore);
+    }
+
+    @Override
     public void checkImage(String tag) {
         List<Pair<String, Boolean>> imagesInfoToUse = getImageInfo(keyCurrentPlay);
         if (this.diffInfo.containsKey(keyCurrentPlay)) {
@@ -140,6 +169,10 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
             }
             updateImageInfo(keyCurrentPlay, listNewImageInfo);
             currentScore++;
+            usedClusters.add(keyCurrentPlay);
+
+            this.updateGame();
+            view.updateOK(currentScore);
             //TODO ADD cluster to not play more
             //TODO Update with another round
         } else {
@@ -155,9 +188,13 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
             }
             if (isCorrect) {
                 currentScore++;
+                usedFixClusters.add(keyCurrentPlay);
+                this.updateGame();
+                view.updateOK(currentScore);
                 //TODO ADD cluster to not play more
                 //TODO Update with another round
             } else {
+                view.updateFail();
                 //TODO wrong!!!
             }
         }
@@ -175,6 +212,10 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
                 listNewImageInfo.add(newImageInfo);
             }
             updateImageInfo(keyCurrentPlay, listNewImageInfo);
+            usedClusters.add(keyCurrentPlay);
+            this.updateGame();
+            view.updateOK(currentScore);
+
         } else {
             boolean diff = true;
             for (Pair<String, Boolean> imageInfo : imagesInfoToUse) {
@@ -185,9 +226,13 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
             }
             if (diff) {
                 currentScore++;
+                usedFixClusters.add(keyCurrentPlay);
+                this.updateGame();
+                view.updateOK(currentScore);
                 //TODO ADD cluster to not play more
                 //TODO Update with another round
             } else {
+                view.updateFail();
                 //TODO wrong!!
             }
         }
@@ -204,20 +249,30 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
                 listNewImageInfo.add(newImageInfo);
             }
             updateImageInfo(keyCurrentPlay,listNewImageInfo);
+            usedClusters.add(keyCurrentPlay);
+            this.updateGame();
+            view.updateOK(currentScore);
+            //TODO ADD cluster to not play more
+            //TODO Update with another round
         } else {
             boolean diff = false;
             for (Pair<String, Boolean> imageInfo : imagesInfoToUse) {
                 if (imageInfo.second!=false) {
-                    diff  = false;
+                    diff  = true;
                     break;
                 }
             }
             if (diff) {
+                view.updateFail();
+                //TODO wrong!!
+
+            } else {
                 currentScore++;
+                usedFixClusters.add(keyCurrentPlay);
+                this.updateGame();
+                view.updateOK(currentScore);
                 //TODO ADD cluster to not play more
                 //TODO Update with another round
-            } else {
-                    //TODO wrong!!
             }
         }
     }
