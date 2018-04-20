@@ -34,7 +34,6 @@ import edu.uab.cvc.huntingwords.presenters.MatchGamePresenter;
 import edu.uab.cvc.huntingwords.presenters.MatchGamePresenterImpl;
 import edu.uab.cvc.huntingwords.screens.Sounds;
 import edu.uab.cvc.huntingwords.screens.Utils;
-import edu.uab.cvc.huntingwords.screens.dialogs.PlayAgainFragment;
 import edu.uab.cvc.huntingwords.screens.views.MatchView;
 import timber.log.Timber;
 
@@ -71,8 +70,7 @@ public class MatchGame  extends Fragment implements MatchView {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.match_game, container, false);
         ButterKnife.bind(this, view);
-
-        view.setBackgroundColor( Utils.GetBackgroundColour(this.getActivity()));
+        view.setBackgroundColor(Utils.GetBackgroundColour(this.getActivity()));
 
         TypedValue typedValue = new TypedValue();
         Resources.Theme theme = getActivity().getTheme();

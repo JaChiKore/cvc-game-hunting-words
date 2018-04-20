@@ -31,9 +31,7 @@ public class Languages extends Fragment {
 
         View view = inflater.inflate(R.layout.language_fragment, container, false);
         ButterKnife.bind(this, view);
-        int color = Utils.GetBackgroundColour(this.getActivity());
-        view.setBackgroundColor(color);
-
+        view.setBackgroundColor(Utils.GetBackgroundColour(this.getActivity()));
         return view;
     }
 

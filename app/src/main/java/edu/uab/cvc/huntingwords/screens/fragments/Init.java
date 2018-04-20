@@ -41,8 +41,7 @@ public class Init extends Fragment  implements InitView {
 
         View view =inflater.inflate(R.layout.init_fragment, container, false);
                 ButterKnife.bind(this, view);
-        int color = Utils.GetBackgroundColour(this.getActivity());
-        view.setBackgroundColor(color);
+        view.setBackgroundColor(Utils.GetBackgroundColour(this.getActivity()));
         this.presenter = new InitPresenterImpl(this);
         return view;
     }

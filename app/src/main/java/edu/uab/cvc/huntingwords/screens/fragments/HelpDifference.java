@@ -30,9 +30,7 @@ public class HelpDifference extends Fragment {
         SharedPreferences sharedPref = context.getSharedPreferences(
                 getString(R.string.language_type), Context.MODE_PRIVATE);
 
-        int color = Utils.GetBackgroundColour(this.getActivity());
-        view.setBackgroundColor(color);
-
+        view.setBackgroundColor(Utils.GetBackgroundColour(this.getActivity()));
         return view;
 
     }
