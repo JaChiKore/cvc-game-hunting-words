@@ -49,7 +49,7 @@
 
     <fragment
         android:id="@+id/fragment_switch"
-        android:name="edu.uab.cvc.huntingwords.screens.fragments.Init"
+        class="edu.uab.cvc.huntingwords.screens.fragments.Init"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="5dp"

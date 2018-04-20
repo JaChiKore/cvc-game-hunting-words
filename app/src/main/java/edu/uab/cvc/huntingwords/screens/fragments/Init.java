@@ -13,19 +13,16 @@ import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import edu.uab.cvc.huntingwords.R;
 import edu.uab.cvc.huntingwords.presenters.InitPresenter;
 import edu.uab.cvc.huntingwords.presenters.InitPresenterImpl;
-import edu.uab.cvc.huntingwords.presenters.PlayPresenterImpl;
 import edu.uab.cvc.huntingwords.screens.Utils;
 import edu.uab.cvc.huntingwords.screens.views.InitView;
 import edu.uab.cvc.huntingwords.utils.Constants;
@@ -88,19 +85,7 @@ public class Init extends Fragment  implements InitView {
 
     @OnClick(R.id.ranking)
     public void clickRanking(){
-
         presenter.updateRanking();
-        /*
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle(getString(R.string.ranking))
-                .setItems(R.array.test_array, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-        builder.create().show();
-        */
-
 
     }
 
