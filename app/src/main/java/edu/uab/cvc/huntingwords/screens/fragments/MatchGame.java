@@ -268,7 +268,10 @@ public class MatchGame  extends Fragment implements MatchView {
         });
         builder.setTitle(getString(R.string.play_again));
         builder.setMessage(getString(R.string.score)+" "+currentScore);
+
         AlertDialog dialog = builder.create();
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setCancelable(false);
         dialog.show();
 
     }

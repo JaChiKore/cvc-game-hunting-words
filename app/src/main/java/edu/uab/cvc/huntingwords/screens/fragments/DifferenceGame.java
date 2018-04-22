@@ -27,26 +27,19 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import java.io.File;
-import java.util.Comparator;
-import java.util.Hashtable;
 import java.util.List;
 
-import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import edu.uab.cvc.huntingwords.R;
-import edu.uab.cvc.huntingwords.application.AppController;
 import edu.uab.cvc.huntingwords.presenters.DifferenceGamePresenter;
 import edu.uab.cvc.huntingwords.presenters.DifferenceGamePresenterImpl;
-import edu.uab.cvc.huntingwords.presenters.MatchGamePresenter;
-import edu.uab.cvc.huntingwords.presenters.MatchGamePresenterImpl;
 import edu.uab.cvc.huntingwords.screens.FragmentActivity;
 import edu.uab.cvc.huntingwords.screens.Sounds;
 import edu.uab.cvc.huntingwords.screens.Utils;
 import edu.uab.cvc.huntingwords.screens.views.DifferenceView;
-import edu.uab.cvc.huntingwords.screens.views.MatchView;
 
 /**
  * Created by carlosb on 4/15/18.
@@ -206,6 +199,8 @@ public class DifferenceGame extends Fragment implements DifferenceView {
         builder.setTitle(getString(R.string.play_again));
         builder.setMessage(getString(R.string.score)+" "+currentScore);
         AlertDialog dialog = builder.create();
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setCancelable(false);
         dialog.show();
     }
 
