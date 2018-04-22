@@ -10,6 +10,8 @@ import android.util.Log;
 
 import java.io.IOException;
 
+import edu.uab.cvc.huntingwords.R;
+
 @SuppressWarnings("WeakerAccess")
 public class Sounds {
     public SoundPool soundPool;
@@ -20,22 +22,10 @@ public class Sounds {
     public Sounds(Context context) {
         //noinspection deprecation
         soundPool = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
+        fail = soundPool.load(context,R.raw.fail, 1);
+        pass = soundPool.load(context,R.raw.pass, 1);
+        won = soundPool.load(context,R.raw.won, 1);
 
-        try {
-            AssetManager assetManager = context.getAssets();
-            AssetFileDescriptor descriptor;
 
-            descriptor = assetManager.openFd("raw/fail.wav");
-            fail = soundPool.load(descriptor, 0);
-
-            descriptor = assetManager.openFd("raw/pass.wav");
-            pass = soundPool.load(descriptor, 0);
-
-            descriptor = assetManager.openFd("raw/won.wav");
-            won = soundPool.load(descriptor, 0);
-
-        } catch (IOException e) {
-            Log.e("Error:","failed to load sound files.");
-        }
     }
 }

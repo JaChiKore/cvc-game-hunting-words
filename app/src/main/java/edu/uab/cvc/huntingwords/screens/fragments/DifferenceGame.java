@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -35,10 +36,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import edu.uab.cvc.huntingwords.R;
+import edu.uab.cvc.huntingwords.application.AppController;
 import edu.uab.cvc.huntingwords.presenters.DifferenceGamePresenter;
 import edu.uab.cvc.huntingwords.presenters.DifferenceGamePresenterImpl;
 import edu.uab.cvc.huntingwords.presenters.MatchGamePresenter;
 import edu.uab.cvc.huntingwords.presenters.MatchGamePresenterImpl;
+import edu.uab.cvc.huntingwords.screens.FragmentActivity;
 import edu.uab.cvc.huntingwords.screens.Sounds;
 import edu.uab.cvc.huntingwords.screens.Utils;
 import edu.uab.cvc.huntingwords.screens.views.DifferenceView;
@@ -71,6 +74,8 @@ public class DifferenceGame extends Fragment implements DifferenceView {
 
 
     private Sounds sounds;
+    private int currentSound;
+
 
     public static DifferenceGame newInstance() {
         DifferenceGame frag = new DifferenceGame();
@@ -166,16 +171,20 @@ public class DifferenceGame extends Fragment implements DifferenceView {
 
     @Override
     public void runPlayAgainDialog(float currentScore) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        playFinish();
+        AlertDialog.Builder builder = new AlertDialog.Builder(DifferenceGame.this.getActivity());
         builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
+                sounds.soundPool.stop(currentSound);
                 dialog.dismiss();
                 presenter.restartGame();
+
 
             }
         });
         builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
+                sounds.soundPool.stop(currentSound);
                 dialog.dismiss();
                 FragmentManager fm = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fm.beginTransaction();
@@ -191,12 +200,17 @@ public class DifferenceGame extends Fragment implements DifferenceView {
 
 
     private void playOk () {
-        sounds.soundPool.play(sounds.pass, 1, 1, 0, 0, 1);
+        currentSound = sounds.soundPool.play(sounds.pass, 1, 1, 0, 0, 1);
 
     }
 
     private void playFail() {
-        sounds.soundPool.play(sounds.fail, 1, 1, 0, 0, 1);
+
+        currentSound = sounds.soundPool.play(sounds.fail, 1, 1, 0, 0, 1);
+    }
+
+    private void playFinish() {
+        currentSound = sounds.soundPool.play(sounds.won,1,1,0,0,1);
     }
 
 
