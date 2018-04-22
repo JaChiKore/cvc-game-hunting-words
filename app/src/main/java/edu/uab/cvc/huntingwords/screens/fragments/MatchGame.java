@@ -1,5 +1,6 @@
 package edu.uab.cvc.huntingwords.screens.fragments;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -63,11 +64,20 @@ public class MatchGame  extends Fragment implements MatchView {
 
     private Sounds sounds;
     private int currentSound;
+    Context context;
+    FragmentActivity fragActivity;
 
 
     public static MatchGame newInstance() {
         MatchGame frag = new MatchGame();
         return frag;
+    }
+
+    @Override
+    public void onAttach(Activity activity){
+        super.onAttach(activity);
+        context = getActivity();
+        fragActivity =(FragmentActivity)context;
     }
 
 
@@ -237,7 +247,7 @@ public class MatchGame  extends Fragment implements MatchView {
     @Override
     public void runPlayAgainDialog(float currentScore) {
         playFinish();
-        AlertDialog.Builder builder = new AlertDialog.Builder(MatchGame.this.getActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(fragActivity);
         builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 sounds.soundPool.stop(currentSound);

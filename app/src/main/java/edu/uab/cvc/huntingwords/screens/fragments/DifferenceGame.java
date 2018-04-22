@@ -1,5 +1,6 @@
 package edu.uab.cvc.huntingwords.screens.fragments;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -75,12 +76,22 @@ public class DifferenceGame extends Fragment implements DifferenceView {
 
     private Sounds sounds;
     private int currentSound;
+    Context context;
+    FragmentActivity fragActivity;
 
 
     public static DifferenceGame newInstance() {
         DifferenceGame frag = new DifferenceGame();
         return frag;
     }
+
+    @Override
+    public void onAttach(Activity activity){
+        super.onAttach(activity);
+        context = getActivity();
+        fragActivity =(FragmentActivity)context;
+    }
+
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
