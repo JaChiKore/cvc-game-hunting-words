@@ -51,6 +51,12 @@
                     android:layout_height="wrap_content"
                     android:text="@string/how_to_play" />
 
+                <Button
+                    android:id="@+id/ranking_match"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ranking" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -84,6 +90,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/how_to_play" />
+
+                <Button
+                    android:id="@+id/ranking_difference"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ranking" />
 
             </LinearLayout>
 

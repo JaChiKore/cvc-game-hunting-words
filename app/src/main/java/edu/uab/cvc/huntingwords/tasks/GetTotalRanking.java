@@ -17,6 +17,8 @@ import timber.log.Timber;
 @SuppressWarnings("WeakerAccess")
 public class GetTotalRanking extends AsyncTask<String, Void, String[]> {
 
+    public static final String DIFFERENCE = "difference";
+    public static final String MATCH = "match";
     private final TotalRankingCallback onResult;
     public GetTotalRanking(TotalRankingCallback onResult) {
         this.onResult = onResult;
@@ -52,19 +54,22 @@ public class GetTotalRanking extends AsyncTask<String, Void, String[]> {
             String [] infoDiff = ranks[0].split("<br>");
             String [] infoMatch = ranks[1].split("<br>");
 
-            List<Pair<String,String>> rankingDifference = new ArrayList<>();
-            List<Pair<String,String>> rankingMatch = new ArrayList<>();
-            for (String line: infoDiff) {
-                String[] values = line.split(",");
-                rankingDifference.add(Pair.create(values[0], values[1]));
+            if (arg[0].equals(DIFFERENCE)) {
+                List<Pair<String, String>> rankingDifference = new ArrayList<>();
+                for (String line : infoDiff) {
+                    String[] values = line.split(",");
+                    rankingDifference.add(Pair.create(values[0], values[1]));
+                }
+                onResult.updateTotalRanking(rankingDifference);
+            } else if (arg[0].equals(MATCH)) {
+                List<Pair<String,String>> rankingMatch = new ArrayList<>();
+                for (String line: infoMatch) {
+                    String[] values = line.split(",");
+                    rankingMatch.add(Pair.create(values[0], values[1]));
+                }
+                onResult.updateTotalRanking(rankingMatch);
             }
 
-            for (String line: infoMatch) {
-                String[] values = line.split(",");
-                rankingMatch.add(Pair.create(values[0], values[1]));
-            }
-
-            onResult.updateTotalRanking(rankingMatch,rankingDifference);
         } catch (Exception e) {
             Timber.e(e);
         }

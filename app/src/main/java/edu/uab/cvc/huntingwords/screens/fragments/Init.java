@@ -21,16 +21,12 @@ import java.util.List;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import edu.uab.cvc.huntingwords.R;
-import edu.uab.cvc.huntingwords.presenters.InitPresenter;
-import edu.uab.cvc.huntingwords.presenters.InitPresenterImpl;
 import edu.uab.cvc.huntingwords.screens.Utils;
 import edu.uab.cvc.huntingwords.screens.views.InitView;
 import edu.uab.cvc.huntingwords.utils.Constants;
 
 public class Init extends Fragment  implements InitView {
 
-
-    private InitPresenter presenter;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -39,7 +35,6 @@ public class Init extends Fragment  implements InitView {
         View view =inflater.inflate(R.layout.init_fragment, container, false);
                 ButterKnife.bind(this, view);
         view.setBackgroundColor(Utils.GetBackgroundColour(this.getActivity()));
-        this.presenter = new InitPresenterImpl(this);
         return view;
     }
 
@@ -82,12 +77,6 @@ public class Init extends Fragment  implements InitView {
 
     }
 
-
-    @OnClick(R.id.ranking)
-    public void clickRanking(){
-        presenter.updateRanking();
-
-    }
 
     private String getUsername() {
         SharedPreferences preferences = getActivity().getSharedPreferences(
@@ -132,8 +121,6 @@ public class Init extends Fragment  implements InitView {
 
             }
         }.start();
-
-
 
     }
 }

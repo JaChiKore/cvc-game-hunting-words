@@ -11,12 +11,17 @@ import edu.uab.cvc.huntingwords.models.DifferenceFixGameInformation;
 import edu.uab.cvc.huntingwords.models.DifferenceGameInformation;
 import edu.uab.cvc.huntingwords.models.MatchFixGameInformation;
 import edu.uab.cvc.huntingwords.models.MatchGameInformation;
+import edu.uab.cvc.huntingwords.presenters.callbacks.TotalRankingCallback;
 import edu.uab.cvc.huntingwords.screens.views.PlayView;
+import edu.uab.cvc.huntingwords.tasks.GetTotalRanking;
 import edu.uab.cvc.huntingwords.tasks.loaders.LoaderDifferenceGameInformation;
 import edu.uab.cvc.huntingwords.tasks.loaders.LoaderMatchGameInformation;
 import edu.uab.cvc.huntingwords.tasks.loaders.UpdateDifferenceGame;
 import edu.uab.cvc.huntingwords.tasks.loaders.UpdateMatchGame;
 import timber.log.Timber;
+
+import static edu.uab.cvc.huntingwords.tasks.GetTotalRanking.DIFFERENCE;
+import static edu.uab.cvc.huntingwords.tasks.GetTotalRanking.MATCH;
 
 /**
  * Created by carlosb on 17/04/18.
@@ -85,5 +90,23 @@ public class PlayPresenterImpl implements PlayPresenter {
     public void runDifferenceGame() {
         this.view.runDifferenceGame();
     }
+
+    @Override
+    public void updateMatchRanking() {
+        TotalRankingCallback callback = (ranking)-> {
+            view.totalRanking(ranking);
+        };
+        new GetTotalRanking(callback).execute(MATCH);
+
+    }
+    @Override
+    public void updateDifferenceRanking() {
+        TotalRankingCallback callback = (ranking)-> {
+            view.totalRanking(ranking);
+        };
+        new GetTotalRanking(callback).execute(DIFFERENCE);
+
+    }
+
 
 }

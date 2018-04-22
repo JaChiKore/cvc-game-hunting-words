@@ -10,5 +10,5 @@ import java.util.List;
 
 
 public interface TotalRankingCallback {
-    void updateTotalRanking(List<Pair<String, String>> rankingMatch, List<Pair<String,String>> rankingDifference);
+    void updateTotalRanking(List<Pair<String, String>> ranking);
 }

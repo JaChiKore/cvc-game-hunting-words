@@ -1,17 +1,22 @@
 package edu.uab.cvc.huntingwords.screens.fragments;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 
+import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -43,29 +48,24 @@ public class Play extends Fragment implements PlayView{
     @OnClick(R.id.match)
     public void playMatch () {
         startMatchDialog();
-        //countDownProgressToStartFragment ();
-        /*
-        Intent intent = new Intent(getActivity(), MatchGameActivity.class);
-        intent.putExtra(MatchGameActivity.USERNAME,"anonim");
-        intent.putExtra(MatchGameActivity.NUM_GAMES,"2");
-        intent.putExtra(MatchGameActivity.BD_FILENAME,"matchGameInfo.txt");
-        intent.putExtra(MatchGameActivity.BD_FIX_FILENAME,"matchGameFixInfo.txt");
-        startActivity(intent);
-        */
-
     }
 
     @OnClick(R.id.difference)
     public void playDifference () {
         startDifferenceDialog();
-        /*
-        Intent intent = new Intent(getActivity(), DifferenceGameActivity.class);
-        intent.putExtra(MatchGameActivity.USERNAME,"anonim");
-        intent.putExtra(MatchGameActivity.NUM_GAMES,"2");
-        startActivity(intent);
-        */
 
     }
+
+    @OnClick(R.id.ranking_match)
+    public void rankingMatch () {
+        presenter.updateMatchRanking();
+    }
+
+    @OnClick(R.id.ranking_difference)
+    public void rankingDifference () {
+        presenter.updateDifferenceRanking();
+    }
+
 
     @OnClick(R.id.how_to_play_match)
     public void helpMatch () {
@@ -162,6 +162,33 @@ public class Play extends Fragment implements PlayView{
             countDownProgressToStartFragment(DifferenceGame.newInstance());
         });
     }
+
+    @Override
+    public void totalRanking(List<Pair<String, String>> scoreList) {
+        List<String> joinedList = new ArrayList<>();
+        for (Pair score: scoreList) {
+            joinedList.add(score.first+", "+score.second);
+        }
+        final String[] arr = new String [joinedList.size()];
+        joinedList.toArray(arr);
+        new Thread() {
+            public void run() {
+                getActivity().runOnUiThread(
+                        () -> {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                            builder.setTitle(getString(R.string.ranking))
+                                    .setItems( arr, new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                        }
+                                    });
+                            builder.create().show();
+                        });
+
+            }
+        }.start();
+    }
+
 
 
 }
