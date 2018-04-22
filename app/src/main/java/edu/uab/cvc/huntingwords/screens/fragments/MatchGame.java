@@ -27,14 +27,11 @@ import android.widget.Toast;
 import java.io.File;
 import java.util.List;
 
-import javax.inject.Inject;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Optional;
 import edu.uab.cvc.huntingwords.R;
-import edu.uab.cvc.huntingwords.application.AppController;
 import edu.uab.cvc.huntingwords.presenters.MatchGamePresenter;
 import edu.uab.cvc.huntingwords.presenters.MatchGamePresenterImpl;
 import edu.uab.cvc.huntingwords.screens.FragmentActivity;
@@ -44,14 +41,15 @@ import edu.uab.cvc.huntingwords.screens.views.MatchView;
 import timber.log.Timber;
 
 import static edu.uab.cvc.huntingwords.Utils.ANY_CORRECT;
+import static edu.uab.cvc.huntingwords.Utils.EMPTY_BUTTON;
 
 /**
  * Created by carlosb on 4/15/18.
  */
 
 public class MatchGame  extends Fragment implements MatchView {
-    public static final int MAX_TIME = 30000;
-    public static final int COUNT_DOWN_INTERVAL = 1000;
+
+
     @ColorInt int colorPrimary;
     private MatchGamePresenter presenter;
 
@@ -66,6 +64,7 @@ public class MatchGame  extends Fragment implements MatchView {
     private int currentSound;
     Context context;
     FragmentActivity fragActivity;
+    private CountDownTimer timer;
 
 
     public static MatchGame newInstance() {
@@ -140,9 +139,9 @@ public class MatchGame  extends Fragment implements MatchView {
 
     public void cleanButtons() {
         for (int i=0; i < idButtons.length; i++) {
-            updateInfoButton(idButtons[i],"");
+            updateInfoButton(idButtons[i], EMPTY_BUTTON);
         }
-        updateInfoButton(R.id.match_but_4,"");
+        updateInfoButton(R.id.match_but_4,EMPTY_BUTTON);
     }
 
 
@@ -166,7 +165,7 @@ public class MatchGame  extends Fragment implements MatchView {
         button.setText(text);
     }
 
-    private float scaledWidth = 250f;
+    private float scaledWidth = 200f;
     private void updateImageButton(int idImage, String filepath) {
             ImageButton imageButton = (ImageButton) this.getActivity().findViewById(idImage);
             getActivity().findViewById(idImage).setVisibility(View.VISIBLE);
@@ -247,6 +246,9 @@ public class MatchGame  extends Fragment implements MatchView {
     @Override
     public void runPlayAgainDialog(float currentScore) {
         playFinish();
+        if (timer!=null) {
+            timer.cancel();
+        }
         AlertDialog.Builder builder = new AlertDialog.Builder(fragActivity);
         builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
@@ -319,7 +321,8 @@ public class MatchGame  extends Fragment implements MatchView {
 
 
     public void startCountdown()  {
-        new CountDownTimer(MAX_TIME, COUNT_DOWN_INTERVAL) {
+
+        timer = new CountDownTimer(edu.uab.cvc.huntingwords.Utils.MAX_TIME, edu.uab.cvc.huntingwords.Utils.COUNT_DOWN_INTERVAL) {
 
             public void onTick(long millisUntilFinished) {
                 time.setText(String.valueOf(millisUntilFinished / 1000));
@@ -328,7 +331,8 @@ public class MatchGame  extends Fragment implements MatchView {
             public void onFinish() {
                 presenter.finishRound();
             }
-        }.start();
+        };
+        timer.start();
 
 
     }

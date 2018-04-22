@@ -41,13 +41,14 @@ import edu.uab.cvc.huntingwords.screens.Sounds;
 import edu.uab.cvc.huntingwords.screens.Utils;
 import edu.uab.cvc.huntingwords.screens.views.DifferenceView;
 
+import static edu.uab.cvc.huntingwords.Utils.COUNT_DOWN_INTERVAL;
+import static edu.uab.cvc.huntingwords.Utils.MAX_TIME;
+
 /**
  * Created by carlosb on 4/15/18.
  */
 
 public class DifferenceGame extends Fragment implements DifferenceView {
-    public static final int MAX_TIME = 30000;
-    public static final int COUNT_DOWN_INTERVAL = 1000;
 
     @ColorInt
     int colorPrimary;
@@ -71,6 +72,7 @@ public class DifferenceGame extends Fragment implements DifferenceView {
     private int currentSound;
     Context context;
     FragmentActivity fragActivity;
+    private CountDownTimer timer;
 
 
     public static DifferenceGame newInstance() {
@@ -176,6 +178,9 @@ public class DifferenceGame extends Fragment implements DifferenceView {
     @Override
     public void runPlayAgainDialog(float currentScore) {
         playFinish();
+        if (timer!=null) {
+            timer.cancel();
+        }
         AlertDialog.Builder builder = new AlertDialog.Builder(DifferenceGame.this.getActivity());
         builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
@@ -260,7 +265,7 @@ public class DifferenceGame extends Fragment implements DifferenceView {
 
     @Override
     public void startCountdown()  {
-        new CountDownTimer(MAX_TIME, COUNT_DOWN_INTERVAL) {
+        timer = new CountDownTimer(MAX_TIME, COUNT_DOWN_INTERVAL) {
 
             public void onTick(long millisUntilFinished) {
                 time.setText(String.valueOf(millisUntilFinished / 1000));
@@ -269,8 +274,8 @@ public class DifferenceGame extends Fragment implements DifferenceView {
             public void onFinish() {
                 presenter.finishRound();
             }
-        }.start();
-
+        };
+        timer.start();
 
     }
 }

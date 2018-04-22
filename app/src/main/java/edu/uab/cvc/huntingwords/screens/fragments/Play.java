@@ -6,12 +6,19 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.RelativeSizeSpan;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.TextView;
 
 
 import java.util.ArrayList;
@@ -98,8 +105,11 @@ public class Play extends Fragment implements PlayView{
 
                 public void onTick(long millisUntilFinished) {
                     long seconds = millisUntilFinished / 1000;
-                    String countdown = String.format("%02d", seconds / 60) + ":" + String.format("%02d", seconds % 60);
-                    progress.setMessage(countdown);
+                    String countdown = String.format(String.format("%02d", seconds % 60));
+                    SpannableString ss2=  new SpannableString(countdown);
+                    ss2.setSpan(new RelativeSizeSpan(2f), 0, ss2.length(), 0);
+                    ss2.setSpan(new ForegroundColorSpan(Color.RED), 0, ss2.length(), 0);
+                    progress.setMessage(ss2);
 
                 }
 
@@ -114,6 +124,8 @@ public class Play extends Fragment implements PlayView{
             }.start();
 
             progress.show();
+            Window window = progress.getWindow();
+            window.setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
 
         }
 

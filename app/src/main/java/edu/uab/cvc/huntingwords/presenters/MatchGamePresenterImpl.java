@@ -19,6 +19,8 @@ import edu.uab.cvc.huntingwords.models.MatchGameInformation;
 import edu.uab.cvc.huntingwords.presenters.utils.GameLevel;
 import edu.uab.cvc.huntingwords.screens.views.MatchView;
 
+import static edu.uab.cvc.huntingwords.Utils.EMPTY_BUTTON;
+
 /**
  * Created by carlosb on 4/15/18.
  */
@@ -96,6 +98,9 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
 
     @Override
     public void checkSolution(final int idImage, final int idButton, String filepathImage, String textSolution) {
+        if (textSolution.equals(EMPTY_BUTTON)) {
+            return;
+        }
         assert (this.matchInfo.containsKey(filepathImage) || this.matchFixInfo.containsKey(filepathImage));
         if (this.matchInfo.containsKey(filepathImage)) {
             currentScore+= Utils.VALUE_POINT;
