@@ -15,5 +15,5 @@ public interface MatchGamePresenter {
 
     void restartGame();
 
-    void uploadResult();
+    void uploadResult(Integer oldScore, Integer newTotalPoints);
 }

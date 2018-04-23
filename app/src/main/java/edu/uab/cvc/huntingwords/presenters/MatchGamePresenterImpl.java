@@ -4,8 +4,10 @@ import android.content.Context;
 import android.util.Pair;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import java.util.TreeSet;
@@ -19,6 +21,7 @@ import edu.uab.cvc.huntingwords.models.MatchGameInformation;
 import edu.uab.cvc.huntingwords.models.MatchResult;
 import edu.uab.cvc.huntingwords.presenters.utils.GameLevel;
 import edu.uab.cvc.huntingwords.screens.views.MatchView;
+import edu.uab.cvc.huntingwords.tasks.services.MatchService;
 
 import static edu.uab.cvc.huntingwords.Utils.EMPTY_BUTTON;
 
@@ -29,6 +32,7 @@ import static edu.uab.cvc.huntingwords.Utils.EMPTY_BUTTON;
 public class MatchGamePresenterImpl implements MatchGamePresenter {
 
     public static final int NUM_IMAGES_FOR_ROUND = 12;
+    private Date startedDate, stoppedDate;
 
     class MyComparator implements Comparator<Score> {
         public int compare(Score a, Score b) {
@@ -70,6 +74,8 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
     private final MatchView view;
 
 
+    private final String username;
+
     //TODO IT IS NECESSARY, WE ONLY NEED TO CHECK THAT IT I
     TreeSet matchSortedInfo;
     TreeSet matchSortedFixInfo;
@@ -80,7 +86,7 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
     List<MatchResult> results = new ArrayList<>();
 
 
-    public MatchGamePresenterImpl(MatchView view) {
+    public MatchGamePresenterImpl(MatchView view, String username) {
         /* IT MUST BE FIRST */
         AppController.getComponent().inject(this);
         this.view = view;
@@ -95,6 +101,8 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
         for (String filepath: matchFixInfo.keySet()) {
             matchSortedFixInfo.add(new Score(0,filepath));
         }
+        this.username = username;
+
 
     }
 
@@ -152,6 +160,7 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
 
     @Override
     public void restartGame() {
+        startedDate = Calendar.getInstance().getTime();
         updateLevel();
         this.results.clear();
         numOks = 0;
@@ -197,8 +206,18 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
     }
 
     @Override
-    public void uploadResult() {
+    public void uploadResult(Integer oldScore, Integer newTotalPoints) {
+/*
+        Date stoppedDate = Calendar.getInstance().getTime();
+        String level = "4";
 
+        //TODO fix this!!
+        //4 -> easy
+        //6 -> medium
+        //8 -> hard
+        new MatchService(this.username).run(this.results,level,startedDate,stoppedDate,oldScore,newTotalPoints);
+
+        */
     }
 
     private void extractInfo(int numMatchs, TreeSet sortedInfo, List<String> imagesToUse) {

@@ -28,6 +28,8 @@ import android.widget.Toast;
 import org.w3c.dom.Text;
 
 import java.io.File;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -41,6 +43,7 @@ import edu.uab.cvc.huntingwords.screens.FragmentActivity;
 import edu.uab.cvc.huntingwords.screens.Sounds;
 import edu.uab.cvc.huntingwords.screens.Utils;
 import edu.uab.cvc.huntingwords.screens.views.MatchView;
+import edu.uab.cvc.huntingwords.utils.Constants;
 import timber.log.Timber;
 
 import static edu.uab.cvc.huntingwords.Utils.ANY_CORRECT;
@@ -97,7 +100,7 @@ public class MatchGame  extends Fragment implements MatchView {
         theme.resolveAttribute(R.attr.colorPrimary, typedValue, true);
          colorPrimary = typedValue.data;
 
-        presenter = new MatchGamePresenterImpl(this);
+        presenter = new MatchGamePresenterImpl(this,getPreferencesUsername());
 
 
         return view;
@@ -257,7 +260,8 @@ public class MatchGame  extends Fragment implements MatchView {
             timer.cancel();
         }
 
-        Integer newTotalPoints = getPreferencesScore()+(int)currentScore;
+        final Integer oldScore = getPreferencesScore();
+        final Integer newTotalPoints = oldScore+(int)currentScore;
         updatePreferencesScore(newTotalPoints);
         points.setText("0");
 
@@ -266,7 +270,7 @@ public class MatchGame  extends Fragment implements MatchView {
             public void onClick(DialogInterface dialog, int id) {
                 sounds.soundPool.stop(currentSound);
                 dialog.dismiss();
-                presenter.uploadResult();
+                presenter.uploadResult(oldScore,newTotalPoints);
                 presenter.restartGame();
 
             }
@@ -360,5 +364,11 @@ public class MatchGame  extends Fragment implements MatchView {
         SharedPreferences preferences = getActivity().getSharedPreferences(
                 getString(R.string.preferences_file), Context.MODE_PRIVATE);
         return preferences.getInt(edu.uab.cvc.huntingwords.Utils.CURRENT_SCORE_MATCH,0);
+    }
+
+    private String getPreferencesUsername() {
+        SharedPreferences preferences = getActivity().getSharedPreferences(
+                getString(R.string.preferences_file), Context.MODE_PRIVATE);
+        return preferences.getString(Constants.PARAM_USERNAME,getString(R.string.anonym));
     }
 }
