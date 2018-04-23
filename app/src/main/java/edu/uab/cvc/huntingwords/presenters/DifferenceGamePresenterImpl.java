@@ -11,6 +11,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import edu.uab.cvc.huntingwords.application.AppController;
+import edu.uab.cvc.huntingwords.models.ClusterDifferentResult;
 import edu.uab.cvc.huntingwords.models.DifferenceFixGameInformation;
 import edu.uab.cvc.huntingwords.models.DifferenceGameInformation;
 import edu.uab.cvc.huntingwords.presenters.utils.GameLevel;
@@ -31,8 +32,6 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
     @Inject
     Context appContext;
 
-
-    ArrayList clustersToPlay;
     private float currentScore;
 
     private GameLevel level = GameLevel.EASY;
@@ -43,6 +42,11 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
     private String keyCurrentPlay;
     private List<String> usedClusters;
     private List<String> usedFixClusters;
+    private List<String> clustersToPlay;
+
+
+    private List<ClusterDifferentResult> results;
+
 
 
     public DifferenceGamePresenterImpl(DifferenceView view) {
@@ -50,6 +54,7 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
         clustersToPlay = new ArrayList();
         usedClusters = new ArrayList<>();
         usedFixClusters = new ArrayList<>();
+        results = new ArrayList<>();
         this.view = view;
     }
 
@@ -114,7 +119,7 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
         if (clustersToPlay.size()==0) {
             initGame();
         }
-        keyCurrentPlay = (String)clustersToPlay.get(0);
+        keyCurrentPlay = clustersToPlay.get(0);
         clustersToPlay.remove(0);
 
         List<Pair<String, Boolean>> imagesInfoToUse;
@@ -157,22 +162,9 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
     public void checkImage(String tag) {
         List<Pair<String, Boolean>> imagesInfoToUse = getImageInfo(keyCurrentPlay);
         if (this.diffInfo.containsKey(keyCurrentPlay)) {
-            List<Pair<String, Boolean>> listNewImageInfo = new ArrayList<>();
-            for (Pair<String, Boolean> imageInfo : imagesInfoToUse) {
-                Pair<String, Boolean> newImageInfo;
-                if (imageInfo.first.equals(tag)) {
-                    newImageInfo = Pair.create(imageInfo.first, true);
-                } else {
-                    newImageInfo = Pair.create(imageInfo.first, false);
-                }
-                listNewImageInfo.add(newImageInfo);
-            }
-            updateImageInfo(keyCurrentPlay, listNewImageInfo);
-            currentScore++;
+            results.add(ClusterDifferentResult.newImageDifferent(keyCurrentPlay,tag));
             usedClusters.add(keyCurrentPlay);
-
-            this.updateGame();
-            view.updateOK(currentScore);
+            executeOk();
             //TODO ADD cluster to not play more
             //TODO Update with another round
         } else {
@@ -187,10 +179,8 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
                 }
             }
             if (isCorrect) {
-                currentScore++;
                 usedFixClusters.add(keyCurrentPlay);
-                this.updateGame();
-                view.updateOK(currentScore);
+                executeOk();
                 //TODO ADD cluster to not play more
                 //TODO Update with another round
             } else {
@@ -201,21 +191,25 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
 
     }
 
+    private void executeOk() {
+        currentScore++;
+        this.updateGame();
+        view.updateOK(currentScore);
+    }
+
+    @Override
+    public void uploadResult() {
+
+
+    }
+
     @Override
     public void checkDifferent() {
         List<Pair<String, Boolean>> imagesInfoToUse = getImageInfo(keyCurrentPlay);
         if (this.diffInfo.containsKey(keyCurrentPlay)) {
-            List<Pair<String, Boolean>> listNewImageInfo = new ArrayList<>();
-            for (Pair<String, Boolean> imageInfo : imagesInfoToUse) {
-                Pair<String, Boolean> newImageInfo;
-                newImageInfo = Pair.create(imageInfo.first, true);
-                listNewImageInfo.add(newImageInfo);
-            }
-            updateImageInfo(keyCurrentPlay, listNewImageInfo);
+            results.add(ClusterDifferentResult.newAllDifferent(keyCurrentPlay));
             usedClusters.add(keyCurrentPlay);
-            this.updateGame();
-            view.updateOK(currentScore);
-
+            executeOk();
         } else {
             boolean diff = true;
             for (Pair<String, Boolean> imageInfo : imagesInfoToUse) {
@@ -225,10 +219,8 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
                 }
             }
             if (diff) {
-                currentScore++;
                 usedFixClusters.add(keyCurrentPlay);
-                this.updateGame();
-                view.updateOK(currentScore);
+                executeOk();
                 //TODO ADD cluster to not play more
                 //TODO Update with another round
             } else {
@@ -242,16 +234,9 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
     public void checkSame() {
         List<Pair<String, Boolean>> imagesInfoToUse = getImageInfo(keyCurrentPlay);
         if (this.diffInfo.containsKey(keyCurrentPlay)) {
-            List<Pair<String, Boolean>> listNewImageInfo = new ArrayList<>();
-            for (Pair<String,Boolean> imageInfo: imagesInfoToUse ) {
-                Pair<String, Boolean> newImageInfo;
-                newImageInfo = Pair.create(imageInfo.first,false);
-                listNewImageInfo.add(newImageInfo);
-            }
-            updateImageInfo(keyCurrentPlay,listNewImageInfo);
+            results.add(ClusterDifferentResult.newSameImage(keyCurrentPlay));
             usedClusters.add(keyCurrentPlay);
-            this.updateGame();
-            view.updateOK(currentScore);
+            executeOk();
             //TODO ADD cluster to not play more
             //TODO Update with another round
         } else {
@@ -265,12 +250,9 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
             if (diff) {
                 view.updateFail();
                 //TODO wrong!!
-
             } else {
-                currentScore++;
                 usedFixClusters.add(keyCurrentPlay);
-                this.updateGame();
-                view.updateOK(currentScore);
+                executeOk();
                 //TODO ADD cluster to not play more
                 //TODO Update with another round
             }

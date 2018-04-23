@@ -7,6 +7,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -23,6 +24,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.io.File;
 import java.util.List;
@@ -41,6 +44,8 @@ import edu.uab.cvc.huntingwords.screens.views.MatchView;
 import timber.log.Timber;
 
 import static edu.uab.cvc.huntingwords.Utils.ANY_CORRECT;
+import static edu.uab.cvc.huntingwords.Utils.CURRENT_SCORE_DIFF;
+import static edu.uab.cvc.huntingwords.Utils.CURRENT_SCORE_MATCH;
 import static edu.uab.cvc.huntingwords.Utils.EMPTY_BUTTON;
 
 /**
@@ -104,6 +109,8 @@ public class MatchGame  extends Fragment implements MatchView {
 
     @Override
     public void newRoundPlay(List<String> filepaths, List<String> buttons) {
+        ((TextView)(this.getActivity().findViewById(R.id.value_match_total_score))).setText(String.valueOf(getPreferencesScore()));
+
         if (filepaths.size()!=idImages.length) {
             Timber.i("It doesn't have enough images");
             return;
@@ -249,6 +256,11 @@ public class MatchGame  extends Fragment implements MatchView {
         if (timer!=null) {
             timer.cancel();
         }
+
+        Integer newTotalPoints = getPreferencesScore()+(int)currentScore;
+        updatePreferencesScore(newTotalPoints);
+        points.setText("0");
+
         AlertDialog.Builder builder = new AlertDialog.Builder(fragActivity);
         builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
@@ -334,8 +346,19 @@ public class MatchGame  extends Fragment implements MatchView {
             }
         };
         timer.start();
-
-
     }
 
+    private void updatePreferencesScore(Integer scoreMatch) {
+        SharedPreferences preferences = getActivity().getSharedPreferences(
+                getString(R.string.preferences_file), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putInt(CURRENT_SCORE_MATCH,scoreMatch);
+        editor.commit();
+    }
+
+    private Integer getPreferencesScore() {
+        SharedPreferences preferences = getActivity().getSharedPreferences(
+                getString(R.string.preferences_file), Context.MODE_PRIVATE);
+        return preferences.getInt(edu.uab.cvc.huntingwords.Utils.CURRENT_SCORE_MATCH,0);
+    }
 }

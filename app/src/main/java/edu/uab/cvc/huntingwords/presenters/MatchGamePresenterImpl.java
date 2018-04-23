@@ -16,6 +16,7 @@ import edu.uab.cvc.huntingwords.Utils;
 import edu.uab.cvc.huntingwords.application.AppController;
 import edu.uab.cvc.huntingwords.models.MatchFixGameInformation;
 import edu.uab.cvc.huntingwords.models.MatchGameInformation;
+import edu.uab.cvc.huntingwords.models.MatchResult;
 import edu.uab.cvc.huntingwords.presenters.utils.GameLevel;
 import edu.uab.cvc.huntingwords.screens.views.MatchView;
 
@@ -76,6 +77,8 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
     List<String> imagesCurrentRound = new ArrayList<>();
     List<String> imagesFixCurrentRound = new ArrayList<>();
 
+    List<MatchResult> results = new ArrayList<>();
+
 
     public MatchGamePresenterImpl(MatchView view) {
         /* IT MUST BE FIRST */
@@ -104,9 +107,7 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
         assert (this.matchInfo.containsKey(filepathImage) || this.matchFixInfo.containsKey(filepathImage));
         if (this.matchInfo.containsKey(filepathImage)) {
             currentScore+= Utils.VALUE_POINT;
-            Pair<List<String>, String> info = this.matchInfo.get(filepathImage);
-            Pair<List<String>, String> newInfo = Pair.create(info.first,textSolution);
-            this.matchInfo.put(filepathImage,newInfo);
+            this.results.add(new MatchResult(filepathImage,textSolution));
             this.view.updateOK(idImage,currentScore);
             numOks++;
             //update
@@ -152,7 +153,9 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
     @Override
     public void restartGame() {
         updateLevel();
+        this.results.clear();
         numOks = 0;
+        currentScore = 0;
         numRounds++;
         int numMatchs = level.getNum();
         int numMatchsFix = level.getNumFix();

@@ -13,6 +13,8 @@ public interface DifferenceGamePresenter {
 
     void checkImage(String tag);
 
+    void uploadResult();
+
     void checkDifferent();
 
     void checkSame();
