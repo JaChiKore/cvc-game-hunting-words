@@ -193,6 +193,11 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
         this.view.newRoundPlay(allImages,nameWords);
     }
 
+    @Override
+    public void uploadResult() {
+
+    }
+
     private void extractInfo(int numMatchs, TreeSet sortedInfo, List<String> imagesToUse) {
         List<Score> matchsToSave = new ArrayList<>();
         for (int i=0; i < numMatchs; i++) {

@@ -14,4 +14,6 @@ public interface MatchGamePresenter {
     void finishRound();
 
     void restartGame();
+
+    void uploadResult();
 }

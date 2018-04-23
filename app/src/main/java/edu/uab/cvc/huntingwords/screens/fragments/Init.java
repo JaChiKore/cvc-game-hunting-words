@@ -21,12 +21,15 @@ import java.util.List;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import edu.uab.cvc.huntingwords.R;
+import edu.uab.cvc.huntingwords.presenters.InitPresenter;
+import edu.uab.cvc.huntingwords.presenters.InitPresenterImpl;
 import edu.uab.cvc.huntingwords.screens.Utils;
 import edu.uab.cvc.huntingwords.screens.views.InitView;
 import edu.uab.cvc.huntingwords.utils.Constants;
 
 public class Init extends Fragment  implements InitView {
 
+    private InitPresenter presenter;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -35,13 +38,19 @@ public class Init extends Fragment  implements InitView {
         View view =inflater.inflate(R.layout.init_fragment, container, false);
                 ButterKnife.bind(this, view);
         view.setBackgroundColor(Utils.GetBackgroundColour(this.getActivity()));
+        presenter = new InitPresenterImpl(this);
         return view;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        updateUsername(getUsername());
+        String name = getUsername();
+        updateUsername(name);
+        if (!name.equals(getString(R.string.anonym))) {
+            this.presenter.getScore(name);
+        }
+
     }
 
 
@@ -122,5 +131,22 @@ public class Init extends Fragment  implements InitView {
             }
         }.start();
 
+    }
+
+    @Override
+    public void updateScore(Integer scoreMatch, Integer scoreDiff) {
+
+                TextView valueMatchScore = (TextView)this.getActivity().findViewById(R.id.value_match_total_score);
+                TextView valueDiffScore = (TextView)this.getActivity().findViewById(R.id.value_diff_total_score);
+                new Thread() {
+            public void run() {
+                                getActivity().runOnUiThread(
+                                                () -> {
+                                                        valueMatchScore.setText(String.valueOf(scoreMatch));
+                                                        valueDiffScore.setText(String.valueOf(scoreDiff));
+                                                    });
+
+                                    }
+        }.start();
     }
 }

@@ -254,6 +254,7 @@ public class MatchGame  extends Fragment implements MatchView {
             public void onClick(DialogInterface dialog, int id) {
                 sounds.soundPool.stop(currentSound);
                 dialog.dismiss();
+                presenter.uploadResult();
                 presenter.restartGame();
 
             }
