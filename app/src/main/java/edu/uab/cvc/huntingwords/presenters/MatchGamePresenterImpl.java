@@ -1,13 +1,16 @@
 package edu.uab.cvc.huntingwords.presenters;
 
 import android.content.Context;
+import android.provider.Settings;
 import android.util.Pair;
 
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Random;
 import java.util.TreeSet;
@@ -34,29 +37,6 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
     public static final int NUM_IMAGES_FOR_ROUND = 12;
 
 
-    class MyComparator implements Comparator<Score> {
-        public int compare(Score a, Score b) {
-            if (a.score == b.score) {
-                return -1;
-            }
-            return Integer.compare(a.score,b.score);
-        }
-    }
-
-    class Score  {
-        int score;
-        String name;
-
-        public Score(int score, String name) {
-            this.score = score;
-            this.name = name;
-        }
-
-    }
-
-
-
-
     @Inject
     MatchGameInformation matchInfo;
 
@@ -76,10 +56,6 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
     private Date startedDate;
     private final String username;
 
-    //TODO IT IS NECESSARY, WE ONLY NEED TO CHECK THAT IT I
-    TreeSet matchSortedInfo;
-    TreeSet matchSortedFixInfo;
-
     List<String> imagesCurrentRound = new ArrayList<>();
     List<String> imagesFixCurrentRound = new ArrayList<>();
 
@@ -90,17 +66,6 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
         /* IT MUST BE FIRST */
         AppController.getComponent().inject(this);
         this.view = view;
-
-        matchSortedInfo = new TreeSet<>(new MyComparator());
-        matchSortedFixInfo = new TreeSet<>(new MyComparator());
-
-        for (String filepath: matchInfo.keySet()) {
-            matchSortedInfo.add(new Score(0,filepath));
-        }
-
-        for (String filepath: matchFixInfo.keySet()) {
-            matchSortedFixInfo.add(new Score(0,filepath));
-        }
         this.username = username;
 
 
@@ -165,20 +130,23 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
         resetValues();
         int numMatchs = level.getNum();
         int numMatchsFix = level.getNumFix();
-        if (this.matchSortedInfo.size() < numMatchs || this.matchSortedFixInfo.size() < numMatchsFix) {
+
+
+        if (this.matchInfo.keySet().size() < numMatchs || this.matchFixInfo.keySet().size() < numMatchsFix) {
             this.view.messageNotEnoughImages();
             return;
         }
 
 
-        List<String> imagesToUse = new ArrayList<>();
-        List<String> imagesFixToUse = new ArrayList<>();
 
-        extractInfo(numMatchs, matchSortedInfo, imagesToUse);
-        extractInfo(numMatchsFix,matchSortedFixInfo,imagesFixToUse);
+        imagesCurrentRound.clear();
+        imagesFixCurrentRound.clear();
 
-        imagesCurrentRound = imagesToUse;
-        imagesFixCurrentRound = imagesFixToUse;
+        //TODO APPLY DELETE IMAGES TESTED
+        SecureRandom random = new SecureRandom();
+        setUpInfo(numMatchs, random, matchInfo, imagesCurrentRound);
+        setUpInfo(numMatchsFix,random, matchFixInfo,imagesFixCurrentRound);
+
 
         List<String> allImages = new ArrayList<>(imagesCurrentRound);
         allImages.addAll(imagesFixCurrentRound);
@@ -225,20 +193,19 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
         */
     }
 
-    private void extractInfo(int numMatchs, TreeSet sortedInfo, List<String> imagesToUse) {
-        List<Score> matchsToSave = new ArrayList<>();
-        for (int i=0; i < numMatchs; i++) {
-           Score matchInfo= (Score)sortedInfo.pollFirst();
-           imagesToUse.add(matchInfo.name);
-           matchInfo.score+=1;
-           matchsToSave.add(matchInfo);
+    private void setUpInfo(int sizeForLevel, SecureRandom random, Hashtable<String, Pair<List<String>, String>> info, List<String> imagesToUse) {
+        //TODO CHECK SIZE
+
+        while (imagesToUse.size() < info.keySet().size() && imagesToUse.size() < sizeForLevel) {
+            int randomIndex = random.nextInt(info.keySet().size());
+            String value = new ArrayList<>(info.keySet()).get(randomIndex);
+            if (!imagesToUse.contains(value)) {
+                imagesToUse.add(value);
+            }
         }
 
-        /* Add to the tree*/
-        for (int i = 0; i < matchsToSave.size(); i++) {
-            sortedInfo.add(matchsToSave.get(i));
-        }
     }
+
 
     private void updateLevel() {
         if (numRounds < 4) {

@@ -104,6 +104,9 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
         if(usedClusters.size() >= diffInfo.size()  ||   usedFixClusters.size() >= diffFixInfo.size()) {
                 this.view.notAvailableImages();
         }
+
+        //TODO APPLY DELETE IMAGES TESTED
+
         setUpCluster(listClusters,level.getNum(), random);
         setUpFixCluster(listFixClusters,level.getNumFix(), random);
 
