@@ -9,7 +9,7 @@ import java.util.List;
 public interface DifferenceView {
     void newRoundPlay (List<String> filepaths);
 
-    void notAvailableImages();
+    void messageNotEnoughImages();
 
     void updateOK(float currentScore);
 

@@ -42,7 +42,7 @@
     <string name="starts_zero">Starts the game with 0 points</string>
     <string name="win">You win!</string>
     <string name="starts_x_points">Starts with last game points</string>
-    <string name="more_than_one_different">More than one\\ndifferent</string>
+    <string name="more_than_one_different">More than one different</string>
     <string name="all_same">They are the same</string>
     <string name="next_level">Next level</string>
     <string name="round">"Round "</string>

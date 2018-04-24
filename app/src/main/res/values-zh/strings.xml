@@ -37,7 +37,7 @@
     <string name="starts_zero">以零分开始游戏</string>
     <string name="win">恭喜你，你赢啦!</string>
     <string name="starts_x_points">以原来的分数开始游戏</string>
-    <string name="more_than_one_different">不止一个\n不同</string>
+    <string name="more_than_one_different">不止一个 不同</string>
     <string name="all_same">都是一样的</string>
     <string name="next_level">下一关</string>
     <string name="round">"回合 "</string>

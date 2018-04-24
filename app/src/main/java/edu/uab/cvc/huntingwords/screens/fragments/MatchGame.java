@@ -216,7 +216,16 @@ public class MatchGame  extends Fragment implements MatchView {
 
     @Override
     public void messageNotEnoughImages() {
-        Toast.makeText(this.getActivity(),getString(R.string.not_enough_images),Toast.LENGTH_SHORT).show();
+        new Thread() {
+            public void run() {
+                getActivity().runOnUiThread(
+                        () -> {
+                            Toast.makeText(getActivity(),getString(R.string.not_enough_images),Toast.LENGTH_LONG).show();
+                        });
+
+            }
+        }.start();
+
     }
 
 

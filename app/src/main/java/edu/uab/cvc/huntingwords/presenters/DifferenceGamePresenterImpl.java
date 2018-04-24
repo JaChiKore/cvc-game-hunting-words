@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
+import java.util.Hashtable;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -48,6 +49,9 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
     private List<String> usedFixClusters;
     private List<String> clustersToPlay;
 
+    private List<String> playedClusters;
+    private  int countUsed,countFixUsed;
+
 
     private Date startedDate;
     private final String username;
@@ -62,6 +66,9 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
         usedClusters = new ArrayList<>();
         usedFixClusters = new ArrayList<>();
         results = new ArrayList<>();
+        playedClusters = new ArrayList<>();
+        countUsed = 0;
+        countFixUsed = 0;
         this.view = view;
         this.username = username;
     }
@@ -69,46 +76,56 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
     @Override
     public void newGame() {
         currentScore = 0;
-        updateGame();
+        restartGame();
     }
 
 
-    private void setUpCluster(List<String> listClusters, int sizeForLevel, SecureRandom random) {
+        private void setUpInfo(int sizeForLevel, SecureRandom random, Hashtable<String, List<Pair<String, Boolean>>> info, List<String> listClusters) {
         //TODO CHECK SIZE
-        while (listClusters.size() < diffInfo.size() && listClusters.size() <sizeForLevel ) {
-            int randomIndex = random.nextInt(diffInfo.keySet().size());
-            String cluster = new ArrayList<>(diffInfo.keySet()).get(randomIndex);
-            if (!listClusters.contains(cluster))  {
+        while (listClusters.size() < info.size() && listClusters.size() <sizeForLevel ) {
+            int randomIndex = random.nextInt(info.keySet().size());
+            String cluster = new ArrayList<>(info.keySet()).get(randomIndex);
+            if (!listClusters.contains(cluster) && !playedClusters.contains(cluster))  {
                 listClusters.add(cluster);
             }
         }
     }
 
-
-    private void setUpFixCluster(List<String> listClusters, int sizeForLevel, SecureRandom random) {
-        //TODO CHECK SIZE
-        while (listClusters.size() < diffFixInfo.size() && listClusters.size() <sizeForLevel ) {
-            int randomIndex = random.nextInt(diffFixInfo.keySet().size());
-            String cluster = new ArrayList<>(diffFixInfo.keySet()).get(randomIndex);
-            if (!listClusters.contains(cluster))  {
-                listClusters.add(cluster);
-            }
-        }
-    }
     private void initGame () {
         updateLevel();
         numRounds++;
         List<String> listClusters = new ArrayList<>();
         List<String> listFixClusters = new ArrayList<>();
         SecureRandom random = new SecureRandom();
+
+        //TODO CHECK NOT MORE AVAILABLE IMAGES
+
         if(usedClusters.size() >= diffInfo.size()  ||   usedFixClusters.size() >= diffFixInfo.size()) {
-                this.view.notAvailableImages();
+                return;
+        }
+
+        /* not more available clusters */
+        if (playedClusters.size() >= (diffInfo.size()+diffFixInfo.size())) {
+            return;
+        }
+
+
+        /* analysed all images with correct mix */
+        if ((diffInfo.keySet().size()-countUsed) <  level.getNum()
+                ||
+                (diffFixInfo.keySet().size()-countFixUsed) <level.getNumFix()
+                ) {
+            return;
+
         }
 
         //TODO APPLY DELETE IMAGES TESTED
 
-        setUpCluster(listClusters,level.getNum(), random);
-        setUpFixCluster(listFixClusters,level.getNumFix(), random);
+        setUpInfo(level.getNum(), random, diffInfo,listClusters);
+        setUpInfo(level.getNumFix(), random, diffInfo,listFixClusters);
+
+        countUsed+=listClusters.size();
+        countFixUsed+=listFixClusters.size();
 
         clustersToPlay = new ArrayList<>(listClusters);
         clustersToPlay.addAll(listFixClusters);
@@ -120,18 +137,18 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
     @Override
     public void restartGame() {
         clustersToPlay.clear();
-        updateGame();
-
+        initGame();
+        if (clustersToPlay.size() == 0) {
+            this.view.messageNotEnoughImages();
+        } else {
+            updateGame();
+        }
     }
 
 
     @Override
     public void updateGame() {
-        if (clustersToPlay.size()==0) {
-            initGame();
-        }
         startedDate = Calendar.getInstance().getTime();
-
         keyCurrentPlay = clustersToPlay.get(0);
         clustersToPlay.remove(0);
 
@@ -157,14 +174,6 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
         return imagesInfoToUse;
     }
 
-    private void updateImageInfo(String keyCurrentPlay, List<Pair<String, Boolean>> newInfo) {
-        assert(this.diffInfo.containsKey(keyCurrentPlay) || this.diffFixInfo.containsKey(keyCurrentPlay));
-        if (this.diffInfo.containsKey(keyCurrentPlay)) {
-            this.diffInfo.put(keyCurrentPlay,newInfo);
-        } else {
-            this.diffFixInfo.put(keyCurrentPlay,newInfo);
-        }
-    }
 
     @Override
     public void finishRound() {
@@ -206,8 +215,16 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
 
     private void executeOk() {
         currentScore++;
-        this.updateGame();
         view.updateOK(currentScore);
+        if (clustersToPlay.size()==0) {
+            view.runPlayAgainDialog(currentScore);
+        } else {
+            keyCurrentPlay = clustersToPlay.get(0);
+            playedClusters.add(keyCurrentPlay);
+            this.updateGame();
+
+        }
+
     }
 
     @Override

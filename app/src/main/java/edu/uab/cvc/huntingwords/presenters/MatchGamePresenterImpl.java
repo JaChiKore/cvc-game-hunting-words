@@ -37,6 +37,7 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
     public static final int NUM_IMAGES_FOR_ROUND = 12;
 
 
+
     @Inject
     MatchGameInformation matchInfo;
 
@@ -53,13 +54,18 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
     private int numOks;
     private final MatchView view;
 
+    private  int countUsed;
+    private  int countFixUsed;
+
+
     private Date startedDate;
     private final String username;
 
-    List<String> imagesCurrentRound = new ArrayList<>();
-    List<String> imagesFixCurrentRound = new ArrayList<>();
-
-    List<MatchResult> results = new ArrayList<>();
+    List<String> imagesCurrentRound;
+   List<String> imagesFixCurrentRound;
+    List<String> usedImages;
+    List<MatchResult> results;
+    private int totalOks;
 
 
     public MatchGamePresenterImpl(MatchView view, String username) {
@@ -67,7 +73,10 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
         AppController.getComponent().inject(this);
         this.view = view;
         this.username = username;
-
+        this.imagesFixCurrentRound = new ArrayList<>();
+        this.imagesCurrentRound = new ArrayList<>();
+        this.usedImages = new ArrayList<>();
+        this.results = new ArrayList<>();
 
     }
 
@@ -94,7 +103,10 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
                 this.view.updateFail();
             }
         }
-        if (numOks == NUM_IMAGES_FOR_ROUND) {
+        //TODO CHANGE SIZE IMAGS TO UPLOAD
+        if (numOks == totalOks) {
+            usedImages.addAll(imagesCurrentRound);
+            usedImages.addAll(imagesFixCurrentRound);
             finishRound();
         }
     }
@@ -132,11 +144,26 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
         int numMatchsFix = level.getNumFix();
 
 
+        //NOT MORE AVAILABLE IMAGERS
         if (this.matchInfo.keySet().size() < numMatchs || this.matchFixInfo.keySet().size() < numMatchsFix) {
             this.view.messageNotEnoughImages();
             return;
         }
 
+        /* analysed all images with correct mix */
+        if ((matchInfo.keySet().size()-countUsed) <numMatchs
+                ||
+                (matchFixInfo.keySet().size()-countFixUsed) <numMatchsFix
+                ) {
+            this.view.messageNotEnoughImages();
+            return;
+
+        }
+
+        if (usedImages.size() >= (matchInfo.keySet().size() +matchFixInfo.keySet().size())) {
+            this.view.messageNotEnoughImages();
+            return;
+        }
 
 
         imagesCurrentRound.clear();
@@ -147,6 +174,10 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
         setUpInfo(numMatchs, random, matchInfo, imagesCurrentRound);
         setUpInfo(numMatchsFix,random, matchFixInfo,imagesFixCurrentRound);
 
+        countUsed+=imagesCurrentRound.size();
+        countFixUsed+=imagesFixCurrentRound.size();
+
+        totalOks = imagesCurrentRound.size()+imagesFixCurrentRound.size();
 
         List<String> allImages = new ArrayList<>(imagesCurrentRound);
         allImages.addAll(imagesFixCurrentRound);
@@ -199,7 +230,7 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
         while (imagesToUse.size() < info.keySet().size() && imagesToUse.size() < sizeForLevel) {
             int randomIndex = random.nextInt(info.keySet().size());
             String value = new ArrayList<>(info.keySet()).get(randomIndex);
-            if (!imagesToUse.contains(value)) {
+            if (!imagesToUse.contains(value) && !imagesToUse.contains(value) ) {
                 imagesToUse.add(value);
             }
         }

@@ -26,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.util.List;
@@ -143,9 +144,16 @@ public class DifferenceGame extends Fragment implements DifferenceView {
     }
 
     @Override
-    public void notAvailableImages() {
-        //TODO ADD NOT MORE IMAGES
+    public void messageNotEnoughImages() {
+        new Thread() {
+            public void run() {
+                getActivity().runOnUiThread(
+                        () -> {
+                            Toast.makeText(getActivity(),getString(R.string.not_enough_images),Toast.LENGTH_LONG).show();
+                        });
 
+            }
+        }.start();
     }
 
     @Override

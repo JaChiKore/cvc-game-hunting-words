@@ -37,7 +37,7 @@
     <string name="starts_zero">Comences amb 0 punts</string>
     <string name="win">Has guanyat!</string>
     <string name="starts_x_points">Comences amb la puntuació obtinguda</string>
-    <string name="more_than_one_different">Hi ha més\\nd\'un diferent</string>
+    <string name="more_than_one_different">Hi ha més d\'un diferent</string>
     <string name="all_same">Tots son iguals</string>
     <string name="next_level">Següent nivell</string>
     <string name="round">"Ronda "</string>
