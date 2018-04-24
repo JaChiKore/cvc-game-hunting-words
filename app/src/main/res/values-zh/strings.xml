@@ -37,7 +37,7 @@
     <string name="starts_zero">以零分开始游戏</string>
     <string name="win">恭喜你，你赢啦!</string>
     <string name="starts_x_points">以原来的分数开始游戏</string>
-    <string name="more_than_one_different">不止一个;不同</string>
+    <string name="more_than_one_different">不止一个\n不同</string>
     <string name="all_same">都是一样的</string>
     <string name="next_level">下一关</string>
     <string name="round">"回合 "</string>
@@ -47,4 +47,10 @@
     <string name="level">难度</string>
     <string name="anonym">Anonymous</string>
     <string name="title_connect">Parameters</string>
+    <string name="title_loading_info">正在加载数据</string>
+    <string name="not_enough_images">没有更多可玩的图片了</string>
+    <string name="text_match_score">Match 分数:</string>
+    <string name="text_diff_score">Diff 分数:</string>
+    <string name="match_game" translatable="false">Match 游戏</string>
+    <string name="difference_game" translatable="false">Difference 游戏</string>
 </resources>

@@ -37,7 +37,7 @@
     <string name="starts_zero">Comences amb 0 punts</string>
     <string name="win">Has guanyat!</string>
     <string name="starts_x_points">Comences amb la puntuació obtinguda</string>
-    <string name="more_than_one_different">Hi ha més;d\'un diferent</string>
+    <string name="more_than_one_different">Hi ha més\\nd\'un diferent</string>
     <string name="all_same">Tots son iguals</string>
     <string name="next_level">Següent nivell</string>
     <string name="round">"Ronda "</string>
@@ -47,4 +47,10 @@
     <string name="level">Nivell</string>
     <string name="anonym">Anonymous</string>
     <string name="title_connect">Parameters</string>
+    <string name="title_loading_info">Llegint informació del joc</string>
+    <string name="not_enough_images">No hi ha suficients imatges</string>
+    <string name="text_match_score">"Match puntuació: "</string>
+    <string name="text_diff_score">"Diff puntuació: "</string>
+    <string name="match_game" translatable="false">Joc Match</string>
+    <string name="difference_game" translatable="false">Joc Difference</string>
 </resources>

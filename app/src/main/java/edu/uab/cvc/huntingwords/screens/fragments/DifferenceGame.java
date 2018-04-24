@@ -41,6 +41,7 @@ import edu.uab.cvc.huntingwords.screens.FragmentActivity;
 import edu.uab.cvc.huntingwords.screens.Sounds;
 import edu.uab.cvc.huntingwords.screens.Utils;
 import edu.uab.cvc.huntingwords.screens.views.DifferenceView;
+import edu.uab.cvc.huntingwords.utils.Constants;
 
 import static edu.uab.cvc.huntingwords.Utils.COUNT_DOWN_INTERVAL;
 import static edu.uab.cvc.huntingwords.Utils.CURRENT_SCORE_DIFF;
@@ -103,7 +104,7 @@ public class DifferenceGame extends Fragment implements DifferenceView {
         Resources.Theme theme = getActivity().getTheme();
         theme.resolveAttribute(R.attr.colorPrimary, typedValue, true);
         colorPrimary = typedValue.data;
-        presenter = new DifferenceGamePresenterImpl(this);
+        presenter = new DifferenceGamePresenterImpl(this,getPreferencesUsername());
 
 
         return view;
@@ -186,9 +187,17 @@ public class DifferenceGame extends Fragment implements DifferenceView {
             timer.cancel();
         }
 
+        if (getActivity() == null) {
+            return;
+        }
+
         Integer newTotalPoints = getPreferencesScore()+(int)currentScore;
         updatePreferencesScore(newTotalPoints);
+
+        presenter.uploadResult((int)currentScore,newTotalPoints);
         points.setText("0");
+
+
 
 
         AlertDialog.Builder builder = new AlertDialog.Builder(DifferenceGame.this.getActivity());
@@ -197,8 +206,6 @@ public class DifferenceGame extends Fragment implements DifferenceView {
                 sounds.soundPool.stop(currentSound);
                 dialog.dismiss();
                 presenter.restartGame();
-
-
             }
         });
         builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
@@ -301,5 +308,10 @@ public class DifferenceGame extends Fragment implements DifferenceView {
         SharedPreferences preferences = getActivity().getSharedPreferences(
                 getString(R.string.preferences_file), Context.MODE_PRIVATE);
         return preferences.getInt(edu.uab.cvc.huntingwords.Utils.CURRENT_SCORE_DIFF,0);
+    }
+    private String getPreferencesUsername() {
+        SharedPreferences preferences = getActivity().getSharedPreferences(
+                getString(R.string.preferences_file), Context.MODE_PRIVATE);
+        return preferences.getString(Constants.PARAM_USERNAME,getString(R.string.anonym));
     }
 }

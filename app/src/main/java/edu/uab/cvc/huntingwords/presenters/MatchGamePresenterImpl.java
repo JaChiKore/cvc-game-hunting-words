@@ -32,7 +32,7 @@ import static edu.uab.cvc.huntingwords.Utils.EMPTY_BUTTON;
 public class MatchGamePresenterImpl implements MatchGamePresenter {
 
     public static final int NUM_IMAGES_FOR_ROUND = 12;
-    private Date startedDate, stoppedDate;
+
 
     class MyComparator implements Comparator<Score> {
         public int compare(Score a, Score b) {
@@ -73,7 +73,7 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
     private int numOks;
     private final MatchView view;
 
-
+    private Date startedDate;
     private final String username;
 
     //TODO IT IS NECESSARY, WE ONLY NEED TO CHECK THAT IT I
@@ -162,10 +162,7 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
     public void restartGame() {
         startedDate = Calendar.getInstance().getTime();
         updateLevel();
-        this.results.clear();
-        numOks = 0;
-        currentScore = 0;
-        numRounds++;
+        resetValues();
         int numMatchs = level.getNum();
         int numMatchsFix = level.getNumFix();
         if (this.matchSortedInfo.size() < numMatchs || this.matchSortedFixInfo.size() < numMatchsFix) {
@@ -205,8 +202,16 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
         this.view.newRoundPlay(allImages,nameWords);
     }
 
+    private void resetValues() {
+        this.results.clear();
+        numOks = 0;
+        currentScore = 0;
+        numRounds++;
+    }
+
     @Override
     public void uploadResult(Integer oldScore, Integer newTotalPoints) {
+        List<MatchResult> newResults = new ArrayList<MatchResult>(this.results);
 /*
         Date stoppedDate = Calendar.getInstance().getTime();
         String level = "4";

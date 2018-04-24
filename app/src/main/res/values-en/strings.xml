@@ -37,7 +37,7 @@
     <string name="starts_zero">Starts the game with 0 points</string>
     <string name="win">You win!</string>
     <string name="starts_x_points">Starts with last game points</string>
-    <string name="more_than_one_different">More than one;different</string>
+    <string name="more_than_one_different">More than one\\ndifferent</string>
     <string name="all_same">They are the same</string>
     <string name="next_level">Next level</string>
     <string name="round">"Round "</string>
@@ -47,4 +47,10 @@
     <string name="level">Level</string>
     <string name="anonym">Anonymous</string>
     <string name="title_connect">Parameters</string>
+    <string name="title_loading_info">loading game information</string>
+    <string name="not_enough_images">There are not enough images</string>
+    <string name="text_match_score">"Match score: "</string>
+    <string name="text_diff_score">"Diff score: "</string>
+    <string name="match_game" translatable="false">Match Game</string>
+    <string name="difference_game" translatable="false">Difference Game</string>
 </resources>

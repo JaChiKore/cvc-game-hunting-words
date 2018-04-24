@@ -5,7 +5,9 @@ import android.util.Pair;
 
 import java.security.SecureRandom;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -14,8 +16,10 @@ import edu.uab.cvc.huntingwords.application.AppController;
 import edu.uab.cvc.huntingwords.models.ClusterDifferentResult;
 import edu.uab.cvc.huntingwords.models.DifferenceFixGameInformation;
 import edu.uab.cvc.huntingwords.models.DifferenceGameInformation;
+import edu.uab.cvc.huntingwords.models.MatchResult;
 import edu.uab.cvc.huntingwords.presenters.utils.GameLevel;
 import edu.uab.cvc.huntingwords.screens.views.DifferenceView;
+import edu.uab.cvc.huntingwords.tasks.services.DifferenceService;
 
 /**
  * Created by carlosb on 4/16/18.
@@ -45,17 +49,21 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
     private List<String> clustersToPlay;
 
 
+    private Date startedDate;
+    private final String username;
+
     private List<ClusterDifferentResult> results;
 
 
 
-    public DifferenceGamePresenterImpl(DifferenceView view) {
+    public DifferenceGamePresenterImpl(DifferenceView view, String username) {
         AppController.getComponent().inject(this);
         clustersToPlay = new ArrayList();
         usedClusters = new ArrayList<>();
         usedFixClusters = new ArrayList<>();
         results = new ArrayList<>();
         this.view = view;
+        this.username = username;
     }
 
     @Override
@@ -119,6 +127,8 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
         if (clustersToPlay.size()==0) {
             initGame();
         }
+        startedDate = Calendar.getInstance().getTime();
+
         keyCurrentPlay = clustersToPlay.get(0);
         clustersToPlay.remove(0);
 
@@ -198,8 +208,18 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
     }
 
     @Override
-    public void uploadResult() {
+    public void uploadResult(Integer oldScore, Integer newTotalPoints) {
+        List<ClusterDifferentResult> newResults = new ArrayList<ClusterDifferentResult>(this.results);
+/*
+        Date stoppedDate = Calendar.getInstance().getTime();
+        String level = "4";
 
+        //TODO fix this!!
+        //4 -> easy
+        //6 -> medium
+        //8 -> hard
+        new DifferenceService(this.username).run(this.results,level,startedDate,stoppedDate,oldScore,newTotalPoints);
+*/
 
     }
 

@@ -114,6 +114,7 @@ public class MatchGame  extends Fragment implements MatchView {
     public void newRoundPlay(List<String> filepaths, List<String> buttons) {
         ((TextView)(this.getActivity().findViewById(R.id.value_match_total_score))).setText(String.valueOf(getPreferencesScore()));
 
+
         if (filepaths.size()!=idImages.length) {
             Timber.i("It doesn't have enough images");
             return;
@@ -259,18 +260,22 @@ public class MatchGame  extends Fragment implements MatchView {
         if (timer!=null) {
             timer.cancel();
         }
+        if (getActivity() == null) {
+            return;
+        }
 
         final Integer oldScore = getPreferencesScore();
         final Integer newTotalPoints = oldScore+(int)currentScore;
         updatePreferencesScore(newTotalPoints);
+        presenter.uploadResult(oldScore,newTotalPoints);
         points.setText("0");
+
 
         AlertDialog.Builder builder = new AlertDialog.Builder(fragActivity);
         builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 sounds.soundPool.stop(currentSound);
                 dialog.dismiss();
-                presenter.uploadResult(oldScore,newTotalPoints);
                 presenter.restartGame();
 
             }

@@ -13,7 +13,7 @@ public interface DifferenceGamePresenter {
 
     void checkImage(String tag);
 
-    void uploadResult();
+    void uploadResult(Integer oldScore, Integer newTotalPoints);
 
     void checkDifferent();
 
