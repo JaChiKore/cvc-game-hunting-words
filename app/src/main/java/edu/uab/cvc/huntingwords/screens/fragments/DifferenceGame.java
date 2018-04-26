@@ -17,12 +17,14 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
 import android.text.Layout;
 import android.util.TypedValue;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -64,8 +66,8 @@ public class DifferenceGame extends Fragment implements DifferenceView {
 
 
     @Nullable
-    @BindView(R.id.table_difference_layout)
-    public TableLayout table;
+    @BindView(R.id.view_container_images)
+    public LinearLayout table;
 
 
     @Nullable
@@ -112,16 +114,18 @@ public class DifferenceGame extends Fragment implements DifferenceView {
     }
 
     private static int SIZE_FOR_ROW = 3;
-    private float scaledWidth = 250f;
+    private float scaledWidth = 300f;
 
     @Override
     public void newRoundPlay(List<String> filepaths) {
         ((TextView)(this.getActivity().findViewById(R.id.value_diff_total_score))).setText(String.valueOf(getPreferencesScore()));
         table.removeAllViews();
-        TableRow row = new TableRow(this.getActivity());
         for (int i=0; i<filepaths.size(); i++) {
-            row.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
+//            ContextThemeWrapper newContext = new ContextThemeWrapper(this.getActivity(), R.style.AppTheme);
+//            ImageButton imageButton = new ImageButton(newContext);
+            //imageButton.setBackgroundColor(getResources().getColor(android.R.color.transparent));
             ImageButton imageButton = new ImageButton(this.getActivity());
+            imageButton.setBackgroundColor(getResources().getColor(android.R.color.transparent));
             String filepath = filepaths.get(i);
             imageButton.setTag(filepath);
             File file =  new File(getActivity().getFilesDir(),filepath);
@@ -134,12 +138,8 @@ public class DifferenceGame extends Fragment implements DifferenceView {
 
             };
             imageButton.setOnClickListener(callback);
-            row.addView(imageButton);
+            table.addView(imageButton);
 
-            if ((i%(SIZE_FOR_ROW-1) == 0 && i!=0) || ((i+1) == filepaths.size())) {
-                table.addView(row);
-                row = new TableRow(this.getActivity());
-            }
         }
     }
 

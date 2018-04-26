@@ -52,26 +52,36 @@
 
     </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="horizontal">
 
-        <TableLayout
-            android:id="@+id/table_difference_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center">
+        <ScrollView
+            android:id="@+id/scrollid_diff"
+            android:layout_width="400dp"
+            android:layout_height="match_parent">
 
-            <TableRow
+
+            <LinearLayout
+                android:id="@+id/view_container_images"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center">>
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/match_img_0_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:padding="3dp"
+                    android:src="@drawable/image_test2"
+                    android:theme="@style/AppTheme" />
 
                 <ImageButton
                     android:id="@+id/match_img_0_1"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:padding="3dp"
@@ -80,49 +90,35 @@
 
                 <ImageButton
                     android:id="@+id/match_img_0_0"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:padding="3dp"
                     android:src="@drawable/image_test10"
                     android:theme="@style/AppTheme" />
+            </LinearLayout>
+        </ScrollView>
 
-                <ImageButton
-                    android:id="@+id/match_img_0_2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:padding="3dp"
-                    android:src="@drawable/image_test2"
-                    android:theme="@style/AppTheme" />
-            </TableRow>
-
-        </TableLayout>
-
-        <LinearLayout
+        <Button
+            android:id="@+id/dif_but_more_than_one"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_toRightOf="@id/scrollid_diff"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/more_than_one_different" />
 
-            <Button
-                android:id="@+id/dif_but_more_than_one"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="@string/more_than_one_different" />
+        <Button
+            android:id="@+id/dif_but_same"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/dif_but_more_than_one"
+            android:layout_toRightOf="@id/scrollid_diff"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/all_same" />
 
-            <Button
-                android:id="@+id/dif_but_same"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="@string/all_same" />
-        </LinearLayout>
-
-
-    </LinearLayout>
+    </RelativeLayout>
 
 
 </LinearLayout>

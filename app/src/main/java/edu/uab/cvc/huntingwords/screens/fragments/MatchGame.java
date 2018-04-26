@@ -19,6 +19,7 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -176,7 +177,7 @@ public class MatchGame  extends Fragment implements MatchView {
         button.setText(text);
     }
 
-    private float scaledWidth = 200f;
+    private float scaledWidth = 300f;
     private void updateImageButton(int idImage, String filepath) {
             ImageButton imageButton = (ImageButton) this.getActivity().findViewById(idImage);
             getActivity().findViewById(idImage).setVisibility(View.VISIBLE);
@@ -211,7 +212,9 @@ public class MatchGame  extends Fragment implements MatchView {
 
     @Override
     public void hideButton(int idImage) {
-        this.getActivity().findViewById(idImage).setVisibility(View.INVISIBLE);
+        View v = (View)this.getActivity().findViewById(idImage);
+                //.setVisibility(View.INVISIBLE);
+        ((ViewManager)v.getParent()).removeView(v);
     }
 
     @Override
@@ -331,7 +334,9 @@ public class MatchGame  extends Fragment implements MatchView {
     @OnClick({R.id.match_img_0_0, R.id.match_img_0_1, R.id.match_img_0_2, R.id.match_img_1_0, R.id.match_img_1_1, R.id.match_img_1_2, R.id.match_img_2_0, R.id.match_img_2_1, R.id.match_img_2_2, R.id.match_img_3_0, R.id.match_img_3_1, R.id.match_img_3_2})
     public void clickMatchImage(ImageButton button) {
         if (clickedImage!=-1) {
-            this.getActivity().findViewById(clickedImage).setBackgroundColor(getResources().getColor(R.color.white));
+            if (this.getActivity().findViewById(clickedImage)!=null) {
+                this.getActivity().findViewById(clickedImage).setBackgroundColor(getResources().getColor(R.color.white));
+            }
         }
         clickedImage = button.getId();
         button.setBackgroundColor(colorPrimary);
