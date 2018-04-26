@@ -25,21 +25,24 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/score"
-                android:textAlignment="viewEnd" />
+                android:textAlignment="viewEnd"
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/value_points"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="0" />
+                android:text="0"
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/value_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="0" />
+                android:text="0"
+                android:textSize="18sp" />
 
             <ImageView
                 android:id="@+id/diff_image_ok_or_fail"

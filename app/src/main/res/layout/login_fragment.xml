@@ -8,7 +8,9 @@
         android:id="@+id/title_connect"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/title_connect" />
+        android:text="@string/title_connect"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <TableLayout
         android:layout_width="match_parent"
@@ -22,7 +24,8 @@
                 android:id="@+id/text_username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/username_text" />
+                android:text="@string/username_text"
+                android:textSize="18sp" />
 
             <EditText
                 android:id="@+id/edit_username"
@@ -42,7 +45,8 @@
                 android:id="@+id/text_password"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/password_text" />
+                android:text="@string/password_text"
+                android:textSize="18sp" />
 
             <EditText
                 android:id="@+id/edit_pasword"
