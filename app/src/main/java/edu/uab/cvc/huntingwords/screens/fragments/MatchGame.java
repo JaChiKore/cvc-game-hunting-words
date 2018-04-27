@@ -234,7 +234,7 @@ public class MatchGame  extends Fragment implements MatchView {
 
     @Override
     public void updateOK(int idImage, float currentScore) {
-        playOk();
+    //    playOk();
         hideButton(idImage);
         cleanButtons();
          new Thread() {

@@ -158,7 +158,7 @@ public class DifferenceGame extends Fragment implements DifferenceView {
 
     @Override
     public void updateOK(float currentScore) {
-        playOk();
+//        playOk();
         new Thread() {
             public void run() {
                 getActivity().runOnUiThread(
