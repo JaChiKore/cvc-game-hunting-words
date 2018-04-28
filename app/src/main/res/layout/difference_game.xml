@@ -73,32 +73,6 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <ImageButton
-                    android:id="@+id/match_img_0_2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:padding="3dp"
-                    android:src="@drawable/image_test2"
-                    android:theme="@style/AppTheme" />
-
-                <ImageButton
-                    android:id="@+id/match_img_0_1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:padding="3dp"
-                    android:src="@drawable/image_test1"
-                    android:theme="@style/AppTheme" />
-
-                <ImageButton
-                    android:id="@+id/match_img_0_0"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:padding="3dp"
-                    android:src="@drawable/image_test10"
-                    android:theme="@style/AppTheme" />
             </LinearLayout>
         </ScrollView>
 
