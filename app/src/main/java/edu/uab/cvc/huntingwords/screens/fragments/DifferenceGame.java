@@ -113,7 +113,12 @@ public class DifferenceGame extends Fragment implements DifferenceView {
         return view;
     }
 
-    private static int SIZE_FOR_ROW = 3;
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        timer.cancel();;
+    }
+
     private float scaledWidth = 300f;
 
     @Override
@@ -121,9 +126,6 @@ public class DifferenceGame extends Fragment implements DifferenceView {
         ((TextView)(this.getActivity().findViewById(R.id.value_diff_total_score))).setText(String.valueOf(getPreferencesScore()));
         table.removeAllViews();
         for (int i=0; i<filepaths.size(); i++) {
-//            ContextThemeWrapper newContext = new ContextThemeWrapper(this.getActivity(), R.style.AppTheme);
-//            ImageButton imageButton = new ImageButton(newContext);
-            //imageButton.setBackgroundColor(getResources().getColor(android.R.color.transparent));
             ImageButton imageButton = new ImageButton(this.getActivity());
             imageButton.setBackgroundColor(getResources().getColor(android.R.color.transparent));
             String filepath = filepaths.get(i);

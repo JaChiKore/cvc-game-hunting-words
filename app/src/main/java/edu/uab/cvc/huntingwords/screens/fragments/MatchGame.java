@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -112,8 +113,12 @@ public class MatchGame  extends Fragment implements MatchView {
         return view;
     }
 
- //   private static int [] idImages = {R.id.match_img_0_0, R.id.match_img_0_1, R.id.match_img_0_2, R.id.match_img_1_0, R.id.match_img_1_1, R.id.match_img_1_2
- //           , R.id.match_img_2_0, R.id.match_img_2_1, R.id.match_img_2_2, R.id.match_img_3_0, R.id.match_img_3_1, R.id.match_img_3_2};
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        timer.cancel();;
+    }
+
     private static int [] idButtons = {R.id.match_but_0, R.id.match_but_1, R.id.match_but_2, R.id.match_but_3};
 
     @Override
@@ -127,13 +132,8 @@ public class MatchGame  extends Fragment implements MatchView {
         }
         startCountdown();
 
-
-
         table.removeAllViews();
         for (int i=0; i<filepaths.size(); i++) {
-//            ContextThemeWrapper newContext = new ContextThemeWrapper(this.getActivity(), R.style.AppTheme);
-//            ImageButton imageButton = new ImageButton(newContext);
-            //imageButton.setBackgroundColor(getResources().getColor(android.R.color.transparent));
             ImageButton imageButton = new ImageButton(this.getActivity());
             imageButton.setId(i+1);
             imageButton.setBackgroundColor(getResources().getColor(android.R.color.transparent));
