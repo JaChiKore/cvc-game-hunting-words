@@ -168,10 +168,6 @@ public class MatchGame  extends Fragment implements MatchView {
         ((Button) this.getActivity().findViewById(R.id.match_but_4)).setText(getString(R.string.none_of_these));
     }
 
-    private void updateImageButton(String filepath) {
-
-    }
-
     @Override
     public void updateButtons(List<String> buttons) {
         if (buttons.size() !=idButtons.length) {
@@ -214,16 +210,6 @@ public class MatchGame  extends Fragment implements MatchView {
     }
 
     private float scaledWidth = 300f;
-    private void updateImageButton(int idImage, String filepath) {
-            ImageButton imageButton = (ImageButton) this.getActivity().findViewById(idImage);
-            getActivity().findViewById(idImage).setVisibility(View.VISIBLE);
-            imageButton.setTag(filepath);
-            File file =  new File(getActivity().getFilesDir(),filepath);
-            Bitmap image = BitmapFactory.decodeFile(file.getAbsolutePath());
-
-            float scaled = scaledWidth / image.getWidth();
-            imageButton.setImageBitmap(Bitmap.createScaledBitmap(image, (int)scaledWidth, (int)(scaled * (float)image.getHeight()), false));
-    }
 
     @Override
     public void onStart() {
@@ -365,21 +351,6 @@ public class MatchGame  extends Fragment implements MatchView {
 
 
 
-/*
-    @Optional
-    @OnClick({R.id.match_img_0_0, R.id.match_img_0_1, R.id.match_img_0_2, R.id.match_img_1_0, R.id.match_img_1_1, R.id.match_img_1_2, R.id.match_img_2_0, R.id.match_img_2_1, R.id.match_img_2_2, R.id.match_img_3_0, R.id.match_img_3_1, R.id.match_img_3_2})
-    public void clickMatchImage(ImageButton button) {
-        if (clickedImage!=-1) {
-            if (this.getActivity().findViewById(clickedImage)!=null) {
-                this.getActivity().findViewById(clickedImage).setBackgroundColor(getResources().getColor(R.color.white));
-            }
-        }
-        clickedImage = button.getId();
-        button.setBackgroundColor(colorPrimary);
-        this.presenter.updateButtonsByImage((String)button.getTag());
-
-    }
-    */
     @Optional
     @OnClick({ R.id.match_but_0, R.id.match_but_1, R.id.match_but_2, R.id.match_but_3, R.id.match_but_4 })
     public void clickMatchButton(Button button) {
