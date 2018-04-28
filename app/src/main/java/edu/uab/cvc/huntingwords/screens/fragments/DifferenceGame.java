@@ -107,7 +107,7 @@ public class DifferenceGame extends Fragment implements DifferenceView {
         Resources.Theme theme = getActivity().getTheme();
         theme.resolveAttribute(R.attr.colorPrimary, typedValue, true);
         colorPrimary = typedValue.data;
-        presenter = new DifferenceGamePresenterImpl(this,getPreferencesUsername());
+        presenter = new DifferenceGamePresenterImpl(this,getPreferencesUsername(), this.getPreferencesLevel());
 
 
         return view;
@@ -191,7 +191,7 @@ public class DifferenceGame extends Fragment implements DifferenceView {
     }
 
     @Override
-    public void runPlayAgainDialog(float currentScore) {
+    public void runPlayAgainDialog(float currentScore, int level) {
         playFinish();
         if (timer!=null) {
             timer.cancel();
@@ -203,7 +203,8 @@ public class DifferenceGame extends Fragment implements DifferenceView {
 
         Integer newTotalPoints = getPreferencesScore()+(int)currentScore;
         updatePreferencesScore(newTotalPoints);
-
+        updatePreferencesLevel(level);
+    //TODO UPDATE LEVEL??
         presenter.uploadResult((int)currentScore,newTotalPoints);
         points.setText("0");
 
@@ -323,5 +324,17 @@ public class DifferenceGame extends Fragment implements DifferenceView {
         SharedPreferences preferences = getActivity().getSharedPreferences(
                 getString(R.string.preferences_file), Context.MODE_PRIVATE);
         return preferences.getString(Constants.PARAM_USERNAME,getString(R.string.anonym));
+    }
+    public int getPreferencesLevel() {
+        SharedPreferences preferences = getActivity().getSharedPreferences(
+                getString(R.string.preferences_file), Context.MODE_PRIVATE);
+        return preferences.getInt(edu.uab.cvc.huntingwords.Utils.CURRENT_SCORE_DIFF,0);
+    }
+    public void updatePreferencesLevel(Integer level) {
+        SharedPreferences preferences = getActivity().getSharedPreferences(
+                getString(R.string.preferences_file), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putInt(CURRENT_SCORE_DIFF,level);
+        editor.commit();
     }
 }

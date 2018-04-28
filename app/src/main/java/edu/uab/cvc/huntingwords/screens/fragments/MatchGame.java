@@ -80,6 +80,7 @@ public class MatchGame  extends Fragment implements MatchView {
     Context context;
     FragmentActivity fragActivity;
     private CountDownTimer timer;
+    private int preferencesLevel;
 
 
     public static MatchGame newInstance() {
@@ -95,7 +96,6 @@ public class MatchGame  extends Fragment implements MatchView {
     }
 
 
-
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.match_game, container, false);
@@ -105,9 +105,9 @@ public class MatchGame  extends Fragment implements MatchView {
         TypedValue typedValue = new TypedValue();
         Resources.Theme theme = getActivity().getTheme();
         theme.resolveAttribute(R.attr.colorPrimary, typedValue, true);
-         colorPrimary = typedValue.data;
+        colorPrimary = typedValue.data;
 
-        presenter = new MatchGamePresenterImpl(this,getPreferencesUsername());
+        presenter = new MatchGamePresenterImpl(this, getPreferencesUsername(), this.getPreferencesLevel());
 
 
         return view;
@@ -289,7 +289,7 @@ public class MatchGame  extends Fragment implements MatchView {
     }
 
     @Override
-    public void runPlayAgainDialog(float currentScore) {
+    public void runPlayAgainDialog(float currentScore, int level) {
         playFinish();
         if (timer!=null) {
             timer.cancel();
@@ -301,6 +301,9 @@ public class MatchGame  extends Fragment implements MatchView {
         final Integer oldScore = getPreferencesScore();
         final Integer newTotalPoints = oldScore+(int)currentScore;
         updatePreferencesScore(newTotalPoints);
+        updatePreferencesLevel(level);
+        //TODO UPDATE LEVEL??
+
         presenter.uploadResult(oldScore,newTotalPoints);
         points.setText("0");
 
@@ -397,5 +400,18 @@ public class MatchGame  extends Fragment implements MatchView {
         SharedPreferences preferences = getActivity().getSharedPreferences(
                 getString(R.string.preferences_file), Context.MODE_PRIVATE);
         return preferences.getString(Constants.PARAM_USERNAME,getString(R.string.anonym));
+    }
+
+    public int getPreferencesLevel() {
+        SharedPreferences preferences = getActivity().getSharedPreferences(
+                getString(R.string.preferences_file), Context.MODE_PRIVATE);
+        return preferences.getInt(edu.uab.cvc.huntingwords.Utils.CURRENT_LEVEL_MATCH,0);
+    }
+    public void updatePreferencesLevel(Integer level) {
+        SharedPreferences preferences = getActivity().getSharedPreferences(
+                getString(R.string.preferences_file), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putInt(CURRENT_SCORE_MATCH,level);
+        editor.commit();
     }
 }

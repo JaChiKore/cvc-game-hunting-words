@@ -49,8 +49,7 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
 
     private float currentScore;
 
-    private GameLevel level = GameLevel.EASY;
-    private int numRounds = 0;
+    private GameLevel level;
     private int numOks;
     private final MatchView view;
 
@@ -68,7 +67,7 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
     private int totalOks;
 
 
-    public MatchGamePresenterImpl(MatchView view, String username) {
+    public MatchGamePresenterImpl(MatchView view, String username, int currentLevel) {
         /* IT MUST BE FIRST */
         AppController.getComponent().inject(this);
         this.view = view;
@@ -77,6 +76,7 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
         this.imagesCurrentRound = new ArrayList<>();
         this.usedImages = new ArrayList<>();
         this.results = new ArrayList<>();
+        this.level = new GameLevel(currentLevel);
 
     }
 
@@ -105,11 +105,20 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
         }
         //TODO CHANGE SIZE IMAGS TO UPLOAD
         if (numOks == totalOks) {
+
+            //TODO update diff
+            updateLevel();
+            checkForMoreImages();
             usedImages.addAll(imagesCurrentRound);
             usedImages.addAll(imagesFixCurrentRound);
             finishRound();
         }
     }
+
+    private void checkForMoreImages() {
+        //check need more images?
+    }
+
 
     @Override
     public void newGame() {
@@ -132,13 +141,12 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
 
     @Override
     public void finishRound() {
-        this.view.runPlayAgainDialog(currentScore);
+        this.view.runPlayAgainDialog(currentScore,level.getLevel());
     }
 
     @Override
     public void restartGame() {
         startedDate = Calendar.getInstance().getTime();
-        updateLevel();
         resetValues();
         int numMatchs = level.getNum();
         int numMatchsFix = level.getNumFix();
@@ -205,7 +213,6 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
         this.results.clear();
         numOks = 0;
         currentScore = 0;
-        numRounds++;
     }
 
     @Override
@@ -239,14 +246,6 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
 
 
     private void updateLevel() {
-        if (numRounds < 4) {
-            level = GameLevel.EASY;
-
-        } else if (numRounds < 8) {
-            level = GameLevel.MEDIUM;
-
-        } else {
-            level = GameLevel.HARD;
-        }
+        level.increase();
     }
 }

@@ -39,8 +39,7 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
 
     private float currentScore;
 
-    private GameLevel level = GameLevel.EASY;
-    private int numRounds = 0;
+    private GameLevel level;
 
 
     private final DifferenceView view;
@@ -60,7 +59,7 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
 
 
 
-    public DifferenceGamePresenterImpl(DifferenceView view, String username) {
+    public DifferenceGamePresenterImpl(DifferenceView view, String username, int level) {
         AppController.getComponent().inject(this);
         clustersToPlay = new ArrayList();
         usedClusters = new ArrayList<>();
@@ -71,6 +70,7 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
         countFixUsed = 0;
         this.view = view;
         this.username = username;
+        this.level = new GameLevel(level);
     }
 
     @Override
@@ -92,8 +92,6 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
     }
 
     private void initGame () {
-        updateLevel();
-        numRounds++;
         List<String> listClusters = new ArrayList<>();
         List<String> listFixClusters = new ArrayList<>();
         SecureRandom random = new SecureRandom();
@@ -140,6 +138,7 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
         initGame();
         if (clustersToPlay.size() == 0) {
             this.view.messageNotEnoughImages();
+            //TODO finish level
         } else {
             updateGame();
         }
@@ -177,7 +176,7 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
 
     @Override
     public void finishRound() {
-        this.view.runPlayAgainDialog(currentScore);
+        this.view.runPlayAgainDialog(currentScore,level.getLevel());
     }
 
     @Override
@@ -217,7 +216,10 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
         currentScore++;
         view.updateOK(currentScore);
         if (clustersToPlay.size()==0) {
-            view.runPlayAgainDialog(currentScore);
+            //TODO update score!
+            updateLevel();
+            checkForMoreImages();
+            view.runPlayAgainDialog(currentScore,level.getLevel());
         } else {
             keyCurrentPlay = clustersToPlay.get(0);
             playedClusters.add(keyCurrentPlay);
@@ -226,6 +228,7 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
         }
 
     }
+
 
     @Override
     public void uploadResult(Integer oldScore, Integer newTotalPoints) {
@@ -302,16 +305,12 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
 
 
     private void updateLevel() {
-        if (numRounds < 4) {
-            level = GameLevel.EASY;
-
-        } else if (numRounds < 8) {
-            level = GameLevel.MEDIUM;
-
-        } else {
-            level = GameLevel.HARD;
-        }
+        level.increase();
     }
+
+    private void checkForMoreImages() {
+    }
+
 
 
 }

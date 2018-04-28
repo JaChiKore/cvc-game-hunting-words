@@ -15,7 +15,7 @@ public interface DifferenceView {
 
     void updateFail();
 
-    void runPlayAgainDialog(float currentScore);
+    void runPlayAgainDialog(float currentScore, int level);
 
     void startCountdown();
 }

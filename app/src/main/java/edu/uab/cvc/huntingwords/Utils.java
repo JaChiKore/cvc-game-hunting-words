@@ -15,4 +15,12 @@ public class Utils {
     public static final String ALL_DIFFERENT = ";more_than_one;";
     public static final String CURRENT_SCORE_MATCH = "CURRENT_SCORE_MATCH";
     public static final String CURRENT_SCORE_DIFF = "CURRENT_SCORE_DIFF";
+
+    public static final String CURRENT_LEVEL_MATCH  = "CURRENT_LEVEL_MATCH";
+    public static final String CURRENT_LEVEL_DIFFERENCE  = "CURRENT_LEVEL_DIFFERENCE";
+
+    public static final Integer BATCH_DIFF_IMAGES = 100;
+    public static final Integer BATCH_MATCH_IMAGES = 100;
+
+
 }
