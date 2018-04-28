@@ -97,7 +97,6 @@ public class Play extends Fragment implements PlayView{
 
         public void countDownProgressToStartFragment(Fragment fragment) {
             final ProgressDialog progress = new ProgressDialog(this.getActivity());
-            //progress.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             progress.setCancelable(false);
             progress.setIndeterminate(true);
 
@@ -105,7 +104,7 @@ public class Play extends Fragment implements PlayView{
 
                 public void onTick(long millisUntilFinished) {
                     long seconds = millisUntilFinished / 1000;
-                    String countdown = String.format(String.format("%02d", seconds % 60));
+                    String countdown = String.format(String.format("%02d", seconds % 60) +" "+getString(R.string.initializing_game));
                     SpannableString ss2=  new SpannableString(countdown);
                     ss2.setSpan(new RelativeSizeSpan(2f), 0, ss2.length(), 0);
                     ss2.setSpan(new ForegroundColorSpan(Color.RED), 0, ss2.length(), 0);
