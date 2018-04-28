@@ -40,7 +40,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="0" />
+                android:text="0"
+                android:textSize="18sp" />
 
             <ImageView
                 android:id="@+id/match_image_ok_or_fail"

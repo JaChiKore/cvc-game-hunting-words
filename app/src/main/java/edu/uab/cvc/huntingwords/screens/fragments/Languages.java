@@ -4,12 +4,15 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.Locale;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import edu.uab.cvc.huntingwords.R;
@@ -25,6 +28,7 @@ public class Languages extends Fragment {
     private static String ENGLISH_TAG = "en";
     private static String CHINESE_TAG= "zh";
 
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
@@ -38,25 +42,35 @@ public class Languages extends Fragment {
     @OnClick(R.id.but_spanish)
     public void clickSpanish() {
         setLocale(new Locale(SPANISH_TAG));
+        updateTextScore();
     }
     @OnClick(R.id.but_english)
     public void clickEnglish() {
         setLocale(new Locale(ENGLISH_TAG));
+        updateTextScore();
 
     }
     @OnClick(R.id.but_catalan)
     public void clickCatalan() {
         setLocale(new Locale(CATALAN_TAG));
- //       FragmentManager fm = getActivity().getFragmentManager();
-//        EditNameDialogFragment frag = EditNameDialogFragment.newInstance("tried");
-//        frag.show(fm,"aa");
-     //   fragment.show(fm,"Tried2");
+        updateTextScore();
+
     }
     @OnClick(R.id.but_chinese)
     public void clickChinese() {
         setLocale(new Locale(CHINESE_TAG));
+        updateTextScore();
 
     }
+
+    private void updateTextScore() {
+        ((TextView)getActivity().findViewById(R.id.text_diff_score)).setText(getString(R.string.text_diff_score));
+        ((TextView)getActivity().findViewById(R.id.text_match_score)).setText(getString(R.string.text_match_score));
+
+    }
+
+
+
 
 
     @SuppressWarnings("deprecation")
