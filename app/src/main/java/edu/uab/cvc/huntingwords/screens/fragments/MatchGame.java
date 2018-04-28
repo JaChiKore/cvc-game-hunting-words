@@ -23,6 +23,7 @@ import android.view.ViewManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -69,6 +70,10 @@ public class MatchGame  extends Fragment implements MatchView {
     @BindView(R.id.value_points)
     public TextView points;
 
+    @Nullable
+    @BindView(R.id.view_match_container_images)
+    public LinearLayout table;
+
     private Sounds sounds;
     private int currentSound;
     Context context;
@@ -107,8 +112,8 @@ public class MatchGame  extends Fragment implements MatchView {
         return view;
     }
 
-    private static int [] idImages = {R.id.match_img_0_0, R.id.match_img_0_1, R.id.match_img_0_2, R.id.match_img_1_0, R.id.match_img_1_1, R.id.match_img_1_2
-            , R.id.match_img_2_0, R.id.match_img_2_1, R.id.match_img_2_2, R.id.match_img_3_0, R.id.match_img_3_1, R.id.match_img_3_2};
+ //   private static int [] idImages = {R.id.match_img_0_0, R.id.match_img_0_1, R.id.match_img_0_2, R.id.match_img_1_0, R.id.match_img_1_1, R.id.match_img_1_2
+ //           , R.id.match_img_2_0, R.id.match_img_2_1, R.id.match_img_2_2, R.id.match_img_3_0, R.id.match_img_3_1, R.id.match_img_3_2};
     private static int [] idButtons = {R.id.match_but_0, R.id.match_but_1, R.id.match_but_2, R.id.match_but_3};
 
     @Override
@@ -116,24 +121,55 @@ public class MatchGame  extends Fragment implements MatchView {
         ((TextView)(this.getActivity().findViewById(R.id.value_match_total_score))).setText(String.valueOf(getPreferencesScore()));
 
 
-        if (filepaths.size()!=idImages.length) {
-            Timber.i("It doesn't have enough images");
-            return;
-        }
         if (buttons.size() !=idButtons.length) {
             Timber.i("It doesn't have buttons");
             return;
         }
         startCountdown();
-        for (int i = 0; i<idImages.length; i++) {
-            updateImageButton(idImages[i],filepaths.get(i));
-        }
 
+
+
+        table.removeAllViews();
+        for (int i=0; i<filepaths.size(); i++) {
+//            ContextThemeWrapper newContext = new ContextThemeWrapper(this.getActivity(), R.style.AppTheme);
+//            ImageButton imageButton = new ImageButton(newContext);
+            //imageButton.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+            ImageButton imageButton = new ImageButton(this.getActivity());
+            imageButton.setId(i+1);
+            imageButton.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+            String filepath = filepaths.get(i);
+            imageButton.setTag(filepath);
+            File file =  new File(getActivity().getFilesDir(),filepath);
+            Bitmap image = BitmapFactory.decodeFile(file.getAbsolutePath());
+
+            float scaled = scaledWidth / image.getWidth();
+            imageButton.setImageBitmap(Bitmap.createScaledBitmap(image, (int)scaledWidth, (int)(scaled * (float)image.getHeight()), false));
+
+            View.OnClickListener callback = (button) -> {
+                if (clickedImage!=-1) {
+                    if (this.getActivity().findViewById(clickedImage)!=null) {
+                        this.getActivity().findViewById(clickedImage).setBackgroundColor(getResources().getColor(R.color.white));
+                    }
+                }
+                clickedImage = button.getId();
+                button.setBackgroundColor(colorPrimary);
+                this.presenter.updateButtonsByImage((String)button.getTag());
+
+            };
+            imageButton.setOnClickListener(callback);
+            table.addView(imageButton);
+        }
         for (int i=0; i < idButtons.length; i++) {
             updateInfoButton(idButtons[i],buttons.get(i));
         }
+
+
         (this.getActivity().findViewById(R.id.match_but_4)).setTag(ANY_CORRECT);
         ((Button) this.getActivity().findViewById(R.id.match_but_4)).setText(getString(R.string.none_of_these));
+    }
+
+    private void updateImageButton(String filepath) {
+
     }
 
     @Override
@@ -329,7 +365,7 @@ public class MatchGame  extends Fragment implements MatchView {
 
 
 
-
+/*
     @Optional
     @OnClick({R.id.match_img_0_0, R.id.match_img_0_1, R.id.match_img_0_2, R.id.match_img_1_0, R.id.match_img_1_1, R.id.match_img_1_2, R.id.match_img_2_0, R.id.match_img_2_1, R.id.match_img_2_2, R.id.match_img_3_0, R.id.match_img_3_1, R.id.match_img_3_2})
     public void clickMatchImage(ImageButton button) {
@@ -343,6 +379,7 @@ public class MatchGame  extends Fragment implements MatchView {
         this.presenter.updateButtonsByImage((String)button.getTag());
 
     }
+    */
     @Optional
     @OnClick({ R.id.match_but_0, R.id.match_but_1, R.id.match_but_2, R.id.match_but_3, R.id.match_but_4 })
     public void clickMatchButton(Button button) {
