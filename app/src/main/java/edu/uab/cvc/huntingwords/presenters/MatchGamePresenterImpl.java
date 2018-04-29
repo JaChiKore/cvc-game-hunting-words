@@ -3,6 +3,7 @@ package edu.uab.cvc.huntingwords.presenters;
 import android.content.Context;
 import android.util.Pair;
 
+import java.io.FileNotFoundException;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -22,6 +23,9 @@ import edu.uab.cvc.huntingwords.models.MatchGameInformation;
 import edu.uab.cvc.huntingwords.models.MatchResult;
 import edu.uab.cvc.huntingwords.presenters.utils.GameLevel;
 import edu.uab.cvc.huntingwords.screens.views.MatchView;
+import edu.uab.cvc.huntingwords.tasks.loaders.LoaderMatchGameInformation;
+import edu.uab.cvc.huntingwords.tasks.loaders.UpdateMatchGame;
+import timber.log.Timber;
 
 import static edu.uab.cvc.huntingwords.Utils.EMPTY_BUTTON;
 
@@ -55,7 +59,7 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
 
     List<String> imagesCurrentRound;
    List<String> imagesFixCurrentRound;
-    List<String> usedImages;
+    List<String> playedTranscriptions;
     List<MatchResult> results;
     private int totalOks;
 
@@ -67,7 +71,7 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
         this.username = username;
         this.imagesFixCurrentRound = new ArrayList<>();
         this.imagesCurrentRound = new ArrayList<>();
-        this.usedImages = new ArrayList<>();
+        this.playedTranscriptions = new ArrayList<>();
         this.results = new ArrayList<>();
         this.level = new GameLevel(currentLevel);
 
@@ -103,8 +107,8 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
             updateLevel();
             deleteUsedImages();
             checkForMoreImages();
-            usedImages.addAll(imagesCurrentRound);
-            usedImages.addAll(imagesFixCurrentRound);
+            playedTranscriptions.addAll(imagesCurrentRound);
+            playedTranscriptions.addAll(imagesFixCurrentRound);
             finishRound();
         }
     }
@@ -165,7 +169,7 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
 
         }
 
-        if (usedImages.size() >= (matchInfo.keySet().size() +matchFixInfo.keySet().size())) {
+        if (playedTranscriptions.size() >= (matchInfo.keySet().size() +matchFixInfo.keySet().size())) {
             this.view.messageNotEnoughImages();
             return;
         }
@@ -237,7 +241,7 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
         while (imagesToUse.size() < info.keySet().size() && imagesToUse.size() < sizeForLevel) {
             int randomIndex = random.nextInt(info.keySet().size());
             String value = new ArrayList<>(info.keySet()).get(randomIndex);
-            if (!imagesToUse.contains(value) && !imagesToUse.contains(value) ) {
+            if (!imagesToUse.contains(value) && !playedTranscriptions.contains(value) ) {
                 imagesToUse.add(value);
             }
         }
@@ -249,4 +253,18 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
     private void updateLevel() {
         level.increase();
     }
+
+    public void loadMatchInfo() {
+        try {
+            new UpdateMatchGame(Utils.BATCH_MATCH_IMAGES).update(appContext);
+            new LoaderMatchGameInformation().load(appContext,matchInfo);
+            new LoaderMatchGameInformation().loadFix(appContext,matchFixInfo);
+
+        } catch (FileNotFoundException e) {
+            Timber.e(e);
+        }
+
+    }
+
+
 }

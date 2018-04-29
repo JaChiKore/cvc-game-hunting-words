@@ -51,6 +51,7 @@ import es.dmoral.toasty.Toasty;
 import timber.log.Timber;
 
 import static edu.uab.cvc.huntingwords.Utils.ANY_CORRECT;
+import static edu.uab.cvc.huntingwords.Utils.CURRENT_LEVEL_MATCH;
 import static edu.uab.cvc.huntingwords.Utils.CURRENT_SCORE_DIFF;
 import static edu.uab.cvc.huntingwords.Utils.CURRENT_SCORE_MATCH;
 import static edu.uab.cvc.huntingwords.Utils.EMPTY_BUTTON;
@@ -404,7 +405,7 @@ public class MatchGame  extends Fragment implements MatchView {
         SharedPreferences preferences = getActivity().getSharedPreferences(
                 getString(R.string.preferences_file), Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putInt(CURRENT_SCORE_MATCH,level);
+        editor.putInt(CURRENT_LEVEL_MATCH,level);
         editor.commit();
     }
 }

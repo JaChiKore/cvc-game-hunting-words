@@ -24,8 +24,13 @@ import edu.uab.cvc.huntingwords.tasks.difference.GetImagesDifferenceGame;
  */
 
 public class UpdateDifferenceGame {
+    private final Integer batchDiffImages;
     private String differenceGameInfoFilename = "differenceGameInfo.txt";
     private String differenceGameFixInfoFilename = "differenceGameFixInfo.txt";
+
+    public UpdateDifferenceGame(Integer batchDiffImages) {
+        this.batchDiffImages = batchDiffImages;
+    }
 
     public void cleanFiles(Context context) {
         File file =  context.getFilesDir();

@@ -25,8 +25,13 @@ import timber.log.Timber;
 
 public class UpdateMatchGame {
 
+    private final Integer batchMatchImages;
     private String matchGameInfoFilename = "matchGameInfo.txt";
     private String matchGameFixInfoFilename = "matchGameFixInfo.txt";
+
+    public UpdateMatchGame(Integer batchMatchImages) {
+        this.batchMatchImages = batchMatchImages;
+    }
 
     public void cleanFiles(Context context) {
         File file =  context.getFilesDir();

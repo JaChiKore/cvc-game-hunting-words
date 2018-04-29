@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 
 import javax.inject.Inject;
 
+import edu.uab.cvc.huntingwords.Utils;
 import edu.uab.cvc.huntingwords.application.AppController;
 import edu.uab.cvc.huntingwords.models.DifferenceFixGameInformation;
 import edu.uab.cvc.huntingwords.models.DifferenceGameInformation;
@@ -56,7 +57,7 @@ public class PlayPresenterImpl implements PlayPresenter {
     @Override
     public void loadMatchInfo() {
         try {
-            new UpdateMatchGame().update(appContext);
+            new UpdateMatchGame(Utils.BATCH_MATCH_IMAGES).update(appContext);
             new LoaderMatchGameInformation().load(appContext,matchInfo);
             new LoaderMatchGameInformation().loadFix(appContext,matchFixInfo);
 
@@ -69,7 +70,7 @@ public class PlayPresenterImpl implements PlayPresenter {
     @Override
     public void loadDifferenceInfo() {
         try {
-            new UpdateDifferenceGame().update(appContext);
+            new UpdateDifferenceGame(Utils.BATCH_DIFF_IMAGES).update(appContext);
             new LoaderDifferenceGameInformation().load(appContext,differenceInfo);
             new LoaderDifferenceGameInformation().loadFix(appContext,differenceFixInfo);
 

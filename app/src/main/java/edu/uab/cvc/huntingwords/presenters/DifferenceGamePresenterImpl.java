@@ -3,6 +3,7 @@ package edu.uab.cvc.huntingwords.presenters;
 import android.content.Context;
 import android.util.Pair;
 
+import java.io.FileNotFoundException;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -14,12 +15,16 @@ import java.util.List;
 import javax.inject.Inject;
 
 import edu.uab.cvc.huntingwords.R;
+import edu.uab.cvc.huntingwords.Utils;
 import edu.uab.cvc.huntingwords.application.AppController;
 import edu.uab.cvc.huntingwords.models.ClusterDifferentResult;
 import edu.uab.cvc.huntingwords.models.DifferenceFixGameInformation;
 import edu.uab.cvc.huntingwords.models.DifferenceGameInformation;
 import edu.uab.cvc.huntingwords.presenters.utils.GameLevel;
 import edu.uab.cvc.huntingwords.screens.views.DifferenceView;
+import edu.uab.cvc.huntingwords.tasks.loaders.LoaderDifferenceGameInformation;
+import edu.uab.cvc.huntingwords.tasks.loaders.UpdateDifferenceGame;
+import timber.log.Timber;
 
 /**
  * Created by carlosb on 4/16/18.
@@ -215,12 +220,12 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
         currentScore++;
         view.updateOK(currentScore);
         if (clustersToPlay.size()==0) {
-            //TODO update score!
             updateLevel();
             checkForMoreImages();
             view.runPlayAgainDialog(currentScore,level.getLevel());
         } else {
             keyCurrentPlay = clustersToPlay.get(0);
+            //FIXME change to repeat same clusters if not pass the level
             playedClusters.add(keyCurrentPlay);
             this.updateGame();
 
@@ -314,9 +319,18 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
     private void checkForMoreImages() {
     }
 
-    private void deleteUsedImages() {
-    }
+    public void loadDifferenceInfo() {
+        try {
+            new UpdateDifferenceGame(Utils.BATCH_DIFF_IMAGES).update(appContext);
+            new LoaderDifferenceGameInformation().load(appContext,diffInfo);
+            new LoaderDifferenceGameInformation().loadFix(appContext,diffFixInfo);
 
+        } catch (FileNotFoundException e) {
+            Timber.e(e);
+        }
+
+
+    }
 
 
 

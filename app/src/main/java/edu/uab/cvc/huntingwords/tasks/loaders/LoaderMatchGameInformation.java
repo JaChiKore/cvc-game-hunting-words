@@ -8,9 +8,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.UTFDataFormatException;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -24,9 +22,6 @@ public class LoaderMatchGameInformation {
 
     private final String matchGameInfoFilename = "matchGameInfo.txt";
     private final String matchGameFixInfoFilename = "matchGameFixInfo.txt";
-
-
-
 
 
     public void load(Context context, Hashtable<String,Pair<List<String>,String>> matchGameImages) throws FileNotFoundException {
