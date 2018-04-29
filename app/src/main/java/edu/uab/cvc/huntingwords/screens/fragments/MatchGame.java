@@ -47,6 +47,7 @@ import edu.uab.cvc.huntingwords.screens.Sounds;
 import edu.uab.cvc.huntingwords.screens.Utils;
 import edu.uab.cvc.huntingwords.screens.views.MatchView;
 import edu.uab.cvc.huntingwords.utils.Constants;
+import es.dmoral.toasty.Toasty;
 import timber.log.Timber;
 
 import static edu.uab.cvc.huntingwords.Utils.ANY_CORRECT;
@@ -188,18 +189,14 @@ public class MatchGame  extends Fragment implements MatchView {
         updateInfoButton(R.id.match_but_4,EMPTY_BUTTON);
     }
 
-
-    private void showStar() {
-        ((ImageView)this.getActivity().findViewById(R.id.match_image_ok_or_fail)).setImageResource(android.R.drawable.btn_star_big_on);
+    private void showHit() {
+        Toasty.success(this.getActivity(), "", Toast.LENGTH_SHORT, true).show();
     }
 
-    private void showOffStar() {
-        ((ImageView)this.getActivity().findViewById(R.id.match_image_ok_or_fail)).setImageResource(android.R.drawable.btn_star_big_off);
+    private void showFail() {
+        Toasty.error(this.getActivity(), "", Toast.LENGTH_SHORT, true).show();
     }
 
-    private void cleanStar() {
-        ((ImageView)this.getActivity().findViewById(R.id.match_image_ok_or_fail)).setImageResource(0);
-    }
 
 
 
@@ -256,14 +253,13 @@ public class MatchGame  extends Fragment implements MatchView {
 
     @Override
     public void updateOK(int idImage, float currentScore) {
-    //    playOk();
         hideButton(idImage);
         cleanButtons();
          new Thread() {
             public void run() {
                 getActivity().runOnUiThread(
                         () -> {
-                            showStar();
+                            showHit();
                             playOk();
                             points.setText(String.valueOf(currentScore));
                         });
@@ -279,7 +275,7 @@ public class MatchGame  extends Fragment implements MatchView {
             public void run() {
                 getActivity().runOnUiThread(
                         () -> {
-                            showOffStar();
+                            showFail();
                             playFail();
                         });
 

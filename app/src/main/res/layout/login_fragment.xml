@@ -47,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/password_text"
                 android:textSize="18sp" />
-
+            <!--     android:imeOptions="flagNoExtractUi"  -->
             <EditText
                 android:id="@+id/edit_pasword"
                 android:layout_width="wrap_content"

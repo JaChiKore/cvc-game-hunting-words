@@ -120,7 +120,7 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
         //TODO APPLY DELETE IMAGES TESTED
 
         setUpInfo(level.getNum(), random, diffInfo,listClusters);
-        setUpInfo(level.getNumFix(), random, diffInfo,listFixClusters);
+        setUpInfo(level.getNumFix(), random, diffFixInfo,listFixClusters);
 
         countUsed+=listClusters.size();
         countFixUsed+=listFixClusters.size();
@@ -310,6 +310,10 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
 
     private void checkForMoreImages() {
     }
+
+    private void deleteUsedImages() {
+    }
+
 
 
 

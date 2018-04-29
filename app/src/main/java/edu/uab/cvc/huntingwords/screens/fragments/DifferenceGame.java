@@ -15,18 +15,13 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
-import android.text.Layout;
 import android.util.TypedValue;
-import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,10 +40,10 @@ import edu.uab.cvc.huntingwords.screens.Sounds;
 import edu.uab.cvc.huntingwords.screens.Utils;
 import edu.uab.cvc.huntingwords.screens.views.DifferenceView;
 import edu.uab.cvc.huntingwords.utils.Constants;
+import es.dmoral.toasty.Toasty;
 
 import static edu.uab.cvc.huntingwords.Utils.COUNT_DOWN_INTERVAL;
 import static edu.uab.cvc.huntingwords.Utils.CURRENT_SCORE_DIFF;
-import static edu.uab.cvc.huntingwords.Utils.CURRENT_SCORE_MATCH;
 import static edu.uab.cvc.huntingwords.Utils.MAX_TIME;
 
 /**
@@ -160,12 +155,11 @@ public class DifferenceGame extends Fragment implements DifferenceView {
 
     @Override
     public void updateOK(float currentScore) {
-//        playOk();
         new Thread() {
             public void run() {
                 getActivity().runOnUiThread(
                         () -> {
-                            showStar();
+                            showHit();
                             playOk();
                             points.setText(String.valueOf(currentScore));
                         });
@@ -181,7 +175,7 @@ public class DifferenceGame extends Fragment implements DifferenceView {
             public void run() {
                 getActivity().runOnUiThread(
                         () -> {
-                            showOffStar();
+                            showFail();
                             playFail();
                         });
 
@@ -254,16 +248,12 @@ public class DifferenceGame extends Fragment implements DifferenceView {
 
 
 
-    private void showStar() {
-        ((ImageView)this.getActivity().findViewById(R.id.diff_image_ok_or_fail)).setImageResource(android.R.drawable.btn_star_big_on);
+    private void showHit() {
+        Toasty.success(this.getActivity(), "", Toast.LENGTH_SHORT, true).show();
     }
 
-    private void showOffStar() {
-        ((ImageView)this.getActivity().findViewById(R.id.diff_image_ok_or_fail)).setImageResource(android.R.drawable.btn_star_big_off);
-    }
-
-    private void cleanStar() {
-        ((ImageView)this.getActivity().findViewById(R.id.diff_image_ok_or_fail)).setImageResource(0);
+    private void showFail() {
+        Toasty.error(this.getActivity(), "", Toast.LENGTH_SHORT, true).show();
     }
 
 

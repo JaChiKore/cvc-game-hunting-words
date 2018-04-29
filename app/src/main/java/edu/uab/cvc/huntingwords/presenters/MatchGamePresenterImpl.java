@@ -108,11 +108,15 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
 
             //TODO update diff
             updateLevel();
+            deleteUsedImages();
             checkForMoreImages();
             usedImages.addAll(imagesCurrentRound);
             usedImages.addAll(imagesFixCurrentRound);
             finishRound();
         }
+    }
+
+    private void deleteUsedImages() {
     }
 
     private void checkForMoreImages() {
