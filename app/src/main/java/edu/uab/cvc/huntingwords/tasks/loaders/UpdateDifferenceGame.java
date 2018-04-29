@@ -129,6 +129,7 @@ public class UpdateDifferenceGame {
 
             } catch (Exception e) {
                 Log.e("Error", "Failed checking old fix images.");
+                cleanFiles(context);
             }
 
             if (ffix.exists()) {
@@ -153,6 +154,7 @@ public class UpdateDifferenceGame {
 
                 } catch (Exception e) {
                     Log.e("Error", "Failed checking fix images of difference game.");
+                    cleanFiles(context);
                 }
             } else {
                 needDownloadFix = true;

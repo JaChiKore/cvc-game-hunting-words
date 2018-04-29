@@ -135,7 +135,8 @@ public class UpdateMatchGame {
                 }
 
             } catch (Exception e) {
-                Log.e("Error", "Failed checking old fix images.");
+                Log.e("Error", "Failed checking old images for match game.");
+                cleanFiles(context);
             }
 
             try {
@@ -159,6 +160,8 @@ public class UpdateMatchGame {
 
             } catch (Exception e) {
                 Log.e("Error", "Failed checking fix images of match game.");
+                cleanFiles(context);
+
             }
         } else {
             needDownloadFix = true;

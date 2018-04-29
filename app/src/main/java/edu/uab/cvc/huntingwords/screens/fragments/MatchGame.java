@@ -116,7 +116,9 @@ public class MatchGame  extends Fragment implements MatchView {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        timer.cancel();;
+        if (timer!=null) {
+            timer.cancel();
+        }
     }
 
     private static int [] idButtons = {R.id.match_but_0, R.id.match_but_1, R.id.match_but_2, R.id.match_but_3};
@@ -139,6 +141,7 @@ public class MatchGame  extends Fragment implements MatchView {
             imageButton.setBackgroundColor(getResources().getColor(android.R.color.transparent));
             String filepath = filepaths.get(i);
             imageButton.setTag(filepath);
+            imageButton.setBackgroundResource(R.drawable.border);
             File file =  new File(getActivity().getFilesDir(),filepath);
             Bitmap image = BitmapFactory.decodeFile(file.getAbsolutePath());
 
@@ -148,7 +151,8 @@ public class MatchGame  extends Fragment implements MatchView {
             View.OnClickListener callback = (button) -> {
                 if (clickedImage!=-1) {
                     if (this.getActivity().findViewById(clickedImage)!=null) {
-                        this.getActivity().findViewById(clickedImage).setBackgroundColor(getResources().getColor(R.color.white));
+                       // this.getActivity().findViewById(clickedImage).setBackgroundColor(getResources().getColor(R.color.white));
+                        this.getActivity().findViewById(clickedImage).setBackgroundResource(R.drawable.border);
                     }
                 }
                 clickedImage = button.getId();
@@ -354,7 +358,7 @@ public class MatchGame  extends Fragment implements MatchView {
         if (clickedImage==-1) {
             return;
         }
-        this.getActivity().findViewById(clickedImage).setBackgroundColor(getResources().getColor(R.color.white));
+        this.getActivity().findViewById(clickedImage).setBackgroundResource(R.drawable.border);
         ImageButton image = (ImageButton)this.getActivity().findViewById(clickedImage);
         presenter.checkSolution(clickedImage, button.getId(),(String)image.getTag(),(String)button.getTag());
         //TODO clean when it eliminate two

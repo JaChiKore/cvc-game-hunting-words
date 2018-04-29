@@ -111,7 +111,10 @@ public class DifferenceGame extends Fragment implements DifferenceView {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        timer.cancel();;
+        if (timer!=null) {
+            timer.cancel();
+        }
+
     }
 
     private float scaledWidth = 300f;
@@ -125,6 +128,7 @@ public class DifferenceGame extends Fragment implements DifferenceView {
             imageButton.setBackgroundColor(getResources().getColor(android.R.color.transparent));
             String filepath = filepaths.get(i);
             imageButton.setTag(filepath);
+            imageButton.setBackgroundResource(R.drawable.border);
             File file =  new File(getActivity().getFilesDir(),filepath);
             Bitmap image = BitmapFactory.decodeFile(file.getAbsolutePath());
 

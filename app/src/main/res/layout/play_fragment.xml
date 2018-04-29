@@ -31,13 +31,13 @@
                     android:layout_height="wrap_content"
                     android:text="@string/match_game" />
 
-
+<!--
                 <com.cunoraz.gifview.library.GifView
                     android:id="@+id/imageViewMatch"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     custom:gif="@mipmap/match" />
-
+-->
 
                 <Button
                     android:id="@+id/match"
@@ -72,11 +72,13 @@
                     android:text="@string/difference_game" />
 
 
+                <!--
                 <com.cunoraz.gifview.library.GifView
                     android:id="@+id/imageViewDifference"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     custom:gif="@mipmap/difference" />
+                -->
 
 
                 <Button
