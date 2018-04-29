@@ -18,10 +18,8 @@ import edu.uab.cvc.huntingwords.application.AppController;
 import edu.uab.cvc.huntingwords.models.ClusterDifferentResult;
 import edu.uab.cvc.huntingwords.models.DifferenceFixGameInformation;
 import edu.uab.cvc.huntingwords.models.DifferenceGameInformation;
-import edu.uab.cvc.huntingwords.models.MatchResult;
 import edu.uab.cvc.huntingwords.presenters.utils.GameLevel;
 import edu.uab.cvc.huntingwords.screens.views.DifferenceView;
-import edu.uab.cvc.huntingwords.tasks.services.DifferenceService;
 
 /**
  * Created by carlosb on 4/16/18.

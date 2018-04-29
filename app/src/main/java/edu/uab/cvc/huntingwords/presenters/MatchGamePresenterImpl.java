@@ -1,19 +1,16 @@
 package edu.uab.cvc.huntingwords.presenters;
 
 import android.content.Context;
-import android.provider.Settings;
 import android.util.Pair;
 
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Random;
-import java.util.TreeSet;
 
 import javax.inject.Inject;
 
@@ -25,7 +22,6 @@ import edu.uab.cvc.huntingwords.models.MatchGameInformation;
 import edu.uab.cvc.huntingwords.models.MatchResult;
 import edu.uab.cvc.huntingwords.presenters.utils.GameLevel;
 import edu.uab.cvc.huntingwords.screens.views.MatchView;
-import edu.uab.cvc.huntingwords.tasks.services.MatchService;
 
 import static edu.uab.cvc.huntingwords.Utils.EMPTY_BUTTON;
 
@@ -34,10 +30,6 @@ import static edu.uab.cvc.huntingwords.Utils.EMPTY_BUTTON;
  */
 
 public class MatchGamePresenterImpl implements MatchGamePresenter {
-
-    public static final int NUM_IMAGES_FOR_ROUND = 12;
-
-
 
     @Inject
     MatchGameInformation matchInfo;
@@ -251,7 +243,7 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
         }
 
     }
-    
+
 
 
     private void updateLevel() {
