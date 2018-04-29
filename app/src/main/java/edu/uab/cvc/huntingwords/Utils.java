@@ -11,8 +11,6 @@ public class Utils {
     public static String ANY_CORRECT = "0";
     public static final String EMPTY_BUTTON = "";
 
-    public static final String ALL_EQUAL = ";all_equal;";
-    public static final String ALL_DIFFERENT = ";more_than_one;";
     public static final String CURRENT_SCORE_MATCH = "CURRENT_SCORE_MATCH";
     public static final String CURRENT_SCORE_DIFF = "CURRENT_SCORE_DIFF";
 

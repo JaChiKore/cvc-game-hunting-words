@@ -81,8 +81,6 @@ public class MatchGame  extends Fragment implements MatchView {
     Context context;
     FragmentActivity fragActivity;
     private CountDownTimer timer;
-    private int preferencesLevel;
-
 
     public static MatchGame newInstance() {
         MatchGame frag = new MatchGame();

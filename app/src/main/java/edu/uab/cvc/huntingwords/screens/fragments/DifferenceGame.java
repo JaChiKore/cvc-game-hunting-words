@@ -318,13 +318,13 @@ public class DifferenceGame extends Fragment implements DifferenceView {
     public int getPreferencesLevel() {
         SharedPreferences preferences = getActivity().getSharedPreferences(
                 getString(R.string.preferences_file), Context.MODE_PRIVATE);
-        return preferences.getInt(edu.uab.cvc.huntingwords.Utils.CURRENT_SCORE_DIFF,0);
+        return preferences.getInt(edu.uab.cvc.huntingwords.Utils.CURRENT_LEVEL_DIFFERENCE,0);
     }
     public void updatePreferencesLevel(Integer level) {
         SharedPreferences preferences = getActivity().getSharedPreferences(
                 getString(R.string.preferences_file), Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putInt(CURRENT_SCORE_DIFF,level);
+        editor.putInt(edu.uab.cvc.huntingwords.Utils.CURRENT_LEVEL_DIFFERENCE,level);
         editor.commit();
     }
 }
