@@ -11,7 +11,7 @@
     <string name="password_text">Contraseña</string>
     <string name="return_text">Volver</string>
     <string name="how_to_play">Como se juega?</string>
-    <string name="no_more_images">Se han acabado las imágenes;esperando que añadan más...</string>
+    <string name="no_more_images">Se han acabado las imágenes esperando que añadan más...</string>
     <string name="match_game_score">Puntuaciones Match Game</string>
     <string name="difference_game_score">Puntuaciones Difference Game</string>
     <string name="downloading_fix_text">Descargando ficheros fijos... (espere y no apague la pantalla)</string>

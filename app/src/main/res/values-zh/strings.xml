@@ -11,7 +11,7 @@
     <string name="return_text">返回</string>
     <string name="how_to_play">怎么玩?</string>
     <string name="session">我的</string>
-    <string name="no_more_images">没有更多的图片了;正在等待新的图片...</string>
+    <string name="no_more_images">没有更多的图片了 正在等待新的图片...</string>
     <string name="match_game_score">Match Game 的分数</string>
     <string name="difference_game_score">Difference Game 的分数</string>
     <string name="downloading_fix_text">静态文件下载中... (稍等片刻，请别关闭屏幕)</string>

@@ -11,7 +11,7 @@
     <string name="username_text">Username</string>
     <string name="return_text">Back</string>
     <string name="how_to_play">How to Play?</string>
-    <string name="no_more_images">No more images to play;wait until new images come...</string>
+    <string name="no_more_images">No more images to play wait until new images come...</string>
     <string name="match_game_score">Match Game Score</string>
     <string name="difference_game_score">Difference Game Score</string>
     <string name="downloading_fix_text">Downloading static files... (wait and don\'t turn off the screen)</string>

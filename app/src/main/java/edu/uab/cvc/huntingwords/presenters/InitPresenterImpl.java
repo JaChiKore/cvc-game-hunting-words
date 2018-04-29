@@ -28,7 +28,12 @@ public class InitPresenterImpl implements InitPresenter {
                                 public void updateScore(Integer matchScore, Integer diffScore) {
                                                             view.updateScore(matchScore,diffScore);
                                                 }
-                            };
+
+                                       @Override
+                                       public void error() {
+
+                                       }
+               };
                new GetRanking(callback).execute(name);
             }
 }

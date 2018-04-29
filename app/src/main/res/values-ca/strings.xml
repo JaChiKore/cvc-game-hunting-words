@@ -11,7 +11,7 @@
     <string name="username_text">Usuari</string>
     <string name="return_text">Tornar</string>
     <string name="how_to_play">Com es juga?</string>
-    <string name="no_more_images">S\'han acabat les imatges;esperant que posin més...</string>
+    <string name="no_more_images">S\'han acabat les imatges esperant que posin més...</string>
     <string name="match_game_score">Puntuacions Match Game</string>
     <string name="difference_game_score">Puntuacions Difference Game</string>
     <string name="downloading_fix_text">Descarregant fitxers fixes... (esperi i no apagui la pantalla)</string>

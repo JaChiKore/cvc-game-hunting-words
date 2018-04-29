@@ -17,6 +17,7 @@ import java.util.TreeSet;
 
 import javax.inject.Inject;
 
+import edu.uab.cvc.huntingwords.R;
 import edu.uab.cvc.huntingwords.Utils;
 import edu.uab.cvc.huntingwords.application.AppController;
 import edu.uab.cvc.huntingwords.models.MatchFixGameInformation;
@@ -221,6 +222,9 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
 
     @Override
     public void uploadResult(Integer oldScore, Integer newTotalPoints) {
+        if (this.username.equals(appContext.getString(R.string.anonym))) {
+            return;
+        }
         List<MatchResult> newResults = new ArrayList<MatchResult>(this.results);
 /*
         Date stoppedDate = Calendar.getInstance().getTime();

@@ -9,4 +9,6 @@ public interface ConnectCallback {
 
 
     void updateScore(Integer matchScore, Integer diffScore);
+
+    void error();
 }

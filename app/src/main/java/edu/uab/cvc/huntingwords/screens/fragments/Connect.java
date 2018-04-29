@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -58,6 +59,18 @@ public class Connect extends Fragment implements LoginView {
         this.presenter.signin(user,pass);
     }
 
+    @OnClick(R.id.disconnect)
+    public void disconnect() {
+        setUpAnonymousParameters();
+        TextView valueMatchScore = (TextView)this.getActivity().findViewById(R.id.value_match_total_score);
+        TextView valueDiffScore = (TextView)this.getActivity().findViewById(R.id.value_diff_total_score);
+        TextView textView = (TextView)getActivity().findViewById(R.id.logged_user);
+        valueMatchScore.setText("0");
+        valueDiffScore.setText("0");
+        getActivity().runOnUiThread( () ->  textView.setText(getString(R.string.anonym)));
+
+    }
+
     @Override
     public void updateLogin(String username) {
         TextView textView = (TextView)getActivity().findViewById(R.id.logged_user);
@@ -97,5 +110,26 @@ public class Connect extends Fragment implements LoginView {
         editor.putString(Constants.PARAM_USERNAME,username);
         editor.putString(Constants.PARAM_PASSWORD,passw);
         editor.commit();
+    }
+
+    public void setUpAnonymousParameters() {
+        SharedPreferences preferences = getActivity().getSharedPreferences(
+                getString(R.string.preferences_file), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(Constants.PARAM_USERNAME,getString(R.string.anonym));
+        editor.commit();
+    }
+
+    @Override
+    public void errorLogin() {
+        new Thread() {
+            public void run() {
+                getActivity().runOnUiThread(
+                        () -> {
+                            Toast.makeText(getActivity(),getString(R.string.logged_fail),Toast.LENGTH_LONG).show();
+                        });
+
+            }
+        }.start();
     }
 }

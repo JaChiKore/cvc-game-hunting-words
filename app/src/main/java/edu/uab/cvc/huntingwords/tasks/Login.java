@@ -43,8 +43,11 @@ public class Login extends AsyncTask<String, Void, Boolean> {
             next = bufferedReader.readLine();
 
             correct = next.contentEquals("true");
-            onResult.updateLogin(arg[0],arg[1]);
-
+            if (correct ) {
+                onResult.updateLogin(arg[0], arg[1]);
+            } else {
+                onResult.error();
+            }
         } catch (Exception e) {
             e.printStackTrace();
             correct = false;

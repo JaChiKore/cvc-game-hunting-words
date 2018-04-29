@@ -232,7 +232,6 @@ public class MatchGame  extends Fragment implements MatchView {
     @Override
     public void hideButton(int idImage) {
         View v = (View)this.getActivity().findViewById(idImage);
-                //.setVisibility(View.INVISIBLE);
         ((ViewManager)v.getParent()).removeView(v);
     }
 

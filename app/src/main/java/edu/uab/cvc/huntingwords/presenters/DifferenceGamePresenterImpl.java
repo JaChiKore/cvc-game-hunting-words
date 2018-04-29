@@ -13,6 +13,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import edu.uab.cvc.huntingwords.R;
 import edu.uab.cvc.huntingwords.application.AppController;
 import edu.uab.cvc.huntingwords.models.ClusterDifferentResult;
 import edu.uab.cvc.huntingwords.models.DifferenceFixGameInformation;
@@ -232,6 +233,10 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
 
     @Override
     public void uploadResult(Integer oldScore, Integer newTotalPoints) {
+        if (this.username.equals(appContext.getString(R.string.anonym))) {
+            return;
+        }
+
         List<ClusterDifferentResult> newResults = new ArrayList<ClusterDifferentResult>(this.results);
 /*
         Date stoppedDate = Calendar.getInstance().getTime();

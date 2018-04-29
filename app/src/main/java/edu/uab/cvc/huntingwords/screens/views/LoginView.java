@@ -12,4 +12,6 @@ public interface LoginView {
     void updateScore(int matchScore, int diffScore);
 
     void setUpLoginParameters(String username, String passw);
+
+    void errorLogin();
 }

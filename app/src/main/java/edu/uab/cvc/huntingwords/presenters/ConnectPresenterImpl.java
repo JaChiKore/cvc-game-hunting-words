@@ -16,7 +16,7 @@ import edu.uab.cvc.huntingwords.tasks.Login;
  * Created by carlosb on 10/04/18.
  */
 
-public class ConnectPresenterImpl implements ConnectPresenter, ConnectCallback {
+public class ConnectPresenterImpl implements ConnectPresenter {
 
     @Inject
     UserInformation userInfo;
@@ -29,31 +29,60 @@ public class ConnectPresenterImpl implements ConnectPresenter, ConnectCallback {
         this.view = login;
     }
 
-    @Override
-    public void updateLogin(String username, String password) {
-        this.view.setUpLoginParameters(username,password);
-        this.view.updateLogin(username);
-        userInfo.setUsername(username);
-    }
 
-    @Override
-    public void updateScore(Integer matchScore, Integer diffScore) {
-        userInfo.setScore(matchScore,diffScore);
-        this.view.updateScore(matchScore,diffScore);
-    }
 
 
     @Override
     public boolean login(final String username, String passw) {
-        new Login(this).execute(username,passw);
-        new GetRanking(this).execute(username);
+        ConnectCallback callback = new ConnectCallback() {
+            @Override
+            public void updateLogin(String username, String password) {
+                view.setUpLoginParameters(username,password);
+                view.updateLogin(username);
+                userInfo.setUsername(username);
+            }
+
+            @Override
+            public void updateScore(Integer matchScore, Integer diffScore) {
+                userInfo.setScore(matchScore,diffScore);
+                view.updateScore(matchScore,diffScore);
+            }
+
+            @Override
+            public void error() {
+                view.errorLogin();
+
+            }
+        };
+        new Login(callback).execute(username,passw);
+        new GetRanking(callback).execute(username);
         return true;
     }
 
 
     @Override
     public boolean signin(String username, String passw) {
-        new InsertUser(this).execute(username,passw);
+        ConnectCallback callback = new ConnectCallback() {
+            @Override
+            public void updateLogin(String username, String password) {
+                view.setUpLoginParameters(username,password);
+                view.updateLogin(username);
+                userInfo.setUsername(username);
+            }
+
+            @Override
+            public void updateScore(Integer matchScore, Integer diffScore) {
+                userInfo.setScore(matchScore,diffScore);
+                view.updateScore(matchScore,diffScore);
+            }
+
+            @Override
+            public void error() {
+                view.errorLogin();
+
+            }
+        };
+        new InsertUser(callback).execute(username,passw);
         return true;
     }
 }
