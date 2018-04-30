@@ -2,6 +2,8 @@ package edu.uab.cvc.huntingwords.screens.views;
 
 import java.util.List;
 
+import edu.uab.cvc.huntingwords.screens.fragments.CallbackPostDialog;
+
 /**
  * Created by carlosb on 4/16/18.
  */
@@ -15,7 +17,9 @@ public interface DifferenceView {
 
     void updateFail();
 
-    void runPlayAgainDialog(float currentScore, int level);
+    void runPlayAgainDialog(float currentScore, int level, CallbackPostDialog callback);
 
     void startCountdown();
+
+    void startDialog();
 }

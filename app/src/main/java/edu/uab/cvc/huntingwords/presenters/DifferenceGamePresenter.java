@@ -20,4 +20,6 @@ public interface DifferenceGamePresenter {
     void checkSame();
 
     void restartGame();
+
+    void loadMoreInfo();
 }

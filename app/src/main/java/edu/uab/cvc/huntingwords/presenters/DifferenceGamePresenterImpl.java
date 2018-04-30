@@ -1,6 +1,7 @@
 package edu.uab.cvc.huntingwords.presenters;
 
 import android.content.Context;
+import android.telecom.Call;
 import android.util.Pair;
 
 import java.io.FileNotFoundException;
@@ -21,9 +22,11 @@ import edu.uab.cvc.huntingwords.models.ClusterDifferentResult;
 import edu.uab.cvc.huntingwords.models.DifferenceFixGameInformation;
 import edu.uab.cvc.huntingwords.models.DifferenceGameInformation;
 import edu.uab.cvc.huntingwords.presenters.utils.GameLevel;
+import edu.uab.cvc.huntingwords.screens.fragments.CallbackPostDialog;
 import edu.uab.cvc.huntingwords.screens.views.DifferenceView;
 import edu.uab.cvc.huntingwords.tasks.loaders.LoaderDifferenceGameInformation;
 import edu.uab.cvc.huntingwords.tasks.loaders.UpdateDifferenceGame;
+import edu.uab.cvc.huntingwords.tasks.services.DifferenceService;
 import timber.log.Timber;
 
 /**
@@ -102,24 +105,7 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
 
         //TODO CHECK NOT MORE AVAILABLE IMAGES
 
-        if(usedClusters.size() >= diffInfo.size()  ||   usedFixClusters.size() >= diffFixInfo.size()) {
-                return;
-        }
-
-        /* not more available clusters */
-        if (playedClusters.size() >= (diffInfo.size()+diffFixInfo.size())) {
-            return;
-        }
-
-
-        /* analysed all images with correct mix */
-        if ((diffInfo.keySet().size()-countUsed) <  level.getNum()
-                ||
-                (diffFixInfo.keySet().size()-countFixUsed) <level.getNumFix()
-                ) {
-            return;
-
-        }
+        if (isItNeedImages()) return;
 
         //TODO APPLY DELETE IMAGES TESTED
 
@@ -134,6 +120,28 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
         Collections.shuffle(clustersToPlay);
         view.startCountdown();
 
+    }
+
+    private boolean isItNeedImages() {
+        if(usedClusters.size() >= diffInfo.size()  ||   usedFixClusters.size() >= diffFixInfo.size()) {
+            return true;
+        }
+
+        /* not more available clusters */
+        if (playedClusters.size() >= (diffInfo.size()+diffFixInfo.size())) {
+            return true;
+        }
+
+
+        /* analysed all images with correct mix */
+        if ((diffInfo.keySet().size()-countUsed) <  level.getNum()
+                ||
+                (diffFixInfo.keySet().size()-countFixUsed) <level.getNumFix()
+                ) {
+            return true;
+
+        }
+        return false;
     }
 
     @Override
@@ -180,7 +188,8 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
 
     @Override
     public void finishRound() {
-        this.view.runPlayAgainDialog(currentScore,level.getLevel());
+        CallbackPostDialog callback = () -> restartGame();
+        this.view.runPlayAgainDialog(currentScore,level.getLevel(),callback);
     }
 
     @Override
@@ -221,8 +230,8 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
         view.updateOK(currentScore);
         if (clustersToPlay.size()==0) {
             updateLevel();
-            checkForMoreImages();
-            view.runPlayAgainDialog(currentScore,level.getLevel());
+            CallbackPostDialog callback = () -> checkForMoreImages();
+            view.runPlayAgainDialog(currentScore,level.getLevel(), callback);
         } else {
             keyCurrentPlay = clustersToPlay.get(0);
             //FIXME change to repeat same clusters if not pass the level
@@ -230,6 +239,15 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
             this.updateGame();
 
         }
+    }
+
+
+
+    private void checkForMoreImages() {
+        if (!isItNeedImages()) {
+            return;
+        }
+        this.view.startDialog();
 
     }
 
@@ -241,17 +259,9 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
         }
 
         List<ClusterDifferentResult> newResults = new ArrayList<ClusterDifferentResult>(this.results);
-/*
         Date stoppedDate = Calendar.getInstance().getTime();
-        String level = "4";
-
-        //TODO fix this!!
-        //4 -> easy
-        //6 -> medium
-        //8 -> hard
-        new DifferenceService(this.username).run(this.results,level,startedDate,stoppedDate,oldScore,newTotalPoints);
-*/
-
+//        new DifferenceService(this.username).run(newResults,String.valueOf(level.getLevel()),startedDate,stoppedDate,oldScore,newTotalPoints);
+        this.results.clear();
     }
 
     @Override
@@ -316,10 +326,10 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
         level.increase();
     }
 
-    private void checkForMoreImages() {
-    }
 
-    public void loadDifferenceInfo() {
+
+    @Override
+    public void loadMoreInfo() {
         try {
             new UpdateDifferenceGame(Utils.BATCH_DIFF_IMAGES).update(appContext);
             new LoaderDifferenceGameInformation().load(appContext,diffInfo);

@@ -2,6 +2,8 @@ package edu.uab.cvc.huntingwords.screens.views;
 
 import java.util.List;
 
+import edu.uab.cvc.huntingwords.screens.fragments.CallbackPostDialog;
+
 /**
  * Created by carlosb on 4/15/18.
  */
@@ -22,5 +24,7 @@ public interface MatchView {
 
     void updateFail();
 
-    void runPlayAgainDialog(float currentScore, int level);
+    void runPlayAgainDialog(float currentScore, int level, CallbackPostDialog postDialog);
+
+    void startDialog();
 }

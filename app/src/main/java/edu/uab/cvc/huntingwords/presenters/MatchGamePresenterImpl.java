@@ -22,6 +22,7 @@ import edu.uab.cvc.huntingwords.models.MatchFixGameInformation;
 import edu.uab.cvc.huntingwords.models.MatchGameInformation;
 import edu.uab.cvc.huntingwords.models.MatchResult;
 import edu.uab.cvc.huntingwords.presenters.utils.GameLevel;
+import edu.uab.cvc.huntingwords.screens.fragments.CallbackPostDialog;
 import edu.uab.cvc.huntingwords.screens.views.MatchView;
 import edu.uab.cvc.huntingwords.tasks.loaders.LoaderMatchGameInformation;
 import edu.uab.cvc.huntingwords.tasks.loaders.UpdateMatchGame;
@@ -102,24 +103,29 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
         }
         //TODO CHANGE SIZE IMAGS TO UPLOAD
         if (numOks == totalOks) {
-
             //TODO update diff
-            updateLevel();
-            deleteUsedImages();
-            checkForMoreImages();
             playedTranscriptions.addAll(imagesCurrentRound);
             playedTranscriptions.addAll(imagesFixCurrentRound);
-            finishRound();
+            // TODO when to call this method
+            updateLevel();
+            finishRoundAndCheck();
+
         }
     }
 
-    private void deleteUsedImages() {
-    }
-
     private void checkForMoreImages() {
-        //check need more images?
+        if (!isItNeedImages()) {
+            return;
+        }
+        this.view.startDialog();
+
     }
 
+
+    public void finishRoundAndCheck() {
+        CallbackPostDialog callback = () -> checkForMoreImages();
+        this.view.runPlayAgainDialog(currentScore,level.getLevel(),callback);
+    }
 
     @Override
     public void newGame() {
@@ -142,34 +148,19 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
 
     @Override
     public void finishRound() {
-        this.view.runPlayAgainDialog(currentScore,level.getLevel());
+        CallbackPostDialog callback = () -> restartGame();
+        this.view.runPlayAgainDialog(currentScore,level.getLevel(),callback);
     }
 
     @Override
     public void restartGame() {
         startedDate = Calendar.getInstance().getTime();
         resetValues();
-        int numMatchs = level.getNum();
-        int numMatchsFix = level.getNumFix();
+
 
 
         //NOT MORE AVAILABLE IMAGERS
-        if (this.matchInfo.keySet().size() < numMatchs || this.matchFixInfo.keySet().size() < numMatchsFix) {
-            this.view.messageNotEnoughImages();
-            return;
-        }
-
-        /* analysed all images with correct mix */
-        if ((matchInfo.keySet().size()-countUsed) <numMatchs
-                ||
-                (matchFixInfo.keySet().size()-countFixUsed) <numMatchsFix
-                ) {
-            this.view.messageNotEnoughImages();
-            return;
-
-        }
-
-        if (playedTranscriptions.size() >= (matchInfo.keySet().size() +matchFixInfo.keySet().size())) {
+        if (isItNeedImages()) {
             this.view.messageNotEnoughImages();
             return;
         }
@@ -180,8 +171,8 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
 
         //TODO APPLY DELETE IMAGES TESTED
         SecureRandom random = new SecureRandom();
-        setUpInfo(numMatchs, random, matchInfo, imagesCurrentRound);
-        setUpInfo(numMatchsFix,random, matchFixInfo,imagesFixCurrentRound);
+        setUpInfo( level.getNum(), random, matchInfo, imagesCurrentRound);
+        setUpInfo(level.getNumFix(),random, matchFixInfo,imagesFixCurrentRound);
 
         countUsed+=imagesCurrentRound.size();
         countFixUsed+=imagesFixCurrentRound.size();
@@ -210,6 +201,28 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
         this.view.newRoundPlay(allImages,nameWords);
     }
 
+    private boolean isItNeedImages() {
+        int numMatchs = level.getNum();
+        int numMatchsFix = level.getNumFix();
+        if (this.matchInfo.keySet().size() < numMatchs || this.matchFixInfo.keySet().size() < numMatchsFix) {
+            return true;
+        }
+
+        /* analysed all images with correct mix */
+        if ((matchInfo.keySet().size()-countUsed) <numMatchs
+                ||
+                (matchFixInfo.keySet().size()-countFixUsed) <numMatchsFix
+                ) {
+            return true;
+
+        }
+
+        if (playedTranscriptions.size() >= (matchInfo.keySet().size() +matchFixInfo.keySet().size())) {
+            return true;
+        }
+        return false;
+    }
+
     private void resetValues() {
         this.results.clear();
         numOks = 0;
@@ -222,22 +235,13 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
             return;
         }
         List<MatchResult> newResults = new ArrayList<MatchResult>(this.results);
-/*
         Date stoppedDate = Calendar.getInstance().getTime();
-        String level = "4";
-
-        //TODO fix this!!
-        //4 -> easy
-        //6 -> medium
-        //8 -> hard
-        new MatchService(this.username).run(this.results,level,startedDate,stoppedDate,oldScore,newTotalPoints);
-
-        */
+       // new MatchService(this.username).run(newResults,String.valueOf(level.getLevel()),startedDate,stoppedDate,oldScore,newTotalPoints);
+        this.results.clear();
     }
 
     private void setUpInfo(int sizeForLevel, SecureRandom random, Hashtable<String, Pair<List<String>, String>> info, List<String> imagesToUse) {
         //TODO CHECK SIZE
-
         while (imagesToUse.size() < info.keySet().size() && imagesToUse.size() < sizeForLevel) {
             int randomIndex = random.nextInt(info.keySet().size());
             String value = new ArrayList<>(info.keySet()).get(randomIndex);
@@ -254,7 +258,8 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
         level.increase();
     }
 
-    public void loadMatchInfo() {
+    @Override
+    public void loadMoreInfo() {
         try {
             new UpdateMatchGame(Utils.BATCH_MATCH_IMAGES).update(appContext);
             new LoaderMatchGameInformation().load(appContext,matchInfo);

@@ -16,4 +16,6 @@ public interface MatchGamePresenter {
     void restartGame();
 
     void uploadResult(Integer oldScore, Integer newTotalPoints);
+
+    void loadMoreInfo();
 }
