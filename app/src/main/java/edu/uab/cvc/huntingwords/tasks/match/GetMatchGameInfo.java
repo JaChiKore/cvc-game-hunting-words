@@ -12,6 +12,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
+import edu.uab.cvc.huntingwords.Utils;
+
 @SuppressWarnings({"WeakerAccess", "ResultOfMethodCallIgnored"})
 public class GetMatchGameInfo extends AsyncTask<String, Void, String>{
 
@@ -34,7 +36,7 @@ public class GetMatchGameInfo extends AsyncTask<String, Void, String>{
         File f;
 
         try {
-            link = "http://158.109.8.50/app_mobile/matchGameInfo.php?list=" + arg[1] + "&limit=" + arg[2];  // base link: http://158.109.8.50/app_mobile/
+            link = Utils.BASE_URL+"/matchGameInfo.php?list=" + arg[1] + "&limit=" + arg[2];  // base link: http://158.109.8.50/app_mobile/
             URL url = new URL(link);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");

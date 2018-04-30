@@ -8,6 +8,8 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.URL;
 
+import edu.uab.cvc.huntingwords.Utils;
+
 @SuppressWarnings({"WeakerAccess", "ResultOfMethodCallIgnored"})
 public class GetImagesMatchGame {
 
@@ -39,9 +41,9 @@ public class GetImagesMatchGame {
 
             try { // base link: http://158.109.8.50/ + imagename
                 if (arg[0].substring(0, 1).contains("/")) {
-                    link = "http://158.109.8.50/app_mobile" + arg[0];  // base link: http://158.109.8.50/app_mobile/
+                    link = Utils.BASE_URL+"" + arg[0];  // base link: http://158.109.8.50/app_mobile/
                 } else {
-                    link = "http://158.109.8.50/app_mobile/" + arg[0];  // base link: http://158.109.8.50/app_mobile/
+                    link = Utils.BASE_URL+"/" + arg[0];  // base link: http://158.109.8.50/app_mobile/
                 }
 
                 URL url = new URL(link);

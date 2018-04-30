@@ -7,6 +7,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import edu.uab.cvc.huntingwords.Utils;
+
 @SuppressWarnings({"WeakerAccess", "ResultOfMethodCallIgnored"})
 public class CheckDifferenceGameImages extends AsyncTask<String, Void, Integer>{
 
@@ -21,7 +23,7 @@ public class CheckDifferenceGameImages extends AsyncTask<String, Void, Integer>{
         int correct;
 
         try { // base link: 158.109.8.50/mobile_games
-            link = "http://158.109.8.50/app_mobile/checkDifferenceGameImages.php?image=" + arg[0];  // base link: http://158.109.8.50/app_mobile/
+            link = Utils.BASE_URL+"/checkDifferenceGameImages.php?image=" + arg[0];  // base link: http://158.109.8.50/app_mobile/
             URL url = new URL(link);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");

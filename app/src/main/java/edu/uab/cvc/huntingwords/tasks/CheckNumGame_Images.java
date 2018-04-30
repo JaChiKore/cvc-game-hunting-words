@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import edu.uab.cvc.huntingwords.Utils;
 import timber.log.Timber;
 
 @SuppressWarnings({"WeakerAccess", "ResultOfMethodCallIgnored"})
@@ -23,7 +24,7 @@ public class CheckNumGame_Images extends AsyncTask<String, Void, Integer>{
 
         try { // base link: 158.109.8.50/mobile_games
             Timber.v("Trying to get num of available images");
-            link = "http://158.109.8.50/app_mobile/checkNumGame_Images.php?game=" + arg[0];  // base link: http://158.109.8.50/app_mobile/
+            link = Utils.BASE_URL+"/checkNumGame_Images.php?game=" + arg[0];  // base link: http://158.109.8.50/app_mobile/
             URL url = new URL(link);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");

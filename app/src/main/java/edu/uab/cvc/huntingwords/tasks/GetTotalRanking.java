@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import edu.uab.cvc.huntingwords.Utils;
 import edu.uab.cvc.huntingwords.presenters.callbacks.TotalRankingCallback;
 import timber.log.Timber;
 
@@ -36,7 +37,7 @@ public class GetTotalRanking extends AsyncTask<String, Void, String[]> {
         BufferedReader bufferedReader;
 
         try {
-            link = "http://158.109.8.50/app_mobile/getRanking.php?username=";  // base link: http://158.109.8.50/app_mobile/
+            link = Utils.BASE_URL+"/getRanking.php?username=";  // base link: http://158.109.8.50/app_mobile/
             URL url = new URL(link);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");

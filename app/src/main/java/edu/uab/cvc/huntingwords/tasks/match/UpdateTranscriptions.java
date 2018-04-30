@@ -7,6 +7,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import edu.uab.cvc.huntingwords.Utils;
+
 
 public class UpdateTranscriptions extends AsyncTask<String, Void, Boolean> {
 
@@ -22,7 +24,7 @@ public class UpdateTranscriptions extends AsyncTask<String, Void, Boolean> {
         BufferedReader bufferedReader;
 
         try {
-            link = "http://158.109.8.50/app_mobile/updateTranscription.php?filename=" + arg[0]
+            link = Utils.BASE_URL+"/updateTranscription.php?filename=" + arg[0]
                                                                         + "&trans=" + arg[1]
                                                                         + "&user=" + arg[2]
                                                                         + "&level=" + arg[3]

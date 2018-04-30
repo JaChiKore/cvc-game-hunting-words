@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import edu.uab.cvc.huntingwords.Utils;
 import edu.uab.cvc.huntingwords.presenters.callbacks.ConnectCallback;
 
 @SuppressWarnings("WeakerAccess")
@@ -27,7 +28,7 @@ public class InsertUser extends AsyncTask<String, Void, Boolean> {
         boolean correct;
 
         try {
-            link = "http://158.109.8.50/app_mobile/insertUser.php?username=" + arg[0] + "&password=" + arg[1];  // base link: http://158.109.8.50/app_mobile/
+            link = Utils.BASE_URL+"/insertUser.php?username=" + arg[0] + "&password=" + arg[1];  // base link: http://158.109.8.50/app_mobile/
             URL url = new URL(link);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");

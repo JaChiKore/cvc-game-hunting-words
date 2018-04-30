@@ -7,6 +7,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import edu.uab.cvc.huntingwords.Utils;
+
 
 public class UpdateClusters extends AsyncTask<String, Void, Boolean> {
 
@@ -22,7 +24,7 @@ public class UpdateClusters extends AsyncTask<String, Void, Boolean> {
         BufferedReader bufferedReader;
 
         try {
-            link = "http://158.109.8.50/app_mobile/updateCluster.php?filename=" + arg[0]
+            link = Utils.BASE_URL+"/updateCluster.php?filename=" + arg[0]
                                                                         + "&cluster=" + arg[1]
                                                                         + "&user=" + arg[2]
                                                                         + "&level=" + arg[3]

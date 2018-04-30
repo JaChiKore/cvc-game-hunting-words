@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import edu.uab.cvc.huntingwords.Utils;
 import edu.uab.cvc.huntingwords.presenters.callbacks.ConnectCallback;
 import timber.log.Timber;
 
@@ -31,7 +32,7 @@ public class GetRanking extends AsyncTask<String, Void, String[]> {
         BufferedReader bufferedReader;
 
         try {
-            link = "http://158.109.8.50/app_mobile/getRanking.php?username=" + arg[0];  // base link: http://158.109.8.50/app_mobile/
+            link = Utils.BASE_URL+"/getRanking.php?username=" + arg[0];  // base link: http://158.109.8.50/app_mobile/
             URL url = new URL(link);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");

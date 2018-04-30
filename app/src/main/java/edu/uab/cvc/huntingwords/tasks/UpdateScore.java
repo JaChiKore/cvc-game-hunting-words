@@ -7,6 +7,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import edu.uab.cvc.huntingwords.Utils;
+
 @SuppressWarnings("WeakerAccess")
 public class UpdateScore extends AsyncTask<String, Void, Boolean> {
 
@@ -22,7 +24,7 @@ public class UpdateScore extends AsyncTask<String, Void, Boolean> {
         BufferedReader bufferedReader;
 
         try {
-            link = "http://158.109.8.50/app_mobile/updateScore.php?username=" + arg[0] + "&match_game=" + arg[1] + "&difference_game=" + arg[2];  // base link: http://158.109.8.50/app_mobile/ http://158.109.9.209/
+            link = Utils.BASE_URL+"/updateScore.php?username=" + arg[0] + "&match_game=" + arg[1] + "&difference_game=" + arg[2];  // base link: http://158.109.8.50/app_mobile/ http://158.109.9.209/
             URL url = new URL(link);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");

@@ -7,6 +7,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import edu.uab.cvc.huntingwords.Utils;
+
 @SuppressWarnings({"WeakerAccess", "ResultOfMethodCallIgnored"})
 public class CheckNewMatchGameFixImages extends AsyncTask<String, Void, Boolean>{
 
@@ -22,7 +24,7 @@ public class CheckNewMatchGameFixImages extends AsyncTask<String, Void, Boolean>
         String[] rows;
 
         try {
-            link = "http://158.109.8.50/app_mobile/matchGameFixInfo.php?list=" + arg[0];  // base link: http://158.109.8.50/app_mobile/
+            link = Utils.BASE_URL+"/matchGameFixInfo.php?list=" + arg[0];  // base link: http://158.109.8.50/app_mobile/
             URL url = new URL(link);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");

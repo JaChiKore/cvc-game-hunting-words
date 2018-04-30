@@ -245,9 +245,10 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
 
     private void checkForMoreImages() {
         if (!isItNeedImages()) {
-            return;
+            restartGame();
+        } else {
+            this.view.startDialog();
         }
-        this.view.startDialog();
 
     }
 
