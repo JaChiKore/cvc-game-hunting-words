@@ -20,13 +20,13 @@ public class UpdateDifferenceGameTest {
 
     @Test
     public void checkMatchUpdateInformation() throws Exception {
-            UpdateMatchGame matchGame = new UpdateMatchGame();
+            UpdateMatchGame matchGame = new UpdateMatchGame(100);
             matchGame.update(getTargetContext());
     }
 
     @Test
     public void checkDifferenceUpdateInformation() throws Exception {
-        UpdateDifferenceGame differenceGame = new UpdateDifferenceGame();
+        UpdateDifferenceGame differenceGame = new UpdateDifferenceGame(100);
         differenceGame.update(getTargetContext());
     }
 
