@@ -22,5 +22,7 @@ public class Utils {
 
     public static final String BASE_URL = "http://158.109.8.50/app_mobile/v2";
 
+    public static final Integer NUM_LIVES = 3;
+
 
 }

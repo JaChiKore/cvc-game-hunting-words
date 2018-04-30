@@ -57,9 +57,8 @@ public class DifferenceGame extends Fragment implements DifferenceView {
     int colorPrimary;
     private DifferenceGamePresenter presenter;
 
-    @BindView(R.id.value_time)
-    public TextView time;
-
+    @BindView(R.id.value_lives)
+    public TextView lives;
 
     @Nullable
     @BindView(R.id.view_container_images)
@@ -75,7 +74,6 @@ public class DifferenceGame extends Fragment implements DifferenceView {
     private int currentSound;
     Context context;
     FragmentActivity fragActivity;
-    private CountDownTimer timer;
 
 
     public static DifferenceGame newInstance() {
@@ -103,7 +101,7 @@ public class DifferenceGame extends Fragment implements DifferenceView {
         Resources.Theme theme = getActivity().getTheme();
         theme.resolveAttribute(R.attr.colorPrimary, typedValue, true);
         colorPrimary = typedValue.data;
-        presenter = new DifferenceGamePresenterImpl(this,getPreferencesUsername(), this.getPreferencesLevel());
+        presenter = new DifferenceGamePresenterImpl(this,getPreferencesUsername(), this.getPreferencesLevel(), this.getPreferencesScore());
 
 
         return view;
@@ -112,9 +110,6 @@ public class DifferenceGame extends Fragment implements DifferenceView {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        if (timer!=null) {
-            timer.cancel();
-        }
 
     }
 
@@ -180,10 +175,6 @@ public class DifferenceGame extends Fragment implements DifferenceView {
     @Override
     public void runPlayAgainDialog(float currentScore, int level, CallbackPostDialog callback) {
         playFinish();
-        if (timer!=null) {
-            timer.cancel();
-        }
-
         if (getActivity() == null) {
             return;
         }
@@ -191,30 +182,24 @@ public class DifferenceGame extends Fragment implements DifferenceView {
         Integer newTotalPoints = getPreferencesScore()+(int)currentScore;
         updatePreferencesScore(newTotalPoints);
         updatePreferencesLevel(level);
-    //TODO UPDATE LEVEL??
-        presenter.uploadResult((int)currentScore,newTotalPoints);
         points.setText("0");
 
 
 
 
         AlertDialog.Builder builder = new AlertDialog.Builder(DifferenceGame.this.getActivity());
-        builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                sounds.soundPool.stop(currentSound);
-                dialog.dismiss();
-                callback.execute();
-            }
+        builder.setPositiveButton(android.R.string.ok, (dialog, id) -> {
+            sounds.soundPool.stop(currentSound);
+            dialog.dismiss();
+            callback.execute();
         });
-        builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                sounds.soundPool.stop(currentSound);
-                dialog.dismiss();
-                FragmentManager fm = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fm.beginTransaction();
-                fragmentTransaction.replace(R.id.fragment_switch, new Init());
-                fragmentTransaction.commit();
-            }
+        builder.setNegativeButton(android.R.string.cancel, (dialog, id) -> {
+            sounds.soundPool.stop(currentSound);
+            dialog.dismiss();
+            FragmentManager fm = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fm.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_switch, new Init());
+            fragmentTransaction.commit();
         });
         builder.setTitle(getString(R.string.play_again));
         builder.setMessage(getString(R.string.score)+" "+currentScore);
@@ -288,22 +273,6 @@ public class DifferenceGame extends Fragment implements DifferenceView {
 
 
 
-    @Override
-    public void startCountdown()  {
-        timer = new CountDownTimer(MAX_TIME, COUNT_DOWN_INTERVAL) {
-
-            public void onTick(long millisUntilFinished) {
-                time.setText(String.valueOf(millisUntilFinished / 1000));
-            }
-
-            public void onFinish() {
-                presenter.finishRound();
-            }
-        };
-        timer.start();
-
-    }
-
     private void updatePreferencesScore(Integer scoreMatch) {
         SharedPreferences preferences = getActivity().getSharedPreferences(
                 getString(R.string.preferences_file), Context.MODE_PRIVATE);
@@ -349,6 +318,19 @@ public class DifferenceGame extends Fragment implements DifferenceView {
             getActivity().runOnUiThread(() -> presenter.restartGame());
         }).start();
 
+    }
+
+    @Override
+    public void setUpNumLives(int numLives) {
+        new Thread() {
+            public void run() {
+                getActivity().runOnUiThread(
+                        () -> {
+                            lives.setText(String.valueOf(numLives));
+                        });
+
+            }
+        }.start();
     }
 
 }

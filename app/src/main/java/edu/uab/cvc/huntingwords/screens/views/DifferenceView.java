@@ -19,7 +19,7 @@ public interface DifferenceView {
 
     void runPlayAgainDialog(float currentScore, int level, CallbackPostDialog callback);
 
-    void startCountdown();
-
     void startDialog();
+
+    void setUpNumLives(int numLives);
 }

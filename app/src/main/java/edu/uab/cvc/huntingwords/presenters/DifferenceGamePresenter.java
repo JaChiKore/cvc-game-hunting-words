@@ -9,7 +9,6 @@ public interface DifferenceGamePresenter {
 
     void updateGame();
 
-    void finishRound();
 
     void checkImage(String tag);
 

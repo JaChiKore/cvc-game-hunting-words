@@ -60,8 +60,8 @@ public class MatchGame  extends Fragment implements MatchView {
     @ColorInt int colorPrimary;
     private MatchGamePresenter presenter;
 
-    @BindView(R.id.value_time)
-    public TextView time;
+    @BindView(R.id.value_lives)
+    public TextView lives;
 
     @Nullable
     @BindView(R.id.value_points)
@@ -71,11 +71,11 @@ public class MatchGame  extends Fragment implements MatchView {
     @BindView(R.id.view_match_container_images)
     public LinearLayout table;
 
+
     private Sounds sounds;
     private int currentSound;
     Context context;
     FragmentActivity fragActivity;
-    private CountDownTimer timer;
 
     private static int [] idButtons = {R.id.match_but_0, R.id.match_but_1, R.id.match_but_2, R.id.match_but_3};
 
@@ -108,7 +108,7 @@ public class MatchGame  extends Fragment implements MatchView {
         theme.resolveAttribute(R.attr.colorPrimary, typedValue, true);
         colorPrimary = typedValue.data;
 
-        presenter = new MatchGamePresenterImpl(this, getPreferencesUsername(), this.getPreferencesLevel());
+        presenter = new MatchGamePresenterImpl(this, getPreferencesUsername(), this.getPreferencesLevel(), this.getPreferencesScore());
 
 
         return view;
@@ -117,9 +117,6 @@ public class MatchGame  extends Fragment implements MatchView {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        if (timer!=null) {
-            timer.cancel();
-        }
     }
 
 
@@ -132,7 +129,8 @@ public class MatchGame  extends Fragment implements MatchView {
             Timber.i("It doesn't have buttons");
             return;
         }
-        startCountdown();
+
+        startNewLives();
 
         table.removeAllViews();
         for (int i=0; i<filepaths.size(); i++) {
@@ -162,6 +160,10 @@ public class MatchGame  extends Fragment implements MatchView {
 
         (this.getActivity().findViewById(R.id.match_but_4)).setTag(ANY_CORRECT);
         ((Button) this.getActivity().findViewById(R.id.match_but_4)).setText(getString(R.string.none_of_these));
+    }
+
+    private void startNewLives() {
+
     }
 
     private void selectImageButton(View button) {
@@ -284,9 +286,6 @@ public class MatchGame  extends Fragment implements MatchView {
     @Override
     public void runPlayAgainDialog(float currentScore, int level, CallbackPostDialog postDialog) {
         playFinish();
-        if (timer!=null) {
-            timer.cancel();
-        }
         if (getActivity() == null) {
             return;
         }
@@ -295,7 +294,6 @@ public class MatchGame  extends Fragment implements MatchView {
         final Integer newTotalPoints = oldScore+(int)currentScore;
         updatePreferencesScore(newTotalPoints);
         updatePreferencesLevel(level);
-        presenter.uploadResult(oldScore,newTotalPoints);
         points.setText("0");
 
 
@@ -341,20 +339,17 @@ public class MatchGame  extends Fragment implements MatchView {
 
     }
 
+    @Override
+    public void setUpNumLives(int numLives) {
+        new Thread() {
+            public void run() {
+                getActivity().runOnUiThread(
+                        () -> {
+                            lives.setText(String.valueOf(numLives));
+                        });
 
-    public void startCountdown()  {
-
-        timer = new CountDownTimer(edu.uab.cvc.huntingwords.Utils.MAX_TIME, edu.uab.cvc.huntingwords.Utils.COUNT_DOWN_INTERVAL) {
-
-            public void onTick(long millisUntilFinished) {
-                time.setText(String.valueOf(millisUntilFinished / 1000));
             }
-
-            public void onFinish() {
-                presenter.finishRound();
-            }
-        };
-        timer.start();
+        }.start();
     }
 
 

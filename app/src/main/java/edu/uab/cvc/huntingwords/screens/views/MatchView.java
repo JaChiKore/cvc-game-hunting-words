@@ -25,4 +25,6 @@ public interface MatchView {
     void runPlayAgainDialog(float currentScore, int level, CallbackPostDialog postDialog);
 
     void startDialog();
+
+    void setUpNumLives(int numLives);
 }

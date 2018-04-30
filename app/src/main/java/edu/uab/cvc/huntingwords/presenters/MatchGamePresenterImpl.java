@@ -64,9 +64,10 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
     List<String> playedTranscriptions;
     List<MatchResult> results;
     private int totalOks;
+    private int numLives;
+    private float totalScore;
 
-
-    public MatchGamePresenterImpl(MatchView view, String username, int currentLevel) {
+    public MatchGamePresenterImpl(MatchView view, String username, int currentLevel, float totalScore) {
         /* IT MUST BE FIRST */
         AppController.getComponent().inject(this);
         this.view = view;
@@ -76,7 +77,8 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
         this.playedTranscriptions = new ArrayList<>();
         this.results = new ArrayList<>();
         this.level = new GameLevel(currentLevel);
-
+        this.numLives = Utils.NUM_LIVES;
+        this.totalScore = totalScore;
     }
 
 
@@ -90,18 +92,23 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
             currentScore+= Utils.VALUE_POINT;
             this.results.add(new MatchResult(filepathImage,textSolution));
             this.view.updateOK(idImage,currentScore);
-            numOks++;
+            executeOk();
             //update
         } else {
             Pair<List<String>, String> info = this.matchFixInfo.get(filepathImage);
             if (info.second.equals(textSolution)) {
                 currentScore+= Utils.VALUE_POINT;
                 this.view.updateOK(idImage,currentScore);
-                numOks++;
+                executeOk();
             } else {
-                this.view.updateFail();
+                executeFail();
             }
         }
+
+    }
+
+    private void  executeOk()  {
+        numOks++;
         //TODO CHANGE SIZE IMAGS TO UPLOAD
         if (numOks == totalOks) {
             //TODO update diff
@@ -110,7 +117,16 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
             // TODO when to call this method
             updateLevel();
             finishRoundAndCheck();
+        }
+    }
 
+    private void executeFail () {
+        this.view.updateFail();
+        numLives--;
+        this.view.setUpNumLives(numLives);
+        if (numLives == 0) {
+            CallbackPostDialog callback = () ->  restartGame();
+            view.runPlayAgainDialog(0,level.getLevel(), callback);
         }
     }
 
@@ -119,14 +135,18 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
             restartGame();
         } else {
             this.view.startDialog();
-
         }
 
     }
 
 
     public void finishRoundAndCheck() {
-        CallbackPostDialog callback = () -> checkForMoreImages();
+        CallbackPostDialog callback = () -> {
+            float oldScore = totalScore;
+            totalScore += currentScore;
+            checkForMoreImages();
+            uploadResult((int)oldScore,(int)totalScore);
+        };
         this.view.runPlayAgainDialog(currentScore,level.getLevel(),callback);
     }
 
@@ -157,10 +177,6 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
 
     @Override
     public void restartGame() {
-        startedDate = Calendar.getInstance().getTime();
-        resetValues();
-
-
 
         //NOT MORE AVAILABLE IMAGERS
         if (isItNeedImages()) {
@@ -168,6 +184,11 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
             return;
         }
 
+        startedDate = Calendar.getInstance().getTime();
+        resetValues();
+
+
+        startNewLives();
 
         imagesCurrentRound.clear();
         imagesFixCurrentRound.clear();
@@ -202,6 +223,12 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
         }
         Collections.shuffle(nameWords);
         this.view.newRoundPlay(allImages,nameWords);
+    }
+
+    private void startNewLives() {
+        view.setUpNumLives(Utils.NUM_LIVES);
+        this.numLives = Utils.NUM_LIVES;
+
     }
 
     private boolean isItNeedImages() {

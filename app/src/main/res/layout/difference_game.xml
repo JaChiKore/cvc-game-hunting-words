@@ -36,8 +36,18 @@
                 android:text="0"
                 android:textSize="18sp" />
 
+
+            <ImageView
+                android:id="@+id/stars"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:cropToPadding="true"
+                android:layout_gravity="right"
+                android:src="@android:drawable/btn_star_big_on" />
+
             <TextView
-                android:id="@+id/value_time"
+                android:id="@+id/value_lives"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

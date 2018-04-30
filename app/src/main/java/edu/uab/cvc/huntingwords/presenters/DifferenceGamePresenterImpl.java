@@ -45,9 +45,10 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
     Context appContext;
 
     private float currentScore;
+    private float totalScore;
 
     private GameLevel level;
-
+    private int numLives;
 
     private final DifferenceView view;
     private String keyCurrentPlay;
@@ -66,7 +67,7 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
 
 
 
-    public DifferenceGamePresenterImpl(DifferenceView view, String username, int level) {
+    public DifferenceGamePresenterImpl(DifferenceView view, String username, int level, float totalScore) {
         AppController.getComponent().inject(this);
         clustersToPlay = new ArrayList();
         usedClusters = new ArrayList<>();
@@ -78,6 +79,8 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
         this.view = view;
         this.username = username;
         this.level = new GameLevel(level);
+        this.numLives = Utils.NUM_LIVES;
+        this.totalScore = totalScore;
     }
 
     @Override
@@ -118,7 +121,13 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
         clustersToPlay = new ArrayList<>(listClusters);
         clustersToPlay.addAll(listFixClusters);
         Collections.shuffle(clustersToPlay);
-        view.startCountdown();
+        startNewLives();
+
+    }
+
+    private void startNewLives() {
+        view.setUpNumLives(Utils.NUM_LIVES);
+        this.numLives = Utils.NUM_LIVES;
 
     }
 
@@ -187,12 +196,6 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
 
 
     @Override
-    public void finishRound() {
-        CallbackPostDialog callback = () -> restartGame();
-        this.view.runPlayAgainDialog(currentScore,level.getLevel(),callback);
-    }
-
-    @Override
     public void checkImage(String tag) {
         List<Pair<String, Boolean>> imagesInfoToUse = getImageInfo(keyCurrentPlay);
         if (this.diffInfo.containsKey(keyCurrentPlay)) {
@@ -218,11 +221,21 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
                 //TODO ADD cluster to not play more
                 //TODO Update with another round
             } else {
-                view.updateFail();
+                executeFail();
                 //TODO wrong!!!
             }
         }
 
+    }
+
+    private void executeFail() {
+        view.updateFail();
+        numLives--;
+        this.view.setUpNumLives(numLives);
+        if (numLives == 0) {
+            CallbackPostDialog callback = () -> restartGame();
+            view.runPlayAgainDialog(0,level.getLevel(), callback);
+        }
     }
 
     private void executeOk() {
@@ -230,7 +243,12 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
         view.updateOK(currentScore);
         if (clustersToPlay.size()==0) {
             updateLevel();
-            CallbackPostDialog callback = () -> checkForMoreImages();
+            CallbackPostDialog callback = () -> {
+                float oldScore = totalScore;
+                totalScore += currentScore;
+                checkForMoreImages();
+               uploadResult((int)oldScore,(int)totalScore);
+            };
             view.runPlayAgainDialog(currentScore,level.getLevel(), callback);
         } else {
             keyCurrentPlay = clustersToPlay.get(0);
@@ -253,7 +271,6 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
     }
 
 
-    @Override
     public void uploadResult(Integer oldScore, Integer newTotalPoints) {
         if (this.username.equals(appContext.getString(R.string.anonym))) {
             return;
@@ -286,7 +303,7 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
                 //TODO ADD cluster to not play more
                 //TODO Update with another round
             } else {
-                view.updateFail();
+                executeFail();
                 //TODO wrong!!
             }
         }
@@ -310,7 +327,7 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
                 }
             }
             if (diff) {
-                view.updateFail();
+                executeFail();
                 //TODO wrong!!
             } else {
                 usedFixClusters.add(keyCurrentPlay);
