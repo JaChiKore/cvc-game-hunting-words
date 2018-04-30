@@ -11,8 +11,6 @@ import edu.uab.cvc.huntingwords.screens.fragments.CallbackPostDialog;
 public interface MatchView {
     void newRoundPlay(List<String> filepaths, List<String> buttons);
 
-    void cleanResult(int idImage, int idButton);
-
     void hideButton(int idImage);
 
     void messageNotEnoughImages();

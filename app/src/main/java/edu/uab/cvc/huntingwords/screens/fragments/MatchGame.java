@@ -77,6 +77,13 @@ public class MatchGame  extends Fragment implements MatchView {
     FragmentActivity fragActivity;
     private CountDownTimer timer;
 
+    private static int [] idButtons = {R.id.match_but_0, R.id.match_but_1, R.id.match_but_2, R.id.match_but_3};
+
+    private float scaledWidth = 300f;
+
+    public int clickedImage = -1;
+
+
     public static MatchGame newInstance() {
         MatchGame frag = new MatchGame();
         return frag;
@@ -115,7 +122,6 @@ public class MatchGame  extends Fragment implements MatchView {
         }
     }
 
-    private static int [] idButtons = {R.id.match_but_0, R.id.match_but_1, R.id.match_but_2, R.id.match_but_3};
 
     @Override
     public void newRoundPlay(List<String> filepaths, List<String> buttons) {
@@ -143,15 +149,7 @@ public class MatchGame  extends Fragment implements MatchView {
             imageButton.setImageBitmap(Bitmap.createScaledBitmap(image, (int)scaledWidth, (int)(scaled * (float)image.getHeight()), false));
 
             View.OnClickListener callback = (button) -> {
-                if (clickedImage!=-1) {
-                    if (this.getActivity().findViewById(clickedImage)!=null) {
-                       // this.getActivity().findViewById(clickedImage).setBackgroundColor(getResources().getColor(R.color.white));
-                        this.getActivity().findViewById(clickedImage).setBackgroundResource(R.drawable.border);
-                    }
-                }
-                clickedImage = button.getId();
-                button.setBackgroundColor(colorPrimary);
-                this.presenter.updateButtonsByImage((String)button.getTag());
+                selectImageButton(button);
 
             };
             imageButton.setOnClickListener(callback);
@@ -164,6 +162,17 @@ public class MatchGame  extends Fragment implements MatchView {
 
         (this.getActivity().findViewById(R.id.match_but_4)).setTag(ANY_CORRECT);
         ((Button) this.getActivity().findViewById(R.id.match_but_4)).setText(getString(R.string.none_of_these));
+    }
+
+    private void selectImageButton(View button) {
+        if (clickedImage!=-1) {
+            if (this.getActivity().findViewById(clickedImage)!=null) {
+                this.getActivity().findViewById(clickedImage).setBackgroundResource(R.drawable.border);
+            }
+        }
+        clickedImage = button.getId();
+        button.setBackgroundColor(colorPrimary);
+        this.presenter.updateButtonsByImage((String)button.getTag());
     }
 
     @Override
@@ -203,7 +212,15 @@ public class MatchGame  extends Fragment implements MatchView {
         button.setText(text);
     }
 
-    private float scaledWidth = 300f;
+    private void selectNextButton() {
+        if (table.getChildCount()<=0) {
+            return;
+        }
+        ImageButton button =  (ImageButton)table.getChildAt(0);
+        selectImageButton(button);
+    }
+
+
 
     @Override
     public void onStart() {
@@ -214,37 +231,7 @@ public class MatchGame  extends Fragment implements MatchView {
     }
 
 
-    public int clickedImage = -1;
 
-    @Override
-    public void cleanResult(int idImage, int idButton) {
-        if ( this.getActivity() == null ||   this.getActivity().findViewById(idImage) == null) {
-            return;
-        }
-
-        this.clickedImage = -1;
-        //TODO remove this!!
-    }
-
-    @Override
-    public void hideButton(int idImage) {
-        View v = (View)this.getActivity().findViewById(idImage);
-        ((ViewManager)v.getParent()).removeView(v);
-    }
-
-    @Override
-    public void messageNotEnoughImages() {
-        new Thread() {
-            public void run() {
-                getActivity().runOnUiThread(
-                        () -> {
-                            Toast.makeText(getActivity(),getString(R.string.not_enough_images),Toast.LENGTH_LONG).show();
-                        });
-
-            }
-        }.start();
-
-    }
 
 
     @Override
@@ -258,12 +245,14 @@ public class MatchGame  extends Fragment implements MatchView {
                             showHit();
                             playOk();
                             points.setText(String.valueOf(currentScore));
+                            selectNextButton();
                         });
 
             }
         }.start();
 
     }
+
 
     @Override
     public void updateFail() {
@@ -279,6 +268,20 @@ public class MatchGame  extends Fragment implements MatchView {
         }.start();
 
     }
+
+
+    @Optional
+    @OnClick({ R.id.match_but_0, R.id.match_but_1, R.id.match_but_2, R.id.match_but_3, R.id.match_but_4 })
+    public void clickMatchButton(Button button) {
+        if (clickedImage==-1) {
+            return;
+        }
+        // this.getActivity().findViewById(clickedImage).setBackgroundResource(R.drawable.border);
+        ImageButton image = (ImageButton)this.getActivity().findViewById(clickedImage);
+        presenter.checkSolution(clickedImage, button.getId(),(String)image.getTag(),(String)button.getTag());
+        //TODO clean when it eliminate two
+    }
+
 
     @Override
     public void runPlayAgainDialog(float currentScore, int level, CallbackPostDialog postDialog) {
@@ -329,32 +332,21 @@ public class MatchGame  extends Fragment implements MatchView {
     }
 
 
-    private void playOk () {
-        currentSound = sounds.soundPool.play(sounds.pass, 1, 1, 0, 0, 1);
 
-    }
+    @Override
+    public void startDialog()
+    {
 
-    private void playFail() {
-        currentSound = sounds.soundPool.play(sounds.fail, 1, 1, 0, 0, 1);
-    }
+        ProgressDialog pd = ProgressDialog.show(getActivity(),getString(R.string.title_loading_info),getString(R.string.downloading_text));
+        pd.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        pd.show();
+        //start a new thread to process job
+        new Thread(() ->  {
+            presenter.loadMoreInfo();
+            pd.dismiss();
+            getActivity().runOnUiThread(() -> presenter.restartGame());
+        }).start();
 
-    private void playFinish() {
-        currentSound = sounds.soundPool.play(sounds.won,1,1,0,0,1);
-    }
-
-
-
-
-    @Optional
-    @OnClick({ R.id.match_but_0, R.id.match_but_1, R.id.match_but_2, R.id.match_but_3, R.id.match_but_4 })
-    public void clickMatchButton(Button button) {
-        if (clickedImage==-1) {
-            return;
-        }
-        this.getActivity().findViewById(clickedImage).setBackgroundResource(R.drawable.border);
-        ImageButton image = (ImageButton)this.getActivity().findViewById(clickedImage);
-        presenter.checkSolution(clickedImage, button.getId(),(String)image.getTag(),(String)button.getTag());
-        //TODO clean when it eliminate two
     }
 
 
@@ -372,6 +364,44 @@ public class MatchGame  extends Fragment implements MatchView {
         };
         timer.start();
     }
+
+
+    @Override
+    public void hideButton(int idImage) {
+        View v = (View)this.getActivity().findViewById(idImage);
+        ((ViewManager)v.getParent()).removeView(v);
+    }
+
+    @Override
+    public void messageNotEnoughImages() {
+        new Thread() {
+            public void run() {
+                getActivity().runOnUiThread(
+                        () -> {
+                            Toast.makeText(getActivity(),getString(R.string.not_enough_images),Toast.LENGTH_LONG).show();
+                        });
+
+            }
+        }.start();
+
+    }
+
+
+    private void playOk () {
+        currentSound = sounds.soundPool.play(sounds.pass, 1, 1, 0, 0, 1);
+
+    }
+
+    private void playFail() {
+        currentSound = sounds.soundPool.play(sounds.fail, 1, 1, 0, 0, 1);
+    }
+
+    private void playFinish() {
+        currentSound = sounds.soundPool.play(sounds.won,1,1,0,0,1);
+    }
+
+
+
 
     private void updatePreferencesScore(Integer scoreMatch) {
         SharedPreferences preferences = getActivity().getSharedPreferences(
@@ -406,19 +436,5 @@ public class MatchGame  extends Fragment implements MatchView {
         editor.commit();
     }
 
-    @Override
-    public void startDialog()
-    {
 
-        ProgressDialog pd = ProgressDialog.show(getActivity(),getString(R.string.title_loading_info),getString(R.string.downloading_text));
-        pd.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-        pd.show();
-        //start a new thread to process job
-        new Thread(() ->  {
-            presenter.loadMoreInfo();
-            pd.dismiss();
-            getActivity().runOnUiThread(() -> presenter.restartGame());
-        }).start();
-
-    }
 }

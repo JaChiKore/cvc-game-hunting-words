@@ -145,18 +145,6 @@ public class DifferenceGame extends Fragment implements DifferenceView {
         }
     }
 
-    @Override
-    public void messageNotEnoughImages() {
-        new Thread() {
-            public void run() {
-                getActivity().runOnUiThread(
-                        () -> {
-                            Toast.makeText(getActivity(),getString(R.string.not_enough_images),Toast.LENGTH_LONG).show();
-                        });
-
-            }
-        }.start();
-    }
 
     @Override
     public void updateOK(float currentScore) {
@@ -234,6 +222,20 @@ public class DifferenceGame extends Fragment implements DifferenceView {
         dialog.setCanceledOnTouchOutside(false);
         dialog.setCancelable(false);
         dialog.show();
+    }
+
+
+    @Override
+    public void messageNotEnoughImages() {
+        new Thread() {
+            public void run() {
+                getActivity().runOnUiThread(
+                        () -> {
+                            Toast.makeText(getActivity(),getString(R.string.not_enough_images),Toast.LENGTH_LONG).show();
+                        });
+
+            }
+        }.start();
     }
 
 

@@ -26,6 +26,7 @@ import edu.uab.cvc.huntingwords.screens.fragments.CallbackPostDialog;
 import edu.uab.cvc.huntingwords.screens.views.MatchView;
 import edu.uab.cvc.huntingwords.tasks.loaders.LoaderMatchGameInformation;
 import edu.uab.cvc.huntingwords.tasks.loaders.UpdateMatchGame;
+import edu.uab.cvc.huntingwords.tasks.services.MatchService;
 import timber.log.Timber;
 
 import static edu.uab.cvc.huntingwords.Utils.EMPTY_BUTTON;
@@ -236,9 +237,9 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
         if (this.username.equals(appContext.getString(R.string.anonym))) {
             return;
         }
-        List<MatchResult> newResults = new ArrayList<MatchResult>(this.results);
+        List<MatchResult> newResults = new ArrayList<>(this.results);
         Date stoppedDate = Calendar.getInstance().getTime();
-       // new MatchService(this.username).run(newResults,String.valueOf(level.getLevel()),startedDate,stoppedDate,oldScore,newTotalPoints);
+        new MatchService(this.username).run(newResults,String.valueOf(level.getLevel()),startedDate,stoppedDate,oldScore,newTotalPoints);
         this.results.clear();
     }
 
