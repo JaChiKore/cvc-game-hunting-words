@@ -2,10 +2,7 @@ package edu.uab.cvc.huntingwords.presenters;
 
 
 
-import javax.inject.Inject;
-
 import edu.uab.cvc.huntingwords.application.AppController;
-import edu.uab.cvc.huntingwords.models.UserInformation;
 import edu.uab.cvc.huntingwords.presenters.callbacks.ConnectCallback;
 import edu.uab.cvc.huntingwords.screens.views.LoginView;
 import edu.uab.cvc.huntingwords.tasks.GetRanking;
@@ -18,8 +15,6 @@ import edu.uab.cvc.huntingwords.tasks.Login;
 
 public class ConnectPresenterImpl implements ConnectPresenter {
 
-    @Inject
-    UserInformation userInfo;
 
     private final LoginView view;
 
@@ -39,13 +34,11 @@ public class ConnectPresenterImpl implements ConnectPresenter {
             public void updateLogin(String username, String password) {
                 view.setUpLoginParameters(username,password);
                 view.updateLogin(username);
-                userInfo.setUsername(username);
             }
 
             @Override
             public void updateScore(Integer matchScore, Integer diffScore) {
-                userInfo.setScore(matchScore,diffScore);
-                view.updateScore(matchScore,diffScore);
+                view.setUpScoreParameters(matchScore,diffScore);
             }
 
             @Override
@@ -67,13 +60,11 @@ public class ConnectPresenterImpl implements ConnectPresenter {
             public void updateLogin(String username, String password) {
                 view.setUpLoginParameters(username,password);
                 view.updateLogin(username);
-                userInfo.setUsername(username);
             }
 
             @Override
             public void updateScore(Integer matchScore, Integer diffScore) {
-                userInfo.setScore(matchScore,diffScore);
-                view.updateScore(matchScore,diffScore);
+                view.setUpScoreParameters(matchScore,diffScore);
             }
 
             @Override

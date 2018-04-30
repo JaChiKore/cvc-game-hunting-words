@@ -18,36 +18,17 @@
             android:textStyle="italic" />
 
         <TextView
-            android:id="@+id/text_match_score"
+            android:id="@+id/text_total_score"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/text_match_score"
+            android:text="@string/score"
             android:textAlignment="center"
             android:textSize="18sp"
             android:textStyle="italic" />
 
         <TextView
-            android:id="@+id/value_match_total_score"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textAlignment="textStart"
-            android:textSize="18sp"
-            android:textStyle="italic" />
-
-        <TextView
-            android:id="@+id/text_diff_score"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/text_diff_score"
-            android:textAlignment="center"
-            android:textSize="18sp"
-            android:textStyle="italic" />
-
-        <TextView
-            android:id="@+id/value_diff_total_score"
+            android:id="@+id/value_total_score"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"

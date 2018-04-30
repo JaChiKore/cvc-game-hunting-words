@@ -122,7 +122,7 @@ public class DifferenceGame extends Fragment implements DifferenceView {
 
     @Override
     public void newRoundPlay(List<String> filepaths) {
-        ((TextView)(this.getActivity().findViewById(R.id.value_diff_total_score))).setText(String.valueOf(getPreferencesScore()));
+        ((TextView)(this.getActivity().findViewById(R.id.value_total_score))).setText(String.valueOf(getPreferencesScore()));
         table.removeAllViews();
         for (int i=0; i<filepaths.size(); i++) {
             ImageButton imageButton = new ImageButton(this.getActivity());

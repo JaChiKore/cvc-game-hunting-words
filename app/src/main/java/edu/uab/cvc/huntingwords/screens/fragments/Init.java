@@ -51,7 +51,6 @@ public class Init extends Fragment  implements InitView {
         } else {
             updateUsername(getString(R.string.anonym));
             updatePreferencesScore(0,0);
-            updateScore(0,0);
         }
 
     }
@@ -105,16 +104,11 @@ public class Init extends Fragment  implements InitView {
 
     @Override
     public void updateScore(Integer scoreMatch, Integer scoreDiff) {
-
-                TextView valueMatchScore = (TextView)this.getActivity().findViewById(R.id.value_match_total_score);
-                TextView valueDiffScore = (TextView)this.getActivity().findViewById(R.id.value_diff_total_score);
                 new Thread() {
                     public void run() {
                                 getActivity().runOnUiThread(
                                                 () -> {
                                                     updatePreferencesScore(scoreMatch, scoreDiff);
-                                                        valueMatchScore.setText(String.valueOf(scoreMatch));
-                                                        valueDiffScore.setText(String.valueOf(scoreDiff));
                                                     });
 
                                     }

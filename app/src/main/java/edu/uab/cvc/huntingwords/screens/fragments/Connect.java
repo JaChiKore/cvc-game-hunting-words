@@ -22,6 +22,9 @@ import edu.uab.cvc.huntingwords.screens.Utils;
 import edu.uab.cvc.huntingwords.screens.views.LoginView;
 import edu.uab.cvc.huntingwords.utils.Constants;
 
+import static edu.uab.cvc.huntingwords.Utils.CURRENT_SCORE_DIFF;
+import static edu.uab.cvc.huntingwords.Utils.CURRENT_SCORE_MATCH;
+
 /**
  * Created by carlosb on 05/04/18.
  */
@@ -48,8 +51,6 @@ public class Connect extends Fragment implements LoginView {
         String user= username.getText().toString();
         String pass= password.getText().toString();
         this.presenter.login(user,pass);
-
-
     }
 
     @OnClick(R.id.signin)
@@ -62,11 +63,7 @@ public class Connect extends Fragment implements LoginView {
     @OnClick(R.id.disconnect)
     public void disconnect() {
         setUpAnonymousParameters();
-        TextView valueMatchScore = (TextView)this.getActivity().findViewById(R.id.value_match_total_score);
-        TextView valueDiffScore = (TextView)this.getActivity().findViewById(R.id.value_diff_total_score);
         TextView textView = (TextView)getActivity().findViewById(R.id.logged_user);
-        valueMatchScore.setText("0");
-        valueDiffScore.setText("0");
         getActivity().runOnUiThread( () ->  textView.setText(getString(R.string.anonym)));
 
     }
@@ -87,28 +84,21 @@ public class Connect extends Fragment implements LoginView {
     }
 
     @Override
-    public void updateScore(int matchScore, int diffScore) {
-        TextView valueMatchScore = (TextView)this.getActivity().findViewById(R.id.value_match_total_score);
-        TextView valueDiffScore = (TextView)this.getActivity().findViewById(R.id.value_diff_total_score);
-        new Thread() {
-            public void run() {
-                getActivity().runOnUiThread(
-                        () -> {
-                            valueMatchScore.setText(String.valueOf(matchScore));
-                            valueDiffScore.setText(String.valueOf(diffScore));
-                        });
-
-            }
-        }.start();
-    }
-
-    @Override
     public void setUpLoginParameters(String username, String passw) {
         SharedPreferences preferences = getActivity().getSharedPreferences(
                 getString(R.string.preferences_file), Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString(Constants.PARAM_USERNAME,username);
         editor.putString(Constants.PARAM_PASSWORD,passw);
+        editor.commit();
+    }
+    @Override
+    public void setUpScoreParameters(Integer scoreMatch, Integer scoreDiff) {
+            SharedPreferences preferences = getActivity().getSharedPreferences(
+                    getString(R.string.preferences_file), Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putInt(CURRENT_SCORE_MATCH,scoreMatch);
+            editor.putInt(CURRENT_SCORE_DIFF,scoreDiff);
         editor.commit();
     }
 

@@ -125,7 +125,7 @@ public class MatchGame  extends Fragment implements MatchView {
 
     @Override
     public void newRoundPlay(List<String> filepaths, List<String> buttons) {
-        ((TextView)(this.getActivity().findViewById(R.id.value_match_total_score))).setText(String.valueOf(getPreferencesScore()));
+        ((TextView)(this.getActivity().findViewById(R.id.value_total_score))).setText(String.valueOf(getPreferencesScore()));
 
 
         if (buttons.size() !=idButtons.length) {
@@ -276,10 +276,8 @@ public class MatchGame  extends Fragment implements MatchView {
         if (clickedImage==-1) {
             return;
         }
-        // this.getActivity().findViewById(clickedImage).setBackgroundResource(R.drawable.border);
         ImageButton image = (ImageButton)this.getActivity().findViewById(clickedImage);
         presenter.checkSolution(clickedImage, button.getId(),(String)image.getTag(),(String)button.getTag());
-        //TODO clean when it eliminate two
     }
 
 
@@ -297,29 +295,23 @@ public class MatchGame  extends Fragment implements MatchView {
         final Integer newTotalPoints = oldScore+(int)currentScore;
         updatePreferencesScore(newTotalPoints);
         updatePreferencesLevel(level);
-        //TODO UPDATE LEVEL??
-
         presenter.uploadResult(oldScore,newTotalPoints);
         points.setText("0");
 
 
         AlertDialog.Builder builder = new AlertDialog.Builder(fragActivity);
-        builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                sounds.soundPool.stop(currentSound);
-                dialog.dismiss();
-                postDialog.execute();
-            }
+        builder.setPositiveButton(android.R.string.ok, (dialog, id) -> {
+            sounds.soundPool.stop(currentSound);
+            dialog.dismiss();
+            postDialog.execute();
         });
-        builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                sounds.soundPool.stop(currentSound);
-                dialog.dismiss();
-                FragmentManager fm = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fm.beginTransaction();
-                fragmentTransaction.replace(R.id.fragment_switch, new Init());
-                fragmentTransaction.commit();
-            }
+        builder.setNegativeButton(android.R.string.cancel, (dialog, id) -> {
+            sounds.soundPool.stop(currentSound);
+            dialog.dismiss();
+            FragmentManager fm = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fm.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_switch, new Init());
+            fragmentTransaction.commit();
         });
         builder.setTitle(getString(R.string.play_again));
         builder.setMessage(getString(R.string.score)+" "+currentScore);
