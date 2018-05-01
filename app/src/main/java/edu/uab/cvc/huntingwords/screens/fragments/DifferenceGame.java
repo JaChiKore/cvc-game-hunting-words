@@ -74,6 +74,7 @@ public class DifferenceGame extends Fragment implements DifferenceView {
     private int currentSound;
     Context context;
     FragmentActivity fragActivity;
+    private boolean pause;
 
 
     public static DifferenceGame newInstance() {
@@ -103,6 +104,7 @@ public class DifferenceGame extends Fragment implements DifferenceView {
         colorPrimary = typedValue.data;
         presenter = new DifferenceGamePresenterImpl(this,getPreferencesUsername(), this.getPreferencesLevel(), this.getPreferencesScore());
 
+        pause = false;
 
         return view;
     }
@@ -131,8 +133,9 @@ public class DifferenceGame extends Fragment implements DifferenceView {
             float scaled = scaledWidth / image.getWidth();
             imageButton.setImageBitmap(Bitmap.createScaledBitmap(image, (int)scaledWidth, (int)(scaled * (float)image.getHeight()), false));
             View.OnClickListener callback = (button) -> {
-                presenter.checkImage((String)button.getTag());
-
+                if (!pause) {
+                    presenter.checkImage((String) button.getTag());
+                }
             };
             imageButton.setOnClickListener(callback);
             table.addView(imageButton);
@@ -252,11 +255,15 @@ public class DifferenceGame extends Fragment implements DifferenceView {
 
     @OnClick(R.id.dif_but_same)
     public void clickSame (Button button) {
-        presenter.checkSame();
+        if (!pause) {
+            presenter.checkSame();
+        }
     }
     @OnClick(R.id.dif_but_more_than_one)
     public void clickDifferent(Button button) {
-        presenter.checkDifferent();
+        if (!pause) {
+            presenter.checkDifferent();
+        }
     }
 
 
@@ -331,6 +338,11 @@ public class DifferenceGame extends Fragment implements DifferenceView {
 
             }
         }.start();
+    }
+
+    @Override
+    public void setPause(boolean pause) {
+        this.pause = pause;
     }
 
 }

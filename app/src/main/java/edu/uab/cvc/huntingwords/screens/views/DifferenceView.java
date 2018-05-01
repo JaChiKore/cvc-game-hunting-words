@@ -22,4 +22,6 @@ public interface DifferenceView {
     void startDialog();
 
     void setUpNumLives(int numLives);
+
+    void setPause(boolean pause);
 }

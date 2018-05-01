@@ -9,7 +9,6 @@ public interface DifferenceGamePresenter {
 
     void updateGame();
 
-
     void checkImage(String tag);
 
     void uploadResult(Integer oldScore, Integer newTotalPoints);

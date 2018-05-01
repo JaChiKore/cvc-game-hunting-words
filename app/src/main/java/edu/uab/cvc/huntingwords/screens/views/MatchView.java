@@ -27,4 +27,6 @@ public interface MatchView {
     void startDialog();
 
     void setUpNumLives(int numLives);
+
+    void setPause(boolean pause);
 }

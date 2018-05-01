@@ -82,6 +82,7 @@ public class MatchGame  extends Fragment implements MatchView {
     private float scaledWidth = 300f;
 
     public int clickedImage = -1;
+    private boolean pause;
 
 
     public static MatchGame newInstance() {
@@ -110,6 +111,7 @@ public class MatchGame  extends Fragment implements MatchView {
 
         presenter = new MatchGamePresenterImpl(this, getPreferencesUsername(), this.getPreferencesLevel(), this.getPreferencesScore());
 
+        pause = false;
 
         return view;
     }
@@ -130,7 +132,6 @@ public class MatchGame  extends Fragment implements MatchView {
             return;
         }
 
-        startNewLives();
 
         table.removeAllViews();
         for (int i=0; i<filepaths.size(); i++) {
@@ -162,11 +163,11 @@ public class MatchGame  extends Fragment implements MatchView {
         ((Button) this.getActivity().findViewById(R.id.match_but_4)).setText(getString(R.string.none_of_these));
     }
 
-    private void startNewLives() {
-
-    }
-
     private void selectImageButton(View button) {
+        if (pause) {
+            return;
+        }
+
         if (clickedImage!=-1) {
             if (this.getActivity().findViewById(clickedImage)!=null) {
                 this.getActivity().findViewById(clickedImage).setBackgroundResource(R.drawable.border);
@@ -275,6 +276,9 @@ public class MatchGame  extends Fragment implements MatchView {
     @Optional
     @OnClick({ R.id.match_but_0, R.id.match_but_1, R.id.match_but_2, R.id.match_but_3, R.id.match_but_4 })
     public void clickMatchButton(Button button) {
+        if (pause) {
+            return;
+        }
         if (clickedImage==-1) {
             return;
         }
@@ -350,6 +354,11 @@ public class MatchGame  extends Fragment implements MatchView {
 
             }
         }.start();
+    }
+
+    @Override
+    public void setPause(boolean pause) {
+        this.pause = pause;
     }
 
 

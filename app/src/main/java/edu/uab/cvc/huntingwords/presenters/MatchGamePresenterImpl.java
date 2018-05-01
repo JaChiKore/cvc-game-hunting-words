@@ -52,8 +52,8 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
     private int numOks;
     private final MatchView view;
 
-    private  int countUsed;
-    private  int countFixUsed;
+    private  int countTotalUsed;
+    private  int countTotalFixUsed;
 
 
     private Date startedDate;
@@ -61,7 +61,7 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
 
     List<String> imagesCurrentRound;
    List<String> imagesFixCurrentRound;
-    List<String> playedTranscriptions;
+    List<String> playedTotalTranscriptions;
     List<MatchResult> results;
     private int totalOks;
     private int numLives;
@@ -74,7 +74,7 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
         this.username = username;
         this.imagesFixCurrentRound = new ArrayList<>();
         this.imagesCurrentRound = new ArrayList<>();
-        this.playedTranscriptions = new ArrayList<>();
+        this.playedTotalTranscriptions = new ArrayList<>();
         this.results = new ArrayList<>();
         this.level = new GameLevel(currentLevel);
         this.numLives = Utils.NUM_LIVES;
@@ -84,6 +84,7 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
 
     @Override
     public void checkSolution(final int idImage, final int idButton, String filepathImage, String textSolution) {
+
         if (textSolution.equals(EMPTY_BUTTON)) {
             return;
         }
@@ -112,11 +113,11 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
         //TODO CHANGE SIZE IMAGS TO UPLOAD
         if (numOks == totalOks) {
             //TODO update diff
-            playedTranscriptions.addAll(imagesCurrentRound);
-            playedTranscriptions.addAll(imagesFixCurrentRound);
+            playedTotalTranscriptions.addAll(imagesCurrentRound);
+            playedTotalTranscriptions.addAll(imagesFixCurrentRound);
             // TODO when to call this method
             updateLevel();
-            finishRoundAndCheck();
+            finishRoundAndUpdate();
         }
     }
 
@@ -125,27 +126,23 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
         numLives--;
         this.view.setUpNumLives(numLives);
         if (numLives == 0) {
-            CallbackPostDialog callback = () ->  restartGame();
+            CallbackPostDialog callback = () ->  repeatGame();
             view.runPlayAgainDialog(0,level.getLevel(), callback);
         }
     }
 
-    private void checkForMoreImages() {
-        if (!isItNeedImages()) {
-            restartGame();
-        } else {
-            this.view.startDialog();
-        }
 
-    }
-
-
-    public void finishRoundAndCheck() {
+    public void finishRoundAndUpdate() {
         CallbackPostDialog callback = () -> {
             float oldScore = totalScore;
             totalScore += currentScore;
-            checkForMoreImages();
             uploadResult((int)oldScore,(int)totalScore);
+            if (!isItNeedImages()) {
+                restartGame();
+            } else {
+                this.view.startDialog();
+            }
+
         };
         this.view.runPlayAgainDialog(currentScore,level.getLevel(),callback);
     }
@@ -169,24 +166,32 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
        this.view.updateButtons(nameWords);
     }
 
-    @Override
-    public void finishRound() {
-        CallbackPostDialog callback = () -> restartGame();
-        this.view.runPlayAgainDialog(currentScore,level.getLevel(),callback);
+
+    public boolean checkIfItIsPaused() {
+        if (isItNeedImages()) {
+            view.setPause(true);
+            view.messageNotEnoughImages();
+            return true;
+        } else {
+            view.setPause(false);
+        }
+        return false;
     }
+
 
     @Override
     public void restartGame() {
+        if (checkIfItIsPaused()) return;
+        initGame();
+    }
 
-        //NOT MORE AVAILABLE IMAGERS
-        if (isItNeedImages()) {
-            this.view.messageNotEnoughImages();
-            return;
-        }
+    public void repeatGame() {
+        initGame();
+    }
 
+    private void initGame() {
         startedDate = Calendar.getInstance().getTime();
         resetValues();
-
 
         startNewLives();
 
@@ -198,8 +203,8 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
         setUpInfo( level.getNum(), random, matchInfo, imagesCurrentRound);
         setUpInfo(level.getNumFix(),random, matchFixInfo,imagesFixCurrentRound);
 
-        countUsed+=imagesCurrentRound.size();
-        countFixUsed+=imagesFixCurrentRound.size();
+        countTotalUsed +=imagesCurrentRound.size();
+        countTotalFixUsed +=imagesFixCurrentRound.size();
 
         totalOks = imagesCurrentRound.size()+imagesFixCurrentRound.size();
 
@@ -239,15 +244,15 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
         }
 
         /* analysed all images with correct mix */
-        if ((matchInfo.keySet().size()-countUsed) <numMatchs
+        if ((matchInfo.keySet().size()- countTotalUsed) <numMatchs
                 ||
-                (matchFixInfo.keySet().size()-countFixUsed) <numMatchsFix
+                (matchFixInfo.keySet().size()- countTotalFixUsed) <numMatchsFix
                 ) {
             return true;
 
         }
 
-        if (playedTranscriptions.size() >= (matchInfo.keySet().size() +matchFixInfo.keySet().size())) {
+        if ((countTotalUsed+countTotalFixUsed) >= (matchInfo.keySet().size() +matchFixInfo.keySet().size())) {
             return true;
         }
         return false;
@@ -275,7 +280,7 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
         while (imagesToUse.size() < info.keySet().size() && imagesToUse.size() < sizeForLevel) {
             int randomIndex = random.nextInt(info.keySet().size());
             String value = new ArrayList<>(info.keySet()).get(randomIndex);
-            if (!imagesToUse.contains(value) && !playedTranscriptions.contains(value) ) {
+            if (!imagesToUse.contains(value) && !playedTotalTranscriptions.contains(value) ) {
                 imagesToUse.add(value);
             }
         }

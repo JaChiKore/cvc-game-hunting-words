@@ -11,8 +11,6 @@ public interface MatchGamePresenter {
 
     void updateButtonsByImage(String tag);
 
-    void finishRound();
-
     void restartGame();
 
     void uploadResult(Integer oldScore, Integer newTotalPoints);
