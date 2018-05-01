@@ -5,6 +5,8 @@ package edu.uab.cvc.huntingwords;
  */
 
 public class Utils {
+    public static final String PARAM_USERNAME = "username";
+    public static final String PARAM_PASSWORD = "password";
     public static final float VALUE_POINT = 1;
     public static final int MAX_TIME = 60000;
     public static final int COUNT_DOWN_INTERVAL = 1000;

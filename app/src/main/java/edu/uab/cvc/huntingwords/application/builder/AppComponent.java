@@ -9,15 +9,13 @@ import edu.uab.cvc.huntingwords.presenters.MatchGamePresenterImpl;
 import edu.uab.cvc.huntingwords.presenters.PlayPresenterImpl;
 import edu.uab.cvc.huntingwords.screens.fragments.DifferenceGame;
 import edu.uab.cvc.huntingwords.screens.fragments.MatchGame;
-import edu.uab.cvc.huntingwords.utils.rx.RxSchedulers;
 
 /**
  * Created by ygharsallah on 30/03/2017.
  */
-@Component(modules = {NetworkModule.class, AppContextModule.class, RxModule.class, GameInfoModule.class})
+@Component(modules = {AppContextModule.class, GameInfoModule.class})
 @Singleton
 public interface AppComponent {
-    RxSchedulers rxSchedulers();
 
     void inject (PlayPresenterImpl presenter);
     void inject(MatchGamePresenterImpl matchGamePresenter);

@@ -21,7 +21,6 @@ import edu.uab.cvc.huntingwords.presenters.InitPresenter;
 import edu.uab.cvc.huntingwords.presenters.InitPresenterImpl;
 import edu.uab.cvc.huntingwords.screens.Utils;
 import edu.uab.cvc.huntingwords.screens.views.InitView;
-import edu.uab.cvc.huntingwords.utils.Constants;
 
 import static edu.uab.cvc.huntingwords.Utils.CURRENT_SCORE_DIFF;
 import static edu.uab.cvc.huntingwords.Utils.CURRENT_SCORE_MATCH;
@@ -92,7 +91,7 @@ public class Init extends Fragment  implements InitView {
     private String getUsername() {
         SharedPreferences preferences = getActivity().getSharedPreferences(
                 getString(R.string.preferences_file), Context.MODE_PRIVATE);
-        return preferences.getString(Constants.PARAM_USERNAME,getString(R.string.anonym));
+        return preferences.getString(edu.uab.cvc.huntingwords.Utils.PARAM_USERNAME,getString(R.string.anonym));
     }
 
 

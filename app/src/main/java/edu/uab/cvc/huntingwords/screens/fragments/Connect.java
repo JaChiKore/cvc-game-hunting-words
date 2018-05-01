@@ -4,7 +4,6 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +19,6 @@ import edu.uab.cvc.huntingwords.presenters.ConnectPresenter;
 import edu.uab.cvc.huntingwords.presenters.ConnectPresenterImpl;
 import edu.uab.cvc.huntingwords.screens.Utils;
 import edu.uab.cvc.huntingwords.screens.views.LoginView;
-import edu.uab.cvc.huntingwords.utils.Constants;
 
 import static edu.uab.cvc.huntingwords.Utils.CURRENT_SCORE_DIFF;
 import static edu.uab.cvc.huntingwords.Utils.CURRENT_SCORE_MATCH;
@@ -88,8 +86,8 @@ public class Connect extends Fragment implements LoginView {
         SharedPreferences preferences = getActivity().getSharedPreferences(
                 getString(R.string.preferences_file), Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putString(Constants.PARAM_USERNAME,username);
-        editor.putString(Constants.PARAM_PASSWORD,passw);
+        editor.putString(edu.uab.cvc.huntingwords.Utils.PARAM_USERNAME,username);
+        editor.putString(edu.uab.cvc.huntingwords.Utils.PARAM_PASSWORD,passw);
         editor.commit();
     }
     @Override
@@ -106,7 +104,7 @@ public class Connect extends Fragment implements LoginView {
         SharedPreferences preferences = getActivity().getSharedPreferences(
                 getString(R.string.preferences_file), Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putString(Constants.PARAM_USERNAME,getString(R.string.anonym));
+        editor.putString(edu.uab.cvc.huntingwords.Utils.PARAM_USERNAME,getString(R.string.anonym));
         editor.commit();
     }
 

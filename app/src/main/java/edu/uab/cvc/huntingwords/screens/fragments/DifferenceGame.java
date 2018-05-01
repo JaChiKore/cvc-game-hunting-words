@@ -7,13 +7,11 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
 import android.util.TypedValue;
@@ -40,12 +38,8 @@ import edu.uab.cvc.huntingwords.screens.FragmentActivity;
 import edu.uab.cvc.huntingwords.screens.Sounds;
 import edu.uab.cvc.huntingwords.screens.Utils;
 import edu.uab.cvc.huntingwords.screens.views.DifferenceView;
-import edu.uab.cvc.huntingwords.utils.Constants;
 import es.dmoral.toasty.Toasty;
-
-import static edu.uab.cvc.huntingwords.Utils.COUNT_DOWN_INTERVAL;
 import static edu.uab.cvc.huntingwords.Utils.CURRENT_SCORE_DIFF;
-import static edu.uab.cvc.huntingwords.Utils.MAX_TIME;
 
 /**
  * Created by carlosb on 4/15/18.
@@ -296,7 +290,7 @@ public class DifferenceGame extends Fragment implements DifferenceView {
     private String getPreferencesUsername() {
         SharedPreferences preferences = getActivity().getSharedPreferences(
                 getString(R.string.preferences_file), Context.MODE_PRIVATE);
-        return preferences.getString(Constants.PARAM_USERNAME,getString(R.string.anonym));
+        return preferences.getString(edu.uab.cvc.huntingwords.Utils.PARAM_USERNAME,getString(R.string.anonym));
     }
     public int getPreferencesLevel() {
         SharedPreferences preferences = getActivity().getSharedPreferences(

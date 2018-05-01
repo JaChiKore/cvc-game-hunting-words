@@ -41,7 +41,6 @@ import edu.uab.cvc.huntingwords.screens.FragmentActivity;
 import edu.uab.cvc.huntingwords.screens.Sounds;
 import edu.uab.cvc.huntingwords.screens.Utils;
 import edu.uab.cvc.huntingwords.screens.views.MatchView;
-import edu.uab.cvc.huntingwords.utils.Constants;
 import es.dmoral.toasty.Toasty;
 import timber.log.Timber;
 
@@ -416,7 +415,7 @@ public class MatchGame  extends Fragment implements MatchView {
     private String getPreferencesUsername() {
         SharedPreferences preferences = getActivity().getSharedPreferences(
                 getString(R.string.preferences_file), Context.MODE_PRIVATE);
-        return preferences.getString(Constants.PARAM_USERNAME,getString(R.string.anonym));
+        return preferences.getString(edu.uab.cvc.huntingwords.Utils.PARAM_USERNAME,getString(R.string.anonym));
     }
 
     public int getPreferencesLevel() {
