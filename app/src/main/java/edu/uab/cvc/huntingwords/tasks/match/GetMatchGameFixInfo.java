@@ -37,7 +37,7 @@ public class GetMatchGameFixInfo extends AsyncTask<String, Void, Boolean>{
         File f;
 
         try {
-            link = Utils.BASE_URL+"/matchGameFixInfo.php?list=" + arg[1];  // base link: http://158.109.8.50/app_mobile/
+            link = Utils.BASE_URL+"/matchGameFixInfo.php";  // base link: http://158.109.8.50/app_mobile/
             URL url = new URL(link);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");

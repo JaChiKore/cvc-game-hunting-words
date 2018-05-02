@@ -38,7 +38,7 @@ public class GetDifferenceGameInfo extends AsyncTask<String, Void, String> {
         File f;
 
         try {
-            link = Utils.BASE_URL+"/differenceGameInfo.php?list=" + arg[1] + "&limit=" + arg[2];  // base link: http://158.109.8.50/app_mobile/
+            link = Utils.BASE_URL+"/differenceGameInfo.php?limit=" + arg[2];  // base link: http://158.109.8.50/app_mobile/
             URL url = new URL(link);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
