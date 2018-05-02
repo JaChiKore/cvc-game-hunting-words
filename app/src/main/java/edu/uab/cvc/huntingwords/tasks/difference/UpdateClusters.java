@@ -8,6 +8,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import edu.uab.cvc.huntingwords.Utils;
+import timber.log.Timber;
 
 
 public class UpdateClusters extends AsyncTask<String, Void, Boolean> {
@@ -32,9 +33,11 @@ public class UpdateClusters extends AsyncTask<String, Void, Boolean> {
                                                                         + "&endDate=" + arg[5]
                                                                         + "&scoreInici=" + arg[6]
                                                                         + "&scoreFinal=" + arg[7];  // base link: http://158.109.8.50/app_mobile/
+            Timber.d(link);
             for (String a:arg) {
                 System.out.println(a);
             }
+
 
             URL url = new URL(link);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -46,7 +49,7 @@ public class UpdateClusters extends AsyncTask<String, Void, Boolean> {
             bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
 
             next = bufferedReader.readLine();
-
+            Timber.d(next);
             correct = next.contentEquals("True");
         } catch (Exception e) {
             e.printStackTrace();

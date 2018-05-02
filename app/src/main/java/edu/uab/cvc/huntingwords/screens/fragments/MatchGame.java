@@ -109,6 +109,7 @@ public class MatchGame  extends Fragment implements MatchView {
         colorPrimary = typedValue.data;
 
         presenter = new MatchGamePresenterImpl(this, getPreferencesUsername(), this.getPreferencesLevel(), this.getPreferencesScore());
+        ((TextView)getActivity().findViewById(R.id.value_total_score)).setText(String.valueOf(0));
 
         pause = false;
 
@@ -358,6 +359,11 @@ public class MatchGame  extends Fragment implements MatchView {
     @Override
     public void setPause(boolean pause) {
         this.pause = pause;
+    }
+
+    @Override
+    public void updateTotalScore(float totalScore) {
+        ((TextView)getActivity().findViewById(R.id.value_total_score)).setText(String.valueOf(totalScore));
     }
 
 

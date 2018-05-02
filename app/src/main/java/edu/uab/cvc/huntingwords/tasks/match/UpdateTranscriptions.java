@@ -8,6 +8,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import edu.uab.cvc.huntingwords.Utils;
+import timber.log.Timber;
 
 
 public class UpdateTranscriptions extends AsyncTask<String, Void, Boolean> {
@@ -32,6 +33,7 @@ public class UpdateTranscriptions extends AsyncTask<String, Void, Boolean> {
                                                                         + "&endDate=" + arg[5]
                                                                         + "&scoreInici=" + arg[6]
                                                                         + "&scoreFinal=" + arg[7];  // base link: http://158.109.8.50/app_mobile/ http://158.109.9.209/
+            Timber.d(link);
             URL url = new URL(link);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
@@ -42,6 +44,7 @@ public class UpdateTranscriptions extends AsyncTask<String, Void, Boolean> {
             bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
 
             next = bufferedReader.readLine();
+            Timber.d(next);
 
             correct = next.contentEquals("True");
         } catch (Exception e) {

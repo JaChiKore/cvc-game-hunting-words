@@ -82,7 +82,6 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
 
     @Override
     public void newGame() {
-        currentScore = 0;
         restartGame();
     }
 
@@ -140,6 +139,8 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
     private void initGame () {
         imagesCurrentRound.clear();
         imagesFixCurrentRound.clear();
+        resetValues();
+
 
         List<String> listClusters = new ArrayList<>();
         List<String> listFixClusters = new ArrayList<>();
@@ -152,6 +153,11 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
         Collections.shuffle(clustersToPlay);
         startNewLives();
 
+    }
+
+    private void resetValues() {
+        currentScore = 0;
+        this.results.clear();
     }
 
     private void setUpInfo(int sizeForLevel, SecureRandom random, Hashtable<String, List<Pair<String, Boolean>>> info, List<String> listClusters) {
@@ -227,6 +233,7 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
                 } else {
                     this.view.startDialog();
                 }
+                view.updateTotalScore(totalScore);
                uploadResult((int)oldScore,(int)totalScore);
             };
             view.runPlayAgainDialog(currentScore,level.getLevel(), callback);
@@ -243,7 +250,7 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
 
         List<ClusterDifferentResult> newResults = new ArrayList<ClusterDifferentResult>(this.results);
         Date stoppedDate = Calendar.getInstance().getTime();
-        new DifferenceService(this.username).run(newResults,String.valueOf(level.getLevel()),startedDate,stoppedDate,oldScore,newTotalPoints);
+        new Thread (() -> new DifferenceService(username).run(newResults,String.valueOf(level.getLevel()),startedDate,stoppedDate,oldScore,newTotalPoints)).start();
         this.results.clear();
     }
 

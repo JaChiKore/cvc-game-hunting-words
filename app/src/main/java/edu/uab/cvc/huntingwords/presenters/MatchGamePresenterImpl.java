@@ -136,6 +136,7 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
         CallbackPostDialog callback = () -> {
             float oldScore = totalScore;
             totalScore += currentScore;
+            view.updateTotalScore(totalScore);
             uploadResult((int)oldScore,(int)totalScore);
             if (!isItNeedImages()) {
                 restartGame();
@@ -271,7 +272,9 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
         }
         List<MatchResult> newResults = new ArrayList<>(this.results);
         Date stoppedDate = Calendar.getInstance().getTime();
-        new MatchService(this.username).run(newResults,String.valueOf(level.getLevel()),startedDate,stoppedDate,oldScore,newTotalPoints);
+        new Thread(() -> {
+            new MatchService(username).run(newResults,String.valueOf(level.getLevel()),startedDate,stoppedDate,oldScore,newTotalPoints);
+        }).start();
         this.results.clear();
     }
 

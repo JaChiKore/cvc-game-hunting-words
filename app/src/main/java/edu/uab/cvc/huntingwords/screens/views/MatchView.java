@@ -29,4 +29,6 @@ public interface MatchView {
     void setUpNumLives(int numLives);
 
     void setPause(boolean pause);
+
+    void updateTotalScore(float totalScore);
 }

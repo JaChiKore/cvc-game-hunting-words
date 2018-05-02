@@ -24,6 +24,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
 import java.io.File;
 import java.util.List;
 
@@ -97,6 +99,8 @@ public class DifferenceGame extends Fragment implements DifferenceView {
         theme.resolveAttribute(R.attr.colorPrimary, typedValue, true);
         colorPrimary = typedValue.data;
         presenter = new DifferenceGamePresenterImpl(this,getPreferencesUsername(), this.getPreferencesLevel(), this.getPreferencesScore());
+        ((TextView)getActivity().findViewById(R.id.value_total_score)).setText(String.valueOf(0));
+
 
         pause = false;
 
@@ -337,6 +341,11 @@ public class DifferenceGame extends Fragment implements DifferenceView {
     @Override
     public void setPause(boolean pause) {
         this.pause = pause;
+    }
+
+    @Override
+    public void updateTotalScore(float totalScore) {
+        ((TextView)getActivity().findViewById(R.id.value_total_score)).setText(String.valueOf(totalScore));
     }
 
 }

@@ -47,6 +47,7 @@ public class UpdateDifferenceGame {
     }
 
     public boolean update(Context context) {
+        cleanFiles(context);
         Boolean needDownloadFix = false;
         Boolean needDownload = false;
 

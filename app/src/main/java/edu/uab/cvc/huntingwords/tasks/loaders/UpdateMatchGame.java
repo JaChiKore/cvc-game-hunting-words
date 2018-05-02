@@ -48,6 +48,7 @@ public class UpdateMatchGame {
 
 
     public boolean update(Context context) {
+        cleanFiles(context);
         /* check  */
         Integer numImagesMatchGameInBBDD = null;
         try {

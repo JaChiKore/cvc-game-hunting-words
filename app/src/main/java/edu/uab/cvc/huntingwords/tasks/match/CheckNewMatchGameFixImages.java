@@ -8,6 +8,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import edu.uab.cvc.huntingwords.Utils;
+import timber.log.Timber;
 
 @SuppressWarnings({"WeakerAccess", "ResultOfMethodCallIgnored"})
 public class CheckNewMatchGameFixImages extends AsyncTask<String, Void, Boolean>{
@@ -25,6 +26,7 @@ public class CheckNewMatchGameFixImages extends AsyncTask<String, Void, Boolean>
 
         try {
             link = Utils.BASE_URL+"/matchGameFixInfo.php?list=" + arg[0];  // base link: http://158.109.8.50/app_mobile/
+            Timber.i(link);
             URL url = new URL(link);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");

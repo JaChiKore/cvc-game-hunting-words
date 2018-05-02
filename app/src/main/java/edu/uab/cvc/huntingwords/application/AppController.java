@@ -43,12 +43,7 @@ public class AppController extends Application {
         if (BuildConfig.DEBUG) {
             Timber.plant(new Timber.DebugTree());
         } else {
-            Timber.plant(new Timber.Tree() {
-                @Override
-                protected void log(int priority, String tag, String message, Throwable t) {
-                    //TODO  decide what to log in release version
-                }
-            });
+            Timber.plant(new Timber.DebugTree());
         }
     }
 
