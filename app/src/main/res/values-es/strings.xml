@@ -51,6 +51,9 @@
     <string name="not_enough_images">No hay suficientes imágenes</string>
     <string name="text_match_score">"Match puntuación: "</string>
     <string name="text_diff_score">"Diff puntuación: "</string>
-    <string name="match_game" translatable="false">Juego Match</string>
-    <string name="difference_game" translatable="false">Juego Difference</string>
+    <string name="match_game">Juego Match</string>
+    <string name="difference_game">Juego Difference</string>
+    <string name="preferences_file">hunting_words_prefs</string>
+    <string name="language_type">english</string>
+
 </resources>
