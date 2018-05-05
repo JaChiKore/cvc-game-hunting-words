@@ -52,8 +52,8 @@ public class GetTotalRanking extends AsyncTask<String, Void, String[]> {
             }
 
             String [] ranks = content.toString().split("separator<br>");
-            String [] infoDiff = ranks[0].split("<br>");
-            String [] infoMatch = ranks[1].split("<br>");
+            String [] infoMatch = ranks[0].split("<br>");
+            String [] infoDiff = ranks[1].split("<br>");
 
             if (arg[0].equals(DIFFERENCE)) {
                 List<Pair<String, String>> rankingDifference = new ArrayList<>();

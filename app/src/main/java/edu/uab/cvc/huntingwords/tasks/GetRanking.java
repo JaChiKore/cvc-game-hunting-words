@@ -43,7 +43,7 @@ public class GetRanking extends AsyncTask<String, Void, String[]> {
             bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
             next = bufferedReader.readLine();
             rows = next.split(",");
-            onResult.updateScore(Integer.valueOf(rows[1]),Integer.valueOf(rows[0]));
+            onResult.updateScore(Integer.valueOf(rows[0]),Integer.valueOf(rows[1]));
         } catch (Exception e) {
             Timber.e(e);
         }
