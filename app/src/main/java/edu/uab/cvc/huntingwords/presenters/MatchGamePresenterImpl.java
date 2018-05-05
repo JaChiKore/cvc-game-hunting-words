@@ -66,8 +66,10 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
     private int totalOks;
     private int numLives;
     private float totalScore;
+    private final float scoreDifference;
 
-    public MatchGamePresenterImpl(MatchView view, String username, int currentLevel, float totalScore) {
+
+    public MatchGamePresenterImpl(MatchView view, String username, int currentLevel, float totalScore, float  scoreDifference) {
         /* IT MUST BE FIRST */
         AppController.getComponent().inject(this);
         this.view = view;
@@ -79,6 +81,7 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
         this.level = new GameLevel(currentLevel);
         this.numLives = Utils.NUM_LIVES;
         this.totalScore = totalScore;
+        this.scoreDifference = scoreDifference;
     }
 
 
@@ -273,7 +276,7 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
         List<MatchResult> newResults = new ArrayList<>(this.results);
         Date stoppedDate = Calendar.getInstance().getTime();
         new Thread(() -> {
-            new MatchService(username).run(newResults,String.valueOf(level.getLevel()),startedDate,stoppedDate,oldScore,newTotalPoints);
+            new MatchService(username,scoreDifference).run(newResults,String.valueOf(level.getLevel()),startedDate,stoppedDate,oldScore,newTotalPoints);
         }).start();
         this.results.clear();
     }

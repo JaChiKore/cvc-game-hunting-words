@@ -71,6 +71,7 @@ public class DifferenceGame extends Fragment implements DifferenceView {
     Context context;
     FragmentActivity fragActivity;
     private boolean pause;
+    private float preferencesMatchScore;
 
 
     public static DifferenceGame newInstance() {
@@ -86,7 +87,6 @@ public class DifferenceGame extends Fragment implements DifferenceView {
     }
 
 
-
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.difference_game, container, false);
@@ -98,8 +98,8 @@ public class DifferenceGame extends Fragment implements DifferenceView {
         Resources.Theme theme = getActivity().getTheme();
         theme.resolveAttribute(R.attr.colorPrimary, typedValue, true);
         colorPrimary = typedValue.data;
-        presenter = new DifferenceGamePresenterImpl(this,getPreferencesUsername(), this.getPreferencesLevel(), this.getPreferencesScore());
-        ((TextView)getActivity().findViewById(R.id.value_total_score)).setText(String.valueOf(0));
+        presenter = new DifferenceGamePresenterImpl(this, getPreferencesUsername(), this.getPreferencesLevel(), this.getPreferencesScore(), this.getPreferencesMatchScore());
+        ((TextView) getActivity().findViewById(R.id.value_total_score)).setText(String.valueOf(0));
 
 
         pause = false;
@@ -309,6 +309,12 @@ public class DifferenceGame extends Fragment implements DifferenceView {
         editor.commit();
     }
 
+    public float getPreferencesMatchScore() {
+        SharedPreferences preferences = getActivity().getSharedPreferences(
+                getString(R.string.preferences_file), Context.MODE_PRIVATE);
+        return preferences.getInt(edu.uab.cvc.huntingwords.Utils.CURRENT_SCORE_MATCH,0);
+    }
+
     @Override
     public void startDialog()
     {
@@ -347,5 +353,6 @@ public class DifferenceGame extends Fragment implements DifferenceView {
     public void updateTotalScore(float totalScore) {
         ((TextView)getActivity().findViewById(R.id.value_total_score)).setText(String.valueOf(totalScore));
     }
+
 
 }

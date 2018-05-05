@@ -82,6 +82,7 @@ public class MatchGame  extends Fragment implements MatchView {
 
     public int clickedImage = -1;
     private boolean pause;
+    private float preferencesDiffScore;
 
 
     public static MatchGame newInstance() {
@@ -108,8 +109,8 @@ public class MatchGame  extends Fragment implements MatchView {
         theme.resolveAttribute(R.attr.colorPrimary, typedValue, true);
         colorPrimary = typedValue.data;
 
-        presenter = new MatchGamePresenterImpl(this, getPreferencesUsername(), this.getPreferencesLevel(), this.getPreferencesScore());
-        ((TextView)getActivity().findViewById(R.id.value_total_score)).setText(String.valueOf(0));
+        presenter = new MatchGamePresenterImpl(this, getPreferencesUsername(), this.getPreferencesLevel(), this.getPreferencesScore(), this.getPreferencesDiffScore());
+        ((TextView) getActivity().findViewById(R.id.value_total_score)).setText(String.valueOf(0));
 
         pause = false;
 
@@ -438,4 +439,9 @@ public class MatchGame  extends Fragment implements MatchView {
     }
 
 
+    public float getPreferencesDiffScore() {
+        SharedPreferences preferences = getActivity().getSharedPreferences(
+                getString(R.string.preferences_file), Context.MODE_PRIVATE);
+        return preferences.getInt(edu.uab.cvc.huntingwords.Utils.CURRENT_SCORE_DIFF,0);
+    }
 }

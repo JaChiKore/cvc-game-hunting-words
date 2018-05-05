@@ -60,11 +60,12 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
 
     private Date startedDate;
     private final String username;
+    private final float scoreMatch;
 
     private List<ClusterDifferentResult> results;
 
 
-    public DifferenceGamePresenterImpl(DifferenceView view, String username, int level, float totalScore) {
+    public DifferenceGamePresenterImpl(DifferenceView view, String username, int level, float totalScore, float scoreMatch) {
         AppController.getComponent().inject(this);
         clustersToPlay = new ArrayList();
         countUsed = 0;
@@ -78,6 +79,7 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
         this.level = new GameLevel(level);
         this.numLives = Utils.NUM_LIVES;
         this.totalScore = totalScore;
+        this.scoreMatch = scoreMatch;
     }
 
     @Override
@@ -250,7 +252,7 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
 
         List<ClusterDifferentResult> newResults = new ArrayList<ClusterDifferentResult>(this.results);
         Date stoppedDate = Calendar.getInstance().getTime();
-        new Thread (() -> new DifferenceService(username).run(newResults,String.valueOf(level.getLevel()),startedDate,stoppedDate,oldScore,newTotalPoints)).start();
+        new Thread (() -> new DifferenceService(username,scoreMatch).run(newResults,String.valueOf(level.getLevel()),startedDate,stoppedDate,oldScore,newTotalPoints)).start();
         this.results.clear();
     }
 
