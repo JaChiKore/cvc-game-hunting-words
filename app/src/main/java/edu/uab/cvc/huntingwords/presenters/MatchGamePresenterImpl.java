@@ -218,13 +218,9 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
         Collections.shuffle(allImages);
 
 
-        Random generator = new Random();
-        int randomIndex = generator.nextInt(allImages.size());
-        String nameFile = allImages.get(randomIndex);
-
-        List<String> nameWords;
+        String nameFile = allImages.get(0);
         assert(this.matchInfo.containsKey(nameFile) ||this.matchFixInfo.containsKey(nameFile) );
-
+        List<String> nameWords;
         if (this.matchInfo.containsKey(nameFile)) {
             nameWords = this.matchInfo.get(nameFile).first;
         } else  {

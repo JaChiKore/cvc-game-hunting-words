@@ -309,24 +309,8 @@ public class UpdateDifferenceGame {
             }
 
             try {
-                int limit = 50;
-                if (ffix.exists()) {
-                    BufferedReader br = new BufferedReader(new FileReader(ffix));
-                    String num;
-                    if ((num = br.readLine()) != null) {
-                        limit = 50 - (numImgs + Integer.valueOf(num));
-                    } else {
-                        limit = 50 - numImgs;
-                    }
-                }
+                downImages = new GetDifferenceGameInfo(context).execute(differenceGameInfoFilename, list).get();
 
-                System.out.println("the limit is: " + limit);
-
-                if (limit > 0) {
-                    downImages = new GetDifferenceGameInfo(context).execute(differenceGameInfoFilename, list, String.valueOf(limit)).get();
-                } else {
-                    downImages = "3";
-                }
             } catch (Exception e) {
                 Log.e("Error:", "Failed downloading txt of difference game images.");
             }

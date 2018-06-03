@@ -138,10 +138,16 @@ public class MatchGame  extends Fragment implements MatchView {
         for (int i=0; i<filepaths.size(); i++) {
             ImageButton imageButton = new ImageButton(this.getActivity());
             imageButton.setId(i+1);
-            imageButton.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+            //first image add as selected
+            if (i==0)  {
+                clickedImage = i+1;
+                imageButton.setBackgroundColor(colorPrimary);
+            } else {
+                imageButton.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+                imageButton.setBackgroundResource(R.drawable.border);
+            }
             String filepath = filepaths.get(i);
             imageButton.setTag(filepath);
-            imageButton.setBackgroundResource(R.drawable.border);
             File file =  new File(getActivity().getFilesDir(),filepath);
             Bitmap image = BitmapFactory.decodeFile(file.getAbsolutePath());
 

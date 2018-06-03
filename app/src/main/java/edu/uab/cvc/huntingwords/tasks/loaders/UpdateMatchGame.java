@@ -48,7 +48,9 @@ public class UpdateMatchGame {
 
 
     public boolean update(Context context) {
+
         cleanFiles(context);
+
         /* check  */
         Integer numImagesMatchGameInBBDD = null;
         try {
@@ -326,10 +328,7 @@ public class UpdateMatchGame {
                 } else {
                     list = "''";
                 }
-
-                int limit = 50 - (numFImgs);
-                System.out.println("list: " + list + "; limit: " + limit);
-                downImages = new GetMatchGameInfo(context).execute(matchGameInfoFilename, list, String.valueOf(limit)).get();
+                downImages = new GetMatchGameInfo(context).execute(matchGameInfoFilename, list).get();
             } catch (Exception e) {
                 Log.e("Error:", "Failed downloading txt of match game images.");
             }
