@@ -163,7 +163,6 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
     }
 
     private void setUpInfo(int sizeForLevel, SecureRandom random, Hashtable<String, List<Pair<String, Boolean>>> info, List<String> listClusters) {
-        //TODO CHECK SIZE
         while (listClusters.size() < info.size() && listClusters.size() <sizeForLevel ) {
             int randomIndex = random.nextInt(info.keySet().size());
             String cluster = new ArrayList<>(info.keySet()).get(randomIndex);
@@ -295,12 +294,15 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
             imagesFixCurrentRound.add(keyCurrentPlay);
             executeOk();
         } else {
-            boolean diff = true;
+            boolean diff = false;
+            int count = 0;
             for (Pair<String, Boolean> imageInfo : imagesInfoToUse) {
-                if (imageInfo.second!=true) {
-                        diff  = false;
-                        break;
+                if (imageInfo.second) {
+                    count += 1;
                 }
+            }
+            if (count > 1) {
+                diff = true;
             }
             if (diff) {
                 countFixUsed++;
