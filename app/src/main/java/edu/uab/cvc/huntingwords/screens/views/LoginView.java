@@ -7,6 +7,7 @@ package edu.uab.cvc.huntingwords.screens.views;
 public interface LoginView {
 
     void updateLogin(String username);
+    void goToInit();
 
     void setUpLoginParameters(String username, String passw);
 

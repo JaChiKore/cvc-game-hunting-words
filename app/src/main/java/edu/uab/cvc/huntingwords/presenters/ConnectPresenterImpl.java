@@ -2,8 +2,13 @@ package edu.uab.cvc.huntingwords.presenters;
 
 
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+
+import edu.uab.cvc.huntingwords.R;
 import edu.uab.cvc.huntingwords.application.AppController;
 import edu.uab.cvc.huntingwords.presenters.callbacks.ConnectCallback;
+import edu.uab.cvc.huntingwords.screens.fragments.Connect;
 import edu.uab.cvc.huntingwords.screens.views.LoginView;
 import edu.uab.cvc.huntingwords.tasks.GetRanking;
 import edu.uab.cvc.huntingwords.tasks.InsertUser;
@@ -34,6 +39,7 @@ public class ConnectPresenterImpl implements ConnectPresenter {
             public void updateLogin(String username, String password) {
                 view.setUpLoginParameters(username,password);
                 view.updateLogin(username);
+                view.goToInit();
             }
 
             @Override

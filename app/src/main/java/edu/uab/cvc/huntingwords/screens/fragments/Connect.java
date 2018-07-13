@@ -1,6 +1,8 @@
 package edu.uab.cvc.huntingwords.screens.fragments;
 
 import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -48,14 +50,18 @@ public class Connect extends Fragment implements LoginView {
     public void login () {
         String user= username.getText().toString();
         String pass= password.getText().toString();
-        this.presenter.login(user,pass);
+        if (user.length() > 0 && pass.length() > 0) {
+            this.presenter.login(user,pass);
+        }
     }
 
     @OnClick(R.id.signin)
     public void signin() {
         String user= username.getText().toString();
         String pass= password.getText().toString();
-        this.presenter.signin(user,pass);
+        if (user.length() > 0 && pass.length() > 0) {
+            this.presenter.signin(user, pass);
+        }
     }
 
     @OnClick(R.id.disconnect)
@@ -79,6 +85,14 @@ public class Connect extends Fragment implements LoginView {
                 }
             }.start();
 
+    }
+
+    @Override
+    public void goToInit() {
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.replace(R.id.fragment_switch, new Init());
+        ft.addToBackStack(null);
+        ft.commit();
     }
 
     @Override
