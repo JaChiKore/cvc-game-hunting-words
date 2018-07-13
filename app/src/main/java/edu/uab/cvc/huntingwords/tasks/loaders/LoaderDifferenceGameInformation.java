@@ -30,7 +30,6 @@ public class LoaderDifferenceGameInformation {
         File file = new File(context.getFilesDir(),differenceGameInfoFilename);
         BufferedReader br = new BufferedReader(new FileReader(file));
         try {
-            br.readLine();
             if (br.readLine() != null) {
                 String row;
                 while ((row = br.readLine()) != null) {
@@ -84,16 +83,15 @@ public class LoaderDifferenceGameInformation {
         File file = new File(context.getFilesDir(),differenceGameFixInfoFilename);
         BufferedReader br = new BufferedReader(new FileReader(file));
         try {
-            br.readLine();
             if (br.readLine() != null) {
                 String row;
                 while ((row = br.readLine()) != null) {
                     String[] columns = row.split(";");
-                    //TODO CHECK SIZE
                     String filename = columns[0];
                     String numCluster = columns[1];
                     String result = columns[2];
                     Boolean validated = Integer.valueOf(columns[3])==1;
+                    System.out.println(filename + " - " + numCluster + " - " + validated);
 
                     List<Pair<String,Boolean>> listFilenames;
                     if (!gameInfo.containsKey(numCluster)) {

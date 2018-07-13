@@ -266,10 +266,10 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
         } else {
             boolean isCorrect = true;
             for (Pair<String, Boolean> imageInfo : imagesInfoToUse) {
-                if (imageInfo.first.equals(tag) && !(imageInfo.second==true)) {
+                if (imageInfo.first.equals(tag) && !(imageInfo.second)) {
                     isCorrect = false;
                     break;
-                } else if (!imageInfo.first.equals(tag) && !(imageInfo.second==false)) {
+                } else if (!imageInfo.first.equals(tag) && (imageInfo.second)) {
                     isCorrect = false;
                     break;
                 }
@@ -326,7 +326,7 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
         } else {
             boolean diff = false;
             for (Pair<String, Boolean> imageInfo : imagesInfoToUse) {
-                if (imageInfo.second!=false) {
+                if (imageInfo.second) {
                     diff  = true;
                     break;
                 }

@@ -30,7 +30,6 @@ public class LoaderMatchGameInformation {
         File file = new File(context.getFilesDir(),matchGameInfoFilename);
             BufferedReader br = new BufferedReader(new FileReader(file));
             try {
-                br.readLine();
                 if (br.readLine() != null) {
                     String row;
                     while ((row = br.readLine()) != null) {
@@ -61,7 +60,6 @@ public class LoaderMatchGameInformation {
         File file = new File(context.getFilesDir(),matchGameFixInfoFilename);
         BufferedReader br = new BufferedReader(new FileReader(file));
         try {
-            br.readLine();
             if (br.readLine() != null) {
                 String row;
                 while ((row = br.readLine()) != null) {
