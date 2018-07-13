@@ -34,7 +34,6 @@ public class LoaderDifferenceGameInformation {
                 String row;
                 while ((row = br.readLine()) != null) {
                     String[] columns = row.split(";");
-                    //TODO CHECK SIZE
                     String filename = columns[0];
                     String numCluster = columns[1];
                     Boolean validated = Integer.valueOf(columns[3])==1;

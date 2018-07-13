@@ -113,12 +113,9 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
 
     private void  executeOk()  {
         numOks++;
-        //TODO CHANGE SIZE IMAGS TO UPLOAD
         if (numOks == totalOks) {
-            //TODO update diff
             playedTotalTranscriptions.addAll(imagesCurrentRound);
             playedTotalTranscriptions.addAll(imagesFixCurrentRound);
-            // TODO when to call this method
             updateLevel();
             finishRoundAndUpdate();
         }
@@ -202,7 +199,6 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
         imagesCurrentRound.clear();
         imagesFixCurrentRound.clear();
 
-        //TODO APPLY DELETE IMAGES TESTED
         SecureRandom random = new SecureRandom();
         setUpInfo( level.getNum(), random, matchInfo, imagesCurrentRound);
         setUpInfo(level.getNumFix(),random, matchFixInfo,imagesFixCurrentRound);
@@ -278,7 +274,6 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
     }
 
     private void setUpInfo(int sizeForLevel, SecureRandom random, Hashtable<String, Pair<List<String>, String>> info, List<String> imagesToUse) {
-        //TODO CHECK SIZE
         while (imagesToUse.size() < info.keySet().size() && imagesToUse.size() < sizeForLevel) {
             int randomIndex = random.nextInt(info.keySet().size());
             String value = new ArrayList<>(info.keySet()).get(randomIndex);

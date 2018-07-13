@@ -236,9 +236,6 @@ public class UpdateMatchGame {
             }
 
 
-
-
-
             /*  start if it is necessary download not verify images */
             if (!needDownload) {
                 try {
@@ -265,7 +262,6 @@ public class UpdateMatchGame {
             }
         } else {
             needDownload = true;
-            //TODO CHECK DOWNLOAD
             //lastTextTimeForDown = System.currentTimeMillis();
         }
 

@@ -34,7 +34,6 @@ public class LoaderMatchGameInformation {
                     String row;
                     while ((row = br.readLine()) != null) {
                         String[] columns = row.split(";");
-                        //TODO CHECK SIZE
                         String filename = columns[0];
                         String possibleResults = columns[1];
                         String[] tempResults = possibleResults.split(":");
@@ -64,7 +63,6 @@ public class LoaderMatchGameInformation {
                 String row;
                 while ((row = br.readLine()) != null) {
                     String[] columns = row.split(";");
-                    //TODO CHECK SIZE
                     String filename = columns[0];
                     String possibleResults = columns[1];
                     String[] tempResults = possibleResults.split(":");
