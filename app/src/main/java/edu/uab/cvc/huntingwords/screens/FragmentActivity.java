@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.app.Fragment;
 import android.view.Window;
 
 import edu.uab.cvc.huntingwords.R;
@@ -16,6 +17,7 @@ import android.view.Window;
 
 import edu.uab.cvc.huntingwords.R;
 import edu.uab.cvc.huntingwords.screens.fragments.Init;
+import edu.uab.cvc.huntingwords.screens.fragments.Play;
 
 public class FragmentActivity extends Activity {
 
@@ -26,10 +28,18 @@ public class FragmentActivity extends Activity {
     }
 
     @Override
-    public void onBackPressed(){
-        FragmentManager fm = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fm.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_switch, new Init());
-        fragmentTransaction.commit();
+    public void onBackPressed() {
+
+        Fragment match = getFragmentManager().findFragmentByTag("how_to_play_match");
+        Fragment diff = getFragmentManager().findFragmentByTag("how_to_play_difference");
+        if ((match != null && match.isVisible()) || (diff != null && diff.isVisible())) {
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            ft.replace(R.id.fragment_switch, new Play(), "play");
+            ft.commit();
+        } else {
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            ft.replace(R.id.fragment_switch, new Init(), "init");
+            ft.commit();
+        }
     }
 }

@@ -79,20 +79,18 @@ public class Play extends Fragment implements PlayView{
         Fragment myfragment;
         myfragment = new HelpMatch();
 
-        FragmentManager fm = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fm.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_switch, myfragment);
-        fragmentTransaction.commit();
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.replace(R.id.fragment_switch, myfragment, "how_to_play_match");
+        ft.commit();
     }
     @OnClick(R.id.how_to_play_difference)
     public void helpDifference () {
         Fragment myfragment;
         myfragment = new HelpDifference();
 
-        FragmentManager fm = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fm.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_switch, myfragment);
-        fragmentTransaction.commit();
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.replace(R.id.fragment_switch, myfragment, "how_to_play_difference");
+        ft.commit();
     }
 
         public void countDownProgressToStartFragment(Fragment fragment) {

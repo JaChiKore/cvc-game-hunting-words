@@ -1,9 +1,11 @@
 package edu.uab.cvc.huntingwords.screens.fragments;
 
 import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,5 +37,4 @@ public class HelpMatch extends Fragment {
         return view;
 
     }
-
 }

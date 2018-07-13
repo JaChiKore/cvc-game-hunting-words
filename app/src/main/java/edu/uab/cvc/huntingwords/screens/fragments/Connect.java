@@ -90,7 +90,7 @@ public class Connect extends Fragment implements LoginView {
     @Override
     public void goToInit() {
         FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.replace(R.id.fragment_switch, new Init());
+        ft.replace(R.id.fragment_switch, new Init(), "init");
         ft.addToBackStack(null);
         ft.commit();
     }
