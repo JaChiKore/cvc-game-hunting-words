@@ -80,7 +80,7 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
         this.results = new ArrayList<>();
         this.level = new GameLevel(currentLevel);
         this.numLives = Utils.NUM_LIVES;
-        this.totalScore = totalScore;
+        this.totalScore = 0;
         this.scoreDifference = scoreDifference;
     }
 

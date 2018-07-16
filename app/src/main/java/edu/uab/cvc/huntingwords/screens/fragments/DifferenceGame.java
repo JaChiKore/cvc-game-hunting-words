@@ -179,8 +179,7 @@ public class DifferenceGame extends Fragment implements DifferenceView {
             return;
         }
 
-        Integer newTotalPoints = getPreferencesScore()+(int)currentScore;
-        updatePreferencesScore(newTotalPoints);
+        updatePreferencesScore((int)currentScore);
         updatePreferencesLevel(level);
         points.setText("0");
 

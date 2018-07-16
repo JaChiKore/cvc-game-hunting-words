@@ -295,7 +295,9 @@ public class MatchGame  extends Fragment implements MatchView {
 
     @Override
     public void runPlayAgainDialog(float currentScore, int level, CallbackPostDialog postDialog) {
-        playFinish();
+        if (currentScore > 0) {
+            playFinish();
+        }
         if (getActivity() == null) {
             return;
         }
@@ -403,11 +405,7 @@ public class MatchGame  extends Fragment implements MatchView {
         currentSound = sounds.soundPool.play(sounds.fail, 1, 1, 0, 0, 1);
     }
 
-    private void playFinish() {
-        currentSound = sounds.soundPool.play(sounds.won,1,1,0,0,1);
-    }
-
-
+    private void playFinish() { currentSound = sounds.soundPool.play(sounds.won,1,1,0,0,1); }
 
 
     private void updatePreferencesScore(Integer scoreMatch) {

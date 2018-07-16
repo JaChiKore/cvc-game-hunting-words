@@ -2,6 +2,7 @@ package edu.uab.cvc.huntingwords.screens.fragments;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -26,7 +27,7 @@ public class Languages extends Fragment {
     private static String CATALAN_TAG = "ca";
     private static String SPANISH_TAG = "es";
     private static String ENGLISH_TAG = "en";
-    private static String CHINESE_TAG= "zh";
+    private static String CHINESE_TAG = "zh";
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -66,6 +67,10 @@ public class Languages extends Fragment {
     private void updateTextScore() {
         ((TextView)getActivity().findViewById(R.id.text_match_score)).setText(getString(R.string.text_match_score));
         ((TextView)getActivity().findViewById(R.id.text_diff_score)).setText(getString(R.string.text_diff_score));
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.replace(R.id.fragment_switch, new Init(), "init");
+        ft.addToBackStack(null);
+        ft.commit();
     }
 
 
@@ -73,13 +78,11 @@ public class Languages extends Fragment {
 
 
     @SuppressWarnings("deprecation")
-    private void setLocale(Locale locale){
+    private void setLocale(Locale locale) {
         Locale.setDefault(locale);
         Configuration config = getActivity().getBaseContext().getResources().getConfiguration();
         config.locale = locale;
         getActivity().getBaseContext().getResources().updateConfiguration(config,
                 getActivity().getBaseContext().getResources().getDisplayMetrics());
     }
-
-
 }
