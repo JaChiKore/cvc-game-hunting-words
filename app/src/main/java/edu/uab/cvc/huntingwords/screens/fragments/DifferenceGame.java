@@ -99,8 +99,7 @@ public class DifferenceGame extends Fragment implements DifferenceView {
         theme.resolveAttribute(R.attr.colorPrimary, typedValue, true);
         colorPrimary = typedValue.data;
         presenter = new DifferenceGamePresenterImpl(this, getPreferencesUsername(), this.getPreferencesLevel(), this.getPreferencesScore(), this.getPreferencesMatchScore());
-        ((TextView) getActivity().findViewById(R.id.value_total_score)).setText(String.valueOf(0));
-
+        ((TextView) getActivity().findViewById(R.id.value_diff_score)).setText(String.valueOf(0));
 
         pause = false;
 
@@ -117,7 +116,7 @@ public class DifferenceGame extends Fragment implements DifferenceView {
 
     @Override
     public void newRoundPlay(List<String> filepaths) {
-        ((TextView)(this.getActivity().findViewById(R.id.value_total_score))).setText(String.valueOf(getPreferencesScore()));
+        ((TextView)(this.getActivity().findViewById(R.id.value_diff_score))).setText(String.valueOf(getPreferencesScore()));
         table.removeAllViews();
         for (int i=0; i<filepaths.size(); i++) {
             ImageButton imageButton = new ImageButton(this.getActivity());
@@ -351,7 +350,7 @@ public class DifferenceGame extends Fragment implements DifferenceView {
 
     @Override
     public void updateTotalScore(float totalScore) {
-        ((TextView)getActivity().findViewById(R.id.value_total_score)).setText(String.valueOf(totalScore));
+        ((TextView)getActivity().findViewById(R.id.value_diff_score)).setText(String.valueOf(totalScore));
     }
 
 

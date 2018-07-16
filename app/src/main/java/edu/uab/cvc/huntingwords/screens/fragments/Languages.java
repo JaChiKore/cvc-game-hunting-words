@@ -64,8 +64,8 @@ public class Languages extends Fragment {
     }
 
     private void updateTextScore() {
-        ((TextView)getActivity().findViewById(R.id.text_total_score)).setText(getString(R.string.text_diff_score));
-
+        ((TextView)getActivity().findViewById(R.id.text_match_score)).setText(getString(R.string.text_match_score));
+        ((TextView)getActivity().findViewById(R.id.text_diff_score)).setText(getString(R.string.text_diff_score));
     }
 
 
