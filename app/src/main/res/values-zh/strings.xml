@@ -45,7 +45,7 @@
     <string name="normal">普通</string>
     <string name="hard">难</string>
     <string name="level">难度</string>
-    <string name="anonym">Anonymous</string>
+    <string name="anonym">"无名 \t "</string>
     <string name="title_connect">Parameters</string>
     <string name="title_loading_info">正在加载数据</string>
     <string name="not_enough_images">没有更多可玩的图片了</string>

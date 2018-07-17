@@ -294,19 +294,20 @@ public class MatchGame  extends Fragment implements MatchView {
 
 
     @Override
-    public void runPlayAgainDialog(float currentScore, int level, CallbackPostDialog postDialog) {
-        if (currentScore > 0) {
+    public void runPlayAgainDialog(boolean win,float currentScore, int level, CallbackPostDialog postDialog) {
+        if (win) {
             playFinish();
+            points.setText(String.valueOf(currentScore));
+        } else {
+            points.setText(String.valueOf(0));
         }
+
         if (getActivity() == null) {
             return;
         }
 
-        final Integer oldScore = getPreferencesScore();
-        final Integer newTotalPoints = oldScore+(int)currentScore;
-        updatePreferencesScore(newTotalPoints);
+        updatePreferencesScore((int)currentScore);
         updatePreferencesLevel(level);
-        points.setText("0");
 
 
         AlertDialog.Builder builder = new AlertDialog.Builder(fragActivity);
@@ -411,9 +412,12 @@ public class MatchGame  extends Fragment implements MatchView {
     private void updatePreferencesScore(Integer scoreMatch) {
         SharedPreferences preferences = getActivity().getSharedPreferences(
                 getString(R.string.preferences_file), Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putInt(CURRENT_SCORE_MATCH,scoreMatch);
-        editor.commit();
+        int oldScore = preferences.getInt(CURRENT_SCORE_MATCH,0);
+        if (scoreMatch > oldScore) {
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putInt(CURRENT_SCORE_MATCH, scoreMatch);
+            editor.commit();
+        }
     }
 
     private Integer getPreferencesScore() {
@@ -436,9 +440,12 @@ public class MatchGame  extends Fragment implements MatchView {
     public void updatePreferencesLevel(Integer level) {
         SharedPreferences preferences = getActivity().getSharedPreferences(
                 getString(R.string.preferences_file), Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putInt(CURRENT_LEVEL_MATCH,level);
-        editor.commit();
+        int oldLevel = preferences.getInt(CURRENT_LEVEL_MATCH,0);
+        if (level > oldLevel) {
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putInt(CURRENT_LEVEL_MATCH,level);
+            editor.commit();
+        }
     }
 
 

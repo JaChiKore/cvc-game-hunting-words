@@ -23,9 +23,11 @@ public class DifferenceService {
         this.scoreMatch = scoreMatch;
     }
 
-    public void run (List<ClusterDifferentResult> values, String level, Date startDate, Date stopDate, float scoreIni, float scoreEnd) {
+    public void run (List<ClusterDifferentResult> values, String level, Date startDate, Date stopDate, float scoreIni, float scoreEnd, float maxScore) {
         String [] argsScore = {user, String.valueOf(scoreMatch),String.valueOf(scoreEnd)};
-        new UpdateScore().execute(argsScore);
+        if (scoreEnd > maxScore) {
+            new UpdateScore().execute(argsScore);
+        }
         for (ClusterDifferentResult result: values) {
             String [] args = {result.getImageName(),result.getClusterName(), user, level, df.format(startDate), df.format(stopDate), String.valueOf(scoreIni), String.valueOf(scoreEnd)};
             new UpdateClusters().execute(args);

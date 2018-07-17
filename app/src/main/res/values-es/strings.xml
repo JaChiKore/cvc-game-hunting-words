@@ -45,7 +45,7 @@
     <string name="normal">Medio</string>
     <string name="hard">Difícil</string>
     <string name="level">Nivel</string>
-    <string name="anonym">Anonymous</string>
+    <string name="anonym">Anónimo</string>
     <string name="title_connect">Parameters</string>
     <string name="title_loading_info">Leyendo información del juego</string>
     <string name="not_enough_images">No hay suficientes imágenes</string>

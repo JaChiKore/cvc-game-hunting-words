@@ -46,7 +46,8 @@ public class Init extends Fragment  implements InitView {
         String name = getUsername();
         updateUsername(name);
         if (!name.equals(getString(R.string.anonym))) {
-            this.presenter.getScore(name);
+            updateMatchSocre(getMatchScore());
+            updateDiffScore(getDiffScore());
         } else {
             updateUsername(getString(R.string.anonym));
             updatePreferencesScore(0,0);
@@ -58,6 +59,16 @@ public class Init extends Fragment  implements InitView {
     private void updateUsername(String username) {
         TextView textUsername = (TextView)getActivity().findViewById(R.id.logged_user);
         textUsername.setText(username);
+    }
+
+    private void updateMatchSocre(int score) {
+        TextView valueMatch = (TextView)getActivity().findViewById(R.id.value_match_score);
+        valueMatch.setText(String.valueOf(score));
+    }
+
+    private void updateDiffScore(int score) {
+        TextView valueDiff = (TextView)getActivity().findViewById(R.id.value_diff_score);
+        valueDiff.setText(String.valueOf(score));
     }
 
 
@@ -94,6 +105,17 @@ public class Init extends Fragment  implements InitView {
         return preferences.getString(edu.uab.cvc.huntingwords.Utils.PARAM_USERNAME,getString(R.string.anonym));
     }
 
+    private int getMatchScore() {
+        SharedPreferences preferences = getActivity().getSharedPreferences(
+                getString(R.string.preferences_file), Context.MODE_PRIVATE);
+        return preferences.getInt(edu.uab.cvc.huntingwords.Utils.CURRENT_SCORE_MATCH,0);
+    }
+
+    private int getDiffScore() {
+        SharedPreferences preferences = getActivity().getSharedPreferences(
+                getString(R.string.preferences_file), Context.MODE_PRIVATE);
+        return preferences.getInt(edu.uab.cvc.huntingwords.Utils.CURRENT_SCORE_DIFF,0);
+    }
 
     @OnClick(R.id.quit)
     public void clickQuit(){

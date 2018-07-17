@@ -22,7 +22,7 @@ public interface MatchView {
 
     void updateFail();
 
-    void runPlayAgainDialog(float currentScore, int level, CallbackPostDialog postDialog);
+    void runPlayAgainDialog(boolean win, float currentScore, int level, CallbackPostDialog postDialog);
 
     void startDialog();
 

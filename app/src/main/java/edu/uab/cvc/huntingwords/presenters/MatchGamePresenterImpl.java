@@ -1,6 +1,8 @@
 package edu.uab.cvc.huntingwords.presenters;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Pair;
 
 import java.io.FileNotFoundException;
@@ -12,6 +14,7 @@ import java.util.Date;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Random;
+import java.util.prefs.Preferences;
 
 import javax.inject.Inject;
 
@@ -65,8 +68,9 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
     List<MatchResult> results;
     private int totalOks;
     private int numLives;
-    private float totalScore;
+    private float maxScore;
     private final float scoreDifference;
+    private float totalScore;
 
 
     public MatchGamePresenterImpl(MatchView view, String username, int currentLevel, float totalScore, float  scoreDifference) {
@@ -80,6 +84,7 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
         this.results = new ArrayList<>();
         this.level = new GameLevel(currentLevel);
         this.numLives = Utils.NUM_LIVES;
+        this.maxScore = totalScore;
         this.totalScore = 0;
         this.scoreDifference = scoreDifference;
     }
@@ -95,14 +100,14 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
         if (this.matchInfo.containsKey(filepathImage)) {
             currentScore+= Utils.VALUE_POINT;
             this.results.add(new MatchResult(filepathImage,textSolution));
-            this.view.updateOK(idImage,currentScore);
+            this.view.updateOK(idImage,totalScore + currentScore);
             executeOk();
             //update
         } else {
             Pair<List<String>, String> info = this.matchFixInfo.get(filepathImage);
             if (info.second.equals(textSolution)) {
                 currentScore+= Utils.VALUE_POINT;
-                this.view.updateOK(idImage,currentScore);
+                this.view.updateOK(idImage,totalScore + currentScore);
                 executeOk();
             } else {
                 executeFail();
@@ -127,16 +132,18 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
         this.view.setUpNumLives(numLives);
         if (numLives == 0) {
             CallbackPostDialog callback = () ->  repeatGame();
-            view.runPlayAgainDialog(0,level.getLevel(), callback);
+            view.runPlayAgainDialog(false,totalScore,level.getLevel(), callback);
         }
     }
 
 
     public void finishRoundAndUpdate() {
-        CallbackPostDialog callback = () -> {
-            float oldScore = totalScore;
-            totalScore += currentScore;
+        float oldScore = totalScore;
+        totalScore += currentScore;
+        if (totalScore > maxScore) {
             view.updateTotalScore(totalScore);
+        }
+        CallbackPostDialog callback = () -> {
             uploadResult((int)oldScore,(int)totalScore);
             if (!isItNeedImages()) {
                 restartGame();
@@ -145,7 +152,7 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
             }
 
         };
-        this.view.runPlayAgainDialog(currentScore,level.getLevel(),callback);
+        this.view.runPlayAgainDialog(true,totalScore,level.getLevel(),callback);
     }
 
     @Override
@@ -187,6 +194,7 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
     }
 
     public void repeatGame() {
+        totalScore = 0;
         initGame();
     }
 
@@ -268,7 +276,7 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
         List<MatchResult> newResults = new ArrayList<>(this.results);
         Date stoppedDate = Calendar.getInstance().getTime();
         new Thread(() -> {
-            new MatchService(username,scoreDifference).run(newResults,String.valueOf(level.getLevel()),startedDate,stoppedDate,oldScore,newTotalPoints);
+            new MatchService(username,scoreDifference).run(newResults,String.valueOf(level.getLevel()),startedDate,stoppedDate,oldScore,newTotalPoints, maxScore);
         }).start();
         this.results.clear();
     }

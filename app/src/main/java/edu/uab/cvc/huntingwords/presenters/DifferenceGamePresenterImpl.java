@@ -45,6 +45,7 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
 
     private float currentScore;
     private float totalScore;
+    private float maxScore;
 
     private GameLevel level;
     private int numLives;
@@ -65,7 +66,7 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
     private List<ClusterDifferentResult> results;
 
 
-    public DifferenceGamePresenterImpl(DifferenceView view, String username, int level, float totalScore, float scoreMatch) {
+    public DifferenceGamePresenterImpl(DifferenceView view, String username, int level, float maxScore, float scoreMatch) {
         AppController.getComponent().inject(this);
         clustersToPlay = new ArrayList();
         countUsed = 0;
@@ -78,8 +79,9 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
         this.username = username;
         this.level = new GameLevel(level);
         this.numLives = Utils.NUM_LIVES;
-        this.totalScore = totalScore;
+        this.totalScore = 0;
         this.scoreMatch = scoreMatch;
+        this.maxScore = maxScore;
     }
 
     @Override
@@ -217,7 +219,7 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
         this.view.setUpNumLives(numLives);
         if (numLives == 0) {
             CallbackPostDialog callback = () -> repeatGame();
-            view.runPlayAgainDialog(0,level.getLevel(), callback);
+            view.runPlayAgainDialog(currentScore,level.getLevel(), callback);
         }
     }
 
@@ -251,7 +253,7 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
 
         List<ClusterDifferentResult> newResults = new ArrayList<ClusterDifferentResult>(this.results);
         Date stoppedDate = Calendar.getInstance().getTime();
-        new Thread (() -> new DifferenceService(username,scoreMatch).run(newResults,String.valueOf(level.getLevel()),startedDate,stoppedDate,oldScore,newTotalPoints)).start();
+        new Thread (() -> new DifferenceService(username,scoreMatch).run(newResults,String.valueOf(level.getLevel()),startedDate,stoppedDate,oldScore,newTotalPoints, maxScore)).start();
         this.results.clear();
     }
 

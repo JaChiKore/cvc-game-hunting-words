@@ -45,7 +45,7 @@
     <string name="normal">Mitjà</string>
     <string name="hard">Difícil</string>
     <string name="level">Nivell</string>
-    <string name="anonym">Anonymous</string>
+    <string name="anonym">Anònim</string>
     <string name="title_connect">Parameters</string>
     <string name="title_loading_info">Llegint informació del joc</string>
     <string name="not_enough_images">No hi ha suficients imatges</string>
