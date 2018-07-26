@@ -299,7 +299,7 @@ public class MatchGame  extends Fragment implements MatchView {
             playFinish();
             points.setText(String.valueOf(currentScore));
         } else {
-            points.setText(String.valueOf(0));
+            points.setText("0");
         }
 
         if (getActivity() == null) {

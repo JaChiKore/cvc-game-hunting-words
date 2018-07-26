@@ -47,7 +47,7 @@ public class Connect extends Fragment implements LoginView {
     }
 
     @OnClick(R.id.connect)
-    public void login () {
+    public void login() {
         String user= username.getText().toString();
         String pass= password.getText().toString();
         if (user.length() > 0 && pass.length() > 0) {
@@ -67,9 +67,13 @@ public class Connect extends Fragment implements LoginView {
     @OnClick(R.id.disconnect)
     public void disconnect() {
         setUpAnonymousParameters();
-        TextView textView = (TextView)getActivity().findViewById(R.id.logged_user);
-        getActivity().runOnUiThread( () ->  textView.setText(getString(R.string.anonym)));
-
+        TextView name = (TextView)getActivity().findViewById(R.id.logged_user);
+        TextView match = (TextView)getActivity().findViewById(R.id.value_match_score);
+        TextView diff = (TextView)getActivity().findViewById(R.id.value_diff_score);
+        name.setText(getString(R.string.anonym));
+        match.setText("0");
+        diff.setText("0");
+        goToInit();
     }
 
     @Override
@@ -85,6 +89,26 @@ public class Connect extends Fragment implements LoginView {
                 }
             }.start();
 
+    }
+
+    @Override
+    public void updateMatchScore() {
+        TextView textView = (TextView)getActivity().findViewById(R.id.value_match_score);
+        SharedPreferences preferences = getActivity().getSharedPreferences(
+                getString(R.string.preferences_file), Context.MODE_PRIVATE);
+        int matchValue = preferences.getInt(edu.uab.cvc.huntingwords.Utils.CURRENT_SCORE_MATCH,0);
+        ((TextView)getActivity().findViewById(R.id.text_match_score)).setText(getString(R.string.text_match_score));
+        textView.setText(String.valueOf(matchValue));
+    }
+
+    @Override
+    public void updateDiffScore() {
+        TextView textView = (TextView)getActivity().findViewById(R.id.value_diff_score);
+        SharedPreferences preferences = getActivity().getSharedPreferences(
+                getString(R.string.preferences_file), Context.MODE_PRIVATE);
+        int diffValue = preferences.getInt(edu.uab.cvc.huntingwords.Utils.CURRENT_SCORE_DIFF,0);
+        ((TextView)getActivity().findViewById(R.id.text_diff_score)).setText(getString(R.string.text_diff_score));
+        textView.setText(String.valueOf(diffValue));
     }
 
     @Override
@@ -106,11 +130,11 @@ public class Connect extends Fragment implements LoginView {
     }
     @Override
     public void setUpScoreParameters(Integer scoreMatch, Integer scoreDiff) {
-            SharedPreferences preferences = getActivity().getSharedPreferences(
-                    getString(R.string.preferences_file), Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.putInt(CURRENT_SCORE_MATCH,scoreMatch);
-            editor.putInt(CURRENT_SCORE_DIFF,scoreDiff);
+        SharedPreferences preferences = getActivity().getSharedPreferences(
+                getString(R.string.preferences_file), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putInt(CURRENT_SCORE_MATCH,scoreMatch);
+        editor.putInt(CURRENT_SCORE_DIFF,scoreDiff);
         editor.commit();
     }
 
@@ -129,6 +153,19 @@ public class Connect extends Fragment implements LoginView {
                 getActivity().runOnUiThread(
                         () -> {
                             Toast.makeText(getActivity(),getString(R.string.logged_fail),Toast.LENGTH_LONG).show();
+                        });
+
+            }
+        }.start();
+    }
+
+    @Override
+    public void errorSignin() {
+        new Thread() {
+            public void run() {
+                getActivity().runOnUiThread(
+                        () -> {
+                            Toast.makeText(getActivity(),getString(R.string.signin_fail),Toast.LENGTH_LONG).show();
                         });
 
             }

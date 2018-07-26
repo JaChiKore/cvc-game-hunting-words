@@ -7,6 +7,8 @@ package edu.uab.cvc.huntingwords.screens.views;
 public interface LoginView {
 
     void updateLogin(String username);
+    void updateMatchScore();
+    void updateDiffScore();
     void goToInit();
 
     void setUpLoginParameters(String username, String passw);
@@ -14,4 +16,6 @@ public interface LoginView {
     void setUpScoreParameters(Integer scoreMatch, Integer scoreDiff);
 
     void errorLogin();
+
+    void errorSignin();
 }

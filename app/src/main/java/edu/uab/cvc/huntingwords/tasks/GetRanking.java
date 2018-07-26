@@ -52,7 +52,9 @@ public class GetRanking extends AsyncTask<String, Void, String[]> {
     }
 
     @Override
-    protected void onPostExecute(String[] a) {}
+    protected void onPostExecute(String[] a) {
+        onResult.setUpScores();
+    }
 
 
 }

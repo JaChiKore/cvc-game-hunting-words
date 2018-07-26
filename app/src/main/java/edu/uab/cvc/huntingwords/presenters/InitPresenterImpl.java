@@ -29,6 +29,9 @@ public class InitPresenterImpl implements InitPresenter {
                                                             view.updateScore(matchScore,diffScore);
                                                 }
 
+                                                @Override
+                                                public void setUpScores() {}
+
                                        @Override
                                        public void error() {
 

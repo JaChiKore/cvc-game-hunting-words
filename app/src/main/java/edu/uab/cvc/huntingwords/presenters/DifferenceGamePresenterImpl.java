@@ -219,27 +219,30 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
         this.view.setUpNumLives(numLives);
         if (numLives == 0) {
             CallbackPostDialog callback = () -> repeatGame();
-            view.runPlayAgainDialog(currentScore,level.getLevel(), callback);
+            view.runPlayAgainDialog(false, totalScore,level.getLevel(), callback);
         }
     }
 
     private void executeOk() {
-        currentScore++;
-        view.updateOK(currentScore);
+        currentScore += Utils.VALUE_POINT;
+        view.updateOK(totalScore + currentScore);
         if (clustersToPlay.size()==0) {
             updateLevel();
+            float oldScore = totalScore;
+            totalScore += currentScore;
+            if (totalScore > maxScore) {
+                view.updateTotalScore(totalScore);
+            }
             CallbackPostDialog callback = () -> {
-                float oldScore = totalScore;
-                totalScore += currentScore;
+
                 if (!isItNeedImages()) {
                     restartGame();
                 } else {
                     this.view.startDialog();
                 }
-                view.updateTotalScore(totalScore);
                uploadResult((int)oldScore,(int)totalScore);
             };
-            view.runPlayAgainDialog(currentScore,level.getLevel(), callback);
+            view.runPlayAgainDialog(true, totalScore,level.getLevel(), callback);
         } else {
             this.updateGame();
         }

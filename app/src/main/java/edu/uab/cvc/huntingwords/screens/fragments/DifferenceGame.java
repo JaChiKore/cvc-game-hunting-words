@@ -173,18 +173,19 @@ public class DifferenceGame extends Fragment implements DifferenceView {
     }
 
     @Override
-    public void runPlayAgainDialog(float currentScore, int level, CallbackPostDialog callback) {
-        playFinish();
+    public void runPlayAgainDialog(boolean win, float currentScore, int level, CallbackPostDialog callback) {
+        if (win) {
+            playFinish();
+            points.setText(String.valueOf(currentScore));
+        } else {
+            points.setText("0");
+        }
         if (getActivity() == null) {
             return;
         }
 
         updatePreferencesScore((int)currentScore);
         updatePreferencesLevel(level);
-        points.setText("0");
-
-
-
 
         AlertDialog.Builder builder = new AlertDialog.Builder(DifferenceGame.this.getActivity());
         builder.setPositiveButton(android.R.string.ok, (dialog, id) -> {

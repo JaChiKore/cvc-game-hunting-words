@@ -39,12 +39,17 @@ public class ConnectPresenterImpl implements ConnectPresenter {
             public void updateLogin(String username, String password) {
                 view.setUpLoginParameters(username,password);
                 view.updateLogin(username);
-                view.goToInit();
             }
 
             @Override
             public void updateScore(Integer matchScore, Integer diffScore) {
-                view.setUpScoreParameters(matchScore,diffScore);
+                view.setUpScoreParameters(matchScore, diffScore);
+            }
+
+            @Override
+            public void setUpScores() {
+                view.updateMatchScore();
+                view.updateDiffScore();
             }
 
             @Override
@@ -55,6 +60,7 @@ public class ConnectPresenterImpl implements ConnectPresenter {
         };
         new Login(callback).execute(username,passw);
         new GetRanking(callback).execute(username);
+        view.goToInit();
         return true;
     }
 
@@ -66,6 +72,7 @@ public class ConnectPresenterImpl implements ConnectPresenter {
             public void updateLogin(String username, String password) {
                 view.setUpLoginParameters(username,password);
                 view.updateLogin(username);
+                view.goToInit();
             }
 
             @Override
@@ -74,8 +81,14 @@ public class ConnectPresenterImpl implements ConnectPresenter {
             }
 
             @Override
+            public void setUpScores() {
+                view.updateMatchScore();
+                view.updateDiffScore();
+            }
+
+            @Override
             public void error() {
-                view.errorLogin();
+                view.errorSignin();
 
             }
         };

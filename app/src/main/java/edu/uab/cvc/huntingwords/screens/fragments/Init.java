@@ -1,5 +1,6 @@
 package edu.uab.cvc.huntingwords.screens.fragments;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import edu.uab.cvc.huntingwords.screens.FragmentActivity;
 
 
 
@@ -51,6 +53,8 @@ public class Init extends Fragment  implements InitView {
         } else {
             updateUsername(getString(R.string.anonym));
             updatePreferencesScore(0,0);
+            updateMatchSocre(0);
+            updateDiffScore(0);
         }
 
     }
@@ -76,28 +80,25 @@ public class Init extends Fragment  implements InitView {
     public void clickLanguage(){
         FragmentManager fm = getFragmentManager();
         FragmentTransaction fragmentTransaction = fm.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_switch,  new Languages());
+        fragmentTransaction.replace(R.id.fragment_switch, new Languages());
         fragmentTransaction.commit();
-
     }
+
     @OnClick(R.id.login)
     public void clickLogin(){
         FragmentManager fm = getFragmentManager();
         FragmentTransaction fragmentTransaction = fm.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_switch, new Connect());
         fragmentTransaction.commit();
-
     }
+
     @OnClick(R.id.play)
     public void clickPlay(){
         FragmentManager fm = getFragmentManager();
         FragmentTransaction fragmentTransaction = fm.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_switch,  new Play());
         fragmentTransaction.commit();
-
-
     }
-
 
     private String getUsername() {
         SharedPreferences preferences = getActivity().getSharedPreferences(
@@ -131,7 +132,6 @@ public class Init extends Fragment  implements InitView {
                                                 () -> {
                                                     updatePreferencesScore(scoreMatch, scoreDiff);
                                                     });
-
                                     }
         }.start();
     }
