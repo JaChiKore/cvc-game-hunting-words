@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
+    compileSdkVersion 27
     buildToolsVersion '27.0.3'
     defaultConfig {
         applicationId "edu.uab.cvc.huntingwords"
@@ -18,8 +18,8 @@ android {
         }
     }
     compileOptions {
-        targetCompatibility 1.8
-        sourceCompatibility 1.8
+        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
     }
 
 }
@@ -31,6 +31,16 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
+    def acraVersion = '5.2.0-rc2'
+
+    implementation "ch.acra:acra-mail:$acraVersion"
+
+    implementation "ch.acra:acra-toast:$acraVersion"
+
+    implementation "ch.acra:acra-limiter:$acraVersion"
+
+    implementation "ch.acra:acra-advanced-scheduler:$acraVersion"
+
     //Memory Leaks
     debugApi 'com.squareup.leakcanary:leakcanary-android:1.5'
     releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
@@ -39,7 +49,7 @@ dependencies {
     //Log
     api 'com.jakewharton.timber:timber:4.5.1'
     //Networking
-    api 'com.google.code.gson:gson:2.7'
+    api 'com.google.code.gson:gson:2.8.0'
     api 'com.squareup.retrofit2:retrofit:2.1.0'
     api 'com.squareup.retrofit2:converter-gson:2.1.0'
     api 'com.squareup.okhttp3:logging-interceptor:3.3.0'
@@ -61,10 +71,10 @@ dependencies {
     // gif library
     api 'com.github.Cutta:GifView:1.1'
     //Android
-    api 'com.android.support:recyclerview-v7:25.3.1'
-    api 'com.android.support:cardview-v7:25.3.1'
-    api 'com.android.support:design:25.3.1'
-    api 'com.android.support:appcompat-v7:25.3.1'
+    api 'com.android.support:recyclerview-v7:27.1.1'
+    api 'com.android.support:cardview-v7:27.1.1'
+    api 'com.android.support:design:27.1.1'
+    api 'com.android.support:appcompat-v7:27.1.1'
     api 'com.android.support.constraint:constraint-layout:1.0.0-alpha8'
     testImplementation 'junit:junit:4.12'
 }
