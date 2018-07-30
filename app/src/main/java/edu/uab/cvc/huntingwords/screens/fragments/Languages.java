@@ -3,6 +3,8 @@ package edu.uab.cvc.huntingwords.screens.fragments;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -67,6 +69,14 @@ public class Languages extends Fragment {
     private void updateTextScore() {
         ((TextView)getActivity().findViewById(R.id.text_match_score)).setText(getString(R.string.text_match_score));
         ((TextView)getActivity().findViewById(R.id.text_diff_score)).setText(getString(R.string.text_diff_score));
+        SharedPreferences preferences = getActivity().getSharedPreferences(
+                getString(R.string.preferences_file), Context.MODE_PRIVATE);
+        String string = preferences.getString(edu.uab.cvc.huntingwords.Utils.PARAM_USERNAME, getString(R.string.anonym));
+        if (string.equals("Anònim") || string.equals("Anónimo") || string.equals("Anonymous") || string.equals("无玩家")) {
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putString(edu.uab.cvc.huntingwords.Utils.PARAM_USERNAME,getString(R.string.anonym));
+            editor.commit();
+        }
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.replace(R.id.fragment_switch, new Init(), "init");
         ft.addToBackStack(null);

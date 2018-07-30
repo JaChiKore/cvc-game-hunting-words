@@ -1,4 +1,19 @@
+buildscript {
+    repositories {
+        maven { url 'https://maven.fabric.io/public' }
+    }
+
+    dependencies {
+        classpath 'io.fabric.tools:gradle:1.+'
+    }
+}
+
 apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
+
+repositories {
+    maven { url 'https://maven.fabric.io/public' }
+}
 
 android {
     compileSdkVersion 27
@@ -24,22 +39,11 @@ android {
 
 }
 
-
 dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
     androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-
-    def acraVersion = '5.2.0-rc2'
-
-    implementation "ch.acra:acra-mail:$acraVersion"
-
-    implementation "ch.acra:acra-toast:$acraVersion"
-
-    implementation "ch.acra:acra-limiter:$acraVersion"
-
-    implementation "ch.acra:acra-advanced-scheduler:$acraVersion"
 
     //Memory Leaks
     debugApi 'com.squareup.leakcanary:leakcanary-android:1.5'
@@ -77,4 +81,8 @@ dependencies {
     api 'com.android.support:appcompat-v7:27.1.1'
     api 'com.android.support.constraint:constraint-layout:1.0.0-alpha8'
     testImplementation 'junit:junit:4.12'
+
+    api('com.crashlytics.sdk.android:crashlytics:2.9.4@aar') {
+        transitive = true;
+    }
 }
