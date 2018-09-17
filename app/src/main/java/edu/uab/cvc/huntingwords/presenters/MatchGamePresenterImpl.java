@@ -300,7 +300,11 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
     @Override
     public void loadMoreInfo() {
         try {
-            new UpdateMatchGame(Utils.BATCH_MATCH_IMAGES).update(appContext);
+            //TODO
+            //don't need update, erase all and re-download it, and now we only have one type of information
+            //don't need to download fix info and non-fix info. This will be the same for the differenceGame
+            //new UpdateMatchGame(Utils.BATCH_MATCH_IMAGES).update(appContext);
+            //new MatchInformationEraser(Utils.BATCH_MATCH_IMAGES).erase(appContext);
             new LoaderMatchGameInformation().load(appContext,matchInfo);
             new LoaderMatchGameInformation().loadFix(appContext,matchFixInfo);
 
