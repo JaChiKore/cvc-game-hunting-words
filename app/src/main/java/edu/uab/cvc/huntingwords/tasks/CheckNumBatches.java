@@ -10,9 +10,9 @@ import edu.uab.cvc.huntingwords.Utils;
 import timber.log.Timber;
 
 @SuppressWarnings({"WeakerAccess", "ResultOfMethodCallIgnored"})
-public class CheckNumGame_Images extends AsyncTask<String, Void, Integer>{
+public class CheckNumBatches extends AsyncTask<String, Void, Integer>{
 
-    public CheckNumGame_Images() {}
+    public CheckNumBatches() {}
 
     protected void onPreExecute() {}
 

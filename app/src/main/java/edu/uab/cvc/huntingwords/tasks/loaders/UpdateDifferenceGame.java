@@ -1,8 +1,6 @@
 package edu.uab.cvc.huntingwords.tasks.loaders;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.RectF;
 import android.util.Log;
 
 import java.io.BufferedReader;
@@ -12,7 +10,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
 
-import edu.uab.cvc.huntingwords.tasks.CheckNumGame_Images;
+import edu.uab.cvc.huntingwords.tasks.CheckNumBatches;
 import edu.uab.cvc.huntingwords.tasks.difference.CheckDifferenceGameImages;
 import edu.uab.cvc.huntingwords.tasks.difference.CheckNewDifferenceGameFixClusters;
 import edu.uab.cvc.huntingwords.tasks.difference.GetDifferenceGameFixInfo;
@@ -57,7 +55,7 @@ public class UpdateDifferenceGame {
 
         Integer  numClusterDifferenceGameBBDD;
         try {
-            numClusterDifferenceGameBBDD = new CheckNumGame_Images().execute("0").get();
+            numClusterDifferenceGameBBDD = new CheckNumBatches().execute("0").get();
             if (numClusterDifferenceGameBBDD == 0) {
                 return false;
             }

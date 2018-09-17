@@ -11,7 +11,7 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
-import edu.uab.cvc.huntingwords.tasks.CheckNumGame_Images;
+import edu.uab.cvc.huntingwords.tasks.CheckNumBatches;
 import edu.uab.cvc.huntingwords.tasks.match.CheckMatchGameImages;
 import edu.uab.cvc.huntingwords.tasks.match.CheckNewMatchGameFixImages;
 import edu.uab.cvc.huntingwords.tasks.match.GetImagesMatchGame;
@@ -55,7 +55,7 @@ public class UpdateMatchGame {
         Integer numImagesMatchGameInBBDD = null;
         try {
             /* check it is the DB online with images!! */
-            numImagesMatchGameInBBDD = new CheckNumGame_Images().execute("1").get();
+            numImagesMatchGameInBBDD = new CheckNumBatches().execute("1").get();
         } catch (InterruptedException e ) {
             Timber.e(e);
             return false;
