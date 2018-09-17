@@ -21,7 +21,7 @@ public class Utils {
     public static final Integer BATCH_MATCH_IMAGES = 100;
 
     //public static final String BASE_URL = "http://158.109.8.50/app_mobile";
-    public static final String BASE_URL = "http://158.109.8.50/app_mobile/v2";
+    public static final String BASE_URL = "http://158.109.8.50/app_mobile/new_version";
     public static final String BASE_URL_IMAGES = "http://158.109.8.50/app_mobile";
     public static final Integer NUM_LIVES = 5;
 
