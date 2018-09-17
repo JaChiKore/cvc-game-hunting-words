@@ -6,24 +6,22 @@ package edu.uab.cvc.huntingwords.models;
 
 public class ClusterDifferentResult {
 
-
-    public enum Result {
-        SAME,
-        DIFFERENT,
-        ONE_IMAGE
-    };
+    public static final int SAME = 0;
+    public static final int DIFFERENT = 1;
     private final String clusterName;
     private String imageName;
-    private Result result;
 
 
     private ClusterDifferentResult(String clusterName, String imageName) {
         this.clusterName = clusterName;
         this.imageName = imageName;
-        this.result = Result.ONE_IMAGE;
     }
-    private ClusterDifferentResult(String cluster, Result result) {
-        this.result = result;
+    private ClusterDifferentResult(String cluster, int result) {
+        if (result == SAME) {
+            this.imageName = "eq";
+        } else {
+            this.imageName = "diff";
+        }
         this.clusterName = cluster;
     }
 
@@ -32,10 +30,10 @@ public class ClusterDifferentResult {
         return new ClusterDifferentResult(cluster, imageName);
     }
     public static ClusterDifferentResult newSameImage(String cluster) {
-        return new ClusterDifferentResult(cluster,Result.SAME);
+        return new ClusterDifferentResult(cluster,SAME);
     }
     public static ClusterDifferentResult newAllDifferent(String cluster) {
-        return new ClusterDifferentResult(cluster,Result.DIFFERENT);
+        return new ClusterDifferentResult(cluster,DIFFERENT);
     }
 
     public String getClusterName() {
