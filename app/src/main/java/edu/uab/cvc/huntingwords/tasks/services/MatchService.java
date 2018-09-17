@@ -22,13 +22,13 @@ public class MatchService {
         this.scoreDifference = scoreDifference;
     }
 
-    public void run (List<MatchResult> values, String level, Date startDate, Date stopDate, float scoreIni, float scoreEnd, float maxScore) {
+    public void run (List<MatchResult> values, String level, Date startDate, Date stopDate, long usedTime, float scoreIni, float scoreEnd, float maxScore) {
         String [] argsScore = {user,String.valueOf(scoreEnd),String.valueOf(scoreDifference)};
         if (scoreEnd > maxScore) {
             new UpdateScore().execute(argsScore);
         }
         for (MatchResult result: values) {
-            String [] args = {result.getImageName(),result.getTranslation(), user, level, df.format(startDate), df.format(stopDate), String.valueOf(scoreIni), String.valueOf(scoreEnd)};
+            String [] args = {result.getImageName(),result.getTranslation(), user, level, df.format(startDate), df.format(stopDate), String.valueOf(usedTime), String.valueOf(scoreIni), String.valueOf(scoreEnd)};
             new UpdateTranscriptions().execute(args);
         }
 

@@ -1,8 +1,6 @@
 package edu.uab.cvc.huntingwords.presenters;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.util.Pair;
 
 import java.io.FileNotFoundException;
@@ -13,8 +11,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.Hashtable;
 import java.util.List;
-import java.util.Random;
-import java.util.prefs.Preferences;
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
@@ -275,8 +272,10 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
         }
         List<MatchResult> newResults = new ArrayList<>(this.results);
         Date stoppedDate = Calendar.getInstance().getTime();
+        long diffInMs = stoppedDate.getTime() - startedDate.getTime();
+        long diffInSec = TimeUnit.MILLISECONDS.toSeconds(diffInMs);
         new Thread(() -> {
-            new MatchService(username,scoreDifference).run(newResults,String.valueOf(level.getLevel()),startedDate,stoppedDate,oldScore,newTotalPoints, maxScore);
+            new MatchService(username,scoreDifference).run(newResults,String.valueOf(level.getLevel()),startedDate,stoppedDate, diffInSec,oldScore,newTotalPoints, maxScore);
         }).start();
         this.results.clear();
     }
