@@ -42,8 +42,8 @@ public class ConnectPresenterImpl implements ConnectPresenter {
             }
 
             @Override
-            public void updateScore(Integer matchScore, Integer diffScore) {
-                view.setUpScoreParameters(matchScore, diffScore);
+            public void updateScore(Integer matchScore, Integer diffScore, Integer matchLevel, Integer diffLevel) {
+                view.setUpScoreParameters(matchScore, diffScore, matchLevel, diffLevel);
             }
 
             @Override
@@ -76,8 +76,8 @@ public class ConnectPresenterImpl implements ConnectPresenter {
             }
 
             @Override
-            public void updateScore(Integer matchScore, Integer diffScore) {
-                view.setUpScoreParameters(matchScore,diffScore);
+            public void updateScore(Integer matchScore, Integer diffScore, Integer matchLevel, Integer diffLevel) {
+                view.setUpScoreParameters(matchScore,diffScore, matchLevel, diffLevel);
             }
 
             @Override

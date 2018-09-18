@@ -24,7 +24,7 @@ public class UpdateScore extends AsyncTask<String, Void, Boolean> {
         BufferedReader bufferedReader;
 
         try {
-            link = Utils.BASE_URL+"/updateScore.php?username=" + arg[0] + "&match_game=" + arg[1] + "&difference_game=" + arg[2];  // base link: http://158.109.8.50/app_mobile/ http://158.109.9.209/
+            link = Utils.BASE_URL+"/updateScore.php?username=" + arg[0] + "&match_game=" + arg[1] + "&difference_game=" + arg[2] + "&match_level=" + arg[3] + "&difference_level=" + arg[4];  // base link: http://158.109.8.50/app_mobile/ http://158.109.9.209/
             URL url = new URL(link);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");

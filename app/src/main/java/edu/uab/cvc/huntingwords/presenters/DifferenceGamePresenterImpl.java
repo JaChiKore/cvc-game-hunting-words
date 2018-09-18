@@ -218,7 +218,13 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
         numLives--;
         this.view.setUpNumLives(numLives);
         if (numLives == 0) {
-            CallbackPostDialog callback = () -> repeatGame();
+            updateLevel(false);
+            float oldScore = totalScore;
+            totalScore += currentScore;
+            CallbackPostDialog callback = () -> {
+                uploadResult((int)oldScore,(int)totalScore);
+                repeatGame();
+            };
             view.runPlayAgainDialog(false, totalScore,level.getLevel(), callback);
         }
     }
@@ -227,7 +233,7 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
         currentScore += Utils.VALUE_POINT;
         view.updateOK(totalScore + currentScore);
         if (clustersToPlay.size()==0) {
-            updateLevel();
+            updateLevel(true);
             float oldScore = totalScore;
             totalScore += currentScore;
             if (totalScore > maxScore) {
@@ -256,7 +262,7 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
 
         List<ClusterDifferentResult> newResults = new ArrayList<ClusterDifferentResult>(this.results);
         Date stoppedDate = Calendar.getInstance().getTime();
-        new Thread (() -> new DifferenceService(username,scoreMatch).run(newResults,String.valueOf(level.getLevel()),startedDate,stoppedDate,oldScore,newTotalPoints, maxScore)).start();
+        new Thread (() -> new DifferenceService(username,scoreMatch, level.getLevel()).run(newResults,String.valueOf(level.getLevel()),startedDate,stoppedDate,oldScore,newTotalPoints, maxScore)).start();
         this.results.clear();
     }
 
@@ -348,11 +354,13 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
 
 
 
-    private void updateLevel() {
-        level.increase();
+    private void updateLevel(boolean win) {
+        if (win) {
+            level.increase();
+        } else {
+            level.decrease();
+        }
     }
-
-
 
     @Override
     public void loadMoreInfo() {

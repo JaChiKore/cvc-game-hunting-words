@@ -13,7 +13,7 @@ public interface LoginView {
 
     void setUpLoginParameters(String username, String passw);
 
-    void setUpScoreParameters(Integer scoreMatch, Integer scoreDiff);
+    void setUpScoreParameters(Integer scoreMatch, Integer scoreDiff, Integer levelMatch, Integer levelDiff);
 
     void errorLogin();
 

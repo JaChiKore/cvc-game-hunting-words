@@ -9,5 +9,5 @@ import java.util.List;
  */
 
 public interface InitView {
-    void updateScore(Integer matchScore, Integer diffScore);
+    void updateScore(Integer matchScore, Integer diffScore, Integer matchLevel, Integer diffLevel);
 }

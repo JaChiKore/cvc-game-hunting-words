@@ -22,6 +22,8 @@ import edu.uab.cvc.huntingwords.presenters.ConnectPresenterImpl;
 import edu.uab.cvc.huntingwords.screens.Utils;
 import edu.uab.cvc.huntingwords.screens.views.LoginView;
 
+import static edu.uab.cvc.huntingwords.Utils.CURRENT_LEVEL_DIFFERENCE;
+import static edu.uab.cvc.huntingwords.Utils.CURRENT_LEVEL_MATCH;
 import static edu.uab.cvc.huntingwords.Utils.CURRENT_SCORE_DIFF;
 import static edu.uab.cvc.huntingwords.Utils.CURRENT_SCORE_MATCH;
 
@@ -129,12 +131,14 @@ public class Connect extends Fragment implements LoginView {
         editor.commit();
     }
     @Override
-    public void setUpScoreParameters(Integer scoreMatch, Integer scoreDiff) {
+    public void setUpScoreParameters(Integer scoreMatch, Integer scoreDiff, Integer levelMatch, Integer levelDiff) {
         SharedPreferences preferences = getActivity().getSharedPreferences(
                 getString(R.string.preferences_file), Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putInt(CURRENT_SCORE_MATCH,scoreMatch);
         editor.putInt(CURRENT_SCORE_DIFF,scoreDiff);
+        editor.putInt(CURRENT_LEVEL_MATCH,levelMatch);
+        editor.putInt(CURRENT_LEVEL_DIFFERENCE,levelDiff);
         editor.commit();
     }
 
