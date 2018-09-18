@@ -32,7 +32,6 @@ public class GetTotalRanking extends AsyncTask<String, Void, String[]> {
     protected String[] doInBackground(String... arg) {
         String link;
         String next;
-        String text = "";
         String[] rows = new String[2];
         BufferedReader bufferedReader;
 

@@ -24,6 +24,8 @@ import edu.uab.cvc.huntingwords.presenters.InitPresenterImpl;
 import edu.uab.cvc.huntingwords.screens.Utils;
 import edu.uab.cvc.huntingwords.screens.views.InitView;
 
+import static edu.uab.cvc.huntingwords.Utils.CURRENT_LEVEL_DIFFERENCE;
+import static edu.uab.cvc.huntingwords.Utils.CURRENT_LEVEL_MATCH;
 import static edu.uab.cvc.huntingwords.Utils.CURRENT_SCORE_DIFF;
 import static edu.uab.cvc.huntingwords.Utils.CURRENT_SCORE_MATCH;
 
@@ -60,7 +62,7 @@ public class Init extends Fragment  implements InitView {
             updateDiffScore(getDiffScore());
         } else {
             updateUsername(getString(R.string.anonym));
-            updatePreferencesScore(0,0);
+            updatePreferencesScore(0,0, 1, 1);
             updateMatchSocre(0);
             updateDiffScore(0);
         }
@@ -133,23 +135,25 @@ public class Init extends Fragment  implements InitView {
 
 
     @Override
-    public void updateScore(Integer scoreMatch, Integer scoreDiff) {
+    public void updateScore(Integer scoreMatch, Integer scoreDiff, Integer matchLevel, Integer diffLevel) {
                 new Thread() {
                     public void run() {
                                 getActivity().runOnUiThread(
                                                 () -> {
-                                                    updatePreferencesScore(scoreMatch, scoreDiff);
+                                                    updatePreferencesScore(scoreMatch, scoreDiff, matchLevel, diffLevel);
                                                     });
                                     }
         }.start();
     }
 
-    private void updatePreferencesScore(Integer scoreMatch, Integer scoreDiff) {
+    private void updatePreferencesScore(Integer scoreMatch, Integer scoreDiff, Integer matchLevel, Integer diffLevel) {
         SharedPreferences preferences = getActivity().getSharedPreferences(
                 getString(R.string.preferences_file), Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putInt(CURRENT_SCORE_MATCH,scoreMatch);
         editor.putInt(CURRENT_SCORE_DIFF,scoreDiff);
+        editor.putInt(CURRENT_LEVEL_MATCH,scoreMatch);
+        editor.putInt(CURRENT_LEVEL_DIFFERENCE,scoreDiff);
         editor.commit();
     }
 }
