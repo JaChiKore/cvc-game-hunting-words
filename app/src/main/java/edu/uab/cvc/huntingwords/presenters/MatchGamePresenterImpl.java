@@ -25,7 +25,6 @@ import edu.uab.cvc.huntingwords.presenters.utils.GameLevel;
 import edu.uab.cvc.huntingwords.screens.fragments.CallbackPostDialog;
 import edu.uab.cvc.huntingwords.screens.views.MatchView;
 import edu.uab.cvc.huntingwords.tasks.loaders.LoaderMatchGameInformation;
-import edu.uab.cvc.huntingwords.tasks.loaders.UpdateMatchGame;
 import edu.uab.cvc.huntingwords.tasks.services.MatchService;
 import timber.log.Timber;
 
@@ -70,7 +69,7 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
     private float totalScore;
 
 
-    public MatchGamePresenterImpl(MatchView view, String username, int currentLevel, float totalScore, float  scoreDifference) {
+    public MatchGamePresenterImpl(MatchView view, String username, int currentLevel, int diffLevel, float totalScore, float  scoreDifference) {
         /* IT MUST BE FIRST */
         AppController.getComponent().inject(this);
         this.view = view;
@@ -79,7 +78,7 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
         this.imagesCurrentRound = new ArrayList<>();
         this.playedTotalTranscriptions = new ArrayList<>();
         this.results = new ArrayList<>();
-        this.level = new GameLevel(currentLevel);
+        this.level = new GameLevel(currentLevel, diffLevel);
         this.numLives = Utils.NUM_LIVES;
         this.maxScore = totalScore;
         this.totalScore = 0;
@@ -275,7 +274,7 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
         long diffInMs = stoppedDate.getTime() - startedDate.getTime();
         long diffInSec = TimeUnit.MILLISECONDS.toSeconds(diffInMs);
         new Thread(() -> {
-            new MatchService(username,scoreDifference).run(newResults,String.valueOf(level.getLevel()),startedDate,stoppedDate, diffInSec,oldScore,newTotalPoints, maxScore);
+            new MatchService(username,scoreDifference, level.getAnotherLevel()).run(newResults,String.valueOf(level.getLevel()),startedDate,stoppedDate, diffInSec,oldScore,newTotalPoints, maxScore);
         }).start();
         this.results.clear();
     }

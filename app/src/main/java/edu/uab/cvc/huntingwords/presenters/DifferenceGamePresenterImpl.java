@@ -66,7 +66,7 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
     private List<ClusterDifferentResult> results;
 
 
-    public DifferenceGamePresenterImpl(DifferenceView view, String username, int level, float maxScore, float scoreMatch) {
+    public DifferenceGamePresenterImpl(DifferenceView view, String username, int level, int matchLevel, float maxScore, float scoreMatch) {
         AppController.getComponent().inject(this);
         clustersToPlay = new ArrayList();
         countUsed = 0;
@@ -77,7 +77,7 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
         playedTotalClusters = new ArrayList<>();
         this.view = view;
         this.username = username;
-        this.level = new GameLevel(level);
+        this.level = new GameLevel(level, matchLevel);
         this.numLives = Utils.NUM_LIVES;
         this.totalScore = 0;
         this.scoreMatch = scoreMatch;
@@ -262,7 +262,7 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
 
         List<ClusterDifferentResult> newResults = new ArrayList<ClusterDifferentResult>(this.results);
         Date stoppedDate = Calendar.getInstance().getTime();
-        new Thread (() -> new DifferenceService(username,scoreMatch, level.getLevel()).run(newResults,String.valueOf(level.getLevel()),startedDate,stoppedDate,oldScore,newTotalPoints, maxScore)).start();
+        new Thread (() -> new DifferenceService(username,scoreMatch, level.getAnotherLevel()).run(newResults,String.valueOf(level.getLevel()),startedDate,stoppedDate,oldScore,newTotalPoints, maxScore)).start();
         this.results.clear();
     }
 

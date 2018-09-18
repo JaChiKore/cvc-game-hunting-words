@@ -12,27 +12,29 @@ public class GameLevel {
     public static final int PERCENTAGE_ADD_IMAGE = 10;
     public static final int BASE_NUM_IMAGES = 10;
 
-    private int level;
+    private int gameLevel;
+    private int anotherLevel;
     private int num;
     private int numFix;
-    public GameLevel(int level) {
-        this.level = level;
+    public GameLevel(int thisGameLevel, int anotherGameLevel) {
+        this.gameLevel = thisGameLevel;
+        this.anotherLevel = anotherGameLevel;
         calculateDifficult();
     }
 
     private void calculateDifficult() {
-        if (level < THRESHOLD_LEVEL_EASY) {
+        if (gameLevel < THRESHOLD_LEVEL_EASY) {
             int totalImages = BASE_NUM_IMAGES;
             this.num  =  (int)(totalImages * .2);
             this.numFix = (int)(totalImages * .8);
-        } else if (level < THRESHOLD_LEVEL_MEDIUM) {
-            int totalOffset = ((level - THRESHOLD_LEVEL_EASY) % PERCENTAGE_ADD_IMAGE);
+        } else if (gameLevel < THRESHOLD_LEVEL_MEDIUM) {
+            int totalOffset = ((gameLevel - THRESHOLD_LEVEL_EASY) % PERCENTAGE_ADD_IMAGE);
             int totalImages = BASE_NUM_IMAGES+ totalOffset;
             this.num  = (int)(totalImages * .5);
             this.numFix = (int)(totalImages * .5);
 
         } else  {
-            int totalOffset = ((level - THRESHOLD_LEVEL_MEDIUM) % PERCENTAGE_ADD_IMAGE );
+            int totalOffset = ((gameLevel - THRESHOLD_LEVEL_MEDIUM) % PERCENTAGE_ADD_IMAGE );
             int totalImages = BASE_NUM_IMAGES+ totalOffset;
             this.num  = (int)(totalImages * .6);
             this.numFix = (int)(totalImages * .4);
@@ -41,19 +43,20 @@ public class GameLevel {
     }
 
     public void increase() {
-        level++;
+        gameLevel++;
         calculateDifficult();
     }
     public void decrease() {
-        level--;
-        if (level <= 0) {
-            level = 1;
+        gameLevel--;
+        if (gameLevel <= 0) {
+            gameLevel = 1;
         }
         calculateDifficult();
     }
     public int getLevel() {
-        return level;
+        return gameLevel;
     }
+    public int getAnotherLevel() {return anotherLevel; }
 
     public int getNum() {
         return num;
