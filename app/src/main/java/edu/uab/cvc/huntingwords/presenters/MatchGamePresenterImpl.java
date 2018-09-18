@@ -25,6 +25,7 @@ import edu.uab.cvc.huntingwords.presenters.utils.GameLevel;
 import edu.uab.cvc.huntingwords.screens.fragments.CallbackPostDialog;
 import edu.uab.cvc.huntingwords.screens.views.MatchView;
 import edu.uab.cvc.huntingwords.tasks.loaders.LoaderMatchGameInformation;
+import edu.uab.cvc.huntingwords.tasks.loaders.UpdateMatchGame;
 import edu.uab.cvc.huntingwords.tasks.services.MatchService;
 import timber.log.Timber;
 
@@ -306,13 +307,8 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
     @Override
     public void loadMoreInfo() {
         try {
-            //TODO
-            //don't need update, erase all and re-download it, and now we only have one type of information
-            //don't need to download fix info and non-fix info. This will be the same for the differenceGame
-            //new UpdateMatchGame(Utils.BATCH_MATCH_IMAGES).update(appContext);
-            //new MatchInformationEraser(Utils.BATCH_MATCH_IMAGES).erase(appContext);
+            new UpdateMatchGame().update(appContext);
             new LoaderMatchGameInformation().load(appContext,matchInfo);
-            new LoaderMatchGameInformation().loadFix(appContext,matchFixInfo);
 
         } catch (FileNotFoundException e) {
             Timber.e(e);

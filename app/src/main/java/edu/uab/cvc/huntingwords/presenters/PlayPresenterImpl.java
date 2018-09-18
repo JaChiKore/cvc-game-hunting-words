@@ -57,9 +57,8 @@ public class PlayPresenterImpl implements PlayPresenter {
     @Override
     public void loadMatchInfo() {
         try {
-            new UpdateMatchGame(Utils.BATCH_MATCH_IMAGES).update(appContext);
+            new UpdateMatchGame().update(appContext);
             new LoaderMatchGameInformation().load(appContext,matchInfo);
-            new LoaderMatchGameInformation().loadFix(appContext,matchFixInfo);
 
         } catch (FileNotFoundException e) {
             Timber.e(e);
