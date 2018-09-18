@@ -82,12 +82,10 @@ public class MatchGame  extends Fragment implements MatchView {
 
     public int clickedImage = -1;
     private boolean pause;
-    private float preferencesDiffScore;
 
 
     public static MatchGame newInstance() {
-        MatchGame frag = new MatchGame();
-        return frag;
+        return new MatchGame();
     }
 
     @Override

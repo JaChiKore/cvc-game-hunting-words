@@ -58,16 +58,15 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
     private Date startedDate;
     private final String username;
 
-    List<String> imagesCurrentRound;
-   List<String> imagesFixCurrentRound;
-    List<String> playedTotalTranscriptions;
-    List<MatchResult> results;
+    private List<String> imagesCurrentRound;
+    private List<String> imagesFixCurrentRound;
+    private List<String> playedTotalTranscriptions;
+    private List<MatchResult> results;
     private int totalOks;
     private int numLives;
     private float maxScore;
     private final float scoreDifference;
     private float totalScore;
-
 
     public MatchGamePresenterImpl(MatchView view, String username, int currentLevel, int diffLevel, float totalScore, float  scoreDifference) {
         /* IT MUST BE FIRST */
@@ -117,7 +116,7 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
         if (numOks == totalOks) {
             playedTotalTranscriptions.addAll(imagesCurrentRound);
             playedTotalTranscriptions.addAll(imagesFixCurrentRound);
-            updateLevel();
+            updateLevel(true);
             finishRoundAndUpdate();
         }
     }
@@ -127,7 +126,13 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
         numLives--;
         this.view.setUpNumLives(numLives);
         if (numLives == 0) {
-            CallbackPostDialog callback = () ->  repeatGame();
+            float oldScore = totalScore;
+            totalScore += currentScore;
+            updateLevel(false);
+            CallbackPostDialog callback = () ->  {
+                uploadResult((int)oldScore,(int)totalScore);
+                repeatGame();
+            };
             view.runPlayAgainDialog(false,totalScore,level.getLevel(), callback);
         }
     }
@@ -290,10 +295,12 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
 
     }
 
-
-
-    private void updateLevel() {
-        level.increase();
+    private void updateLevel(boolean win) {
+        if (win) {
+            level.increase();
+        } else {
+            level.decrease();
+        }
     }
 
     @Override

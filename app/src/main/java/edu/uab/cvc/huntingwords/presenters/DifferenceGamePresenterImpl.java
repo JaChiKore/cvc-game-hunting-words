@@ -11,6 +11,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
@@ -262,7 +263,9 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
 
         List<ClusterDifferentResult> newResults = new ArrayList<ClusterDifferentResult>(this.results);
         Date stoppedDate = Calendar.getInstance().getTime();
-        new Thread (() -> new DifferenceService(username,scoreMatch, level.getAnotherLevel()).run(newResults,String.valueOf(level.getLevel()),startedDate,stoppedDate,oldScore,newTotalPoints, maxScore)).start();
+        long diffInMs = stoppedDate.getTime() - startedDate.getTime();
+        long diffInSec = TimeUnit.MILLISECONDS.toSeconds(diffInMs);
+        new Thread (() -> new DifferenceService(username,scoreMatch, level.getAnotherLevel()).run(newResults,String.valueOf(level.getLevel()),startedDate,stoppedDate, diffInSec,oldScore,newTotalPoints, maxScore)).start();
         this.results.clear();
     }
 
