@@ -29,20 +29,20 @@ import static edu.uab.cvc.huntingwords.tasks.GetTotalRanking.MATCH;
  */
 
 public class PlayPresenterImpl implements PlayPresenter {
-        @Inject
-        DifferenceGameInformation differenceInfo;
+    @Inject
+    DifferenceGameInformation differenceInfo;
 
-        @Inject
-        MatchGameInformation matchInfo;
+    @Inject
+    MatchGameInformation matchInfo;
 
-       @Inject
-       DifferenceFixGameInformation differenceFixInfo;
+    @Inject
+    DifferenceFixGameInformation differenceFixInfo;
 
-        @Inject
-        MatchFixGameInformation matchFixInfo;
+    @Inject
+    MatchFixGameInformation matchFixInfo;
 
-        @Inject
-        Context appContext;
+    @Inject
+    Context appContext;
 
 
     private final PlayView view;
@@ -58,7 +58,7 @@ public class PlayPresenterImpl implements PlayPresenter {
     public void loadMatchInfo() {
         try {
             new UpdateMatchGame().update(appContext);
-            new LoaderMatchGameInformation().load(appContext,matchInfo);
+            new LoaderMatchGameInformation().load(appContext,matchInfo, matchFixInfo);
 
         } catch (FileNotFoundException e) {
             Timber.e(e);
@@ -69,9 +69,8 @@ public class PlayPresenterImpl implements PlayPresenter {
     @Override
     public void loadDifferenceInfo() {
         try {
-            new UpdateDifferenceGame(Utils.BATCH_DIFF_IMAGES).update(appContext);
-            new LoaderDifferenceGameInformation().load(appContext,differenceInfo);
-            new LoaderDifferenceGameInformation().loadFix(appContext,differenceFixInfo);
+            new UpdateDifferenceGame().update(appContext);
+            new LoaderDifferenceGameInformation().load(appContext,differenceInfo, differenceFixInfo);
 
         } catch (FileNotFoundException e) {
             Timber.e(e);

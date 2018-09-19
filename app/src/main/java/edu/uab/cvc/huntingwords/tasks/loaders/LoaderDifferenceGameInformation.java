@@ -17,69 +17,10 @@ import java.util.List;
  */
 
 public class LoaderDifferenceGameInformation {
-    private final String differenceGameInfoFilename = "differenceGameInfo.txt";
-    private final String differenceGameFixInfoFilename = "differenceGameFixInfo.txt";
-
-
-    public void load(Context context, Hashtable<String,List<Pair<String,Boolean>>> gameInfo) throws FileNotFoundException {
+    public void load(Context context, Hashtable<String,List<Pair<String,Boolean>>> gameInfo, Hashtable<String,List<Pair<String,Boolean>>> gameFixInfo) throws FileNotFoundException {
         gameInfo.clear();
 
-
-        List<String> notSyncronizedClusters = new ArrayList<>();
-
-        File file = new File(context.getFilesDir(),differenceGameInfoFilename);
-        BufferedReader br = new BufferedReader(new FileReader(file));
-        try {
-            if (br.readLine() != null) {
-                String row;
-                while ((row = br.readLine()) != null) {
-                    String[] columns = row.split(";");
-                    String filename = columns[0];
-                    String numCluster = columns[1];
-                    Boolean validated = Integer.valueOf(columns[3])==1;
-
-                    List<Pair<String,Boolean>> listFilenames;
-                    if (!gameInfo.containsKey(numCluster)) {
-                        listFilenames = new ArrayList<>();
-                    } else {
-                        listFilenames = gameInfo.get(numCluster);
-                    }
-
-                    if (validated) {
-                        notSyncronizedClusters.add(numCluster);
-                    }
-
-                    listFilenames.add(Pair.create(filename,false));
-                    gameInfo.put(numCluster, listFilenames);
-
-                    /* delete not syncronized cluster */
-                    for (String nameCluster: notSyncronizedClusters) {
-                        gameInfo.remove(nameCluster);
-                    }
-
-
-                }
-            }
-            br.close();
-        } catch (IOException e){
-
-        } finally {
-            try {
-                br.close();
-            } catch(Exception e) {
-            }
-        }
-
-    }
-
-
-    public void loadFix(Context context, Hashtable<String,List<Pair<String,Boolean>>> gameInfo) throws FileNotFoundException {
-        gameInfo.clear();
-
-
-        List<String> notSyncronizedClusters = new ArrayList<>();
-
-        File file = new File(context.getFilesDir(),differenceGameFixInfoFilename);
+        File file = new File(context.getFilesDir(),"differenceGameInfo.txt");
         BufferedReader br = new BufferedReader(new FileReader(file));
         try {
             if (br.readLine() != null) {
@@ -90,42 +31,38 @@ public class LoaderDifferenceGameInformation {
                     String numCluster = columns[1];
                     String result = columns[2];
                     Boolean validated = Integer.valueOf(columns[3])==1;
-                    System.out.println(filename + " - " + numCluster + " - " + validated);
 
-                    List<Pair<String,Boolean>> listFilenames;
-                    if (!gameInfo.containsKey(numCluster)) {
+                    if (validated) {
+                        List<Pair<String,Boolean>> listFilenames;
+                        if (!gameFixInfo.containsKey(numCluster)) {
                             listFilenames = new ArrayList<>();
+                        } else {
+                            listFilenames = gameFixInfo.get(numCluster);
+                        }
+                        listFilenames.add(Pair.create(filename,result.equals("1")));
+                        gameFixInfo.put(numCluster, listFilenames);
                     } else {
-                        listFilenames = gameInfo.get(numCluster);
+                        List<Pair<String,Boolean>> listFilenames;
+                        if (!gameInfo.containsKey(numCluster)) {
+                            listFilenames = new ArrayList<>();
+                        } else {
+                            listFilenames = gameInfo.get(numCluster);
+                        }
+                        listFilenames.add(Pair.create(filename,false));
+                        gameInfo.put(numCluster, listFilenames);
                     }
-
-                    if (!validated) {
-                        notSyncronizedClusters.add(numCluster);
-                    }
-
-                    listFilenames.add(Pair.create(filename,result.equals("1")));
-                    gameInfo.put(numCluster, listFilenames);
-
-                    /* delete not syncronized cluster */
-                    for (String nameCluster: notSyncronizedClusters) {
-                        gameInfo.remove(nameCluster);
-                    }
-
-
                 }
             }
             br.close();
         } catch (IOException e){
-
+            e.printStackTrace();
         } finally {
             try {
                 br.close();
             } catch(Exception e) {
+                e.printStackTrace();
             }
         }
 
     }
-
-
-
 }

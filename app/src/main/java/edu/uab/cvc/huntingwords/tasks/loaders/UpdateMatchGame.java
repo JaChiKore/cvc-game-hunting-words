@@ -24,7 +24,6 @@ import timber.log.Timber;
  */
 
 public class UpdateMatchGame {
-
     private String matchGameInfoFilename = "matchGameInfo.txt";
 
     public UpdateMatchGame() {}
@@ -40,10 +39,8 @@ public class UpdateMatchGame {
         fileOrDirectory.delete();
     }
 
-
     public boolean update(Context context) {
         File file = context.getFilesDir();
-        System.out.println(file.getAbsolutePath());
         deleteRecursive(file);
 
         try {

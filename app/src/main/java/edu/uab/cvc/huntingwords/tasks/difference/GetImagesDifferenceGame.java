@@ -13,13 +13,9 @@ import edu.uab.cvc.huntingwords.Utils;
 public class GetImagesDifferenceGame {
 
     private Context context;
-    private int[] downloadedFiles;
-    private int index;
 
-    public GetImagesDifferenceGame(Context context, int[] downloadedFiles, int index) {
+    public GetImagesDifferenceGame(Context context) {
         this.context = context;
-        this.downloadedFiles = downloadedFiles;
-        this.index = index;
     }
 
     public String doInForeground(String... arg) {
@@ -77,15 +73,12 @@ public class GetImagesDifferenceGame {
         switch (a) {
             case "-1":
                 System.out.println("----------------------------------- INCORRECT -----------------------------------");
-                downloadedFiles[index] = -1;
                 return "-1";
             case "0":
                 System.out.println("----------------------------------- U HAVE THE FILE -----------------------------------");
-                downloadedFiles[index] = 0;
                 return "0";
             case "1":
                 System.out.println("----------------------------------- CORRECT -----------------------------------");
-                downloadedFiles[index] = 1;
                 return "1";
             default:
                 return "-1";

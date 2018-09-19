@@ -7,10 +7,8 @@ package edu.uab.cvc.huntingwords.presenters.utils;
 
 public class GameLevel {
 
-    public static final int THRESHOLD_LEVEL_EASY = 10;
-    public static final int THRESHOLD_LEVEL_MEDIUM = 50;
-    public static final int PERCENTAGE_ADD_IMAGE = 10;
-    public static final int BASE_NUM_IMAGES = 10;
+    private static final int LEVEL_THRESHOLD = 5;
+    private static final int BASE_NUM_IMAGES = 10;
 
     private int gameLevel;
     private int anotherLevel;
@@ -23,22 +21,12 @@ public class GameLevel {
     }
 
     private void calculateDifficult() {
-        if (gameLevel < THRESHOLD_LEVEL_EASY) {
-            int totalImages = BASE_NUM_IMAGES;
-            this.num  =  (int)(totalImages * .2);
-            this.numFix = (int)(totalImages * .8);
-        } else if (gameLevel < THRESHOLD_LEVEL_MEDIUM) {
-            int totalOffset = ((gameLevel - THRESHOLD_LEVEL_EASY) % PERCENTAGE_ADD_IMAGE);
-            int totalImages = BASE_NUM_IMAGES+ totalOffset;
-            this.num  = (int)(totalImages * .5);
-            this.numFix = (int)(totalImages * .5);
-
-        } else  {
-            int totalOffset = ((gameLevel - THRESHOLD_LEVEL_MEDIUM) % PERCENTAGE_ADD_IMAGE );
-            int totalImages = BASE_NUM_IMAGES+ totalOffset;
-            this.num  = (int)(totalImages * .6);
-            this.numFix = (int)(totalImages * .4);
-
+        if (gameLevel < LEVEL_THRESHOLD) {
+            this.numFix = BASE_NUM_IMAGES - gameLevel*2;
+            this.num  =  BASE_NUM_IMAGES - this.numFix;
+        } else {
+            this.num = BASE_NUM_IMAGES;
+            this.numFix = 0;
         }
     }
 

@@ -19,14 +19,11 @@ import edu.uab.cvc.huntingwords.Utils;
  */
 
 public class LoaderMatchGameInformation {
-
-    private final String matchGameInfoFilename = "matchGameInfo.txt";
-
-
-    public void load(Context context, Hashtable<String,Pair<List<String>,String>> matchGameImages) throws FileNotFoundException {
+    public void load(Context context, Hashtable<String,Pair<List<String>,String>> matchGameImages, Hashtable<String,Pair<List<String>,String>> matchGameFixImages) throws FileNotFoundException {
         matchGameImages.clear();
+        matchGameFixImages.clear();
 
-        File file = new File(context.getFilesDir(),matchGameInfoFilename);
+        File file = new File(context.getFilesDir(),"matchGameInfo.txt");
             BufferedReader br = new BufferedReader(new FileReader(file));
             try {
                 if (br.readLine() != null) {
@@ -35,24 +32,32 @@ public class LoaderMatchGameInformation {
                         String[] columns = row.split(";");
                         String filename = columns[0];
                         String possibleResults = columns[1];
+                        Boolean golden = Integer.valueOf(columns[2])==1;
                         String[] tempResults = possibleResults.split(":");
                         List<String> results = Arrays.asList(tempResults);
-                        matchGameImages.put(filename, Pair.create(results, new String()));
+                        if (golden) {
+                            String outputResult;
+                            if (columns[3].equals("1")) {
+                                outputResult = results.get(0);
+                            } else {
+                                outputResult = Utils.ANY_CORRECT;
+                            }
+                            matchGameFixImages.put(filename, Pair.create(results, outputResult));
+                        } else {
+                            matchGameImages.put(filename, Pair.create(results, null));
+                        }
                     }
                 }
                 br.close();
             } catch (IOException e){
-
+                e.printStackTrace();
             } finally {
                 try {
                     br.close();
                 } catch(Exception e) {
+                    e.printStackTrace();
                 }
             }
 
     }
-
-
-
-
 }

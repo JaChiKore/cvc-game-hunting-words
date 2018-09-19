@@ -139,7 +139,7 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
     }
 
 
-    public void finishRoundAndUpdate() {
+    private void finishRoundAndUpdate() {
         float oldScore = totalScore;
         totalScore += currentScore;
         if (totalScore > maxScore) {
@@ -177,7 +177,7 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
     }
 
 
-    public boolean checkIfItIsPaused() {
+    private boolean checkIfItIsPaused() {
         if (isItNeedImages()) {
             view.setPause(true);
             view.messageNotEnoughImages();
@@ -195,7 +195,7 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
         initGame();
     }
 
-    public void repeatGame() {
+    private void repeatGame() {
         totalScore = 0;
         initGame();
     }
@@ -243,16 +243,16 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
     }
 
     private boolean isItNeedImages() {
-        int numMatchs = level.getNum();
-        int numMatchsFix = level.getNumFix();
-        if (this.matchInfo.keySet().size() < numMatchs || this.matchFixInfo.keySet().size() < numMatchsFix) {
+        int numMatch = level.getNum();
+        int numMatchFix = level.getNumFix();
+        if (this.matchInfo.keySet().size() < numMatch || this.matchFixInfo.keySet().size() < numMatchFix) {
             return true;
         }
 
         /* analysed all images with correct mix */
-        if ((matchInfo.keySet().size()- countTotalUsed) <numMatchs
+        if ((matchInfo.keySet().size()- countTotalUsed) <numMatch
                 ||
-                (matchFixInfo.keySet().size()- countTotalFixUsed) <numMatchsFix
+                (matchFixInfo.keySet().size()- countTotalFixUsed) <numMatchFix
                 ) {
             return true;
 
@@ -308,7 +308,7 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
     public void loadMoreInfo() {
         try {
             new UpdateMatchGame().update(appContext);
-            new LoaderMatchGameInformation().load(appContext,matchInfo);
+            new LoaderMatchGameInformation().load(appContext,matchInfo, matchFixInfo);
 
         } catch (FileNotFoundException e) {
             Timber.e(e);

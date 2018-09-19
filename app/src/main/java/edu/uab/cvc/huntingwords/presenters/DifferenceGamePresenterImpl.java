@@ -1,6 +1,7 @@
 package edu.uab.cvc.huntingwords.presenters;
 
 import android.content.Context;
+import android.text.BoringLayout;
 import android.util.Pair;
 
 import java.io.FileNotFoundException;
@@ -56,9 +57,12 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
     private int countFixUsed, countUsed;
     private List<String> clustersToPlay;
 
-    List<String> imagesCurrentRound;
-    List<String> imagesFixCurrentRound;
+    private List<String> imagesCurrentRound;
+    private List<String> imagesFixCurrentRound;
     private List<String> playedTotalClusters;
+
+    private int Info;
+    private int fixInfo;
 
     private Date startedDate;
     private final String username;
@@ -83,6 +87,8 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
         this.totalScore = 0;
         this.scoreMatch = scoreMatch;
         this.maxScore = maxScore;
+        this.Info = 0;
+        this.Info = 0;
     }
 
     @Override
@@ -105,13 +111,13 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
     }
 
 
-    public void repeatGame() {
+    private void repeatGame() {
         clustersToPlay.clear();
         initGame();
         updateGame();
     }
 
-    public boolean checkIfItIsPaused() {
+    private boolean checkIfItIsPaused() {
         if (isItNeedImages()) {
             view.setPause(true);
             view.messageNotEnoughImages();
@@ -149,15 +155,13 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
 
         List<String> listClusters = new ArrayList<>();
         List<String> listFixClusters = new ArrayList<>();
-        SecureRandom random = new SecureRandom();
 
-        setUpInfo(level.getNum(), random, diffInfo,listClusters);
-        setUpInfo(level.getNumFix(), random, diffFixInfo,listFixClusters);
+        setUpInfo(level.getNum(), diffInfo,listClusters, false);
+        setUpInfo(level.getNumFix(), diffFixInfo,listFixClusters, true);
         clustersToPlay = new ArrayList<>(listClusters);
         clustersToPlay.addAll(listFixClusters);
         Collections.shuffle(clustersToPlay);
         startNewLives();
-
     }
 
     private void resetValues() {
@@ -165,10 +169,16 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
         this.results.clear();
     }
 
-    private void setUpInfo(int sizeForLevel, SecureRandom random, Hashtable<String, List<Pair<String, Boolean>>> info, List<String> listClusters) {
+    private void setUpInfo(int sizeForLevel, Hashtable<String, List<Pair<String, Boolean>>> info, List<String> listClusters, Boolean fix) {
         while (listClusters.size() < info.size() && listClusters.size() <sizeForLevel ) {
-            int randomIndex = random.nextInt(info.keySet().size());
-            String cluster = new ArrayList<>(info.keySet()).get(randomIndex);
+            String cluster;
+            if (fix) {
+                cluster = new ArrayList<>(info.keySet()).get(fixInfo);
+                fixInfo += 1;
+            } else {
+                cluster = new ArrayList<>(info.keySet()).get(Info);
+                Info += 1;
+            }
             if (!listClusters.contains(cluster) && !playedTotalClusters.contains(cluster))  {
                 listClusters.add(cluster);
             }
@@ -183,17 +193,15 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
     }
 
     private boolean isItNeedImages() {
-        if(countUsed >= diffInfo.size()  ||   countFixUsed >= diffFixInfo.size()) {
+        if (countUsed >= diffInfo.size()  ||   countFixUsed >= diffFixInfo.size()) {
             return true;
         }
 
         /* analysed all images with correct mix */
         if ((diffInfo.keySet().size()-countUsed) <  level.getNum()
                 ||
-                (diffFixInfo.keySet().size()-countFixUsed ) <level.getNumFix()
-                ) {
+                (diffFixInfo.keySet().size()-countFixUsed ) <level.getNumFix()) {
             return true;
-
         }
         return false;
     }
@@ -219,9 +227,9 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
         numLives--;
         this.view.setUpNumLives(numLives);
         if (numLives == 0) {
-            updateLevel(false);
             float oldScore = totalScore;
             totalScore += currentScore;
+            updateLevel(false);
             CallbackPostDialog callback = () -> {
                 uploadResult((int)oldScore,(int)totalScore);
                 repeatGame();
@@ -260,12 +268,11 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
         if (this.username.equals(appContext.getString(R.string.anonym))) {
             return;
         }
-
-        List<ClusterDifferentResult> newResults = new ArrayList<ClusterDifferentResult>(this.results);
+        List<ClusterDifferentResult> newResults = new ArrayList<>(this.results);
         Date stoppedDate = Calendar.getInstance().getTime();
         long diffInMs = stoppedDate.getTime() - startedDate.getTime();
         long diffInSec = TimeUnit.MILLISECONDS.toSeconds(diffInMs);
-        new Thread (() -> new DifferenceService(username,scoreMatch, level.getAnotherLevel()).run(newResults,String.valueOf(level.getLevel()),startedDate,stoppedDate, diffInSec,oldScore,newTotalPoints, maxScore)).start();
+        new Thread (() -> new DifferenceService(username,scoreMatch, level.getLevel()).run(newResults,String.valueOf(level.getLevel()),startedDate,stoppedDate, diffInSec,oldScore,newTotalPoints, maxScore)).start();
         this.results.clear();
     }
 
@@ -368,9 +375,8 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
     @Override
     public void loadMoreInfo() {
         try {
-            new UpdateDifferenceGame(Utils.BATCH_DIFF_IMAGES).update(appContext);
-            new LoaderDifferenceGameInformation().load(appContext,diffInfo);
-            new LoaderDifferenceGameInformation().loadFix(appContext,diffFixInfo);
+            new UpdateDifferenceGame().update(appContext);
+            new LoaderDifferenceGameInformation().load(appContext,diffInfo, diffFixInfo);
 
         } catch (FileNotFoundException e) {
             Timber.e(e);
