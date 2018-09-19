@@ -2,18 +2,9 @@ package edu.uab.cvc.huntingwords.tasks.loaders;
 
 import android.content.Context;
 import android.util.Log;
-
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
-import java.io.FileWriter;
-import java.util.ArrayList;
-
-import edu.uab.cvc.huntingwords.tasks.CheckNumBatches;
-import edu.uab.cvc.huntingwords.tasks.difference.CheckDifferenceGameImages;
-import edu.uab.cvc.huntingwords.tasks.difference.CheckNewDifferenceGameFixClusters;
-import edu.uab.cvc.huntingwords.tasks.difference.GetDifferenceGameFixInfo;
 import edu.uab.cvc.huntingwords.tasks.difference.GetDifferenceGameInfo;
 import edu.uab.cvc.huntingwords.tasks.difference.GetImagesDifferenceGame;
 

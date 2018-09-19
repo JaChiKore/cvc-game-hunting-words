@@ -9,7 +9,7 @@ import edu.uab.cvc.huntingwords.screens.fragments.CallbackPostDialog;
  */
 
 public interface MatchView {
-    void newRoundPlay(List<String> filepaths, List<String> buttons);
+    void newRoundPlay(List<String> filePaths, List<String> buttons);
 
     void hideButton(int idImage);
 

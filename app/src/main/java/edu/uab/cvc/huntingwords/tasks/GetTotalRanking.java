@@ -9,7 +9,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import edu.uab.cvc.huntingwords.Utils;
 import edu.uab.cvc.huntingwords.presenters.callbacks.TotalRankingCallback;
@@ -45,7 +44,7 @@ public class GetTotalRanking extends AsyncTask<String, Void, String[]> {
             con.connect();
 
             bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
-            StringBuffer content = new StringBuffer();
+            StringBuilder content = new StringBuilder();
             while ((next = bufferedReader.readLine()) != null) {
                 content.append(next);
             }

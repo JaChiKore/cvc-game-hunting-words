@@ -1,8 +1,6 @@
 package edu.uab.cvc.huntingwords.screens.fragments;
 
 import android.app.Fragment;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,10 +23,6 @@ public class HelpDifference extends Fragment {
         View view =inflater.inflate(R.layout.help_difference_fragment, container, false);
         ButterKnife.bind(this, view);
 
-
-        Context context = getActivity();
-        SharedPreferences sharedPref = context.getSharedPreferences(
-                getString(R.string.language_type), Context.MODE_PRIVATE);
 
         view.setBackgroundColor(Utils.GetBackgroundColour(this.getActivity()));
         return view;

@@ -1,14 +1,7 @@
 package edu.uab.cvc.huntingwords.presenters;
 
-
-
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-
-import edu.uab.cvc.huntingwords.R;
 import edu.uab.cvc.huntingwords.application.AppController;
 import edu.uab.cvc.huntingwords.presenters.callbacks.ConnectCallback;
-import edu.uab.cvc.huntingwords.screens.fragments.Connect;
 import edu.uab.cvc.huntingwords.screens.views.LoginView;
 import edu.uab.cvc.huntingwords.tasks.GetRanking;
 import edu.uab.cvc.huntingwords.tasks.InsertUser;
@@ -33,7 +26,7 @@ public class ConnectPresenterImpl implements ConnectPresenter {
 
 
     @Override
-    public boolean login(final String username, String passw) {
+    public boolean login(final String username, String password) {
         ConnectCallback callback = new ConnectCallback() {
             @Override
             public void updateLogin(String username, String password) {
@@ -58,7 +51,7 @@ public class ConnectPresenterImpl implements ConnectPresenter {
 
             }
         };
-        new Login(callback).execute(username,passw);
+        new Login(callback).execute(username, password);
         new GetRanking(callback).execute(username);
         view.goToInit();
         return true;
@@ -66,7 +59,7 @@ public class ConnectPresenterImpl implements ConnectPresenter {
 
 
     @Override
-    public boolean signin(String username, String passw) {
+    public boolean signin(String username, String password) {
         ConnectCallback callback = new ConnectCallback() {
             @Override
             public void updateLogin(String username, String password) {
@@ -92,7 +85,7 @@ public class ConnectPresenterImpl implements ConnectPresenter {
 
             }
         };
-        new InsertUser(callback).execute(username,passw);
+        new InsertUser(callback).execute(username, password);
         return true;
     }
 }

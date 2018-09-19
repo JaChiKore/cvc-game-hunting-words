@@ -1,22 +1,13 @@
 package edu.uab.cvc.huntingwords.screens;
 
 import android.app.Activity;
-import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.view.Window;
 
 import edu.uab.cvc.huntingwords.R;
 import edu.uab.cvc.huntingwords.screens.fragments.Init;
-import android.app.Activity;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-import android.os.Bundle;
-import android.view.Window;
 
-import edu.uab.cvc.huntingwords.R;
-import edu.uab.cvc.huntingwords.screens.fragments.Init;
 import edu.uab.cvc.huntingwords.screens.fragments.Play;
 
 public class FragmentActivity extends Activity {

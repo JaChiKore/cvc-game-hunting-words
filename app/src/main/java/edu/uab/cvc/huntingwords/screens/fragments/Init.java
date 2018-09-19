@@ -1,6 +1,5 @@
 package edu.uab.cvc.huntingwords.screens.fragments;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -12,15 +11,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import edu.uab.cvc.huntingwords.screens.FragmentActivity;
-
-
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import edu.uab.cvc.huntingwords.R;
-import edu.uab.cvc.huntingwords.presenters.InitPresenter;
-import edu.uab.cvc.huntingwords.presenters.InitPresenterImpl;
 import edu.uab.cvc.huntingwords.screens.Utils;
 import edu.uab.cvc.huntingwords.screens.views.InitView;
 
@@ -31,8 +25,6 @@ import static edu.uab.cvc.huntingwords.Utils.CURRENT_SCORE_MATCH;
 
 public class Init extends Fragment  implements InitView {
 
-    private InitPresenter presenter;
-
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
@@ -40,7 +32,6 @@ public class Init extends Fragment  implements InitView {
         View view =inflater.inflate(R.layout.init_fragment, container, false);
                 ButterKnife.bind(this, view);
         view.setBackgroundColor(Utils.GetBackgroundColour(this.getActivity()));
-        presenter = new InitPresenterImpl(this);
         return view;
     }
 
@@ -53,17 +44,17 @@ public class Init extends Fragment  implements InitView {
         if (string.equals("Anònim") || string.equals("Anónimo") || string.equals("Anonymous") || string.equals("无玩家")) {
             SharedPreferences.Editor editor = preferences.edit();
             editor.putString(edu.uab.cvc.huntingwords.Utils.PARAM_USERNAME,getString(R.string.anonym));
-            editor.commit();
+            editor.apply();
         }
         String name = getUsername();
         updateUsername(name);
         if (!name.equals(getString(R.string.anonym))) {
-            updateMatchSocre(getMatchScore());
+            updateMatchScore(getMatchScore());
             updateDiffScore(getDiffScore());
         } else {
             updateUsername(getString(R.string.anonym));
             updatePreferencesScore(0,0, 1, 1);
-            updateMatchSocre(0);
+            updateMatchScore(0);
             updateDiffScore(0);
         }
 
@@ -71,17 +62,17 @@ public class Init extends Fragment  implements InitView {
 
 
     private void updateUsername(String username) {
-        TextView textUsername = (TextView)getActivity().findViewById(R.id.logged_user);
+        TextView textUsername = getActivity().findViewById(R.id.logged_user);
         textUsername.setText(username);
     }
 
-    private void updateMatchSocre(int score) {
-        TextView valueMatch = (TextView)getActivity().findViewById(R.id.value_match_score);
+    private void updateMatchScore(int score) {
+        TextView valueMatch = getActivity().findViewById(R.id.value_match_score);
         valueMatch.setText(String.valueOf(score));
     }
 
     private void updateDiffScore(int score) {
-        TextView valueDiff = (TextView)getActivity().findViewById(R.id.value_diff_score);
+        TextView valueDiff = getActivity().findViewById(R.id.value_diff_score);
         valueDiff.setText(String.valueOf(score));
     }
 
@@ -139,9 +130,7 @@ public class Init extends Fragment  implements InitView {
                 new Thread() {
                     public void run() {
                                 getActivity().runOnUiThread(
-                                                () -> {
-                                                    updatePreferencesScore(scoreMatch, scoreDiff, matchLevel, diffLevel);
-                                                    });
+                                                () -> updatePreferencesScore(scoreMatch, scoreDiff, matchLevel, diffLevel));
                                     }
         }.start();
     }
@@ -152,8 +141,8 @@ public class Init extends Fragment  implements InitView {
         SharedPreferences.Editor editor = preferences.edit();
         editor.putInt(CURRENT_SCORE_MATCH,scoreMatch);
         editor.putInt(CURRENT_SCORE_DIFF,scoreDiff);
-        editor.putInt(CURRENT_LEVEL_MATCH,scoreMatch);
-        editor.putInt(CURRENT_LEVEL_DIFFERENCE,scoreDiff);
-        editor.commit();
+        editor.putInt(CURRENT_LEVEL_MATCH,matchLevel);
+        editor.putInt(CURRENT_LEVEL_DIFFERENCE,diffLevel);
+        editor.apply();
     }
 }

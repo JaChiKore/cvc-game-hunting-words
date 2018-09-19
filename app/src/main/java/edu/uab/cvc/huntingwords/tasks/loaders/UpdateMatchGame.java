@@ -4,20 +4,11 @@ import android.content.Context;
 import android.util.Log;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
-import java.io.FileWriter;
-import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
-import edu.uab.cvc.huntingwords.tasks.CheckNumBatches;
-import edu.uab.cvc.huntingwords.tasks.match.CheckMatchGameImages;
-import edu.uab.cvc.huntingwords.tasks.match.CheckNewMatchGameFixImages;
 import edu.uab.cvc.huntingwords.tasks.match.GetImagesMatchGame;
-import edu.uab.cvc.huntingwords.tasks.match.GetMatchGameFixInfo;
 import edu.uab.cvc.huntingwords.tasks.match.GetMatchGameInfo;
-import timber.log.Timber;
 
 /**
  * Created by carlosb on 16/04/18.

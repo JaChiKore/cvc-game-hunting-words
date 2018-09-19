@@ -4,7 +4,6 @@ import android.content.Context;
 import android.util.Pair;
 
 import java.io.FileNotFoundException;
-import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -55,6 +54,8 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
     private  int countTotalUsed;
     private  int countTotalFixUsed;
 
+    private int info;
+    private int fixInfo;
 
     private Date startedDate;
     private final String username;
@@ -83,6 +84,8 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
         this.maxScore = totalScore;
         this.totalScore = 0;
         this.scoreDifference = scoreDifference;
+        this.info = 0;
+        this.fixInfo = 0;
     }
 
 
@@ -209,9 +212,8 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
         imagesCurrentRound.clear();
         imagesFixCurrentRound.clear();
 
-        SecureRandom random = new SecureRandom();
-        setUpInfo( level.getNum(), random, matchInfo, imagesCurrentRound);
-        setUpInfo(level.getNumFix(),random, matchFixInfo,imagesFixCurrentRound);
+        setUpInfo( level.getNum(), matchInfo, imagesCurrentRound, false);
+        setUpInfo(level.getNumFix(), matchFixInfo,imagesFixCurrentRound, true);
 
         countTotalUsed +=imagesCurrentRound.size();
         countTotalFixUsed +=imagesFixCurrentRound.size();
@@ -285,10 +287,16 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
         this.results.clear();
     }
 
-    private void setUpInfo(int sizeForLevel, SecureRandom random, Hashtable<String, Pair<List<String>, String>> info, List<String> imagesToUse) {
+    private void setUpInfo(int sizeForLevel, Hashtable<String, Pair<List<String>, String>> info, List<String> imagesToUse, Boolean fix) {
         while (imagesToUse.size() < info.keySet().size() && imagesToUse.size() < sizeForLevel) {
-            int randomIndex = random.nextInt(info.keySet().size());
-            String value = new ArrayList<>(info.keySet()).get(randomIndex);
+            String value;
+            if (fix) {
+                value = new ArrayList<>(info.keySet()).get(fixInfo);
+                fixInfo += 1;
+            } else {
+                value = new ArrayList<>(info.keySet()).get(this.info);
+                this.info += 1;
+            }
             if (!imagesToUse.contains(value) && !playedTotalTranscriptions.contains(value) ) {
                 imagesToUse.add(value);
             }

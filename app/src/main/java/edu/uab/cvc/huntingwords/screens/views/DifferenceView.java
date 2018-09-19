@@ -9,7 +9,7 @@ import edu.uab.cvc.huntingwords.screens.fragments.CallbackPostDialog;
  */
 
 public interface DifferenceView {
-    void newRoundPlay (List<String> filepaths);
+    void newRoundPlay (List<String> filePaths);
 
     void messageNotEnoughImages();
 

@@ -2,22 +2,17 @@ package edu.uab.cvc.huntingwords.screens;
 
 
 import android.content.Context;
-import android.content.res.AssetFileDescriptor;
-import android.content.res.AssetManager;
 import android.media.AudioManager;
 import android.media.SoundPool;
-import android.util.Log;
-
-import java.io.IOException;
 
 import edu.uab.cvc.huntingwords.R;
 
 @SuppressWarnings("WeakerAccess")
 public class Sounds {
     public SoundPool soundPool;
-    public int fail = -1;
-    public int pass = -1;
-    public int won = -1;
+    public int fail;
+    public int pass;
+    public int won;
 
     public Sounds(Context context) {
         //noinspection deprecation

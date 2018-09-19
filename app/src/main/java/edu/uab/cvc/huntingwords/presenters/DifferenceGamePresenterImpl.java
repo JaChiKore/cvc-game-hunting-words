@@ -1,11 +1,10 @@
 package edu.uab.cvc.huntingwords.presenters;
 
 import android.content.Context;
-import android.text.BoringLayout;
 import android.util.Pair;
 
 import java.io.FileNotFoundException;
-import java.security.SecureRandom;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -61,7 +60,7 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
     private List<String> imagesFixCurrentRound;
     private List<String> playedTotalClusters;
 
-    private int Info;
+    private int info;
     private int fixInfo;
 
     private Date startedDate;
@@ -87,8 +86,8 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
         this.totalScore = 0;
         this.scoreMatch = scoreMatch;
         this.maxScore = maxScore;
-        this.Info = 0;
-        this.Info = 0;
+        this.info = 0;
+        this.fixInfo = 0;
     }
 
     @Override
@@ -176,8 +175,8 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
                 cluster = new ArrayList<>(info.keySet()).get(fixInfo);
                 fixInfo += 1;
             } else {
-                cluster = new ArrayList<>(info.keySet()).get(Info);
-                Info += 1;
+                cluster = new ArrayList<>(info.keySet()).get(this.info);
+                this.info += 1;
             }
             if (!listClusters.contains(cluster) && !playedTotalClusters.contains(cluster))  {
                 listClusters.add(cluster);

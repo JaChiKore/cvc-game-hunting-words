@@ -1,13 +1,11 @@
 package edu.uab.cvc.huntingwords.screens.fragments;
 
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +13,6 @@ import android.widget.TextView;
 
 import java.util.Locale;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import edu.uab.cvc.huntingwords.R;
@@ -26,10 +23,10 @@ import edu.uab.cvc.huntingwords.screens.Utils;
  */
 
 public class Languages extends Fragment {
-    private static String CATALAN_TAG = "ca";
-    private static String SPANISH_TAG = "es";
-    private static String ENGLISH_TAG = "en";
-    private static String CHINESE_TAG = "zh";
+    private static final String CATALAN_TAG = "ca";
+    private static final String SPANISH_TAG = "es";
+    private static final String ENGLISH_TAG = "en";
+    private static final String CHINESE_TAG = "zh";
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -75,7 +72,7 @@ public class Languages extends Fragment {
         if (string.equals("Anònim") || string.equals("Anónimo") || string.equals("Anonymous") || string.equals("无玩家")) {
             SharedPreferences.Editor editor = preferences.edit();
             editor.putString(edu.uab.cvc.huntingwords.Utils.PARAM_USERNAME,getString(R.string.anonym));
-            editor.commit();
+            editor.apply();
         }
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.replace(R.id.fragment_switch, new Init(), "init");

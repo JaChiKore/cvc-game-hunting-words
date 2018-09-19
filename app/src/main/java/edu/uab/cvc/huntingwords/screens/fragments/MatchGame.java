@@ -7,13 +7,11 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
 import android.util.TypedValue;
@@ -78,8 +76,6 @@ public class MatchGame  extends Fragment implements MatchView {
 
     private static int [] idButtons = {R.id.match_but_0, R.id.match_but_1, R.id.match_but_2, R.id.match_but_3};
 
-    private float scaledWidth = 300f;
-
     public int clickedImage = -1;
     private boolean pause;
 
@@ -122,7 +118,8 @@ public class MatchGame  extends Fragment implements MatchView {
 
 
     @Override
-    public void newRoundPlay(List<String> filepaths, List<String> buttons) {
+    public void newRoundPlay(List<String> filePaths, List<String> buttons) {
+        float scaledWidth = 300f;
         ((TextView)(this.getActivity().findViewById(R.id.value_match_score))).setText(String.valueOf(getPreferencesScore()));
 
         if (buttons.size() !=idButtons.length) {
@@ -132,7 +129,7 @@ public class MatchGame  extends Fragment implements MatchView {
 
 
         table.removeAllViews();
-        for (int i=0; i<filepaths.size(); i++) {
+        for (int i = 0; i< filePaths.size(); i++) {
             ImageButton imageButton = new ImageButton(this.getActivity());
             imageButton.setId(i+1);
             //first image add as selected
@@ -143,7 +140,7 @@ public class MatchGame  extends Fragment implements MatchView {
                 imageButton.setBackgroundColor(getResources().getColor(android.R.color.transparent));
                 imageButton.setBackgroundResource(R.drawable.border);
             }
-            String filepath = filepaths.get(i);
+            String filepath = filePaths.get(i);
             imageButton.setTag(filepath);
             File file =  new File(getActivity().getFilesDir(),filepath);
             Bitmap image = BitmapFactory.decodeFile(file.getAbsolutePath());
@@ -151,10 +148,7 @@ public class MatchGame  extends Fragment implements MatchView {
             float scaled = scaledWidth / image.getWidth();
             imageButton.setImageBitmap(Bitmap.createScaledBitmap(image, (int)scaledWidth, (int)(scaled * (float)image.getHeight()), false));
 
-            View.OnClickListener callback = (button) -> {
-                selectImageButton(button);
-
-            };
+            View.OnClickListener callback = (button) -> selectImageButton(button);
             imageButton.setOnClickListener(callback);
             table.addView(imageButton);
         }
@@ -196,8 +190,8 @@ public class MatchGame  extends Fragment implements MatchView {
     }
 
     public void cleanButtons() {
-        for (int i=0; i < idButtons.length; i++) {
-            updateInfoButton(idButtons[i], EMPTY_BUTTON);
+        for (int id: idButtons) {
+            updateInfoButton(id, EMPTY_BUTTON);
         }
         updateInfoButton(R.id.match_but_4,EMPTY_BUTTON);
     }
@@ -214,7 +208,7 @@ public class MatchGame  extends Fragment implements MatchView {
 
 
     private void updateInfoButton(int idButton, String text) {
-        Button button = (Button) this.getActivity().findViewById(idButton);
+        Button button = this.getActivity().findViewById(idButton);
         button.setTag(text);
         button.setText(text);
     }
@@ -286,7 +280,7 @@ public class MatchGame  extends Fragment implements MatchView {
         if (clickedImage==-1) {
             return;
         }
-        ImageButton image = (ImageButton)this.getActivity().findViewById(clickedImage);
+        ImageButton image = this.getActivity().findViewById(clickedImage);
         presenter.checkSolution(clickedImage, button.getId(),(String)image.getTag(),(String)button.getTag());
     }
 
@@ -355,9 +349,7 @@ public class MatchGame  extends Fragment implements MatchView {
         new Thread() {
             public void run() {
                 getActivity().runOnUiThread(
-                        () -> {
-                            lives.setText(String.valueOf(numLives));
-                        });
+                        () -> lives.setText(String.valueOf(numLives)));
 
             }
         }.start();
@@ -376,7 +368,7 @@ public class MatchGame  extends Fragment implements MatchView {
 
     @Override
     public void hideButton(int idImage) {
-        View v = (View)this.getActivity().findViewById(idImage);
+        View v = this.getActivity().findViewById(idImage);
         ((ViewManager)v.getParent()).removeView(v);
     }
 
@@ -385,9 +377,7 @@ public class MatchGame  extends Fragment implements MatchView {
         new Thread() {
             public void run() {
                 getActivity().runOnUiThread(
-                        () -> {
-                            Toast.makeText(getActivity(),getString(R.string.not_enough_images),Toast.LENGTH_LONG).show();
-                        });
+                        () -> Toast.makeText(getActivity(),getString(R.string.not_enough_images),Toast.LENGTH_LONG).show());
 
             }
         }.start();
@@ -414,7 +404,7 @@ public class MatchGame  extends Fragment implements MatchView {
         if (scoreMatch > oldScore) {
             SharedPreferences.Editor editor = preferences.edit();
             editor.putInt(CURRENT_SCORE_MATCH, scoreMatch);
-            editor.commit();
+            editor.apply();
         }
     }
 
@@ -447,7 +437,7 @@ public class MatchGame  extends Fragment implements MatchView {
         if (level > oldLevel) {
             SharedPreferences.Editor editor = preferences.edit();
             editor.putInt(CURRENT_LEVEL_MATCH,level);
-            editor.commit();
+            editor.apply();
         }
     }
 

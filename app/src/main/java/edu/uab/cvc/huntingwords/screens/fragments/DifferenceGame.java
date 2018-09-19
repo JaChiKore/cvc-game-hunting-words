@@ -18,17 +18,13 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
 import java.io.File;
 import java.util.List;
-
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -71,12 +67,10 @@ public class DifferenceGame extends Fragment implements DifferenceView {
     Context context;
     FragmentActivity fragActivity;
     private boolean pause;
-    private float preferencesMatchScore;
 
 
     public static DifferenceGame newInstance() {
-        DifferenceGame frag = new DifferenceGame();
-        return frag;
+        return new DifferenceGame();
     }
 
     @Override
@@ -112,16 +106,15 @@ public class DifferenceGame extends Fragment implements DifferenceView {
 
     }
 
-    private float scaledWidth = 300f;
-
     @Override
-    public void newRoundPlay(List<String> filepaths) {
+    public void newRoundPlay(List<String> filePaths) {
+        float scaledWidth = 300f;
         ((TextView)(this.getActivity().findViewById(R.id.value_diff_score))).setText(String.valueOf(getPreferencesScore()));
         table.removeAllViews();
-        for (int i=0; i<filepaths.size(); i++) {
+        for (int i=0; i<filePaths.size(); i++) {
             ImageButton imageButton = new ImageButton(this.getActivity());
             imageButton.setBackgroundColor(getResources().getColor(android.R.color.transparent));
-            String filepath = filepaths.get(i);
+            String filepath = filePaths.get(i);
             imageButton.setTag(filepath);
             imageButton.setBackgroundResource(R.drawable.border);
             File file =  new File(getActivity().getFilesDir(),filepath);
@@ -215,9 +208,7 @@ public class DifferenceGame extends Fragment implements DifferenceView {
         new Thread() {
             public void run() {
                 getActivity().runOnUiThread(
-                        () -> {
-                            Toast.makeText(getActivity(),getString(R.string.not_enough_images),Toast.LENGTH_LONG).show();
-                        });
+                        () -> Toast.makeText(getActivity(),getString(R.string.not_enough_images),Toast.LENGTH_LONG).show());
 
             }
         }.start();
@@ -251,13 +242,13 @@ public class DifferenceGame extends Fragment implements DifferenceView {
 
 
     @OnClick(R.id.dif_but_same)
-    public void clickSame (Button button) {
+    public void clickSame () {
         if (!pause) {
             presenter.checkSame();
         }
     }
     @OnClick(R.id.dif_but_more_than_one)
-    public void clickDifferent(Button button) {
+    public void clickDifferent() {
         if (!pause) {
             presenter.checkDifferent();
         }
@@ -282,7 +273,7 @@ public class DifferenceGame extends Fragment implements DifferenceView {
                 getString(R.string.preferences_file), Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putInt(CURRENT_SCORE_DIFF,scoreDiff);
-        editor.commit();
+        editor.apply();
     }
 
     private Integer getPreferencesScore() {
@@ -310,7 +301,7 @@ public class DifferenceGame extends Fragment implements DifferenceView {
                 getString(R.string.preferences_file), Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putInt(edu.uab.cvc.huntingwords.Utils.CURRENT_LEVEL_DIFFERENCE,level);
-        editor.commit();
+        editor.apply();
     }
 
     public float getPreferencesMatchScore() {
@@ -340,9 +331,7 @@ public class DifferenceGame extends Fragment implements DifferenceView {
         new Thread() {
             public void run() {
                 getActivity().runOnUiThread(
-                        () -> {
-                            lives.setText(String.valueOf(numLives));
-                        });
+                        () -> lives.setText(String.valueOf(numLives)));
 
             }
         }.start();

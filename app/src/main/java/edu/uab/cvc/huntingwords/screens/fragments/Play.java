@@ -18,11 +18,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.TextView;
 
 
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -76,20 +74,20 @@ public class Play extends Fragment implements PlayView{
 
     @OnClick(R.id.how_to_play_match)
     public void helpMatch () {
-        Fragment myfragment;
-        myfragment = new HelpMatch();
+        Fragment myFragment;
+        myFragment = new HelpMatch();
 
         FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.replace(R.id.fragment_switch, myfragment, "how_to_play_match");
+        ft.replace(R.id.fragment_switch, myFragment, "how_to_play_match");
         ft.commit();
     }
     @OnClick(R.id.how_to_play_difference)
     public void helpDifference () {
-        Fragment myfragment;
-        myfragment = new HelpDifference();
+        Fragment myFragment;
+        myFragment = new HelpDifference();
 
         FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.replace(R.id.fragment_switch, myfragment, "how_to_play_difference");
+        ft.replace(R.id.fragment_switch, myFragment, "how_to_play_difference");
         ft.commit();
     }
 
@@ -127,9 +125,7 @@ public class Play extends Fragment implements PlayView{
         }
 
 
-    private void startMatchDialog()
-    {
-
+    private void startMatchDialog() {
         ProgressDialog pd = ProgressDialog.show(getActivity(),getString(R.string.title_loading_info),getString(R.string.downloading_text));
         pd.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         pd.show();
@@ -139,7 +135,6 @@ public class Play extends Fragment implements PlayView{
             pd.dismiss();
             presenter.runMatchGame();
         }).start();
-
     }
 
     private void startDifferenceDialog()
@@ -160,16 +155,12 @@ public class Play extends Fragment implements PlayView{
 
     @Override
     public void runMatchGame() {
-        this.getActivity().runOnUiThread(() -> {
-            countDownProgressToStartFragment(MatchGame.newInstance());
-        });
+        this.getActivity().runOnUiThread(() -> countDownProgressToStartFragment(MatchGame.newInstance()));
     }
 
     @Override
     public void runDifferenceGame() {
-        this.getActivity().runOnUiThread(() -> {
-            countDownProgressToStartFragment(DifferenceGame.newInstance());
-        });
+        this.getActivity().runOnUiThread(() -> countDownProgressToStartFragment(DifferenceGame.newInstance()));
     }
 
     @Override

@@ -3,12 +3,10 @@ package edu.uab.cvc.huntingwords.tasks.difference;
 import android.content.Context;
 import android.os.AsyncTask;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -44,10 +42,12 @@ public class GetDifferenceGameInfo extends AsyncTask<String, Void, String> {
             con.setRequestMethod("GET");
             con.connect();
             br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+            StringBuilder sb = new StringBuilder();
 
             while ((next = br.readLine()) != null) {
-                text = text + next;
+                sb.append(next);
             }
+            text = sb.toString();
 
             String[] rows = text.split("<br>");
 
@@ -94,9 +94,13 @@ public class GetDifferenceGameInfo extends AsyncTask<String, Void, String> {
                     split = split[0].split("/");
                     String path = context.getFilesDir().getAbsolutePath() + File.separator;
 
+                    sb = new StringBuilder();
+                    sb.append(path);
                     for (int j = 0; j < split.length - 1; j++) {
-                        path += split[j] + File.separator;
+                        sb.append(split[j]);
+                        sb.append(File.separator);
                     }
+                    path = sb.toString();
 
                     f = new File(path);
                     if (!f.exists()) {

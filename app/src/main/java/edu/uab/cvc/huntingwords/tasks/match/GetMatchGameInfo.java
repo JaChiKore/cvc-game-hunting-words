@@ -43,9 +43,11 @@ public class GetMatchGameInfo extends AsyncTask<String, Void, String>{
             con.connect();
             br = new BufferedReader(new InputStreamReader(con.getInputStream()));
 
+            StringBuilder sb = new StringBuilder();
             while ((next = br.readLine()) != null) {
-                text = text + next;
+                sb.append(next);
             }
+            text = sb.toString();
 
             String[] rows = text.split("<br>");
 
@@ -92,9 +94,13 @@ public class GetMatchGameInfo extends AsyncTask<String, Void, String>{
                     split = split[0].split("/");
                     String path = context.getFilesDir().getAbsolutePath() + File.separator;
 
+                    sb = new StringBuilder();
+                    sb.append(path);
                     for (int j = 0; j < split.length - 1; j++) {
-                        path += split[j] + File.separator;
+                        sb.append(split[j]);
+                        sb.append(File.separator);
                     }
+                    path = sb.toString();
 
                     f = new File(path);
                     if (!f.exists()) {

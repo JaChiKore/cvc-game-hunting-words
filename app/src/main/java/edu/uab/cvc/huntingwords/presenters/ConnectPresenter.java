@@ -5,6 +5,6 @@ package edu.uab.cvc.huntingwords.presenters;
  */
 
 public interface ConnectPresenter {
-        boolean login(String username, String passw);
-        boolean signin(String username, String passw);
+        boolean login(String username, String password);
+        boolean signin(String username, String password);
 }

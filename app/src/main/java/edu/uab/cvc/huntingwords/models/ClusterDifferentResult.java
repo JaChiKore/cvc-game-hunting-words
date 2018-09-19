@@ -6,8 +6,8 @@ package edu.uab.cvc.huntingwords.models;
 
 public class ClusterDifferentResult {
 
-    public static final int SAME = 0;
-    public static final int DIFFERENT = 1;
+    private static final int SAME = 0;
+    private static final int DIFFERENT = 1;
     private final String clusterName;
     private String imageName;
 

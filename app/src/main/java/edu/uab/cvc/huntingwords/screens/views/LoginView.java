@@ -11,7 +11,7 @@ public interface LoginView {
     void updateDiffScore();
     void goToInit();
 
-    void setUpLoginParameters(String username, String passw);
+    void setUpLoginParameters(String username, String password);
 
     void setUpScoreParameters(Integer scoreMatch, Integer scoreDiff, Integer levelMatch, Integer levelDiff);
 

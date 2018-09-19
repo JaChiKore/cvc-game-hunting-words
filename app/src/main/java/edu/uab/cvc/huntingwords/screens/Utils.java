@@ -1,6 +1,5 @@
 package edu.uab.cvc.huntingwords.screens;
 
-import android.app.Activity;
 import android.content.Context;
 import android.util.TypedValue;
 

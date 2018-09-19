@@ -6,7 +6,6 @@ import java.io.FileNotFoundException;
 
 import javax.inject.Inject;
 
-import edu.uab.cvc.huntingwords.Utils;
 import edu.uab.cvc.huntingwords.application.AppController;
 import edu.uab.cvc.huntingwords.models.DifferenceFixGameInformation;
 import edu.uab.cvc.huntingwords.models.DifferenceGameInformation;
@@ -92,17 +91,13 @@ public class PlayPresenterImpl implements PlayPresenter {
 
     @Override
     public void updateMatchRanking() {
-        TotalRankingCallback callback = (ranking)-> {
-            view.totalRanking(ranking);
-        };
+        TotalRankingCallback callback = (ranking)-> view.totalRanking(ranking);
         new GetTotalRanking(callback).execute(MATCH);
 
     }
     @Override
     public void updateDifferenceRanking() {
-        TotalRankingCallback callback = (ranking)-> {
-            view.totalRanking(ranking);
-        };
+        TotalRankingCallback callback = (ranking)-> view.totalRanking(ranking);
         new GetTotalRanking(callback).execute(DIFFERENCE);
 
     }
