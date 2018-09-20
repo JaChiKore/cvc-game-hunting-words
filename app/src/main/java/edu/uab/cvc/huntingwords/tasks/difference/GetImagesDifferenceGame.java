@@ -23,23 +23,15 @@ public class GetImagesDifferenceGame {
         String correct = "1";
         File f;
 
-        if (arg[0].substring(0, 1).contains("/")) {
-            f = new File(context.getFilesDir().getAbsolutePath() + arg[0]);
-        } else {
-            f = new File(context.getFilesDir().getAbsolutePath() + File.separator + arg[0]);
-        }
+        f = new File(context.getFilesDir().getAbsolutePath() + File.separator + arg[0]);
 
         if (!f.exists() || arg[1].contains("1")) {
             if (arg[1].contains("1") && f.exists()) {
                 f.delete();
             }
 
-            try { // base link: http://158.109.8.50/ + imagename
-                if (arg[0].substring(0, 1).contains("/")) {
-                    link = Utils.BASE_URL_IMAGES+"" + arg[0];  // base link: http://158.109.8.50/app_mobile/
-                } else {
-                    link = Utils.BASE_URL_IMAGES+"/" + arg[0];  // base link: http://158.109.8.50/app_mobile/
-                }
+            try {
+                link = Utils.BASE_URL_IMAGES + arg[0];
 
                 URL url = new URL(link);
                 InputStream is;
