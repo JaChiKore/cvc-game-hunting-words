@@ -54,9 +54,9 @@ public class PlayPresenterImpl implements PlayPresenter {
 
 
     @Override
-    public void loadMatchInfo() {
+    public void loadMatchInfo(String username) {
         try {
-            new UpdateMatchGame().update(appContext);
+            new UpdateMatchGame().update(appContext, username);
             new LoaderMatchGameInformation().load(appContext,matchInfo, matchFixInfo);
 
         } catch (FileNotFoundException e) {
@@ -66,9 +66,9 @@ public class PlayPresenterImpl implements PlayPresenter {
     }
 
     @Override
-    public void loadDifferenceInfo() {
+    public void loadDifferenceInfo(String username) {
         try {
-            new UpdateDifferenceGame().update(appContext);
+            new UpdateDifferenceGame().update(appContext, username);
             new LoaderDifferenceGameInformation().load(appContext,differenceInfo, differenceFixInfo);
 
         } catch (FileNotFoundException e) {

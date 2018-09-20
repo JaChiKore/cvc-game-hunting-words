@@ -28,12 +28,12 @@ public class UpdateDifferenceGame {
         fileOrDirectory.delete();
     }
 
-    public boolean update(Context context) {
+    public boolean update(Context context, String username) {
         File file =  context.getFilesDir();
         deleteRecursive(file);
 
         try {
-            new GetDifferenceGameInfo(context).execute(differenceGameInfoFilename).get();
+            new GetDifferenceGameInfo(context).execute(differenceGameInfoFilename, username).get();
         } catch (Exception e) {
             Log.e("Error:", "Failed downloading txt of difference game images.");
         }

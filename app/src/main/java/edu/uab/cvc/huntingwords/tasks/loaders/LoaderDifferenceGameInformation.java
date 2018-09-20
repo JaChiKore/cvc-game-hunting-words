@@ -30,9 +30,9 @@ public class LoaderDifferenceGameInformation {
                     String filename = columns[0];
                     String numCluster = columns[1];
                     String result = columns[2];
-                    Boolean validated = Integer.valueOf(columns[3])==1;
+                    Boolean golden = Integer.valueOf(columns[3])==1;
 
-                    if (validated) {
+                    if (golden) {
                         List<Pair<String,Boolean>> listFilenames;
                         if (!gameFixInfo.containsKey(numCluster)) {
                             listFilenames = new ArrayList<>();

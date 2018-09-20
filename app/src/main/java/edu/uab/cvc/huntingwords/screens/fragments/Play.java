@@ -5,7 +5,9 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -131,7 +133,7 @@ public class Play extends Fragment implements PlayView{
         pd.show();
         //start a new thread to process job
         new Thread(() ->  {
-            presenter.loadMatchInfo();
+            presenter.loadMatchInfo(getUsername());
             pd.dismiss();
             presenter.runMatchGame();
         }).start();
@@ -145,11 +147,17 @@ public class Play extends Fragment implements PlayView{
         pd.show();
         //start a new thread to process job
         new Thread(() ->  {
-            presenter.loadDifferenceInfo();
+            presenter.loadDifferenceInfo(getUsername());
             pd.dismiss();
             presenter.runDifferenceGame();
         }).start();
 
+    }
+
+    private String getUsername() {
+        SharedPreferences preferences = getActivity().getSharedPreferences(
+                getString(R.string.preferences_file), Context.MODE_PRIVATE);
+        return preferences.getString(edu.uab.cvc.huntingwords.Utils.PARAM_USERNAME,getString(R.string.anonym));
     }
 
 

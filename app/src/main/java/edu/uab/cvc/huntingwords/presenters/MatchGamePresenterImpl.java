@@ -315,7 +315,7 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
     @Override
     public void loadMoreInfo() {
         try {
-            new UpdateMatchGame().update(appContext);
+            new UpdateMatchGame().update(appContext, username);
             new LoaderMatchGameInformation().load(appContext,matchInfo, matchFixInfo);
 
         } catch (FileNotFoundException e) {

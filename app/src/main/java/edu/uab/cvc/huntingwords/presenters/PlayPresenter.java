@@ -6,9 +6,9 @@ package edu.uab.cvc.huntingwords.presenters;
  */
 
 public interface PlayPresenter {
-    void loadMatchInfo();
+    void loadMatchInfo(String username);
 
-    void loadDifferenceInfo();
+    void loadDifferenceInfo(String username);
 
     void runMatchGame();
 
