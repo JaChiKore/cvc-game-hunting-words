@@ -25,9 +25,9 @@ public class UpdateMatchGame {
             for (File child : fileOrDirectory.listFiles()) {
                 deleteRecursive(child);
             }
+        } else {
+            fileOrDirectory.delete();
         }
-
-        fileOrDirectory.delete();
     }
 
     public boolean update(Context context, String username) {
@@ -35,7 +35,8 @@ public class UpdateMatchGame {
         deleteRecursive(file);
 
         try {
-            new GetMatchGameInfo(context).execute(matchGameInfoFilename, username).get();
+            String a = new GetMatchGameInfo(context).execute(matchGameInfoFilename, username).get();
+            System.out.println(a);
         } catch (Exception e) {
             Log.e("Error:", "Failed downloading txt of match game images.");
         }

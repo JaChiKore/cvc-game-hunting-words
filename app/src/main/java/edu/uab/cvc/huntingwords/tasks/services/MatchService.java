@@ -27,12 +27,32 @@ public class MatchService {
     public void run (List<MatchResult> values, String level, Date startDate, Date stopDate, long usedTime, float scoreIni, float scoreEnd, float maxScore) {
         String [] argsScore = {user,String.valueOf(scoreEnd),String.valueOf(scoreDifference), level, String.valueOf(levelDiff)};
         if (scoreEnd > maxScore) {
-            new UpdateScore().execute(argsScore);
+            try {
+                Boolean a = new UpdateScore().execute(argsScore).get();
+                if (a) {
+                    System.out.println("B: Score updated nicely.");
+                } else {
+                    System.out.println("B: Score bad update.");
+                }
+            } catch (Exception e) {
+                System.out.println("Error updating score, bigger one.");
+            }
         } else {
-            argsScore[2] = String.valueOf(maxScore);
-            new UpdateScore().execute(argsScore);
+            argsScore[1] = String.valueOf(maxScore);
+            try {
+                Boolean a = new UpdateScore().execute(argsScore).get();
+                if (a) {
+                    System.out.println("S: Score updated nicely.");
+                } else {
+                    System.out.println("S: Score bad update.");
+                }
+            } catch (Exception e) {
+                System.out.println("Error updating score, smaller one.");
+            }
         }
         for (MatchResult result: values) {
+            System.out.println(df.format(startDate));
+            System.out.println(df.format(stopDate));
             String [] args = {result.getImageName(),result.getTranslation(), user, level, df.format(startDate), df.format(stopDate), String.valueOf(usedTime), String.valueOf(scoreIni), String.valueOf(scoreEnd)};
             new UpdateTranscriptions().execute(args);
         }

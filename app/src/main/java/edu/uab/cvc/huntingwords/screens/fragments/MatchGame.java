@@ -286,7 +286,7 @@ public class MatchGame  extends Fragment implements MatchView {
 
 
     @Override
-    public void runPlayAgainDialog(boolean win,float currentScore, int level, CallbackPostDialog postDialog) {
+    public void runPlayAgainDialog(boolean win,float currentScore, int level, CallbackPostDialog okay, CallbackPostDialog cancel) {
         if (win) {
             playFinish();
             points.setText(String.valueOf(currentScore));
@@ -306,11 +306,12 @@ public class MatchGame  extends Fragment implements MatchView {
         builder.setPositiveButton(android.R.string.ok, (dialog, id) -> {
             sounds.soundPool.stop(currentSound);
             dialog.dismiss();
-            postDialog.execute();
+            okay.execute();
         });
         builder.setNegativeButton(android.R.string.cancel, (dialog, id) -> {
             sounds.soundPool.stop(currentSound);
             dialog.dismiss();
+            cancel.execute();
             FragmentManager fm = getFragmentManager();
             FragmentTransaction fragmentTransaction = fm.beginTransaction();
             fragmentTransaction.replace(R.id.fragment_switch, new Init());

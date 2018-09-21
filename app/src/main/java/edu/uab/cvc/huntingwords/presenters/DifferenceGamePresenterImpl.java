@@ -374,7 +374,7 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
     @Override
     public void loadMoreInfo() {
         try {
-            new UpdateDifferenceGame().update(appContext);
+            new UpdateDifferenceGame().update(appContext, username);
             new LoaderDifferenceGameInformation().load(appContext,diffInfo, diffFixInfo);
 
         } catch (FileNotFoundException e) {

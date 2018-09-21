@@ -86,6 +86,8 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
         this.scoreDifference = scoreDifference;
         this.info = 0;
         this.fixInfo = 0;
+        countTotalUsed = 0;
+        countTotalFixUsed = 0;
     }
 
 
@@ -133,11 +135,12 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
             float oldScore = totalScore;
             totalScore += currentScore;
             updateLevel(false);
-            CallbackPostDialog callback = () ->  {
+            CallbackPostDialog okay = () ->  {
                 uploadResult((int)oldScore,(int)totalScore);
                 repeatGame();
             };
-            view.runPlayAgainDialog(false,totalScore,level.getLevel(), callback);
+            CallbackPostDialog cancel = () -> uploadResult((int)oldScore,(int)totalScore);
+            view.runPlayAgainDialog(false,totalScore,level.getLevel(), okay, cancel);
         }
     }
 
@@ -148,7 +151,7 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
         if (totalScore > maxScore) {
             view.updateTotalScore(totalScore);
         }
-        CallbackPostDialog callback = () -> {
+        CallbackPostDialog okay = () -> {
             uploadResult((int)oldScore,(int)totalScore);
             if (!isItNeedImages()) {
                 restartGame();
@@ -157,7 +160,8 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
             }
 
         };
-        this.view.runPlayAgainDialog(true,totalScore,level.getLevel(),callback);
+        CallbackPostDialog cancel = () -> uploadResult((int)oldScore,(int)totalScore);
+        this.view.runPlayAgainDialog(true,totalScore,level.getLevel(),okay, cancel);
     }
 
     @Override
@@ -281,9 +285,7 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
         Date stoppedDate = Calendar.getInstance().getTime();
         long diffInMs = stoppedDate.getTime() - startedDate.getTime();
         long diffInSec = TimeUnit.MILLISECONDS.toSeconds(diffInMs);
-        new Thread(() -> {
-            new MatchService(username,scoreDifference, level.getAnotherLevel()).run(newResults,String.valueOf(level.getLevel()),startedDate,stoppedDate, diffInSec,oldScore,newTotalPoints, maxScore);
-        }).start();
+        new Thread(() -> new MatchService(username,scoreDifference, level.getAnotherLevel()).run(newResults,String.valueOf(level.getLevel()),startedDate,stoppedDate, diffInSec,oldScore,newTotalPoints, maxScore)).start();
         this.results.clear();
     }
 
@@ -293,9 +295,15 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
             if (fix) {
                 value = new ArrayList<>(info.keySet()).get(fixInfo);
                 fixInfo += 1;
+                if (fixInfo >= info.keySet().size()) {
+                    fixInfo = 0;
+                }
             } else {
                 value = new ArrayList<>(info.keySet()).get(this.info);
                 this.info += 1;
+                if (this.info >= info.keySet().size()) {
+                    this.info = 0;
+                }
             }
             if (!imagesToUse.contains(value) && !playedTotalTranscriptions.contains(value) ) {
                 imagesToUse.add(value);
@@ -314,12 +322,15 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
 
     @Override
     public void loadMoreInfo() {
+        countTotalUsed = 0;
+        countTotalFixUsed = 0;
+        info = 0;
+        fixInfo = 0;
+        new UpdateMatchGame().update(appContext, username);
         try {
-            new UpdateMatchGame().update(appContext, username);
             new LoaderMatchGameInformation().load(appContext,matchInfo, matchFixInfo);
-
         } catch (FileNotFoundException e) {
-            Timber.e(e);
+            System.out.println("Error in loading the images for the match game.");
         }
 
     }

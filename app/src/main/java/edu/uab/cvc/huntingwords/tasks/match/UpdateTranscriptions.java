@@ -31,7 +31,7 @@ public class UpdateTranscriptions extends AsyncTask<String, Void, Boolean> {
                                                                         + "&level=" + arg[3]
                                                                         + "&startDate=" + arg[4]
                                                                         + "&endDate=" + arg[5]
-                                                                        + "&usedTime" + arg[6]
+                                                                        + "&usedTime=" + arg[6]
                                                                         + "&scoreInici=" + arg[7]
                                                                         + "&scoreFinal=" + arg[8];  // base link: http://158.109.8.50/app_mobile/ http://158.109.9.209/
             Timber.d(link);
