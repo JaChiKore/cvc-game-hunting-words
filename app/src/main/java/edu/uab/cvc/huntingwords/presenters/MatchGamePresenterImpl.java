@@ -225,13 +225,6 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
         setUpInfo( level.getNum(), matchInfo, imagesCurrentRound, false);
         setUpInfo(level.getNumFix(), matchFixInfo,imagesFixCurrentRound, true);
 
-        for(String a: imagesCurrentRound) {
-            System.out.println(a);
-        }
-        for(String a: imagesFixCurrentRound) {
-            System.out.println(a);
-        }
-
         countTotalUsed +=imagesCurrentRound.size();
         countTotalFixUsed +=imagesFixCurrentRound.size();
 
