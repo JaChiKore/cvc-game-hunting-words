@@ -10,6 +10,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Hashtable;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -224,6 +225,13 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
         setUpInfo( level.getNum(), matchInfo, imagesCurrentRound, false);
         setUpInfo(level.getNumFix(), matchFixInfo,imagesFixCurrentRound, true);
 
+        for(String a: imagesCurrentRound) {
+            System.out.println(a);
+        }
+        for(String a: imagesFixCurrentRound) {
+            System.out.println(a);
+        }
+
         countTotalUsed +=imagesCurrentRound.size();
         countTotalFixUsed +=imagesFixCurrentRound.size();
 
@@ -294,7 +302,7 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
         this.results.clear();
     }
 
-    private void setUpInfo(int sizeForLevel, Hashtable<String, Pair<List<String>, String>> info, List<String> imagesToUse, Boolean fix) {
+    private void setUpInfo(int sizeForLevel, LinkedHashMap<String, Pair<List<String>, String>> info, List<String> imagesToUse, Boolean fix) {
         while (imagesToUse.size() < info.keySet().size() && imagesToUse.size() < sizeForLevel) {
             String value;
             if (fix) {

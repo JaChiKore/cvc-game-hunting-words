@@ -10,6 +10,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Hashtable;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -170,7 +171,7 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
         this.results.clear();
     }
 
-    private void setUpInfo(int sizeForLevel, Hashtable<String, List<Pair<String, Boolean>>> info, List<String> listClusters, Boolean fix) {
+    private void setUpInfo(int sizeForLevel, LinkedHashMap<String, List<Pair<String, Boolean>>> info, List<String> listClusters, Boolean fix) {
         while (listClusters.size() < info.size() && listClusters.size() <sizeForLevel ) {
             String cluster;
             if (fix) {

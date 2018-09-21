@@ -10,6 +10,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Hashtable;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import edu.uab.cvc.huntingwords.Utils;
@@ -19,7 +20,7 @@ import edu.uab.cvc.huntingwords.Utils;
  */
 
 public class LoaderMatchGameInformation {
-    public void load(Context context, Hashtable<String,Pair<List<String>,String>> matchGameImages, Hashtable<String,Pair<List<String>,String>> matchGameFixImages) throws FileNotFoundException {
+    public void load(Context context, LinkedHashMap<String,Pair<List<String>,String>> matchGameImages, LinkedHashMap<String,Pair<List<String>,String>> matchGameFixImages) throws FileNotFoundException {
         matchGameImages.clear();
         matchGameFixImages.clear();
 

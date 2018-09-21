@@ -10,6 +10,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -17,7 +18,7 @@ import java.util.List;
  */
 
 public class LoaderDifferenceGameInformation {
-    public void load(Context context, Hashtable<String,List<Pair<String,Boolean>>> gameInfo, Hashtable<String,List<Pair<String,Boolean>>> gameFixInfo) throws FileNotFoundException {
+    public void load(Context context, LinkedHashMap<String,List<Pair<String,Boolean>>> gameInfo, LinkedHashMap<String,List<Pair<String,Boolean>>> gameFixInfo) throws FileNotFoundException {
         gameInfo.clear();
 
         File file = new File(context.getFilesDir(),"differenceGameInfo.txt");
