@@ -88,6 +88,8 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
         this.maxScore = maxScore;
         this.info = 0;
         this.fixInfo = 0;
+        countUsed = 0;
+        countFixUsed = 0;
     }
 
     @Override
@@ -174,9 +176,15 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
             if (fix) {
                 cluster = new ArrayList<>(info.keySet()).get(fixInfo);
                 fixInfo += 1;
+                if (fixInfo >= info.size()) {
+                    fixInfo = 0;
+                }
             } else {
                 cluster = new ArrayList<>(info.keySet()).get(this.info);
                 this.info += 1;
+                if (this.info >= info.size()) {
+                    this.info = 0;
+                }
             }
             if (!listClusters.contains(cluster) && !playedTotalClusters.contains(cluster))  {
                 listClusters.add(cluster);
@@ -229,11 +237,12 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
             float oldScore = totalScore;
             totalScore += currentScore;
             updateLevel(false);
-            CallbackPostDialog callback = () -> {
+            CallbackPostDialog okay = () -> {
                 uploadResult((int)oldScore,(int)totalScore);
                 repeatGame();
             };
-            view.runPlayAgainDialog(false, totalScore,level.getLevel(), callback);
+            CallbackPostDialog cancel = () -> uploadResult((int)oldScore,(int)totalScore);
+            view.runPlayAgainDialog(false, totalScore,level.getLevel(), okay, cancel);
         }
     }
 
@@ -247,7 +256,7 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
             if (totalScore > maxScore) {
                 view.updateTotalScore(totalScore);
             }
-            CallbackPostDialog callback = () -> {
+            CallbackPostDialog okay = () -> {
 
                 if (!isItNeedImages()) {
                     restartGame();
@@ -256,7 +265,8 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
                 }
                uploadResult((int)oldScore,(int)totalScore);
             };
-            view.runPlayAgainDialog(true, totalScore,level.getLevel(), callback);
+            CallbackPostDialog cancel = () -> uploadResult((int)oldScore,(int)totalScore);
+            view.runPlayAgainDialog(true, totalScore,level.getLevel(), okay, cancel);
         } else {
             this.updateGame();
         }
@@ -271,7 +281,7 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
         Date stoppedDate = Calendar.getInstance().getTime();
         long diffInMs = stoppedDate.getTime() - startedDate.getTime();
         long diffInSec = TimeUnit.MILLISECONDS.toSeconds(diffInMs);
-        new Thread (() -> new DifferenceService(username,scoreMatch, level.getLevel()).run(newResults,String.valueOf(level.getLevel()),startedDate,stoppedDate, diffInSec,oldScore,newTotalPoints, maxScore)).start();
+        new Thread (() -> new DifferenceService(username,scoreMatch, level.getAnotherLevel()).run(newResults,String.valueOf(level.getLevel()),startedDate,stoppedDate, diffInSec,oldScore,newTotalPoints, maxScore)).start();
         this.results.clear();
     }
 
@@ -373,6 +383,10 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
 
     @Override
     public void loadMoreInfo() {
+        info = 0;
+        fixInfo = 0;
+        countUsed = 0;
+        countFixUsed = 0;
         try {
             new UpdateDifferenceGame().update(appContext, username);
             new LoaderDifferenceGameInformation().load(appContext,diffInfo, diffFixInfo);

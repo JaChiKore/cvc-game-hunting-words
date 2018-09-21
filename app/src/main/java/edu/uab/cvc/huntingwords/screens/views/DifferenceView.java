@@ -17,7 +17,7 @@ public interface DifferenceView {
 
     void updateFail();
 
-    void runPlayAgainDialog(boolean win, float currentScore, int level, CallbackPostDialog callback);
+    void runPlayAgainDialog(boolean win, float currentScore, int level, CallbackPostDialog okay, CallbackPostDialog cancel);
 
     void startDialog();
 

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Pair;
 
 import java.io.FileNotFoundException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -26,7 +27,6 @@ import edu.uab.cvc.huntingwords.screens.views.MatchView;
 import edu.uab.cvc.huntingwords.tasks.loaders.LoaderMatchGameInformation;
 import edu.uab.cvc.huntingwords.tasks.loaders.UpdateMatchGame;
 import edu.uab.cvc.huntingwords.tasks.services.MatchService;
-import timber.log.Timber;
 
 import static edu.uab.cvc.huntingwords.Utils.EMPTY_BUTTON;
 
@@ -58,6 +58,7 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
     private int fixInfo;
 
     private Date startedDate;
+    private String startDate;
     private final String username;
 
     private List<String> imagesCurrentRound;
@@ -70,9 +71,12 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
     private final float scoreDifference;
     private float totalScore;
 
+    private SimpleDateFormat sdf;
+
     public MatchGamePresenterImpl(MatchView view, String username, int currentLevel, int diffLevel, float totalScore, float  scoreDifference) {
         /* IT MUST BE FIRST */
         AppController.getComponent().inject(this);
+        sdf = new SimpleDateFormat("yyyyMMdd HHmmss");
         this.view = view;
         this.username = username;
         this.imagesFixCurrentRound = new ArrayList<>();
@@ -209,6 +213,7 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
 
     private void initGame() {
         startedDate = Calendar.getInstance().getTime();
+        startDate = sdf.format(startedDate);
         resetValues();
 
         startNewLives();
@@ -285,7 +290,7 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
         Date stoppedDate = Calendar.getInstance().getTime();
         long diffInMs = stoppedDate.getTime() - startedDate.getTime();
         long diffInSec = TimeUnit.MILLISECONDS.toSeconds(diffInMs);
-        new Thread(() -> new MatchService(username,scoreDifference, level.getAnotherLevel()).run(newResults,String.valueOf(level.getLevel()),startedDate,stoppedDate, diffInSec,oldScore,newTotalPoints, maxScore)).start();
+        new Thread(() -> new MatchService(username,scoreDifference, level.getAnotherLevel()).run(newResults,String.valueOf(level.getLevel()),startDate,sdf.format(stoppedDate), diffInSec,oldScore,newTotalPoints, maxScore)).start();
         this.results.clear();
     }
 

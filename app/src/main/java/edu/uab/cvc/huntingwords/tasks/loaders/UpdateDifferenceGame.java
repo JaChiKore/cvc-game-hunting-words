@@ -23,9 +23,10 @@ public class UpdateDifferenceGame {
             for (File child : fileOrDirectory.listFiles()) {
                 deleteRecursive(child);
             }
+        } else {
+            fileOrDirectory.delete();
         }
 
-        fileOrDirectory.delete();
     }
 
     public boolean update(Context context, String username) {

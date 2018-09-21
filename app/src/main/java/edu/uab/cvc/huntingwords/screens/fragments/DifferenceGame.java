@@ -166,7 +166,7 @@ public class DifferenceGame extends Fragment implements DifferenceView {
     }
 
     @Override
-    public void runPlayAgainDialog(boolean win, float currentScore, int level, CallbackPostDialog callback) {
+    public void runPlayAgainDialog(boolean win, float currentScore, int level, CallbackPostDialog okay, CallbackPostDialog cancel) {
         if (win) {
             playFinish();
             points.setText(String.valueOf(currentScore));
@@ -184,11 +184,12 @@ public class DifferenceGame extends Fragment implements DifferenceView {
         builder.setPositiveButton(android.R.string.ok, (dialog, id) -> {
             sounds.soundPool.stop(currentSound);
             dialog.dismiss();
-            callback.execute();
+            okay.execute();
         });
         builder.setNegativeButton(android.R.string.cancel, (dialog, id) -> {
             sounds.soundPool.stop(currentSound);
             dialog.dismiss();
+            cancel.execute();
             FragmentManager fm = getFragmentManager();
             FragmentTransaction fragmentTransaction = fm.beginTransaction();
             fragmentTransaction.replace(R.id.fragment_switch, new Init());
