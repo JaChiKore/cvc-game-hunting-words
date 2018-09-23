@@ -201,7 +201,7 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
     }
 
     private boolean isItNeedImages() {
-        if (countUsed >= diffInfo.size()  ||   countFixUsed >= diffFixInfo.size()) {
+        if (countUsed >= diffInfo.size()  ||   (countFixUsed >= diffFixInfo.size() && level.getNumFix() > 0)) {
             return true;
         }
 
