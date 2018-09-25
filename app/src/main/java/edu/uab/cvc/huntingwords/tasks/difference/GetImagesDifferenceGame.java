@@ -58,16 +58,17 @@ public class GetImagesDifferenceGame {
             correct = "0";
         }
 
-        return onPostExecute(correct);
+        return onPostExecute(correct, arg[0]);
     }
 
-    private String onPostExecute(String a) {
+    private String onPostExecute(String a, String file) {
         switch (a) {
             case "-1":
                 System.out.println("----------------------------------- INCORRECT -----------------------------------");
                 return "-1";
             case "0":
                 System.out.println("----------------------------------- U HAVE THE FILE -----------------------------------");
+                System.out.println(file);
                 return "0";
             case "1":
                 System.out.println("----------------------------------- CORRECT -----------------------------------");

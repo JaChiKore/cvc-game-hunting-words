@@ -58,4 +58,6 @@
     <string name="not_enough_images">There are not enough images</string>
     <string name="text_match_score">Match score:</string>
     <string name="text_diff_score">Diff score:</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 </resources>

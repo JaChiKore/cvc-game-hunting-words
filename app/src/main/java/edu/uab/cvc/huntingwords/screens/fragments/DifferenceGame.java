@@ -181,12 +181,12 @@ public class DifferenceGame extends Fragment implements DifferenceView {
         updatePreferencesLevel(level);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(DifferenceGame.this.getActivity());
-        builder.setPositiveButton(android.R.string.ok, (dialog, id) -> {
+        builder.setPositiveButton(R.string.yes, (dialog, id) -> {
             sounds.soundPool.stop(currentSound);
             dialog.dismiss();
             okay.execute();
         });
-        builder.setNegativeButton(android.R.string.cancel, (dialog, id) -> {
+        builder.setNegativeButton(R.string.no, (dialog, id) -> {
             sounds.soundPool.stop(currentSound);
             dialog.dismiss();
             cancel.execute();

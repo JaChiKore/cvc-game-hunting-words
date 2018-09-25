@@ -55,5 +55,7 @@
     <string name="difference_game">Difference 游戏</string>
     <string name="preferences_file">hunting_words_prefs</string>
     <string name="language_type">english</string>
+    <string name="yes">玩!</string>
+    <string name="no">不了</string>
 
 </resources>

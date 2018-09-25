@@ -86,8 +86,10 @@ public class GetDifferenceGameInfo extends AsyncTask<String, Void, String> {
                     }
                 }
                 //noinspection ForLoopReplaceableByForEach
+                System.out.println(rows.length);
                 for (int i = 0; i < rows.length; i++) {
                     fos.write(rows[i].getBytes());
+                    System.out.println(rows[i]);
                     fos.write(System.getProperty("line.separator").getBytes());
 
                     String[] split = rows[i].split(";");
