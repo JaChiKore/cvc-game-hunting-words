@@ -8,7 +8,6 @@ import io.fabric.sdk.android.Fabric;
 import edu.uab.cvc.huntingwords.application.builder.AppComponent;
 import edu.uab.cvc.huntingwords.application.builder.AppContextModule;
 import edu.uab.cvc.huntingwords.application.builder.DaggerAppComponent;
-import timber.log.BuildConfig;
 import timber.log.Timber;
 
 /**
@@ -42,11 +41,7 @@ public class AppController extends Application {
 
 
     private void initialiseLogger() {
-        if (BuildConfig.DEBUG) {
-            Timber.plant(new Timber.DebugTree());
-        } else {
-            Timber.plant(new Timber.DebugTree());
-        }
+        Timber.plant(new Timber.DebugTree());
     }
 
     public static AppComponent getComponent() {
