@@ -9,6 +9,6 @@
         android:id="@+id/image_help_difference"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/how_to_play_different" />
+        android:src="@drawable/how_to_play_different"/>
 
 </LinearLayout>
