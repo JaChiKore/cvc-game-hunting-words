@@ -272,9 +272,12 @@ public class DifferenceGame extends Fragment implements DifferenceView {
     private void updatePreferencesScore(Integer scoreDiff) {
         SharedPreferences preferences = getActivity().getSharedPreferences(
                 getString(R.string.preferences_file), Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putInt(CURRENT_SCORE_DIFF,scoreDiff);
-        editor.apply();
+        int oldScore = preferences.getInt(CURRENT_SCORE_DIFF,0);
+        if (scoreDiff > oldScore) {
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putInt(CURRENT_SCORE_DIFF, scoreDiff);
+            editor.apply();
+        }
     }
 
     private Integer getPreferencesScore() {

@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
-import java.util.Hashtable;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -291,7 +290,8 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
         Date stoppedDate = Calendar.getInstance().getTime();
         long diffInMs = stoppedDate.getTime() - startedDate.getTime();
         long diffInSec = TimeUnit.MILLISECONDS.toSeconds(diffInMs);
-        new Thread(() -> new MatchService(username,scoreDifference, level.getAnotherLevel()).run(newResults,String.valueOf(level.getLevel()),startDate,sdf.format(stoppedDate), diffInSec,oldScore,newTotalPoints, maxScore)).start();
+        String start = startDate;
+        new Thread (() -> new MatchService(username,scoreDifference, level.getAnotherLevel()).run(newResults,String.valueOf(level.getLevel()),start,sdf.format(stoppedDate), diffInSec,oldScore,newTotalPoints, maxScore)).start();
         this.results.clear();
     }
 

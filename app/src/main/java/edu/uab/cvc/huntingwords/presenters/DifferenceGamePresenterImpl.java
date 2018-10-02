@@ -5,6 +5,7 @@ import android.util.Pair;
 
 import java.io.FileNotFoundException;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -64,14 +65,17 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
     private int fixInfo;
 
     private Date startedDate;
+    private String startDate;
     private final String username;
     private final float scoreMatch;
 
     private List<ClusterDifferentResult> results;
 
+    private SimpleDateFormat sdf;
 
     public DifferenceGamePresenterImpl(DifferenceView view, String username, int level, int matchLevel, float maxScore, float scoreMatch) {
         AppController.getComponent().inject(this);
+        sdf = new SimpleDateFormat("yyyyMMdd HHmmss");
         clustersToPlay = new ArrayList();
         countUsed = 0;
         countFixUsed = 0;
@@ -132,7 +136,6 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
 
     @Override
     public void updateGame() {
-        startedDate = Calendar.getInstance().getTime();
         keyCurrentPlay = clustersToPlay.get(0);
         clustersToPlay.remove(0);
 
@@ -149,6 +152,9 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
 
 
     private void initGame () {
+        startedDate = Calendar.getInstance().getTime();
+        startDate = sdf.format(startedDate);
+        System.out.println("FECHA: " + startDate);
         imagesCurrentRound.clear();
         imagesFixCurrentRound.clear();
         resetValues();
@@ -248,11 +254,11 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
 
     private void executeOk() {
         currentScore += Utils.VALUE_POINT;
-        view.updateOK(totalScore + currentScore);
         if (clustersToPlay.size()==0) {
             updateLevel(true);
             float oldScore = totalScore;
             totalScore += currentScore;
+            System.out.println("MALDITOS PUNTOS: " + totalScore + ", " + maxScore);
             if (totalScore > maxScore) {
                 view.updateTotalScore(totalScore);
             }
@@ -280,7 +286,8 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
         Date stoppedDate = Calendar.getInstance().getTime();
         long diffInMs = stoppedDate.getTime() - startedDate.getTime();
         long diffInSec = TimeUnit.MILLISECONDS.toSeconds(diffInMs);
-        new Thread (() -> new DifferenceService(username,scoreMatch, level.getAnotherLevel()).run(newResults,String.valueOf(level.getLevel()),startedDate,stoppedDate, diffInSec,oldScore,newTotalPoints, maxScore)).start();
+        String start = startDate;
+        new Thread (() -> new DifferenceService(username,scoreMatch, level.getAnotherLevel()).run(newResults,String.valueOf(level.getLevel()),start,sdf.format(stoppedDate), diffInSec,oldScore,newTotalPoints, maxScore)).start();
         this.results.clear();
     }
 

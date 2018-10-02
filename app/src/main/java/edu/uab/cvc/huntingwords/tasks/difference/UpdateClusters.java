@@ -34,11 +34,6 @@ public class UpdateClusters extends AsyncTask<String, Void, Boolean> {
                                                                         + "&usedTime=" + arg[6]
                                                                         + "&scoreInici=" + arg[7]
                                                                         + "&scoreFinal=" + arg[8];  // base link: http://158.109.8.50/app_mobile/
-            for (String a:arg) {
-                System.out.println(a);
-            }
-
-
             URL url = new URL(link);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
