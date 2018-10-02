@@ -257,13 +257,12 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
                 view.updateTotalScore(totalScore);
             }
             CallbackPostDialog okay = () -> {
-
+                uploadResult((int)oldScore,(int)totalScore);
                 if (!isItNeedImages()) {
                     restartGame();
                 } else {
                     this.view.startDialog();
                 }
-               uploadResult((int)oldScore,(int)totalScore);
             };
             CallbackPostDialog cancel = () -> uploadResult((int)oldScore,(int)totalScore);
             view.runPlayAgainDialog(true, totalScore,level.getLevel(), okay, cancel);

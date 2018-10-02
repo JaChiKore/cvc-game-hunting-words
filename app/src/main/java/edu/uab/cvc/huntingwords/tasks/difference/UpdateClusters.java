@@ -22,7 +22,7 @@ public class UpdateClusters extends AsyncTask<String, Void, Boolean> {
         String link;
         String next;
         boolean correct = false;
-        BufferedReader bufferedReader;
+        BufferedReader br;
 
         try {
             link = Utils.BASE_URL+"/updateCluster.php?filename=" + arg[0]
@@ -34,7 +34,6 @@ public class UpdateClusters extends AsyncTask<String, Void, Boolean> {
                                                                         + "&usedTime=" + arg[6]
                                                                         + "&scoreInici=" + arg[7]
                                                                         + "&scoreFinal=" + arg[8];  // base link: http://158.109.8.50/app_mobile/
-            Timber.d(link);
             for (String a:arg) {
                 System.out.println(a);
             }
@@ -47,11 +46,15 @@ public class UpdateClusters extends AsyncTask<String, Void, Boolean> {
             con.setDoOutput(true);
             con.connect();
 
-            bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
+            br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+            StringBuilder sb = new StringBuilder();
 
-            next = bufferedReader.readLine();
-            Timber.d(next);
+            while ((next = br.readLine()) != null) {
+                sb.append(next);
+            }
+            next = sb.toString();
             correct = next.contentEquals("True");
+            System.out.println(correct);
         } catch (Exception e) {
             e.printStackTrace();
         }
