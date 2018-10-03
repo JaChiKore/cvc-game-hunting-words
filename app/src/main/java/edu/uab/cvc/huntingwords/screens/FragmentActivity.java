@@ -2,8 +2,11 @@ package edu.uab.cvc.huntingwords.screens;
 
 import android.app.Activity;
 import android.app.FragmentTransaction;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.widget.TextView;
 
 import edu.uab.cvc.huntingwords.R;
 import edu.uab.cvc.huntingwords.screens.fragments.Init;

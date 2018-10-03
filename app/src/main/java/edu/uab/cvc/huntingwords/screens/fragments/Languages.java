@@ -32,7 +32,6 @@ public class Languages extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-
         View view = inflater.inflate(R.layout.language_fragment, container, false);
         ButterKnife.bind(this, view);
         view.setBackgroundColor(Utils.GetBackgroundColour(this.getActivity()));
@@ -79,10 +78,6 @@ public class Languages extends Fragment {
         ft.addToBackStack(null);
         ft.commit();
     }
-
-
-
-
 
     @SuppressWarnings("deprecation")
     private void setLocale(Locale locale) {

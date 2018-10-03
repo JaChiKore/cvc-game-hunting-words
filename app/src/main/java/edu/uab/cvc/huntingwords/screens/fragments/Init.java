@@ -28,9 +28,8 @@ public class Init extends Fragment  implements InitView {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-
-        View view =inflater.inflate(R.layout.init_fragment, container, false);
-                ButterKnife.bind(this, view);
+        View view = inflater.inflate(R.layout.init_fragment, container, false);
+        ButterKnife.bind(this, view);
         view.setBackgroundColor(Utils.GetBackgroundColour(this.getActivity()));
         return view;
     }
@@ -57,7 +56,6 @@ public class Init extends Fragment  implements InitView {
             updateMatchScore(0);
             updateDiffScore(0);
         }
-
     }
 
 

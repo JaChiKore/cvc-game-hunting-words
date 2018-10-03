@@ -36,7 +36,8 @@
                     android:id="@+id/image_match"
                     android:layout_width="114dp"
                     android:layout_height="84dp"
-                    android:src="@drawable/match" />
+                    android:src="@drawable/match"
+                    android:contentDescription="TODO" />
                 <Button
                     android:id="@+id/match"
                     android:layout_width="wrap_content"
@@ -74,6 +75,7 @@
                     android:id="@+id/image_diff"
                     android:layout_width="114dp"
                     android:layout_height="84dp"
+                    android:contentDescription="TODO"
                     android:src="@drawable/diff" />
 
 
