@@ -236,7 +236,7 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
 
 
     private void executeFail() {
-        view.updateFail();
+        this.view.updateFail();
         numLives--;
         this.view.setUpNumLives(numLives);
         if (numLives == 0) {
@@ -258,7 +258,6 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
             updateLevel(true);
             float oldScore = totalScore;
             totalScore += currentScore;
-            System.out.println("MALDITOS PUNTOS: " + totalScore + ", " + maxScore);
             if (totalScore > maxScore) {
                 view.updateTotalScore(totalScore);
             }
@@ -273,6 +272,7 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
             CallbackPostDialog cancel = () -> uploadResult((int)oldScore,(int)totalScore);
             view.runPlayAgainDialog(true, totalScore,level.getLevel(), okay, cancel);
         } else {
+            this.view.updateOK(currentScore);
             this.updateGame();
         }
     }

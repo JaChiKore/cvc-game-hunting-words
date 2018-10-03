@@ -136,21 +136,17 @@ public class DifferenceGame extends Fragment implements DifferenceView {
 
     @Override
     public void updateOK(float currentScore) {
-        showHit();
-        playOk();
-        points.setText(String.valueOf(currentScore));
-        System.out.println("POINTS INCREASED");
-        /*
         new Thread() {
             public void run() {
                 getActivity().runOnUiThread(
                         () -> {
-
+                            showHit();
+                            playOk();
+                            points.setText(String.valueOf(currentScore));
                         });
 
             }
-        }.start();*/
-
+        }.start();
     }
 
     @Override
