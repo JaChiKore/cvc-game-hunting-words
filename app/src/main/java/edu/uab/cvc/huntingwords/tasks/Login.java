@@ -2,6 +2,9 @@ package edu.uab.cvc.huntingwords.tasks;
 
 import android.os.AsyncTask;
 
+import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.LoginEvent;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -17,10 +20,6 @@ public class Login extends AsyncTask<String, Void, Boolean> {
     public Login(ConnectCallback onResult) {
         this.onResult = onResult;
     }
-
-
-
-
 
     protected void onPreExecute() {}
 
@@ -44,9 +43,15 @@ public class Login extends AsyncTask<String, Void, Boolean> {
             next = bufferedReader.readLine();
 
             correct = next.contentEquals("true");
-            if (correct ) {
+            if (correct) {
+                Answers.getInstance().logLogin(new LoginEvent()
+                        .putMethod("Normal login")
+                        .putSuccess(true));
                 onResult.updateLogin(arg[0], arg[1]);
             } else {
+                Answers.getInstance().logLogin(new LoginEvent()
+                        .putMethod("Normal login")
+                        .putSuccess(false));
                 onResult.error();
             }
         } catch (Exception e) {

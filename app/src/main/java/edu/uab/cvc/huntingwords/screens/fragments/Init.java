@@ -12,9 +12,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.LoginEvent;
+
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import edu.uab.cvc.huntingwords.R;
+import edu.uab.cvc.huntingwords.presenters.InitPresenterImpl;
 import edu.uab.cvc.huntingwords.screens.Utils;
 import edu.uab.cvc.huntingwords.screens.views.InitView;
 
@@ -23,13 +27,15 @@ import static edu.uab.cvc.huntingwords.Utils.CURRENT_LEVEL_MATCH;
 import static edu.uab.cvc.huntingwords.Utils.CURRENT_SCORE_DIFF;
 import static edu.uab.cvc.huntingwords.Utils.CURRENT_SCORE_MATCH;
 
-public class Init extends Fragment  implements InitView {
+public class Init extends Fragment implements InitView {
+    InitPresenterImpl presenter;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.init_fragment, container, false);
         ButterKnife.bind(this, view);
+        presenter = new InitPresenterImpl(this);
         view.setBackgroundColor(Utils.GetBackgroundColour(this.getActivity()));
         return view;
     }
@@ -48,6 +54,10 @@ public class Init extends Fragment  implements InitView {
         String name = getUsername();
         updateUsername(name);
         if (!name.equals(getString(R.string.anonym))) {
+            presenter.getScore(name);
+            Answers.getInstance().logLogin(new LoginEvent()
+                    .putMethod("Normal login")
+                    .putSuccess(true));
             updateMatchScore(getMatchScore());
             updateDiffScore(getDiffScore());
         } else {
@@ -57,7 +67,6 @@ public class Init extends Fragment  implements InitView {
             updateDiffScore(0);
         }
     }
-
 
     private void updateUsername(String username) {
         TextView textUsername = getActivity().findViewById(R.id.logged_user);

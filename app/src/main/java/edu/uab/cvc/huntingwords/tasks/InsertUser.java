@@ -2,6 +2,9 @@ package edu.uab.cvc.huntingwords.tasks;
 
 import android.os.AsyncTask;
 
+import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.SignUpEvent;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -43,8 +46,14 @@ public class InsertUser extends AsyncTask<String, Void, Boolean> {
 
             correct = next.contentEquals("true");
             if (correct) {
+                Answers.getInstance().logSignUp(new SignUpEvent()
+                        .putMethod("Normal signin")
+                        .putSuccess(true));
                 onResult.updateLogin(arg[0], arg[1]);
             } else {
+                Answers.getInstance().logSignUp(new SignUpEvent()
+                    .putMethod("Normal signin")
+                    .putSuccess(false));
                 onResult.error();
             }
         } catch (Exception e) {

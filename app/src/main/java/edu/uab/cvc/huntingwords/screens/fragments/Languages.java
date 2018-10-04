@@ -11,6 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.CustomEvent;
+
 import java.util.Locale;
 
 import butterknife.ButterKnife;
@@ -23,10 +26,10 @@ import edu.uab.cvc.huntingwords.screens.Utils;
  */
 
 public class Languages extends Fragment {
-    private static final String CATALAN_TAG = "ca";
-    private static final String SPANISH_TAG = "es";
-    private static final String ENGLISH_TAG = "en";
-    private static final String CHINESE_TAG = "zh";
+    public static final String CATALAN_TAG = "ca";
+    public static final String SPANISH_TAG = "es";
+    public static final String ENGLISH_TAG = "en";
+    public static final String CHINESE_TAG = "zh";
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,23 +43,30 @@ public class Languages extends Fragment {
 
     @OnClick(R.id.but_spanish)
     public void clickSpanish() {
+        Answers.getInstance().logCustom(new CustomEvent("Language")
+                .putCustomAttribute("Language", "Spanish"));
         setLocale(new Locale(SPANISH_TAG));
         updateTextScore();
     }
     @OnClick(R.id.but_english)
     public void clickEnglish() {
+        Answers.getInstance().logCustom(new CustomEvent("Language")
+                .putCustomAttribute("Language", "English"));
         setLocale(new Locale(ENGLISH_TAG));
         updateTextScore();
-
     }
     @OnClick(R.id.but_catalan)
     public void clickCatalan() {
+        Answers.getInstance().logCustom(new CustomEvent("Language")
+                .putCustomAttribute("Language", "Catalan"));
         setLocale(new Locale(CATALAN_TAG));
         updateTextScore();
 
     }
     @OnClick(R.id.but_chinese)
     public void clickChinese() {
+        Answers.getInstance().logCustom(new CustomEvent("Language")
+                .putCustomAttribute("Language", "Chinese"));
         setLocale(new Locale(CHINESE_TAG));
         updateTextScore();
 
@@ -82,7 +92,7 @@ public class Languages extends Fragment {
     @SuppressWarnings("deprecation")
     private void setLocale(Locale locale) {
         Locale.setDefault(locale);
-        Configuration config = getActivity().getBaseContext().getResources().getConfiguration();
+        Configuration config = new Configuration(getActivity().getBaseContext().getResources().getConfiguration());
         config.locale = locale;
         getActivity().getBaseContext().getResources().updateConfiguration(config,
                 getActivity().getBaseContext().getResources().getDisplayMetrics());
