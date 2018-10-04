@@ -8,7 +8,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import edu.uab.cvc.huntingwords.Utils;
-import timber.log.Timber;
 
 
 public class UpdateClusters extends AsyncTask<String, Void, Boolean> {

@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileReader;
 import edu.uab.cvc.huntingwords.tasks.difference.GetDifferenceGameInfo;
 import edu.uab.cvc.huntingwords.tasks.difference.GetImagesDifferenceGame;
+import timber.log.Timber;
 
 /**
  * Created by carlosb on 16/04/18.
@@ -36,7 +37,7 @@ public class UpdateDifferenceGame {
         try {
             new GetDifferenceGameInfo(context).execute(differenceGameInfoFilename, username).get();
         } catch (Exception e) {
-            Log.e("Error:", "Failed downloading txt of difference game images.");
+            Timber.e("Failed downloading txt of difference game images.");
         }
 
         File fDown = new File(context.getFilesDir(), differenceGameInfoFilename);
@@ -63,7 +64,7 @@ public class UpdateDifferenceGame {
 
             br.close();
         } catch (Exception e) {
-            Log.e("Error","Failed downloading fix images of match game");
+            Timber.e("Failed downloading images of difference game");
         }
 
         return true;

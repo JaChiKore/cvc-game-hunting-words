@@ -102,7 +102,7 @@ public class Play extends Fragment implements PlayView{
 
                 public void onTick(long millisUntilFinished) {
                     long seconds = millisUntilFinished / 1000;
-                    String countdown = String.format(String.format("%02d", seconds % 60) +" "+getString(R.string.initializing_game));
+                    String countdown = String.format("%02d", seconds % 60) + " " + getString(R.string.initializing_game);
                     SpannableString ss2=  new SpannableString(countdown);
                     ss2.setSpan(new RelativeSizeSpan(2f), 0, ss2.length(), 0);
                     ss2.setSpan(new ForegroundColorSpan(Color.RED), 0, ss2.length(), 0);

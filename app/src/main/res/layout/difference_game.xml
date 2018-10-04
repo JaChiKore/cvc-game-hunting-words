@@ -16,7 +16,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="left"
+            android:gravity="start"
             android:orientation="horizontal">
 
             <TextView
@@ -33,7 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="0"
+                android:text="@string/zero"
                 android:textSize="18sp" />
 
 
@@ -43,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:cropToPadding="true"
-                android:layout_gravity="right"
+                android:layout_gravity="end"
                 android:src="@android:drawable/btn_star_big_on" />
 
             <TextView
@@ -51,7 +51,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="0"
+                android:text="@string/zero"
                 android:textSize="18sp" />
 
         </LinearLayout>
@@ -84,7 +84,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/scrollid_diff"
+            android:layout_toEndOf="@id/scrollid_diff"
             android:orientation="vertical">
 
             <Button

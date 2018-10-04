@@ -15,7 +15,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="left"
+            android:gravity="start"
             android:orientation="horizontal">
 
             <TextView
@@ -32,14 +32,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="0"
+                android:text="@string/zero"
                 android:textSize="18sp" />
 
             <ImageView
                 android:id="@+id/stars"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
+                android:layout_gravity="end"
                 android:layout_weight="1"
                 android:cropToPadding="true"
                 android:src="@android:drawable/btn_star_big_on" />
@@ -50,7 +50,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="0"
+                android:text="@string/zero"
                 android:textSize="18sp" />
 
         </LinearLayout>
@@ -83,7 +83,7 @@
             android:id="@+id/match_but_0"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/scrollid"
+            android:layout_toEndOf="@id/scrollid"
              />
 
 
@@ -91,7 +91,7 @@
             android:id="@+id/match_but_1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/scrollid"
+            android:layout_toEndOf="@id/scrollid"
             android:layout_below="@id/match_but_0"
             />
 
@@ -99,7 +99,7 @@
             android:id="@+id/match_but_2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/scrollid"
+            android:layout_toEndOf="@id/scrollid"
             android:layout_below="@id/match_but_1"
  />
 
@@ -107,7 +107,7 @@
             android:id="@+id/match_but_3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/scrollid"
+            android:layout_toEndOf="@id/scrollid"
             android:layout_below="@id/match_but_2"
              />
 
@@ -115,7 +115,7 @@
             android:id="@+id/match_but_4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/scrollid"
+            android:layout_toEndOf="@id/scrollid"
             android:layout_below="@id/match_but_3"
             android:text="@string/none_of_these" />
 

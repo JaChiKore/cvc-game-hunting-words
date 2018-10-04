@@ -1,8 +1,6 @@
 package edu.uab.cvc.huntingwords.models;
 
 import android.util.Pair;
-
-import java.util.Hashtable;
 import java.util.LinkedHashMap;
 import java.util.List;
 

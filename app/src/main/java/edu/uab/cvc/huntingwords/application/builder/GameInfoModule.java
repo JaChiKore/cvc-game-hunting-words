@@ -1,12 +1,6 @@
 package edu.uab.cvc.huntingwords.application.builder;
 
-import android.util.Pair;
-
-import java.util.Hashtable;
-import java.util.List;
-
 import javax.inject.Singleton;
-
 import dagger.Module;
 import dagger.Provides;
 import edu.uab.cvc.huntingwords.models.DifferenceFixGameInformation;
