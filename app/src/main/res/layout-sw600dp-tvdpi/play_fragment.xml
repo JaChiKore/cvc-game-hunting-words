@@ -27,40 +27,41 @@
 
                 <TextView
                     android:id="@+id/title_match_game"
-                    android:layout_width="wrap_content"
+                    android:layout_width="140dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/match_game" />
+                    android:text="@string/match_game"
+                    android:textSize="18sp" />
 
 
                 <ImageView
                     android:id="@+id/image_match"
-                    android:layout_width="160dp"
-                    android:layout_height="120dp"
+                    android:layout_width="280dp"
+                    android:layout_height="180dp"
                     android:contentDescription="TODO"
                     android:src="@drawable/match" />
 
                 <Button
                     android:id="@+id/match"
-                    android:layout_width="wrap_content"
+                    android:layout_width="140dp"
                     android:layout_height="wrap_content"
                     android:text="@string/match_game" />
 
                 <Button
                     android:id="@+id/how_to_play_match"
-                    android:layout_width="wrap_content"
+                    android:layout_width="140dp"
                     android:layout_height="wrap_content"
                     android:text="@string/how_to_play" />
 
                 <Button
                     android:id="@+id/ranking_match"
-                    android:layout_width="wrap_content"
+                    android:layout_width="140dp"
                     android:layout_height="wrap_content"
                     android:text="@string/ranking" />
 
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="10dp"
+                android:layout_width="15dp"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:orientation="vertical">
@@ -76,15 +77,16 @@
 
                 <TextView
                     android:id="@+id/title_difference_game"
-                    android:layout_width="wrap_content"
+                    android:layout_width="140dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/difference_game" />
+                    android:text="@string/difference_game"
+                    android:textSize="18sp" />
 
 
                 <ImageView
                     android:id="@+id/image_diff"
-                    android:layout_width="160dp"
-                    android:layout_height="120dp"
+                    android:layout_width="280dp"
+                    android:layout_height="180dp"
                     android:contentDescription="TODO"
                     android:src="@drawable/diff" />
 
@@ -97,13 +99,13 @@
 
                 <Button
                     android:id="@+id/how_to_play_difference"
-                    android:layout_width="wrap_content"
+                    android:layout_width="140dp"
                     android:layout_height="wrap_content"
                     android:text="@string/how_to_play" />
 
                 <Button
                     android:id="@+id/ranking_difference"
-                    android:layout_width="wrap_content"
+                    android:layout_width="140dp"
                     android:layout_height="wrap_content"
                     android:text="@string/ranking" />
 

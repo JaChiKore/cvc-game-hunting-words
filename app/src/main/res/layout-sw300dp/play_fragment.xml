@@ -34,8 +34,8 @@
 
                 <ImageView
                     android:id="@+id/image_match"
-                    android:layout_width="160dp"
-                    android:layout_height="120dp"
+                    android:layout_width="120dp"
+                    android:layout_height="80dp"
                     android:contentDescription="TODO"
                     android:src="@drawable/match" />
 
@@ -43,19 +43,22 @@
                     android:id="@+id/match"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/match_game" />
+                    android:text="@string/match_game"
+                    android:textSize="10sp" />
 
                 <Button
                     android:id="@+id/how_to_play_match"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/how_to_play" />
+                    android:text="@string/how_to_play"
+                    android:textSize="10sp" />
 
                 <Button
                     android:id="@+id/ranking_match"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/ranking" />
+                    android:text="@string/ranking"
+                    android:textSize="10sp" />
 
             </LinearLayout>
 
@@ -83,8 +86,8 @@
 
                 <ImageView
                     android:id="@+id/image_diff"
-                    android:layout_width="160dp"
-                    android:layout_height="120dp"
+                    android:layout_width="120dp"
+                    android:layout_height="80dp"
                     android:contentDescription="TODO"
                     android:src="@drawable/diff" />
 
@@ -93,19 +96,22 @@
                     android:id="@+id/difference"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/difference_game" />
+                    android:text="@string/difference_game"
+                    android:textSize="10sp" />
 
                 <Button
                     android:id="@+id/how_to_play_difference"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/how_to_play" />
+                    android:text="@string/how_to_play"
+                    android:textSize="10sp" />
 
                 <Button
                     android:id="@+id/ranking_difference"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/ranking" />
+                    android:text="@string/ranking"
+                    android:textSize="10sp" />
 
             </LinearLayout>
 
