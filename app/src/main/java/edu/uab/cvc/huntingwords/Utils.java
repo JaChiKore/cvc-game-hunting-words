@@ -20,5 +20,8 @@ public class Utils {
     public static final String BASE_URL = "http://158.109.8.91/wordhunter/php";
     public static final String BASE_URL_IMAGES = "http://158.109.8.91/wordhunter/";
     public static final Integer NUM_LIVES = 5;
+    public static final Integer TOKEN_LENGTH = 45;
 
+    public final static String SUCCESS = "res";
+    public final static String TOKEN = "token";
 }

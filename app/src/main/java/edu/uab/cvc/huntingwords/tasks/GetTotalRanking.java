@@ -3,6 +3,8 @@ package edu.uab.cvc.huntingwords.tasks;
 import android.os.AsyncTask;
 import android.util.Pair;
 
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -13,6 +15,7 @@ import java.util.List;
 import edu.uab.cvc.huntingwords.Utils;
 import edu.uab.cvc.huntingwords.presenters.callbacks.TotalRankingCallback;
 import timber.log.Timber;
+import static edu.uab.cvc.huntingwords.Utils.SUCCESS;
 
 @SuppressWarnings("WeakerAccess")
 public class GetTotalRanking extends AsyncTask<String, Void, String[]> {
@@ -33,23 +36,26 @@ public class GetTotalRanking extends AsyncTask<String, Void, String[]> {
         String next;
         String[] rows = new String[2];
         BufferedReader bufferedReader;
+        StringBuilder buffer = new StringBuilder();
 
         try {
-            link = Utils.BASE_URL+"/getRanking.php?username=";  // base link: http://158.109.8.50/app_mobile/
+            link = Utils.BASE_URL+"/getRanking.php";  // base link: http://158.109.8.50/app_mobile/
             URL url = new URL(link);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
-            con.setRequestMethod("GET");
+            con.setRequestMethod("POST");
             con.setDoInput(true);
             con.setDoOutput(true);
             con.connect();
 
             bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
-            StringBuilder content = new StringBuilder();
-            while ((next = bufferedReader.readLine()) != null) {
-                content.append(next);
+            while((next = bufferedReader.readLine()) != null) {
+                buffer.append(next);
+                buffer.append("\n");
             }
+            JSONObject jObj = new JSONObject(buffer.toString());
 
-            String [] ranks = content.toString().split("separator<br>");
+            String content = jObj.getString(SUCCESS);
+            String [] ranks = content.split("separator<br>");
             String [] infoMatch = ranks[0].split("<br>");
             String [] infoDiff = ranks[1].split("<br>");
 

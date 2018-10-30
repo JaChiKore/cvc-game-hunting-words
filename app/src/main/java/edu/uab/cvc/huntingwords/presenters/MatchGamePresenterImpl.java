@@ -60,6 +60,7 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
     private Date startedDate;
     private String startDate;
     private final String username;
+    private final String password;
 
     private List<String> imagesCurrentRound;
     private List<String> imagesFixCurrentRound;
@@ -73,12 +74,13 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
 
     private SimpleDateFormat sdf;
 
-    public MatchGamePresenterImpl(MatchView view, String username, int currentLevel, int diffLevel, float totalScore, float  scoreDifference) {
+    public MatchGamePresenterImpl(MatchView view, String username, String password, int currentLevel, int diffLevel, float totalScore, float  scoreDifference) {
         /* IT MUST BE FIRST */
         AppController.getComponent().inject(this);
         sdf = new SimpleDateFormat("yyyyMMdd HHmmss");
         this.view = view;
         this.username = username;
+        this.password = password;
         this.imagesFixCurrentRound = new ArrayList<>();
         this.imagesCurrentRound = new ArrayList<>();
         this.playedTotalTranscriptions = new ArrayList<>();
@@ -291,7 +293,7 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
         long diffInMs = stoppedDate.getTime() - startedDate.getTime();
         long diffInSec = TimeUnit.MILLISECONDS.toSeconds(diffInMs);
         String start = startDate;
-        new Thread (() -> new MatchService(username,scoreDifference, level.getAnotherLevel()).run(newResults,String.valueOf(level.getLevel()),start,sdf.format(stoppedDate), diffInSec,oldScore,newTotalPoints, maxScore)).start();
+        new Thread (() -> new MatchService(username, password,scoreDifference, level.getAnotherLevel()).run(newResults,String.valueOf(level.getLevel()),start,sdf.format(stoppedDate), diffInSec,oldScore,newTotalPoints, maxScore)).start();
         this.results.clear();
     }
 

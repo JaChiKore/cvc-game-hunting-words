@@ -4,11 +4,8 @@ import android.os.AsyncTask;
 
 import com.crashlytics.android.answers.Answers;
 import com.crashlytics.android.answers.LoginEvent;
-import com.google.gson.JsonParser;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
-import org.json.JSONStringer;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -23,11 +20,12 @@ import edu.uab.cvc.huntingwords.Utils;
 import edu.uab.cvc.huntingwords.presenters.callbacks.ConnectCallback;
 import edu.uab.cvc.huntingwords.presenters.utils.Token;
 
+import static edu.uab.cvc.huntingwords.Utils.SUCCESS;
+import static edu.uab.cvc.huntingwords.Utils.TOKEN;
+
 @SuppressWarnings("WeakerAccess")
 public class Login extends AsyncTask<String, Void, Boolean> {
 
-    private final static String SUCCESS = "res";
-    private final static String TOKEN = "token";
     private ConnectCallback onResult;
     public Login(ConnectCallback onResult) {
         this.onResult = onResult;
@@ -40,12 +38,12 @@ public class Login extends AsyncTask<String, Void, Boolean> {
         String link;
         String next;
         BufferedReader bufferedReader;
-        StringBuffer buffer = new StringBuffer();
-        JSONArray jsonArr;
+        StringBuilder buffer = new StringBuilder();
         boolean correct;
         Token key = Token.getInstance();
         PostSendBuilder psb = PostSendBuilder.getInstance();
 
+        //ONLY GENERATE TOKEN IN LOGIN/CREATE NEW USER
         key.generateToken();
 
         try {
@@ -75,11 +73,10 @@ public class Login extends AsyncTask<String, Void, Boolean> {
                 buffer.append(next);
                 buffer.append("\n");
             }
+            JSONObject jObj = new JSONObject(buffer.toString());
 
-            jsonArr = new JSONArray(buffer.toString());
-
-            String suc = jsonArr.getJSONObject(0).getString(SUCCESS);
-            String tok = jsonArr.getJSONObject(0).getString(TOKEN);
+            String suc = jObj.getString(SUCCESS);
+            String tok = jObj.getString(TOKEN);
 
             correct = suc.contentEquals("true");
             if (correct) {
