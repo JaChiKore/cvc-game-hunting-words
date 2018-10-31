@@ -1,7 +1,6 @@
 package edu.uab.cvc.huntingwords.presenters.utils;
 
 import java.util.Random;
-
 import static edu.uab.cvc.huntingwords.Utils.TOKEN_LENGTH;
 
 public class Token {

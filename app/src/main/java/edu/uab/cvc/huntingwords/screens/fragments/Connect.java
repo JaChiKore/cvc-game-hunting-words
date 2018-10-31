@@ -18,6 +18,7 @@ import butterknife.OnClick;
 import edu.uab.cvc.huntingwords.R;
 import edu.uab.cvc.huntingwords.presenters.ConnectPresenter;
 import edu.uab.cvc.huntingwords.presenters.ConnectPresenterImpl;
+import edu.uab.cvc.huntingwords.presenters.utils.Token;
 import edu.uab.cvc.huntingwords.screens.Utils;
 import edu.uab.cvc.huntingwords.screens.views.LoginView;
 
@@ -124,6 +125,8 @@ public class Connect extends Fragment implements LoginView {
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString(edu.uab.cvc.huntingwords.Utils.PARAM_USERNAME,username);
         editor.putString(edu.uab.cvc.huntingwords.Utils.PARAM_PASSWORD,password);
+        Token key = Token.getInstance();
+        editor.putString(edu.uab.cvc.huntingwords.Utils.PARAM_TOKEN, key.getToken());
         editor.apply();
     }
     @Override

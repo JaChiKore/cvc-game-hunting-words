@@ -70,12 +70,8 @@ public class UpdateScore extends AsyncTask<String, Void, Boolean> {
             JSONObject jObj = new JSONObject(buffer.toString());
 
             String suc = jObj.getString(SUCCESS);
-            String tok = jObj.getString(TOKEN);
 
             correct = suc.contentEquals("true");
-            if (correct) {
-                key.setToken(tok);
-            }
         } catch (Exception e) {
             e.printStackTrace();
         }

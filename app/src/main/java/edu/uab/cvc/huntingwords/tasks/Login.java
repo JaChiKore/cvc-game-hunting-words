@@ -80,11 +80,11 @@ public class Login extends AsyncTask<String, Void, Boolean> {
 
             correct = suc.contentEquals("true");
             if (correct) {
+                key.setToken(tok);
                 Answers.getInstance().logLogin(new LoginEvent()
                         .putMethod("Normal login")
                         .putSuccess(true));
                 onResult.updateLogin(arg[0], arg[1]);
-                key.setToken(tok);
             } else {
                 Answers.getInstance().logLogin(new LoginEvent()
                         .putMethod("Normal login")

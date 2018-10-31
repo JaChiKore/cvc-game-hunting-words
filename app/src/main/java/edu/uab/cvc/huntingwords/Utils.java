@@ -7,6 +7,7 @@ package edu.uab.cvc.huntingwords;
 public class Utils {
     public static final String PARAM_USERNAME = "username";
     public static final String PARAM_PASSWORD = "password";
+    public static final String PARAM_TOKEN = "token";
     public static final float VALUE_POINT = 1;
     public static String ANY_CORRECT = "0";
     public static final String EMPTY_BUTTON = "";

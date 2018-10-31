@@ -19,6 +19,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import edu.uab.cvc.huntingwords.R;
 import edu.uab.cvc.huntingwords.presenters.InitPresenterImpl;
+import edu.uab.cvc.huntingwords.presenters.utils.Token;
 import edu.uab.cvc.huntingwords.screens.Utils;
 import edu.uab.cvc.huntingwords.screens.views.InitView;
 
@@ -53,6 +54,8 @@ public class Init extends Fragment implements InitView {
         }
         String name = getUsername();
         updateUsername(name);
+        Token key = Token.getInstance();
+        key.setToken(getToken());
         if (!name.equals(getString(R.string.anonym))) {
             presenter.getScore(name);
             Answers.getInstance().logLogin(new LoginEvent()
@@ -124,6 +127,12 @@ public class Init extends Fragment implements InitView {
         SharedPreferences preferences = getActivity().getSharedPreferences(
                 getString(R.string.preferences_file), Context.MODE_PRIVATE);
         return preferences.getInt(edu.uab.cvc.huntingwords.Utils.CURRENT_SCORE_DIFF,0);
+    }
+
+    private String getToken() {
+        SharedPreferences preferences = getActivity().getSharedPreferences(
+                getString(R.string.preferences_file), Context.MODE_PRIVATE);
+        return preferences.getString(edu.uab.cvc.huntingwords.Utils.PARAM_TOKEN,"-1");
     }
 
     @OnClick(R.id.quit)
