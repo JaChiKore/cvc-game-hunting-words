@@ -15,14 +15,18 @@ import java.util.HashMap;
 
 import edu.uab.cvc.huntingwords.Utils;
 import edu.uab.cvc.huntingwords.presenters.utils.Token;
+import edu.uab.cvc.huntingwords.screens.views.PlayView;
 
 import static edu.uab.cvc.huntingwords.Utils.SUCCESS;
 import static edu.uab.cvc.huntingwords.Utils.TOKEN;
 
-@SuppressWarnings("WeakerAccess")
-public class UpdateScore extends AsyncTask<String, Void, Boolean> {
 
-    public UpdateScore() {}
+public class ChangeToken extends AsyncTask<String, Void, Boolean> {
+
+    private final PlayView play;
+    public ChangeToken(PlayView init) {
+        this.play = init;
+    }
 
     protected void onPreExecute() {}
 
@@ -37,7 +41,7 @@ public class UpdateScore extends AsyncTask<String, Void, Boolean> {
         PostSendBuilder psb = PostSendBuilder.getInstance();
 
         try {
-            link = Utils.BASE_URL+"/updateScore.php";  // base link: http://158.109.8.50/app_mobile/ http://158.109.9.209/
+            link = Utils.BASE_URL+"/changeToken.php";  // base link: http://158.109.8.50/app_mobile/ http://158.109.9.209/
             URL url = new URL(link);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("POST");
@@ -46,13 +50,8 @@ public class UpdateScore extends AsyncTask<String, Void, Boolean> {
 
             HashMap<String, String> values = new HashMap<>();
             values.put("username", arg[0]);
-            values.put("match_game", arg[1]);
-            values.put("difference_game", arg[2]);
-            values.put("match_level", arg[3]);
-            values.put("difference_level", arg[4]);
+            values.put("password", arg[1]);
             values.put("token", key.getToken());
-
-            System.out.println("Debug: " + psb.getPostData(values));
 
             OutputStream os = con.getOutputStream();
             BufferedWriter writer = new BufferedWriter(
@@ -71,13 +70,13 @@ public class UpdateScore extends AsyncTask<String, Void, Boolean> {
             JSONObject jObj = new JSONObject(buffer.toString());
 
             String suc = jObj.getString(SUCCESS);
-            String debug = jObj.getString("debug");
-
-            if (!debug.isEmpty()) {
-                System.out.println(debug);
-            }
+            String tok = jObj.getString(TOKEN);
 
             correct = suc.contentEquals("true");
+
+            if (correct) {
+                key.setToken(tok);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -86,6 +85,7 @@ public class UpdateScore extends AsyncTask<String, Void, Boolean> {
     }
 
     @Override
-    protected void onPostExecute(Boolean a) {}
+    protected void onPostExecute(Boolean a) {
+        play.updateToken();
+    }
 }
-

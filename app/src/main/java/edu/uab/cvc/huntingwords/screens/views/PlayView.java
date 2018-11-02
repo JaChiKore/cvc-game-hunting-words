@@ -12,4 +12,5 @@ public interface PlayView {
     void runMatchGame();
     void runDifferenceGame();
     void totalRanking(List<Pair<String, String>> scoreList);
+    void updateToken();
 }

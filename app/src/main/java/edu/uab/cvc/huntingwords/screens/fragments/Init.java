@@ -27,6 +27,7 @@ import static edu.uab.cvc.huntingwords.Utils.CURRENT_LEVEL_DIFFERENCE;
 import static edu.uab.cvc.huntingwords.Utils.CURRENT_LEVEL_MATCH;
 import static edu.uab.cvc.huntingwords.Utils.CURRENT_SCORE_DIFF;
 import static edu.uab.cvc.huntingwords.Utils.CURRENT_SCORE_MATCH;
+import static edu.uab.cvc.huntingwords.Utils.PARAM_TOKEN;
 
 public class Init extends Fragment implements InitView {
     InitPresenterImpl presenter;

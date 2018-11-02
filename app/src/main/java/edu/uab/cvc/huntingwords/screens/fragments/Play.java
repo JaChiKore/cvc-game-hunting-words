@@ -11,6 +11,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.support.annotation.Nullable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
@@ -30,8 +31,12 @@ import butterknife.OnClick;
 import edu.uab.cvc.huntingwords.R;
 import edu.uab.cvc.huntingwords.presenters.PlayPresenter;
 import edu.uab.cvc.huntingwords.presenters.PlayPresenterImpl;
+import edu.uab.cvc.huntingwords.presenters.utils.Token;
 import edu.uab.cvc.huntingwords.screens.Utils;
 import edu.uab.cvc.huntingwords.screens.views.PlayView;
+import edu.uab.cvc.huntingwords.tasks.ChangeToken;
+
+import static edu.uab.cvc.huntingwords.Utils.PARAM_TOKEN;
 
 /**
  * Created by carlosb on 05/04/18.
@@ -49,6 +54,12 @@ public class Play extends Fragment implements PlayView{
 
         this.presenter = new PlayPresenterImpl(this);
         return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        new ChangeToken(this).execute(getUsername(), getPassword());
     }
 
 
@@ -160,6 +171,12 @@ public class Play extends Fragment implements PlayView{
         return preferences.getString(edu.uab.cvc.huntingwords.Utils.PARAM_USERNAME,getString(R.string.anonym));
     }
 
+    private String getPassword() {
+        SharedPreferences preferences = getActivity().getSharedPreferences(
+                getString(R.string.preferences_file), Context.MODE_PRIVATE);
+        return preferences.getString(edu.uab.cvc.huntingwords.Utils.PARAM_PASSWORD,"-1");
+    }
+
 
     @Override
     public void runMatchGame() {
@@ -197,6 +214,12 @@ public class Play extends Fragment implements PlayView{
         }.start();
     }
 
-
-
+    public void updateToken() {
+        Token key = Token.getInstance();
+        SharedPreferences preferences = getActivity().getSharedPreferences(
+                getString(R.string.preferences_file), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(PARAM_TOKEN,key.getToken());
+        editor.apply();
+    }
 }

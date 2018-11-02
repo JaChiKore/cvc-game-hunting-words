@@ -7,7 +7,7 @@ public class Token {
     private static Token instance = null;
     private String token;
     private static final Random random = new Random();
-    private static final String CHARS = "abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ234567890!$%&@#?¿";
+    private static final String CHARS = "0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM";
 
     private Token() {}
 
