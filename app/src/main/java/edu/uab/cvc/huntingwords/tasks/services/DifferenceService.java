@@ -12,18 +12,16 @@ import edu.uab.cvc.huntingwords.tasks.difference.UpdateClusters;
 
 public class DifferenceService {
     private final String user;
-    private final String pass;
     private final float scoreMatch;
     private final int levelMatch;
-    public DifferenceService(String user, String pass, float scoreMatch, int levelMatch) {
+    public DifferenceService(String user, float scoreMatch, int levelMatch) {
         this.user = user;
-        this.pass = pass;
         this.scoreMatch = scoreMatch;
         this.levelMatch = levelMatch;
     }
 
     public void run (List<ClusterDifferentResult> values, String level, String startDate, String stopDate, long usedTime, float scoreIni, float scoreEnd, float maxScore) {
-        String [] argsScore = {user, pass, String.valueOf(scoreMatch),String.valueOf(scoreEnd), String.valueOf(levelMatch), level};
+        String [] argsScore = {user, String.valueOf(scoreMatch),String.valueOf(scoreEnd), String.valueOf(levelMatch), level};
         if (scoreEnd > maxScore) {
             new UpdateScore().execute(argsScore);
         } else {

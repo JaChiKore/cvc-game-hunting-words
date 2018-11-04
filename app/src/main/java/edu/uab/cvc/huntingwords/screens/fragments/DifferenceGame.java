@@ -92,7 +92,7 @@ public class DifferenceGame extends Fragment implements DifferenceView {
         Resources.Theme theme = getActivity().getTheme();
         theme.resolveAttribute(R.attr.colorPrimary, typedValue, true);
         colorPrimary = typedValue.data;
-        presenter = new DifferenceGamePresenterImpl(this, getPreferencesUsername(), getPreferencesPassword(), this.getPreferencesLevel(), this.getMatchLevel(), this.getPreferencesScore(), this.getPreferencesMatchScore());
+        presenter = new DifferenceGamePresenterImpl(this, getPreferencesUsername(), this.getPreferencesLevel(), this.getMatchLevel(), this.getPreferencesScore(), this.getPreferencesMatchScore());
         ((TextView) getActivity().findViewById(R.id.value_diff_score)).setText(String.valueOf(0));
 
         pause = false;
@@ -288,11 +288,6 @@ public class DifferenceGame extends Fragment implements DifferenceView {
         SharedPreferences preferences = getActivity().getSharedPreferences(
                 getString(R.string.preferences_file), Context.MODE_PRIVATE);
         return preferences.getString(edu.uab.cvc.huntingwords.Utils.PARAM_USERNAME,getString(R.string.anonym));
-    }
-    private String getPreferencesPassword() {
-        SharedPreferences preferences = getActivity().getSharedPreferences(
-                getString(R.string.preferences_file), Context.MODE_PRIVATE);
-        return preferences.getString(edu.uab.cvc.huntingwords.Utils.PARAM_PASSWORD,"-1");
     }
     public int getPreferencesLevel() {
         SharedPreferences preferences = getActivity().getSharedPreferences(

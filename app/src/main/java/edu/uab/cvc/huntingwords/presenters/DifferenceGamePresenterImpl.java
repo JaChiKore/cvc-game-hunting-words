@@ -67,14 +67,13 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
     private Date startedDate;
     private String startDate;
     private final String username;
-    private final String password;
     private final float scoreMatch;
 
     private List<ClusterDifferentResult> results;
 
     private SimpleDateFormat sdf;
 
-    public DifferenceGamePresenterImpl(DifferenceView view, String username, String password, int level, int matchLevel, float maxScore, float scoreMatch) {
+    public DifferenceGamePresenterImpl(DifferenceView view, String username, int level, int matchLevel, float maxScore, float scoreMatch) {
         AppController.getComponent().inject(this);
         sdf = new SimpleDateFormat("yyyyMMdd HHmmss");
         clustersToPlay = new ArrayList();
@@ -86,7 +85,6 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
         playedTotalClusters = new ArrayList<>();
         this.view = view;
         this.username = username;
-        this.password = password;
         this.level = new GameLevel(level, matchLevel);
         this.numLives = Utils.NUM_LIVES;
         this.totalScore = 0;
@@ -289,7 +287,7 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
         long diffInMs = stoppedDate.getTime() - startedDate.getTime();
         long diffInSec = TimeUnit.MILLISECONDS.toSeconds(diffInMs);
         String start = startDate;
-        new Thread (() -> new DifferenceService(username, password,scoreMatch, level.getAnotherLevel()).run(newResults,String.valueOf(level.getLevel()),start,sdf.format(stoppedDate), diffInSec,oldScore,newTotalPoints, maxScore)).start();
+        new Thread (() -> new DifferenceService(username,scoreMatch, level.getAnotherLevel()).run(newResults,String.valueOf(level.getLevel()),start,sdf.format(stoppedDate), diffInSec,oldScore,newTotalPoints, maxScore)).start();
         this.results.clear();
     }
 
