@@ -59,7 +59,7 @@ public class Play extends Fragment implements PlayView{
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        new ChangeToken(this).execute(getUsername(), getPassword());
+        new ChangeToken(this).execute(getUsername());
     }
 
 
@@ -169,12 +169,6 @@ public class Play extends Fragment implements PlayView{
         SharedPreferences preferences = getActivity().getSharedPreferences(
                 getString(R.string.preferences_file), Context.MODE_PRIVATE);
         return preferences.getString(edu.uab.cvc.huntingwords.Utils.PARAM_USERNAME,getString(R.string.anonym));
-    }
-
-    private String getPassword() {
-        SharedPreferences preferences = getActivity().getSharedPreferences(
-                getString(R.string.preferences_file), Context.MODE_PRIVATE);
-        return preferences.getString(edu.uab.cvc.huntingwords.Utils.PARAM_PASSWORD,"-1");
     }
 
 

@@ -53,7 +53,6 @@ public class InsertUser extends AsyncTask<String, Void, Boolean> {
             HashMap<String, String> values = new HashMap<>();
             values.put("username", arg[0]);
             values.put("password", arg[1]);
-            values.put("token", key.getToken());
 
             OutputStream os = con.getOutputStream();
             BufferedWriter writer = new BufferedWriter(

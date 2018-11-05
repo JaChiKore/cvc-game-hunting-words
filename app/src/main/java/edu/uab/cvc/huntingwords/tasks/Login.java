@@ -44,7 +44,6 @@ public class Login extends AsyncTask<String, Void, Boolean> {
         PostSendBuilder psb = PostSendBuilder.getInstance();
 
         //ONLY GENERATE TOKEN IN LOGIN/CREATE NEW USER
-        key.generateToken();
 
         try {
             link = Utils.BASE_URL+"/login.php";  // base link: http://158.109.8.50/app_mobile/ ?username=" + arg[0] + "&password=" + arg[1]
@@ -57,7 +56,6 @@ public class Login extends AsyncTask<String, Void, Boolean> {
             HashMap<String, String> values = new HashMap<>();
             values.put("username", arg[0]);
             values.put("password", arg[1]);
-            values.put("token", key.getToken());
 
             OutputStream os = con.getOutputStream();
             BufferedWriter writer = new BufferedWriter(
