@@ -2,7 +2,7 @@ package edu.uab.cvc.huntingwords.presenters.utils;
 
 public class Token {
     private static Token instance = null;
-    private String token;
+    private String token = "-1";
 
     private Token() {}
 

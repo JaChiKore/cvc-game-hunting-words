@@ -84,7 +84,7 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
         this.playedTotalTranscriptions = new ArrayList<>();
         this.results = new ArrayList<>();
         this.level = new GameLevel(currentLevel, diffLevel);
-        this.numLives = Utils.NUM_LIVES;
+        this.numLives = this.level.getLives();
         this.maxScore = totalScore;
         this.totalScore = 0;
         this.scoreDifference = scoreDifference;
@@ -248,8 +248,8 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
     }
 
     private void startNewLives() {
-        view.setUpNumLives(Utils.NUM_LIVES);
-        this.numLives = Utils.NUM_LIVES;
+        this.numLives = level.getLives();
+        view.setUpNumLives(this.numLives);
 
     }
 
@@ -291,7 +291,7 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
         long diffInMs = stoppedDate.getTime() - startedDate.getTime();
         long diffInSec = TimeUnit.MILLISECONDS.toSeconds(diffInMs);
         String start = startDate;
-        new Thread (() -> new MatchService(username,scoreDifference, level.getAnotherLevel()).run(newResults,String.valueOf(level.getLevel()),start,sdf.format(stoppedDate), diffInSec,oldScore,newTotalPoints, maxScore)).start();
+        new Thread (() -> new MatchService(username,scoreDifference, level.getAnotherLevel(), (numLives > 0)).run(newResults,String.valueOf(level.getLevel()),start,sdf.format(stoppedDate), diffInSec,oldScore,newTotalPoints, maxScore)).start();
         this.results.clear();
     }
 

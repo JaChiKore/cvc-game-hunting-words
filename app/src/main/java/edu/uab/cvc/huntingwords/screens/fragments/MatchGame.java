@@ -103,7 +103,7 @@ public class MatchGame  extends Fragment implements MatchView {
         theme.resolveAttribute(R.attr.colorPrimary, typedValue, true);
         colorPrimary = typedValue.data;
 
-        presenter = new MatchGamePresenterImpl(this, getPreferencesUsername(), getPreferencesPassword(), this.getPreferencesLevel(), this.getDiffLevel(), this.getPreferencesScore(), this.getPreferencesDiffScore());
+        presenter = new MatchGamePresenterImpl(this, getPreferencesUsername(), this.getPreferencesLevel(), this.getDiffLevel(), this.getPreferencesScore(), this.getPreferencesDiffScore());
         ((TextView) getActivity().findViewById(R.id.value_match_score)).setText(String.valueOf(0));
 
         pause = false;
@@ -419,12 +419,6 @@ public class MatchGame  extends Fragment implements MatchView {
         SharedPreferences preferences = getActivity().getSharedPreferences(
                 getString(R.string.preferences_file), Context.MODE_PRIVATE);
         return preferences.getString(edu.uab.cvc.huntingwords.Utils.PARAM_USERNAME,getString(R.string.anonym));
-    }
-
-    private String getPreferencesPassword() {
-        SharedPreferences preferences = getActivity().getSharedPreferences(
-                getString(R.string.preferences_file), Context.MODE_PRIVATE);
-        return preferences.getString(edu.uab.cvc.huntingwords.Utils.PARAM_PASSWORD,"-1");
     }
 
     public int getPreferencesLevel() {

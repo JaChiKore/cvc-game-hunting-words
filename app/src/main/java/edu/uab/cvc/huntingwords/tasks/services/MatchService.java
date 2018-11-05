@@ -14,10 +14,12 @@ public class MatchService {
     private final String user;
     private final float scoreDifference;
     private final int levelDiff;
-    public MatchService(String user, float scoreDifference, int levelDiff) {
+    private final boolean win;
+    public MatchService(String user, float scoreDifference, int levelDiff, boolean win) {
         this.user = user;
         this.scoreDifference = scoreDifference;
         this.levelDiff = levelDiff;
+        this.win = win;
     }
 
     public void run (List<MatchResult> values, String level, String startDate, String stopDate, long usedTime, float scoreIni, float scoreEnd, float maxScore) {
@@ -28,9 +30,11 @@ public class MatchService {
             argsScore[1] = String.valueOf(maxScore);
             new UpdateScore().execute(argsScore);
         }
-        for (MatchResult result: values) {
-            String [] args = {result.getImageName(),result.getTranslation(), user, level, startDate, stopDate, String.valueOf(usedTime), String.valueOf(scoreIni), String.valueOf(scoreEnd)};
-            new UpdateTranscriptions().execute(args);
+        if (win) {
+            for (MatchResult result : values) {
+                String[] args = {result.getImageName(), result.getTranslation(), user, level, startDate, stopDate, String.valueOf(usedTime), String.valueOf(scoreIni), String.valueOf(scoreEnd)};
+                new UpdateTranscriptions().execute(args);
+            }
         }
 
     }

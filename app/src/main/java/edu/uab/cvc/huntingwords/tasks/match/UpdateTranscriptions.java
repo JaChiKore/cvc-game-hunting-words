@@ -49,13 +49,12 @@ public class UpdateTranscriptions extends AsyncTask<String, Void, Boolean> {
             values.put("filename", arg[0]);
             values.put("trans", arg[1]);
             values.put("user", arg[2]);
-            values.put("password", arg[3]);
-            values.put("level", arg[4]);
-            values.put("startDate", arg[5]);
-            values.put("endDate", arg[6]);
-            values.put("usedTime", arg[7]);
-            values.put("scoreInici", arg[8]);
-            values.put("scoreFinal", arg[9]);
+            values.put("level", arg[3]);
+            values.put("startDate", arg[4]);
+            values.put("endDate", arg[5]);
+            values.put("usedTime", arg[6]);
+            values.put("scoreInici", arg[7]);
+            values.put("scoreFinal", arg[8]);
             values.put("token", key.getToken());
 
             OutputStream os = con.getOutputStream();

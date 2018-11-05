@@ -14,10 +14,12 @@ public class DifferenceService {
     private final String user;
     private final float scoreMatch;
     private final int levelMatch;
-    public DifferenceService(String user, float scoreMatch, int levelMatch) {
+    private final boolean win;
+    public DifferenceService(String user, float scoreMatch, int levelMatch, boolean win) {
         this.user = user;
         this.scoreMatch = scoreMatch;
         this.levelMatch = levelMatch;
+        this.win = win;
     }
 
     public void run (List<ClusterDifferentResult> values, String level, String startDate, String stopDate, long usedTime, float scoreIni, float scoreEnd, float maxScore) {
@@ -28,9 +30,11 @@ public class DifferenceService {
             argsScore[2] = String.valueOf(maxScore);
             new UpdateScore().execute(argsScore);
         }
-        for (ClusterDifferentResult result: values) {
-            String [] args = {result.getImageName(),result.getClusterName(), user, level, startDate, stopDate, String.valueOf(usedTime), String.valueOf(scoreIni), String.valueOf(scoreEnd)};
-            new UpdateClusters().execute(args);
+        if (win) {
+            for (ClusterDifferentResult result : values) {
+                String[] args = {result.getImageName(), result.getClusterName(), user, level, startDate, stopDate, String.valueOf(usedTime), String.valueOf(scoreIni), String.valueOf(scoreEnd)};
+                new UpdateClusters().execute(args);
+            }
         }
     }
 }

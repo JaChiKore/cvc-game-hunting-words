@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,6 +39,7 @@ public class Connect extends Fragment implements LoginView {
     EditText username;
     @BindView(R.id.edit_pasword)
     EditText password;
+    Token key = Token.getInstance();
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -45,10 +47,25 @@ public class Connect extends Fragment implements LoginView {
         ButterKnife.bind(this, view);
         presenter = new ConnectPresenterImpl(this);
         view.setBackgroundColor(Utils.GetBackgroundColour(this.getActivity()));
+        Button b = view.findViewById(R.id.connect);
+        if (key.getToken().equals(getString(R.string.default_token))) {
+            b.setText(R.string.login);
+        } else {
+            b.setText(R.string.logout);
+        }
+
         return view;
     }
 
     @OnClick(R.id.connect)
+    public void logDisAction() {
+        if (key.getToken().equals(getString(R.string.default_token))) {
+            login();
+        } else {
+            disconnect();
+        }
+    }
+
     public void login() {
         String user= username.getText().toString();
         String pass= password.getText().toString();
@@ -66,7 +83,6 @@ public class Connect extends Fragment implements LoginView {
         }
     }
 
-    @OnClick(R.id.disconnect)
     public void disconnect() {
         setUpAnonymousParameters();
         TextView name = getActivity().findViewById(R.id.logged_user);
@@ -118,14 +134,11 @@ public class Connect extends Fragment implements LoginView {
         ft.commit();
     }
 
-    @Override
-    public void setUpLoginParameters(String username, String password) {
+    public void setUpLoginParameters(String username) {
         SharedPreferences preferences = getActivity().getSharedPreferences(
                 getString(R.string.preferences_file), Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString(edu.uab.cvc.huntingwords.Utils.PARAM_USERNAME,username);
-        editor.putString(edu.uab.cvc.huntingwords.Utils.PARAM_PASSWORD,password);
-        Token key = Token.getInstance();
         editor.putString(edu.uab.cvc.huntingwords.Utils.PARAM_TOKEN, key.getToken());
         editor.apply();
     }
@@ -146,7 +159,9 @@ public class Connect extends Fragment implements LoginView {
                 getString(R.string.preferences_file), Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString(edu.uab.cvc.huntingwords.Utils.PARAM_USERNAME,getString(R.string.anonym));
+        editor.putString(edu.uab.cvc.huntingwords.Utils.PARAM_TOKEN,getString(R.string.default_token));
         editor.apply();
+        key.setToken(getString(R.string.default_token));
     }
 
     @Override

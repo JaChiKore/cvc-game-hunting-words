@@ -20,6 +20,10 @@ public class GameLevel {
         calculateDifficult();
     }
 
+    public int getLives() {
+        return ((this.numFix <= 5) ? ((this.numFix <= 0) ? 1 : this.numFix) : 5);
+    }
+
     private void calculateDifficult() {
         if (gameLevel < LEVEL_THRESHOLD) {
             this.numFix = BASE_NUM_IMAGES - gameLevel*2;

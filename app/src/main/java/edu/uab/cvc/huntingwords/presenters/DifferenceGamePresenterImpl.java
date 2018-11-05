@@ -86,7 +86,7 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
         this.view = view;
         this.username = username;
         this.level = new GameLevel(level, matchLevel);
-        this.numLives = Utils.NUM_LIVES;
+        this.numLives = this.level.getLives();
         this.totalScore = 0;
         this.scoreMatch = scoreMatch;
         this.maxScore = maxScore;
@@ -200,8 +200,8 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
 
 
     private void startNewLives() {
-        view.setUpNumLives(Utils.NUM_LIVES);
-        this.numLives = Utils.NUM_LIVES;
+        this.numLives = level.getLives();
+        view.setUpNumLives(this.numLives);
 
     }
 
@@ -287,7 +287,7 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
         long diffInMs = stoppedDate.getTime() - startedDate.getTime();
         long diffInSec = TimeUnit.MILLISECONDS.toSeconds(diffInMs);
         String start = startDate;
-        new Thread (() -> new DifferenceService(username,scoreMatch, level.getAnotherLevel()).run(newResults,String.valueOf(level.getLevel()),start,sdf.format(stoppedDate), diffInSec,oldScore,newTotalPoints, maxScore)).start();
+        new Thread (() -> new DifferenceService(username,scoreMatch, level.getAnotherLevel(), (numLives > 0)).run(newResults,String.valueOf(level.getLevel()),start,sdf.format(stoppedDate), diffInSec,oldScore,newTotalPoints, maxScore)).start();
         this.results.clear();
     }
 

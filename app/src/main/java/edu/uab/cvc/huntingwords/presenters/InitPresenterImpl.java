@@ -20,7 +20,7 @@ public class InitPresenterImpl implements InitPresenter {
     public void getScore(String name) {
                ConnectCallback callback = new ConnectCallback() {
                                 @Override
-                                public void updateLogin(String username, String password) {
+                                public void updateLogin(String username) {
 
                                                         }
 

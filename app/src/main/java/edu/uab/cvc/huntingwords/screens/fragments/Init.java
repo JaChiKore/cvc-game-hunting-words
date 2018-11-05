@@ -28,6 +28,7 @@ import static edu.uab.cvc.huntingwords.Utils.CURRENT_LEVEL_MATCH;
 import static edu.uab.cvc.huntingwords.Utils.CURRENT_SCORE_DIFF;
 import static edu.uab.cvc.huntingwords.Utils.CURRENT_SCORE_MATCH;
 import static edu.uab.cvc.huntingwords.Utils.PARAM_TOKEN;
+import static edu.uab.cvc.huntingwords.Utils.PARAM_USERNAME;
 
 public class Init extends Fragment implements InitView {
     InitPresenterImpl presenter;
@@ -47,17 +48,18 @@ public class Init extends Fragment implements InitView {
         super.onActivityCreated(savedInstanceState);
         SharedPreferences preferences = getActivity().getSharedPreferences(
                 getString(R.string.preferences_file), Context.MODE_PRIVATE);
-        String string = preferences.getString(edu.uab.cvc.huntingwords.Utils.PARAM_USERNAME, getString(R.string.anonym));
-        if (string.equals("Anònim") || string.equals("Anónimo") || string.equals("Anonymous") || string.equals("无玩家")) {
+        String string = preferences.getString(PARAM_TOKEN, getString(R.string.default_token));
+        if (string.equals(getString(R.string.default_token))) {
             SharedPreferences.Editor editor = preferences.edit();
-            editor.putString(edu.uab.cvc.huntingwords.Utils.PARAM_USERNAME,getString(R.string.anonym));
+            editor.putString(PARAM_USERNAME,getString(R.string.anonym));
+            editor.putString(PARAM_TOKEN,getString(R.string.default_token));
             editor.apply();
         }
         String name = getUsername();
         updateUsername(name);
         Token key = Token.getInstance();
         key.setToken(getToken());
-        if (!name.equals(getString(R.string.anonym))) {
+        if (!key.getToken().equals(getString(R.string.default_token))) {
             presenter.getScore(name);
             Answers.getInstance().logLogin(new LoginEvent()
                     .putMethod("Normal login")
@@ -115,7 +117,7 @@ public class Init extends Fragment implements InitView {
     private String getUsername() {
         SharedPreferences preferences = getActivity().getSharedPreferences(
                 getString(R.string.preferences_file), Context.MODE_PRIVATE);
-        return preferences.getString(edu.uab.cvc.huntingwords.Utils.PARAM_USERNAME,getString(R.string.anonym));
+        return preferences.getString(PARAM_USERNAME,getString(R.string.anonym));
     }
 
     private int getMatchScore() {
@@ -133,7 +135,7 @@ public class Init extends Fragment implements InitView {
     private String getToken() {
         SharedPreferences preferences = getActivity().getSharedPreferences(
                 getString(R.string.preferences_file), Context.MODE_PRIVATE);
-        return preferences.getString(edu.uab.cvc.huntingwords.Utils.PARAM_TOKEN,"-1");
+        return preferences.getString(PARAM_TOKEN,"-1");
     }
 
     @OnClick(R.id.quit)

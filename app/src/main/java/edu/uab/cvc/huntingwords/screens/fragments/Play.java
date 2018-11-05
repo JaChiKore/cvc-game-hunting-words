@@ -59,7 +59,9 @@ public class Play extends Fragment implements PlayView{
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        new ChangeToken(this).execute(getUsername());
+        if (!Token.getInstance().getToken().equals(getString(R.string.default_token))) {
+            new ChangeToken(this).execute(getUsername());
+        }
     }
 
 

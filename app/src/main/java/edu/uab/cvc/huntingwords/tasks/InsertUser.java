@@ -79,7 +79,7 @@ public class InsertUser extends AsyncTask<String, Void, Boolean> {
                 Answers.getInstance().logSignUp(new SignUpEvent()
                         .putMethod("Normal signin")
                         .putSuccess(true));
-                onResult.updateLogin(arg[0], arg[1]);
+                onResult.updateLogin(arg[0]);
             } else {
                 Answers.getInstance().logSignUp(new SignUpEvent()
                     .putMethod("Normal signin")

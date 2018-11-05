@@ -29,8 +29,8 @@ public class ConnectPresenterImpl implements ConnectPresenter {
     public boolean login(final String username, String password) {
         ConnectCallback callback = new ConnectCallback() {
             @Override
-            public void updateLogin(String username, String password) {
-                view.setUpLoginParameters(username,password);
+            public void updateLogin(String username) {
+                view.setUpLoginParameters(username);
                 view.updateLogin(username);
             }
 
@@ -57,13 +57,12 @@ public class ConnectPresenterImpl implements ConnectPresenter {
         return true;
     }
 
-
     @Override
     public boolean signin(String username, String password) {
         ConnectCallback callback = new ConnectCallback() {
             @Override
-            public void updateLogin(String username, String password) {
-                view.setUpLoginParameters(username,password);
+            public void updateLogin(String username) {
+                view.setUpLoginParameters(username);
                 view.updateLogin(username);
                 view.goToInit();
             }
