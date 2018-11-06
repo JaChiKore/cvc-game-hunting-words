@@ -7,7 +7,7 @@ package edu.uab.cvc.huntingwords.presenters.utils;
 
 public class GameLevel {
 
-    private static final int LEVEL_THRESHOLD = 5;
+    private static final int LEVEL_THRESHOLD = 4;
     private static final int BASE_NUM_IMAGES = 10;
 
     private int gameLevel;
@@ -29,8 +29,8 @@ public class GameLevel {
             this.numFix = BASE_NUM_IMAGES - gameLevel*2;
             this.num  =  BASE_NUM_IMAGES - this.numFix;
         } else {
-            this.num = BASE_NUM_IMAGES;
-            this.numFix = 0;
+            this.numFix = 2;
+            this.num = BASE_NUM_IMAGES - this.numFix;
         }
     }
 
