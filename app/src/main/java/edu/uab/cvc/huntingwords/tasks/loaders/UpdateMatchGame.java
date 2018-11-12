@@ -35,6 +35,7 @@ public class UpdateMatchGame {
         deleteRecursive(file);
 
         try {
+            System.out.println(username);
             String a = new GetMatchGameInfo(context).execute(matchGameInfoFilename, username).get();
             System.out.println(a);
         } catch (Exception e) {

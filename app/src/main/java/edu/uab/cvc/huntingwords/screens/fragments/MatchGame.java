@@ -434,12 +434,9 @@ public class MatchGame  extends Fragment implements MatchView {
     public void updatePreferencesLevel(Integer level) {
         SharedPreferences preferences = getActivity().getSharedPreferences(
                 getString(R.string.preferences_file), Context.MODE_PRIVATE);
-        int oldLevel = preferences.getInt(CURRENT_LEVEL_MATCH,0);
-        if (level > oldLevel) {
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.putInt(CURRENT_LEVEL_MATCH,level);
-            editor.apply();
-        }
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putInt(CURRENT_LEVEL_MATCH,level);
+        editor.apply();
     }
 
 

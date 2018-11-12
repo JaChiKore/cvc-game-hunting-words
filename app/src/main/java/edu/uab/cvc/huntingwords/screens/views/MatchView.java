@@ -31,4 +31,6 @@ public interface MatchView {
     void setPause(boolean pause);
 
     void updateTotalScore(float totalScore);
+
+    void updatePreferencesLevel(Integer level);
 }

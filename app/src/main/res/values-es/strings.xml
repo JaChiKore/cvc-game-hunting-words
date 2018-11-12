@@ -57,5 +57,6 @@
     <string name="language_type">english</string>
     <string name="no">No</string>
     <string name="yes">Si</string>
+    <string name="no_user">Por favor, inicie sesión.</string>
 
 </resources>

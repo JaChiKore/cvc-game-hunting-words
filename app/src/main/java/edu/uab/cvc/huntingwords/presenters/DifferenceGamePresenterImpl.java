@@ -279,9 +279,6 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
 
 
     public void uploadResult(Integer oldScore, Integer newTotalPoints) {
-        if (this.username.equals(appContext.getString(R.string.anonym))) {
-            return;
-        }
         List<ClusterDifferentResult> newResults = new ArrayList<>(this.results);
         Date stoppedDate = Calendar.getInstance().getTime();
         long diffInMs = stoppedDate.getTime() - startedDate.getTime();

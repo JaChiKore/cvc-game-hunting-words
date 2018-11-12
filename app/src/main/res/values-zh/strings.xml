@@ -57,5 +57,6 @@
     <string name="language_type">english</string>
     <string name="yes">玩!</string>
     <string name="no">不了</string>
+    <string name="no_user">请先登录</string>
 
 </resources>

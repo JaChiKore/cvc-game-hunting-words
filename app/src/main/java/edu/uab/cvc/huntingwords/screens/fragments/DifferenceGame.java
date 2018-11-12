@@ -92,6 +92,7 @@ public class DifferenceGame extends Fragment implements DifferenceView {
         Resources.Theme theme = getActivity().getTheme();
         theme.resolveAttribute(R.attr.colorPrimary, typedValue, true);
         colorPrimary = typedValue.data;
+
         presenter = new DifferenceGamePresenterImpl(this, getPreferencesUsername(), this.getPreferencesLevel(), this.getMatchLevel(), this.getPreferencesScore(), this.getPreferencesMatchScore());
         ((TextView) getActivity().findViewById(R.id.value_diff_score)).setText(String.valueOf(0));
 

@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.crashlytics.android.answers.Answers;
 import com.crashlytics.android.answers.LoginEvent;
@@ -18,10 +19,12 @@ import com.crashlytics.android.answers.LoginEvent;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import edu.uab.cvc.huntingwords.R;
+import edu.uab.cvc.huntingwords.presenters.ConnectPresenterImpl;
 import edu.uab.cvc.huntingwords.presenters.InitPresenterImpl;
 import edu.uab.cvc.huntingwords.presenters.utils.Token;
 import edu.uab.cvc.huntingwords.screens.Utils;
 import edu.uab.cvc.huntingwords.screens.views.InitView;
+import edu.uab.cvc.huntingwords.tasks.LoginAnonymous;
 
 import static edu.uab.cvc.huntingwords.Utils.CURRENT_LEVEL_DIFFERENCE;
 import static edu.uab.cvc.huntingwords.Utils.CURRENT_LEVEL_MATCH;
@@ -108,9 +111,18 @@ public class Init extends Fragment implements InitView {
 
     @OnClick(R.id.play)
     public void clickPlay(){
+        if (getUsername().equals(getString(R.string.anonym))) {
+            new LoginAnonymous().execute();
+            SharedPreferences preferences = getActivity().getSharedPreferences(
+                    getString(R.string.preferences_file), Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putString(edu.uab.cvc.huntingwords.Utils.PARAM_USERNAME,"test");
+            editor.putString(edu.uab.cvc.huntingwords.Utils.PARAM_TOKEN, Token.getInstance().getToken());
+            editor.apply();
+        }
         FragmentManager fm = getFragmentManager();
         FragmentTransaction fragmentTransaction = fm.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_switch,  new Play());
+        fragmentTransaction.replace(R.id.fragment_switch, new Play());
         fragmentTransaction.commit();
     }
 

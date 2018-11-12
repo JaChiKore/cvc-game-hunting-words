@@ -24,12 +24,9 @@ import static edu.uab.cvc.huntingwords.Utils.SUCCESS;
 import static edu.uab.cvc.huntingwords.Utils.TOKEN;
 
 @SuppressWarnings("WeakerAccess")
-public class Login extends AsyncTask<String, Void, Boolean> {
+public class LoginAnonymous extends AsyncTask<String, Void, Boolean> {
 
-    private ConnectCallback onResult;
-    public Login(ConnectCallback onResult) {
-        this.onResult = onResult;
-    }
+    public LoginAnonymous() {}
 
     protected void onPreExecute() {}
 
@@ -52,8 +49,8 @@ public class Login extends AsyncTask<String, Void, Boolean> {
             con.setDoOutput(true);
 
             HashMap<String, String> values = new HashMap<>();
-            values.put("username", arg[0]);
-            values.put("password", arg[1]);
+            values.put("username", "test");
+            values.put("password", "testasdf1234");
 
             OutputStream os = con.getOutputStream();
             BufferedWriter writer = new BufferedWriter(
@@ -77,15 +74,6 @@ public class Login extends AsyncTask<String, Void, Boolean> {
             correct = suc.contentEquals("true");
             if (correct) {
                 key.setToken(tok);
-                Answers.getInstance().logLogin(new LoginEvent()
-                        .putMethod("Normal login")
-                        .putSuccess(true));
-                onResult.updateLogin(arg[0]);
-            } else {
-                Answers.getInstance().logLogin(new LoginEvent()
-                        .putMethod("Normal login")
-                        .putSuccess(false));
-                onResult.error();
             }
         } catch (Exception e) {
             e.printStackTrace();
