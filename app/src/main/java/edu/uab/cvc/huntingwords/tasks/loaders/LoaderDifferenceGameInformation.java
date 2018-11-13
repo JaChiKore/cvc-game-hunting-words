@@ -19,6 +19,7 @@ import java.util.List;
 public class LoaderDifferenceGameInformation {
     public void load(Context context, LinkedHashMap<String,List<Pair<String,Boolean>>> gameInfo, LinkedHashMap<String,List<Pair<String,Boolean>>> gameFixInfo) throws FileNotFoundException {
         gameInfo.clear();
+        gameFixInfo.clear();
 
         File file = new File(context.getFilesDir(),"differenceGameInfo.txt");
         BufferedReader br = new BufferedReader(new FileReader(file));

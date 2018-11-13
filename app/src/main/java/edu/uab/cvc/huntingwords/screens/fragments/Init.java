@@ -119,6 +119,7 @@ public class Init extends Fragment implements InitView {
             editor.putString(edu.uab.cvc.huntingwords.Utils.PARAM_USERNAME,"test");
             editor.putString(edu.uab.cvc.huntingwords.Utils.PARAM_TOKEN, Token.getInstance().getToken());
             editor.apply();
+            presenter.getScore("test");
         }
         FragmentManager fm = getFragmentManager();
         FragmentTransaction fragmentTransaction = fm.beginTransaction();
