@@ -111,7 +111,7 @@ public class Init extends Fragment implements InitView {
 
     @OnClick(R.id.play)
     public void clickPlay(){
-        if (getUsername().equals(getString(R.string.anonym))) {
+        if (getUsername().equals(getString(R.string.anonym)) || getUsername().equals("test")) {
             new LoginAnonymous().execute();
             SharedPreferences preferences = getActivity().getSharedPreferences(
                     getString(R.string.preferences_file), Context.MODE_PRIVATE);
