@@ -307,9 +307,7 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
                     this.info = 0;
                 }
             }
-            if (!imagesToUse.contains(value) && !playedTotalTranscriptions.contains(value) ) {
-                imagesToUse.add(value);
-            }
+            imagesToUse.add(value);
         }
 
     }
@@ -328,6 +326,7 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
         countTotalFixUsed = 0;
         info = 0;
         fixInfo = 0;
+        playedTotalTranscriptions.clear();
         new UpdateMatchGame().update(appContext, username);
         try {
             new LoaderMatchGameInformation().load(appContext,matchInfo, matchFixInfo);

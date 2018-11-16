@@ -192,9 +192,7 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
                     this.info = 0;
                 }
             }
-            if (!listClusters.contains(cluster) && !playedTotalClusters.contains(cluster))  {
-                listClusters.add(cluster);
-            }
+            listClusters.add(cluster);
         }
     }
 
@@ -390,6 +388,7 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
         fixInfo = 0;
         countUsed = 0;
         countFixUsed = 0;
+        playedTotalClusters.clear();
         try {
             new UpdateDifferenceGame().update(appContext, username);
             new LoaderDifferenceGameInformation().load(appContext,diffInfo, diffFixInfo);
