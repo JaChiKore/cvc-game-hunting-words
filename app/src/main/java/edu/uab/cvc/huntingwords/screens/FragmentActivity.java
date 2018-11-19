@@ -63,7 +63,6 @@ public class FragmentActivity extends Activity {
 
     @Override
     public void onBackPressed() {
-
         Fragment match = getFragmentManager().findFragmentByTag("how_to_play_match");
         Fragment diff = getFragmentManager().findFragmentByTag("how_to_play_difference");
         if ((match != null && match.isVisible()) || (diff != null && diff.isVisible())) {

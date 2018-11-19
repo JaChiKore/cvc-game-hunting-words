@@ -5,7 +5,7 @@
     <string name="login">Login</string>
     <string name="session">Account</string>
     <string name="ranking">Ranking</string>
-    <string name="signin">signin</string>
+    <string name="signin">Signin</string>
     <string name="username_text">Username</string>
     <string name="password_text">Password</string>
     <string name="return_text">Return</string>
@@ -51,7 +51,6 @@
     <string name="hard">Hard</string>
     <string name="level">Level</string>
     <string name="anonym">Anonymous</string>
-    <string name="title_connect">Parameters</string>
     <string name="preferences_file">hunting_words_prefs</string>
     <string name="language_type">english</string>
     <string name="title_loading_info">loading game information</string>
@@ -63,4 +62,6 @@
     <string name="zero" translatable="false">0</string>
     <string name="default_token" translatable="false">-1</string>
     <string name="no_user">Please, login first.</string>
+    <string name="back">Back</string>
+    <string name="stats">Stats</string>
 </resources>

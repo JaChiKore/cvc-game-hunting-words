@@ -23,13 +23,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:layout_marginEnd="8dp"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/title_match_game"
-                    android:layout_width="150dp"
-                    android:layout_height="20dp"
-                    android:text="@string/match_game" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/match_game"
+                    android:textSize="45sp" />
 
 
                 <ImageView
@@ -41,30 +43,24 @@
 
                 <Button
                     android:id="@+id/match"
-                    android:layout_width="150dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/match_game" />
+                    android:text="@string/match_game"
+                    android:textSize="45sp" />
 
                 <Button
                     android:id="@+id/how_to_play_match"
-                    android:layout_width="150dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/how_to_play" />
+                    android:text="@string/how_to_play"
+                    android:textSize="45sp" />
 
                 <Button
                     android:id="@+id/ranking_match"
-                    android:layout_width="150dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/ranking" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="15dp"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="vertical">
-
+                    android:text="@string/ranking"
+                    android:textSize="45sp" />
 
             </LinearLayout>
 
@@ -72,13 +68,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:layout_marginStart="8dp"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/title_difference_game"
-                    android:layout_width="150dp"
-                    android:layout_height="20dp"
-                    android:text="@string/difference_game" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/difference_game"
+                    android:textSize="45sp" />
 
 
                 <ImageView
@@ -93,19 +91,22 @@
                     android:id="@+id/difference"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/difference_game" />
+                    android:text="@string/difference_game"
+                    android:textSize="45sp" />
 
                 <Button
                     android:id="@+id/how_to_play_difference"
-                    android:layout_width="150dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/how_to_play" />
+                    android:text="@string/how_to_play"
+                    android:textSize="45sp" />
 
                 <Button
                     android:id="@+id/ranking_difference"
-                    android:layout_width="150dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/ranking" />
+                    android:text="@string/ranking"
+                    android:textSize="45sp" />
 
             </LinearLayout>
 

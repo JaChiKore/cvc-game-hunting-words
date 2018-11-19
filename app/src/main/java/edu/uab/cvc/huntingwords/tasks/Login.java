@@ -69,6 +69,7 @@ public class Login extends AsyncTask<String, Void, Boolean> {
                 buffer.append(next);
                 buffer.append("\n");
             }
+            System.out.println(buffer.toString());
             JSONObject jObj = new JSONObject(buffer.toString());
 
             String suc = jObj.getString(SUCCESS);

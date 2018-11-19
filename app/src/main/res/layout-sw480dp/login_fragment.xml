@@ -4,15 +4,8 @@
     android:layout_height="match_parent"
     android:clickable="true">
 
-    <TextView
-        android:id="@+id/title_connect"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/title_connect"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-
     <TableLayout
+        android:id="@+id/user_pass_tl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -25,7 +18,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/username_text"
-                android:textSize="18sp" />
+                android:textSize="24sp" />
 
             <EditText
                 android:id="@+id/edit_username"
@@ -46,7 +39,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/password_text"
-                android:textSize="18sp" />
+                android:textSize="24sp" />
             <!--     android:imeOptions="flagNoExtractUi"  -->
             <EditText
                 android:id="@+id/edit_pasword"
@@ -55,6 +48,27 @@
                 android:ems="10"
                 android:inputType="textPassword"
                 android:textAlignment="viewEnd" />
+        </TableRow>
+
+    </TableLayout>
+
+    <TableLayout
+        android:id="@+id/scores_tl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/text_match_score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/stats"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
         </TableRow>
 
     </TableLayout>
@@ -70,6 +84,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textSize="24sp"
             android:text="@string/login" />
 
         <Button
@@ -77,6 +92,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textSize="24sp"
             android:text="@string/signin" />
 
     </LinearLayout>

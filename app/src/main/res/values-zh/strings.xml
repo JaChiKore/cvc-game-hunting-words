@@ -46,7 +46,6 @@
     <string name="hard">难</string>
     <string name="level">难度</string>
     <string name="anonym">无玩家</string>
-    <string name="title_connect">Parameters</string>
     <string name="title_loading_info">正在加载数据</string>
     <string name="not_enough_images">没有更多可玩的图片了</string>
     <string name="text_match_score">Match 分数:</string>
@@ -58,5 +57,7 @@
     <string name="yes">玩!</string>
     <string name="no">不了</string>
     <string name="no_user">请先登录</string>
+    <string name="back">返回</string>
+    <string name="stats">统计</string>
 
 </resources>

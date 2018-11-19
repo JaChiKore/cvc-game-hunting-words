@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,11 +48,22 @@ public class Connect extends Fragment implements LoginView {
         ButterKnife.bind(this, view);
         presenter = new ConnectPresenterImpl(this);
         view.setBackgroundColor(Utils.GetBackgroundColour(this.getActivity()));
+
+        TableLayout tl = view.findViewById(R.id.user_pass_tl);
+        TableLayout tl2 = view.findViewById(R.id.scores_tl);
+
         Button b = view.findViewById(R.id.connect);
+        Button b2 = view.findViewById(R.id.signin);
         if (key.getToken().equals(getString(R.string.default_token))) {
-            b.setText(R.string.login);
+            tl.setVisibility(View.VISIBLE);
+            tl2.setVisibility(View.GONE);
+            b.setText(getString(R.string.login));
+            b2.setText(getString(R.string.signin));
         } else {
-            b.setText(R.string.logout);
+            tl.setVisibility(View.GONE);
+            tl2.setVisibility(View.VISIBLE);
+            b.setText(getString(R.string.logout));
+            b2.setText(getString(R.string.back));
         }
 
         return view;
@@ -75,6 +87,14 @@ public class Connect extends Fragment implements LoginView {
     }
 
     @OnClick(R.id.signin)
+    public void sigBackAction() {
+        if (key.getToken().equals(getString(R.string.default_token))) {
+            signin();
+        } else {
+            goToInit();
+        }
+    }
+
     public void signin() {
         String user= username.getText().toString();
         String pass= password.getText().toString();

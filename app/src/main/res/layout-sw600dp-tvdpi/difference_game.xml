@@ -26,7 +26,7 @@
                 android:layout_weight="1"
                 android:text="@string/score"
                 android:textAlignment="viewEnd"
-                android:textSize="18sp" />
+                android:textSize="28sp" />
 
             <TextView
                 android:id="@+id/value_points"
@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/zero"
-                android:textSize="18sp" />
+                android:textSize="28sp" />
 
 
             <ImageView
@@ -52,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/zero"
-                android:textSize="18sp" />
+                android:textSize="28sp" />
 
         </LinearLayout>
 
@@ -66,8 +66,9 @@
 
         <ScrollView
             android:id="@+id/scrollid_diff"
-            android:layout_width="400dp"
+            android:layout_width="660dp"
             android:fadeScrollbars="false"
+            android:layout_marginEnd="15dp"
             android:scrollbarThumbVertical="@drawable/scrollbar"
             android:layout_height="match_parent">
 
@@ -93,6 +94,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:textSize="28sp"
                 android:text="@string/all_same" />
 
             <Button
@@ -101,6 +103,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:textSize="28sp"
                 android:text="@string/more_than_one_different" />
         </LinearLayout>
     </RelativeLayout>
