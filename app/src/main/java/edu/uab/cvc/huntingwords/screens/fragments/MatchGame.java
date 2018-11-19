@@ -91,6 +91,15 @@ public class MatchGame  extends Fragment implements MatchView {
         fragActivity =(FragmentActivity)context;
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -314,7 +323,7 @@ public class MatchGame  extends Fragment implements MatchView {
             cancel.execute();
             FragmentManager fm = getFragmentManager();
             FragmentTransaction fragmentTransaction = fm.beginTransaction();
-            fragmentTransaction.replace(R.id.fragment_switch, new Init());
+            fragmentTransaction.replace(R.id.fragment_switch, new Play());
             fragmentTransaction.commit();
         });
         builder.setTitle(getString(R.string.play_again));

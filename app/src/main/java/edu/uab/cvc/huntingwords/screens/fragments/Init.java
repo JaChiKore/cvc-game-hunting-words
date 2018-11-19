@@ -92,7 +92,6 @@ public class Init extends Fragment implements InitView {
         valueDiff.setText(String.valueOf(score));
     }
 
-
     @OnClick(R.id.language)
     public void clickLanguage(){
         FragmentManager fm = getFragmentManager();
@@ -111,7 +110,7 @@ public class Init extends Fragment implements InitView {
 
     @OnClick(R.id.play)
     public void clickPlay(){
-        if (getUsername().equals(getString(R.string.anonym)) || getUsername().equals("test")) {
+        if (getUsername().equals(getString(R.string.anonym))) {
             new LoginAnonymous().execute();
             SharedPreferences preferences = getActivity().getSharedPreferences(
                     getString(R.string.preferences_file), Context.MODE_PRIVATE);
@@ -119,6 +118,8 @@ public class Init extends Fragment implements InitView {
             editor.putString(edu.uab.cvc.huntingwords.Utils.PARAM_USERNAME,"test");
             editor.putString(edu.uab.cvc.huntingwords.Utils.PARAM_TOKEN, Token.getInstance().getToken());
             editor.apply();
+            TextView textView = getActivity().findViewById(R.id.logged_user);
+            textView.setText("test");
             presenter.getScore("test");
         }
         FragmentManager fm = getFragmentManager();
@@ -151,25 +152,42 @@ public class Init extends Fragment implements InitView {
         return preferences.getString(PARAM_TOKEN,"-1");
     }
 
+    public void updateMatchScore() {
+        TextView textView = getActivity().findViewById(R.id.value_match_score);
+        SharedPreferences preferences = getActivity().getSharedPreferences(
+                getString(R.string.preferences_file), Context.MODE_PRIVATE);
+        int matchValue = preferences.getInt(edu.uab.cvc.huntingwords.Utils.CURRENT_SCORE_MATCH,0);
+        ((TextView)getActivity().findViewById(R.id.text_match_score)).setText(getString(R.string.text_match_score));
+        textView.setText(String.valueOf(matchValue));
+    }
+
+    public void updateDiffScore() {
+        TextView textView = getActivity().findViewById(R.id.value_diff_score);
+        SharedPreferences preferences = getActivity().getSharedPreferences(
+                getString(R.string.preferences_file), Context.MODE_PRIVATE);
+        int diffValue = preferences.getInt(edu.uab.cvc.huntingwords.Utils.CURRENT_SCORE_DIFF,0);
+        ((TextView)getActivity().findViewById(R.id.text_diff_score)).setText(getString(R.string.text_diff_score));
+        textView.setText(String.valueOf(diffValue));
+    }
+
     @OnClick(R.id.quit)
     public void clickQuit(){
         System.exit(0);
     }
 
-
     @Override
     public void updateScore(Integer scoreMatch, Integer scoreDiff, Integer matchLevel, Integer diffLevel) {
-                new Thread() {
-                    public void run() {
-                                getActivity().runOnUiThread(
-                                                () -> updatePreferencesScore(scoreMatch, scoreDiff, matchLevel, diffLevel));
-                                    }
+        new Thread() {
+            public void run() {
+                getActivity().runOnUiThread(
+                    () -> updatePreferencesScore(scoreMatch, scoreDiff, matchLevel, diffLevel));
+            }
         }.start();
     }
 
     private void updatePreferencesScore(Integer scoreMatch, Integer scoreDiff, Integer matchLevel, Integer diffLevel) {
         SharedPreferences preferences = getActivity().getSharedPreferences(
-                getString(R.string.preferences_file), Context.MODE_PRIVATE);
+            getActivity().getString(R.string.preferences_file), Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putInt(CURRENT_SCORE_MATCH,scoreMatch);
         editor.putInt(CURRENT_SCORE_DIFF,scoreDiff);

@@ -64,7 +64,6 @@ public class Play extends Fragment implements PlayView{
         }
     }
 
-
     @OnClick(R.id.match)
     public void playMatch () {
         startMatchDialog();

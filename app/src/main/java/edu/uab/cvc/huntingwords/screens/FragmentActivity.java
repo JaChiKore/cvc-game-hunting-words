@@ -76,4 +76,14 @@ public class FragmentActivity extends Activity {
             ft.commit();
         }
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
 }
