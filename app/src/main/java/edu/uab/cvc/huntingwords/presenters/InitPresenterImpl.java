@@ -18,7 +18,7 @@ public class InitPresenterImpl implements InitPresenter {
     }
 
     @Override
-    public void getScore(String name) {
+    public void getScore(String name, Boolean playClicked) {
         ConnectCallback callback = new ConnectCallback() {
             @Override
             public void updateLogin(String username) {}
@@ -29,14 +29,17 @@ public class InitPresenterImpl implements InitPresenter {
             }
 
             @Override
-            public void setUpScores() {
+            public void setUpScores(Boolean playClicked) {
                 view.updateMatchScore();
                 view.updateDiffScore();
+                if (playClicked) {
+                    view.initPlay();
+                }
             }
 
             @Override
             public void error() {}
         };
-        new GetRanking(callback).execute(name);
+        new GetRanking(callback, playClicked).execute(name);
     }
 }

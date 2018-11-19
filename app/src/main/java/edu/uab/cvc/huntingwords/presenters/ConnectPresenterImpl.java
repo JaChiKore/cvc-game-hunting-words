@@ -40,7 +40,7 @@ public class ConnectPresenterImpl implements ConnectPresenter {
             }
 
             @Override
-            public void setUpScores() {
+            public void setUpScores(Boolean playClicked) {
                 view.updateMatchScore();
                 view.updateDiffScore();
             }
@@ -52,7 +52,7 @@ public class ConnectPresenterImpl implements ConnectPresenter {
             }
         };
         new Login(callback).execute(username, password);
-        new GetRanking(callback).execute(username);
+        new GetRanking(callback,false).execute(username);
         view.goToInit();
         return true;
     }
@@ -73,7 +73,7 @@ public class ConnectPresenterImpl implements ConnectPresenter {
             }
 
             @Override
-            public void setUpScores() {
+            public void setUpScores(Boolean playClicked) {
                 view.updateMatchScore();
                 view.updateDiffScore();
             }

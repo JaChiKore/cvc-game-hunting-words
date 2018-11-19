@@ -63,7 +63,7 @@ public class Init extends Fragment implements InitView {
         Token key = Token.getInstance();
         key.setToken(getToken());
         if (!key.getToken().equals(getString(R.string.default_token))) {
-            presenter.getScore(name);
+            presenter.getScore(name,false);
             Answers.getInstance().logLogin(new LoginEvent()
                     .putMethod("Normal login")
                     .putSuccess(true));
@@ -112,6 +112,9 @@ public class Init extends Fragment implements InitView {
     public void clickPlay(){
         if (getUsername().equals(getString(R.string.anonym))) {
             new LoginAnonymous().execute();
+            Answers.getInstance().logLogin(new LoginEvent()
+                    .putMethod("Anonymous login")
+                    .putSuccess(true));
             SharedPreferences preferences = getActivity().getSharedPreferences(
                     getString(R.string.preferences_file), Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = preferences.edit();
@@ -120,8 +123,13 @@ public class Init extends Fragment implements InitView {
             editor.apply();
             TextView textView = getActivity().findViewById(R.id.logged_user);
             textView.setText("test");
-            presenter.getScore("test");
+            presenter.getScore("test", true);
+        } else {
+            initPlay();
         }
+    }
+
+    public void initPlay() {
         FragmentManager fm = getFragmentManager();
         FragmentTransaction fragmentTransaction = fm.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_switch, new Play());

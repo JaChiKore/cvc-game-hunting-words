@@ -9,7 +9,7 @@ public interface ConnectCallback {
 
     void updateScore(Integer matchScore, Integer diffScore, Integer matchLevel, Integer diffLevel);
 
-    void setUpScores();
+    void setUpScores(Boolean playClicked);
 
     void error();
 }

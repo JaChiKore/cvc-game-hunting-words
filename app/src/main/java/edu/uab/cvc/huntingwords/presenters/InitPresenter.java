@@ -5,5 +5,5 @@ package edu.uab.cvc.huntingwords.presenters;
  */
 
 public interface InitPresenter {
-    void getScore(String name);
+    void getScore(String name, Boolean playClicked);
 }

@@ -25,8 +25,10 @@ public class GetRanking extends AsyncTask<String, Void, String[]> {
 
 
     private final ConnectCallback onResult;
-    public GetRanking(ConnectCallback onResult) {
+    private final Boolean playClicked;
+    public GetRanking(ConnectCallback onResult, Boolean playClicked) {
         this.onResult = onResult;
+        this.playClicked = playClicked;
     }
 
 
@@ -79,7 +81,7 @@ public class GetRanking extends AsyncTask<String, Void, String[]> {
 
     @Override
     protected void onPostExecute(String[] a) {
-        onResult.setUpScores();
+        onResult.setUpScores(playClicked);
     }
 
 
