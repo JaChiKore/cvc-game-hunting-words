@@ -118,7 +118,7 @@ public class DifferenceGame extends Fragment implements DifferenceView {
 
     @Override
     public void newRoundPlay(List<String> filePaths) {
-        float scaledWidth = 300f;
+        float scaledWidth = Utils.imageScale;
         ((TextView)(this.getActivity().findViewById(R.id.value_diff_score))).setText(String.valueOf(getPreferencesScore()));
         table.removeAllViews();
         for (int i=0; i<filePaths.size(); i++) {

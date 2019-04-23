@@ -65,10 +65,10 @@
 
         <ScrollView
             android:id="@+id/scrollid"
-            android:layout_width="380dp"
+            android:layout_width="230dp"
             android:fadeScrollbars="false"
             android:scrollbarThumbVertical="@drawable/scrollbar"
-            android:layout_marginEnd="10dp"
+            android:layout_marginEnd="5dp"
             android:layout_height="wrap_content">
 
             <LinearLayout
@@ -85,8 +85,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_toEndOf="@id/scrollid"
-            android:textSize="18sp"
-             />
+            android:minHeight="42dip"
+            android:textSize="15sp" />
 
 
         <Button
@@ -95,7 +95,8 @@
             android:layout_height="wrap_content"
             android:layout_toEndOf="@id/scrollid"
             android:layout_below="@id/match_but_0"
-            android:textSize="18sp"
+            android:minHeight="42dip"
+            android:textSize="15sp"
             />
 
         <Button
@@ -104,7 +105,8 @@
             android:layout_height="wrap_content"
             android:layout_toEndOf="@id/scrollid"
             android:layout_below="@id/match_but_1"
-            android:textSize="18sp"
+            android:minHeight="42dip"
+            android:textSize="15sp"
  />
 
         <Button
@@ -113,7 +115,8 @@
             android:layout_height="wrap_content"
             android:layout_toEndOf="@id/scrollid"
             android:layout_below="@id/match_but_2"
-            android:textSize="18sp"
+            android:minHeight="42dip"
+            android:textSize="15sp"
              />
 
         <Button
@@ -122,7 +125,8 @@
             android:layout_height="wrap_content"
             android:layout_toEndOf="@id/scrollid"
             android:layout_below="@id/match_but_3"
-            android:textSize="18sp"
+            android:minHeight="42dip"
+            android:textSize="15sp"
             android:text="@string/none_of_these" />
 
 

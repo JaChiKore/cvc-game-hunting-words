@@ -65,9 +65,9 @@
 
         <ScrollView
             android:id="@+id/scrollid_diff"
-            android:layout_width="870dp"
+            android:layout_width="600dp"
             android:fadeScrollbars="false"
-            android:layout_marginEnd="20dp"
+            android:layout_marginEnd="10dp"
             android:scrollbarThumbVertical="@drawable/scrollbar"
             android:layout_height="match_parent">
 

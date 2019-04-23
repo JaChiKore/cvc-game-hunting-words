@@ -65,10 +65,10 @@
 
         <ScrollView
             android:id="@+id/scrollid_diff"
-            android:layout_width="380dp"
+            android:layout_width="230dp"
             android:fadeScrollbars="false"
             android:scrollbarThumbVertical="@drawable/scrollbar"
-            android:layout_marginEnd="10dp"
+            android:layout_marginEnd="5dp"
             android:layout_height="match_parent">
 
             <LinearLayout
@@ -92,7 +92,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:text="@string/all_same" />
 
             <Button
@@ -100,7 +100,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:gravity="center"
                 android:text="@string/more_than_one_different" />
         </LinearLayout>

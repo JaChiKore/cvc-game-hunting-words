@@ -10,8 +10,8 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.crashlytics.android.answers.Answers;
 import com.crashlytics.android.answers.LoginEvent;
@@ -19,12 +19,12 @@ import com.crashlytics.android.answers.LoginEvent;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import edu.uab.cvc.huntingwords.R;
-import edu.uab.cvc.huntingwords.presenters.ConnectPresenterImpl;
 import edu.uab.cvc.huntingwords.presenters.InitPresenterImpl;
 import edu.uab.cvc.huntingwords.presenters.utils.Token;
 import edu.uab.cvc.huntingwords.screens.Utils;
 import edu.uab.cvc.huntingwords.screens.views.InitView;
 import edu.uab.cvc.huntingwords.tasks.LoginAnonymous;
+import okhttp3.internal.Util;
 
 import static edu.uab.cvc.huntingwords.Utils.CURRENT_LEVEL_DIFFERENCE;
 import static edu.uab.cvc.huntingwords.Utils.CURRENT_LEVEL_MATCH;
@@ -110,6 +110,30 @@ public class Init extends Fragment implements InitView {
 
     @OnClick(R.id.play)
     public void clickPlay(){
+        TextView t = getActivity().findViewById(R.id.screenScale);
+        switch (t.getText().toString()) {
+            case "default":
+                Utils.imageScale = 450f;break;
+            case "sw300dp":
+                Utils.imageScale = 155f;break;
+            case "sw330dp":
+                Utils.imageScale = 450f;break;
+            case "sw480dp":
+                Utils.imageScale = 450f;break;
+            case "sw600dp":
+                Utils.imageScale = 450f;break;
+            case "sw600dp-tv":
+                Utils.imageScale = 500f;break;
+            case "sw720dp":
+                Utils.imageScale = 550f;break;
+            case "sw720dp-md":
+                Utils.imageScale = 600f;break;
+            case "sw720dp-xh":
+                Utils.imageScale = 650f;break;
+            default:
+                Utils.imageScale = 450f;break;
+        }
+
         if (getUsername().equals(getString(R.string.anonym))) {
             new LoginAnonymous().execute();
             Answers.getInstance().logLogin(new LoginEvent()

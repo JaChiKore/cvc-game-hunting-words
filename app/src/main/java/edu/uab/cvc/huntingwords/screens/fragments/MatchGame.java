@@ -22,6 +22,7 @@ import android.view.ViewManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -68,6 +69,7 @@ public class MatchGame  extends Fragment implements MatchView {
     @BindView(R.id.view_match_container_images)
     public LinearLayout table;
 
+    private ScrollView scrollView;
 
     private Sounds sounds;
     private int currentSound;
@@ -107,6 +109,8 @@ public class MatchGame  extends Fragment implements MatchView {
         ButterKnife.bind(this, view);
         view.setBackgroundColor(Utils.GetBackgroundColour(this.getActivity()));
 
+        scrollView = getActivity().findViewById(R.id.scrollid);
+
         TypedValue typedValue = new TypedValue();
         Resources.Theme theme = getActivity().getTheme();
         theme.resolveAttribute(R.attr.colorPrimary, typedValue, true);
@@ -128,14 +132,13 @@ public class MatchGame  extends Fragment implements MatchView {
 
     @Override
     public void newRoundPlay(List<String> filePaths, List<String> buttons) {
-        float scaledWidth = 300f;
+        float scaledWidth = Utils.imageScale;
         ((TextView)(this.getActivity().findViewById(R.id.value_match_score))).setText(String.valueOf(getPreferencesScore()));
 
         if (buttons.size() !=idButtons.length) {
             Timber.i("It doesn't have buttons");
             return;
         }
-
 
         table.removeAllViews();
         for (int i = 0; i< filePaths.size(); i++) {

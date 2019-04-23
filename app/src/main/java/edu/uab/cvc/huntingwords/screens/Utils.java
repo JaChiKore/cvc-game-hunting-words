@@ -9,6 +9,8 @@ import android.util.TypedValue;
 
 public class Utils {
 
+    public static float imageScale;
+
     public static int GetBackgroundColour(Context context) {
         TypedValue a = new TypedValue();
         context.getTheme().resolveAttribute(android.R.attr.windowBackground, a, true);
