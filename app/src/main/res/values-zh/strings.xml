@@ -59,5 +59,6 @@
     <string name="no_user">请先登录</string>
     <string name="back">返回</string>
     <string name="stats">统计</string>
+    <string name="jump_game">文字跳跃</string>
 
 </resources>

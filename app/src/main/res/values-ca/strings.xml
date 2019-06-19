@@ -59,5 +59,6 @@
     <string name="no_user">Si us plau, iniciï sessió.</string>
     <string name="back">Enrere</string>
     <string name="stats">Estadístiques</string>
+    <string name="jump_game">Salta-paraules</string>
 
 </resources>

@@ -59,5 +59,6 @@
     <string name="no_user">Please, login first.</string>
     <string name="back">Back</string>
     <string name="stats">Stats</string>
+    <string name="jump_game">Jump Words</string>
 
 </resources>
