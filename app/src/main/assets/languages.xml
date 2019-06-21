@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<languages>
+	<!-- English -->
+	<language name="en_UK" >
+		<string key="Cargando..." value="Loading..." />
+		
+		<!--  Menu  -->
+		<string key="Jugar" value="Play" />
+		<string key="Ayuda" value="How to play" />
+		<string key="Iniciarsesion" value="Login" />
+		<string key="Idioma" value="Language" />
+		<string key="Salir" value="Exit" />
+
+
+		<!--  Login  -->
+		<string key="Nuevo usuario" value="New user" />
+		<string key="IniciarS" value="Login" />
+		<string key="Usuario" value="User" />
+		<string key="Contraseña" value="Password" />
+
+		<!--  Game  -->
+		<string key="Vidas" value="Lives:" />
+		<string key="Puntuacion" value="Score:" />
+		<string key="Nivel" value="Level:" />
+
+		<!--  GameOver  -->
+		<string key="irMenu" value="Touch the screen to return to the main menu" />
+
+		<!--  Pausa  -->
+		<string key="Continuar" value="Continue" />
+		<string key="MenuP" value="Main menu" />
+	</language>
+	
+	<!-- Spanish -->
+	<language name="es_ES" >
+		<string key="Cargando..." value="Cargando..." />
+
+		<!--  Menu  -->
+		<string key="Jugar" value="Jugar" />
+		<string key="Ayuda" value="Como jugar" />
+		<string key="Iniciar Sesion" value="Iniciar Sesion" />
+		<string key="Idioma" value="Idioma" />
+		<string key="Salir" value="Salir" />
+
+
+		<!--  Login  -->
+		<string key="Nuevo usuario" value="Nuevo usuario" />
+		<string key="IniciarS" value="Iniciar Sesion" />
+		<string key="Usuario" value="Usuario" />
+		<string key="Contraseña" value="Contrasena" />
+
+		<!--  Game  -->
+		<string key="Vidas" value="Vidas:" />
+		<string key="Puntuacion" value="Puntos:" />
+		<string key="Nivel" value="Nivel:" />
+
+		<!--  GameOver  -->
+		<string key="irMenu" value="Toca la pantalla para volver al menu principal" />
+
+		<!--  Pausa  -->
+		<string key="Continuar" value="Continuar" />
+		<string key="MenuP" value="Menu principal" />
+	</language>
+
+	<!-- Catalan -->
+	<language name="es_CA" >
+		<string key="Cargando..." value="Carregant..." />
+
+		<!--  Menu  -->
+		<string key="Jugar" value="Jugar" />
+		<string key="Ayuda" value="Com jugar" />
+		<string key="Iniciar Sesion" value="Iniciar Sessio" />
+		<string key="Idioma" value="Idioma" />
+		<string key="Salir" value="Sortir" />
+
+		<!--  Login  -->
+		<string key="Nuevo usuario" value="Nou usuari" />
+		<string key="IniciarS" value="Iniciar Sessio" />
+		<string key="Usuario" value="Usuari" />
+		<string key="Contraseña" value="Contrasenya" />
+
+		<!--  Game  -->
+		<string key="Vidas" value="Vides:" />
+		<string key="Puntuacion" value="Punts:" />
+		<string key="Nivel" value="Nivell:" />
+
+		<!--  GameOver  -->
+		<string key="irMenu" value="Toca la pantalla per tornar al menu principal" />
+
+		<!--  Pausa  -->
+		<string key="Continuar" value="Continuar" />
+		<string key="MenuP" value="Menu principal" />
+	</language>
+
+	<!-- Alemán -->
+	<language name="es_DE" >
+		<string key="Cargando..." value="Laden..." />
+
+		<!--  Menu  -->
+		<string key="Jugar" value="Zu spielen" />
+		<string key="Ayuda" value="Wie zu spielen" />
+		<string key="Iniciar Sesion" value="Einloggen" />
+		<string key="Salir" value="Beenden" />
+
+		<!--  Login  -->
+		<string key="Nuevo usuario" value="Neuer Benutzer" />
+		<string key="IniciarS" value="Einloggen" />
+		<string key="Usuario" value="Benutzer" />
+		<string key="Contraseña" value="Passwort" />
+
+		<!--  Game  -->
+		<string key="Vidas" value="Lebt:" />
+		<string key="Puntuacion" value="Punkte:" />
+		<string key="Nivel" value="Ebene:" />
+
+		<!--  GameOver  -->
+		<string key="irMenu" value="Berühren Sie den Bildschirm, um zum Hauptmenü zurückzukehren" />
+
+		<!--  Pausa  -->
+		<string key="Continuar" value="Fortfahren" />
+		<string key="MenuP" value="Hauptmenü" />
+	</language>
+
+	<!-- Francés -->
+	<language name="es_FR" >
+		<string key="Cargando..." value="Chargement..." />
+
+		<!--  Menu  -->
+		<string key="Jugar" value="Jouer" />
+		<string key="Ayuda" value="Comment jouer" />
+		<string key="Iniciar Sesion" value="Commencer la session" />
+		<string key="Salir" value="Sortir" />
+
+		<!--  Login  -->
+		<string key="Nuevo usuario" value="Nouvel utilisateur" />
+		<string key="IniciarS" value="Commencer la session" />
+		<string key="Usuario" value="Utilisateur" />
+		<string key="Contraseña" value="Mot de passe" />
+
+		<!--  Game  -->
+		<string key="Vidas" value="Des vies:" />
+		<string key="Puntuacion" value="Points:" />
+		<string key="Nivel" value="Niveau:" />
+
+		<!--  GameOver  -->
+		<string key="irMenu" value="Touchez l'écran pour revenir au menu principal" />
+
+		<!--  Pausa  -->
+		<string key="Continuar" value="Continuer" />
+		<string key="MenuP" value="Menu principal" />
+	</language>
+
+	<!-- Chinese simplified -->
+	<language name="zh_CN" >
+		<string key="Cargando..." value="加载中..." />
+
+		<!--  Menu  -->
+		<string key="Jugar" value="开始" />
+		<string key="Ayuda" value="教学" />
+		<string key="Iniciar Sesion" value="登录" />
+		<string key="Salir" value="退出" />
+
+		<!--  Login  -->
+		<string key="Nuevo usuario" value="注册" />
+		<string key="IniciarS" value="登录" />
+		<string key="Usuario" value="用户名" />
+		<string key="Contraseña" value="密码" />
+
+		<!--  Game  -->
+		<string key="Vidas" value="生命值:" />
+		<string key="Puntuacion" value="分数:" />
+		<string key="Nivel" value="难度:" />
+
+		<!--  GameOver  -->
+		<string key="irMenu" value="触碰屏幕可返回主菜单" />
+
+		<!--  Pausa  -->
+		<string key="Continuar" value="继续" />
+		<string key="MenuP" value="主菜单" />
+	</language>
+
+	<!-- Chinese traditional -->
+	<language name="zh_TW" >
+		<string key="Cargando..." value="加載中..." />
+
+		<!--  Menu  -->
+		<string key="Jugar" value="開始" />
+		<string key="Ayuda" value="教學" />
+		<string key="Iniciar Sesion" value="登錄" />
+		<string key="Salir" value="退出" />
+
+		<!--  Login  -->
+		<string key="Nuevo usuario" value="註冊" />
+		<string key="IniciarS" value="登錄" />
+		<string key="Usuario" value="用戶名" />
+		<string key="Contraseña" value="密碼" />
+
+		<!--  Game  -->
+		<string key="Vidas" value="生命值:" />
+		<string key="Puntuacion" value="分數:" />
+		<string key="Nivel" value="難度:" />
+
+		<!--  GameOver  -->
+		<string key="irMenu" value="觸碰屏幕可返回主菜單" />
+
+		<!--  Pausa  -->
+		<string key="Continuar" value="繼續" />
+		<string key="MenuP" value="主菜單" />
+	</language>
+</languages>
