@@ -14,6 +14,8 @@ public interface PlayPresenter {
 
     void runDifferenceGame();
 
+    void runJumpGame();
+
     void updateMatchRanking();
 
     void updateDifferenceRanking();

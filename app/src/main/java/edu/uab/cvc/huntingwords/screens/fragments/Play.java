@@ -7,6 +7,7 @@ import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -29,6 +30,7 @@ import java.util.List;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import edu.uab.cvc.huntingwords.R;
+import edu.uab.cvc.huntingwords.application.JumpGameLauncher;
 import edu.uab.cvc.huntingwords.presenters.PlayPresenter;
 import edu.uab.cvc.huntingwords.presenters.PlayPresenterImpl;
 import edu.uab.cvc.huntingwords.presenters.utils.Token;
@@ -42,7 +44,7 @@ import static edu.uab.cvc.huntingwords.Utils.PARAM_TOKEN;
  * Created by carlosb on 05/04/18.
  */
 
-public class Play extends Fragment implements PlayView{
+public class Play extends Fragment implements PlayView {
 
     private PlayPresenter presenter;
 
@@ -65,15 +67,13 @@ public class Play extends Fragment implements PlayView{
     }
 
     @OnClick(R.id.match)
-    public void playMatch () {
-        startMatchDialog();
-    }
+    public void playMatch () {startMatchDialog();}
 
     @OnClick(R.id.difference)
-    public void playDifference () {
-        startDifferenceDialog();
+    public void playDifference () {startDifferenceDialog();}
 
-    }
+    @OnClick(R.id.jump)
+    public void playJump() {startJumpDialog();}
 
     @OnClick(R.id.ranking_match)
     public void rankingMatch () {
@@ -85,6 +85,8 @@ public class Play extends Fragment implements PlayView{
         presenter.updateDifferenceRanking();
     }
 
+    @OnClick(R.id.ranking_jump)
+    public void rankingJump() {}
 
     @OnClick(R.id.how_to_play_match)
     public void helpMatch () {
@@ -105,39 +107,52 @@ public class Play extends Fragment implements PlayView{
         ft.commit();
     }
 
-        public void countDownProgressToStartFragment(Fragment fragment) {
-            final ProgressDialog progress = new ProgressDialog(this.getActivity());
-            progress.setCancelable(false);
-            progress.setIndeterminate(true);
+    @OnClick(R.id.how_to_play_jump)
+    public void helpJump() {
+        Fragment myFragment;
+        myFragment = new HelpJump();
 
-            new CountDownTimer(5000, 1000) {
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.replace(R.id.fragment_switch, myFragment, "how_to_play_jump");
+        ft.commit();
+    }
 
-                public void onTick(long millisUntilFinished) {
-                    long seconds = millisUntilFinished / 1000;
-                    String countdown = String.format("%02d", seconds % 60) + " " + getString(R.string.initializing_game);
-                    SpannableString ss2=  new SpannableString(countdown);
-                    ss2.setSpan(new RelativeSizeSpan(2f), 0, ss2.length(), 0);
-                    ss2.setSpan(new ForegroundColorSpan(Color.RED), 0, ss2.length(), 0);
-                    progress.setMessage(ss2);
+    public void countDownProgressToStartFragment(Fragment fragment) {
+        final ProgressDialog progress = new ProgressDialog(this.getActivity());
+        progress.setCancelable(false);
+        progress.setIndeterminate(true);
 
-                }
+        new CountDownTimer(5000, 1000) {
 
-                public void onFinish() {
-                    progress.dismiss();
-                    FragmentManager fm = getFragmentManager();
-                    FragmentTransaction fragmentTransaction = fm.beginTransaction();
-                    fragmentTransaction.replace(R.id.fragment_switch, fragment);
-                    fragmentTransaction.commit();
+            public void onTick(long millisUntilFinished) {
+                long seconds = millisUntilFinished / 1000;
+                String countdown = String.format("%02d", seconds % 60) + " " + getString(R.string.initializing_game);
+                SpannableString ss2=  new SpannableString(countdown);
+                ss2.setSpan(new RelativeSizeSpan(2f), 0, ss2.length(), 0);
+                ss2.setSpan(new ForegroundColorSpan(Color.RED), 0, ss2.length(), 0);
+                progress.setMessage(ss2);
 
-                }
-            }.start();
+            }
 
-            progress.show();
-            Window window = progress.getWindow();
-            window.setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
+            public void onFinish() {
+                progress.dismiss();
+                FragmentManager fm = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fm.beginTransaction();
+                fragmentTransaction.replace(R.id.fragment_switch, fragment);
+                fragmentTransaction.commit();
 
-        }
+            }
+        }.start();
 
+        progress.show();
+        Window window = progress.getWindow();
+        window.setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
+    }
+
+    public void countDownProgressToStartJumpGame() {
+        Intent i = new Intent(getActivity(), JumpGameLauncher.class);
+        startActivityForResult(i,0);
+    }
 
     private void startMatchDialog() {
         ProgressDialog pd = ProgressDialog.show(getActivity(),getString(R.string.title_loading_info),getString(R.string.downloading_text));
@@ -166,6 +181,19 @@ public class Play extends Fragment implements PlayView{
 
     }
 
+    private void startJumpDialog()
+    {
+
+        //ProgressDialog pd = ProgressDialog.show(getActivity(),getString(R.string.title_loading_info),getString(R.string.downloading_text));
+        //pd.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        //pd.show();
+        //start a new thread to process job
+        new Thread(() ->  {
+            presenter.runJumpGame();
+        }).start();
+
+    }
+
     private String getUsername() {
         SharedPreferences preferences = getActivity().getSharedPreferences(
                 getString(R.string.preferences_file), Context.MODE_PRIVATE);
@@ -181,6 +209,11 @@ public class Play extends Fragment implements PlayView{
     @Override
     public void runDifferenceGame() {
         this.getActivity().runOnUiThread(() -> countDownProgressToStartFragment(DifferenceGame.newInstance()));
+    }
+
+    @Override
+    public void runJumpGame() {
+        this.getActivity().runOnUiThread(() -> countDownProgressToStartJumpGame());
     }
 
     @Override

@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -22,17 +23,17 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_marginEnd="5dp"
                 android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/title_match_game"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:text="@string/match_game" />
+                    android:text="@string/match_game"
+                    android:textSize="20sp" />
 
 
                 <ImageView
@@ -46,38 +47,39 @@
                     android:id="@+id/match"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:text="@string/match_game" />
+                    android:text="@string/match_game"
+                    android:textSize="20sp" />
 
                 <Button
                     android:id="@+id/how_to_play_match"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:text="@string/how_to_play" />
+                    android:text="@string/how_to_play"
+                    android:textSize="20sp" />
 
                 <Button
                     android:id="@+id/ranking_match"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:text="@string/ranking" />
+                    android:text="@string/ranking"
+                    android:textSize="20sp" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/title_difference_game"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:text="@string/difference_game" />
+                    android:text="@string/difference_game"
+                    android:textSize="20sp" />
 
 
                 <ImageView
@@ -92,30 +94,30 @@
                     android:id="@+id/difference"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:text="@string/difference_game" />
+                    android:text="@string/difference_game"
+                    android:textSize="20sp" />
 
                 <Button
                     android:id="@+id/how_to_play_difference"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:text="@string/how_to_play" />
+                    android:text="@string/how_to_play"
+                    android:textSize="20sp" />
 
                 <Button
                     android:id="@+id/ranking_difference"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:text="@string/ranking" />
+                    android:text="@string/ranking"
+                    android:textSize="20sp" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:layout_marginStart="5dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <TextView
@@ -127,8 +129,8 @@
 
                 <ImageView
                     android:id="@+id/image_jump"
-                    android:layout_width="120dp"
-                    android:layout_height="80dp"
+                    android:layout_width="160dp"
+                    android:layout_height="120dp"
                     android:contentDescription="TODO"
                     android:src="@drawable/jump" />
 

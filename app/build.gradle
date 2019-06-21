@@ -1,18 +1,42 @@
 buildscript {
     repositories {
         maven { url 'https://maven.fabric.io/public' }
+        google()
     }
 
     dependencies {
-        classpath 'io.fabric.tools:gradle:1.26.1'
+        classpath 'io.fabric.tools:gradle:1.28.0'
     }
 }
 
+apply plugin: "eclipse"
+apply plugin: "idea"
+apply plugin: "maven"
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
 
 repositories {
+    mavenCentral()
+    mavenLocal()
+    maven { url 'https://github.com/steffenschaefer/gwt-gradle-plugin/raw/maven-repo/' }
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+    maven { url "https://oss.sonatype.org/content/repositories/releases/" }
     maven { url 'https://maven.fabric.io/public' }
+}
+
+allprojects {
+    apply plugin: "eclipse"
+    apply plugin: "idea"
+
+    version = '1.0'
+    ext {
+        appName = 'Hunting Words'
+        gdxVersion = '1.9.8'
+        box2DLightsVersion = '1.4'
+        roboVMVersion = '2.3.3'
+        ashleyVersion = '1.7.0'
+        aiVersion = '1.8.0'
+    }
 }
 
 android {
@@ -33,10 +57,16 @@ android {
         }
     }
     compileOptions {
-        targetCompatibility JavaVersion.VERSION_1_8
-        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility '1.8'
+        sourceCompatibility '1.8'
     }
 
+    sourceSets {
+        main {
+            assets.srcDirs = ['src/main/assets', 'src/main/assets/']
+            jniLibs.srcDirs = ['libs']
+        }
+    }
 }
 
 dependencies {
@@ -78,10 +108,111 @@ dependencies {
     api 'com.android.support:cardview-v7:28.0.0'
     api 'com.android.support:design:28.0.0'
     api 'com.android.support:appcompat-v7:28.0.0'
-    api 'com.android.support.constraint:constraint-layout:2.0.0-beta1'
+    api 'com.android.support.constraint:constraint-layout:2.0.0-beta2'
     testImplementation 'junit:junit:4.12'
 
     api('com.crashlytics.sdk.android:crashlytics:2.10.1@aar') {
         transitive = true
+    }
+}
+
+project(":app") {
+    //Uses the android gradle plugin (provides compiling, copying on device, etc.)
+    apply plugin: "android"
+
+    configurations { natives }
+
+    //Defines dependencies for the :android project
+    dependencies {
+        //Adds dependencies on the :core project as well as the android backends and all platform natives.
+        //Note the 'natives' classifier in this project.
+        implementation "com.badlogicgames.gdx:gdx:$gdxVersion"
+        implementation "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
+        implementation "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
+        implementation "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
+        natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi"
+        natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi-v7a"
+        natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-arm64-v8a"
+        natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-x86"
+        natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-x86_64"
+        natives "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-armeabi"
+        natives "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-armeabi-v7a"
+        natives "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-arm64-v8a"
+        natives "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-x86"
+        natives "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-x86_64"
+        natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-armeabi"
+        natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-armeabi-v7a"
+        natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-arm64-v8a"
+        natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-x86"
+        natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-x86_64"
+    }
+}
+
+
+task copyAndroidNatives() {
+    file("libs/armeabi/").mkdirs();
+    file("libs/armeabi-v7a/").mkdirs();
+    file("libs/arm64-v8a/").mkdirs();
+    file("libs/x86_64/").mkdirs();
+    file("libs/x86/").mkdirs();
+
+    configurations.natives.files.each { jar ->
+        def outputDir = null
+        if(jar.name.endsWith("natives-arm64-v8a.jar")) outputDir = file("libs/arm64-v8a")
+        if(jar.name.endsWith("natives-armeabi-v7a.jar")) outputDir = file("libs/armeabi-v7a")
+        if(jar.name.endsWith("natives-armeabi.jar")) outputDir = file("libs/armeabi")
+        if(jar.name.endsWith("natives-x86_64.jar")) outputDir = file("libs/x86_64")
+        if(jar.name.endsWith("natives-x86.jar")) outputDir = file("libs/x86")
+        if(outputDir != null) {
+            copy {
+                from zipTree(jar)
+                into outputDir
+                include "*.so"
+            }
+        }
+    }
+}
+
+task run(type: Exec) {
+    def path
+    def localProperties = project.file("../local.properties")
+    if (localProperties.exists()) {
+        Properties properties = new Properties()
+        localProperties.withInputStream { instr ->
+            properties.load(instr)
+        }
+        def sdkDir = properties.getProperty('sdk.dir')
+        if (sdkDir) {
+            path = sdkDir
+        } else {
+            path = "$System.env.ANDROID_HOME"
+        }
+    } else {
+        path = "$System.env.ANDROID_HOME"
+    }
+
+    def adb = path + "/platform-tools/adb"
+    commandLine "$adb", 'shell', 'am', 'start', '-n', 'com.jumpdontdie/com.jumpdontdie.AndroidLauncher'
+}
+// sets up the Android Idea project, using the old Ant based build.
+idea {
+    module {
+        sourceDirs += file("src");
+        scopes = [ COMPILE: [plus:[project.configurations.compile]]]
+
+        iml {
+            withXml {
+                def node = it.asNode()
+                def builder = NodeBuilder.newInstance();
+                builder.current = node;
+                builder.component(name: "FacetManager") {
+                    facet(type: "android", name: "Android") {
+                        configuration {
+                            option(name: "UPDATE_PROPERTY_FILES", value:"true")
+                        }
+                    }
+                }
+            }
+        }
     }
 }

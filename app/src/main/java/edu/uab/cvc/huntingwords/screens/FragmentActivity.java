@@ -65,7 +65,8 @@ public class FragmentActivity extends Activity {
     public void onBackPressed() {
         Fragment match = getFragmentManager().findFragmentByTag("how_to_play_match");
         Fragment diff = getFragmentManager().findFragmentByTag("how_to_play_difference");
-        if ((match != null && match.isVisible()) || (diff != null && diff.isVisible())) {
+        Fragment jump = getFragmentManager().findFragmentByTag("how_to_play_jump");
+        if ((match != null && match.isVisible()) || (diff != null && diff.isVisible()) || (jump != null && jump.isVisible())) {
             FragmentTransaction ft = getFragmentManager().beginTransaction();
             ft.replace(R.id.fragment_switch, new Play(), "play");
             ft.commit();

@@ -90,6 +90,11 @@ public class PlayPresenterImpl implements PlayPresenter {
     }
 
     @Override
+    public void runJumpGame() {
+        this.view.runJumpGame();
+    }
+
+    @Override
     public void updateMatchRanking() {
         TotalRankingCallback callback = (ranking)-> view.totalRanking(ranking);
         new GetTotalRanking(callback).execute(MATCH);

@@ -23,6 +23,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".application.JumpGameLauncher" android:screenOrientation="landscape">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
           <meta-data
             android:name="io.fabric.ApiKey"
             android:value="555b1012912a56f9b5aaf1295fc426d91e04cf31" />

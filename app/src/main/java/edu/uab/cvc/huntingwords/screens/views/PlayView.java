@@ -11,6 +11,7 @@ import java.util.List;
 public interface PlayView {
     void runMatchGame();
     void runDifferenceGame();
+    void runJumpGame();
     void totalRanking(List<Pair<String, String>> scoreList);
     void updateToken();
 }
