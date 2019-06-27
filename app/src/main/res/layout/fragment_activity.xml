@@ -1,5 +1,4 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -14,6 +13,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/anonym"
+            android:layout_weight="0.2"
+            android:textAlignment="center"
             android:textSize="18sp"
             android:textStyle="italic" />
 
@@ -21,9 +22,9 @@
             android:id="@+id/text_match_score"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/text_match_score"
+            android:layout_weight="0.2"
             android:textAlignment="center"
+            android:text="@string/text_match_score"
             android:textSize="14sp"
             android:textStyle="italic" />
 
@@ -31,8 +32,8 @@
             android:id="@+id/value_match_score"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textAlignment="textStart"
+            android:layout_weight="0.2"
+            android:textAlignment="center"
             android:textSize="14sp"
             android:textStyle="italic" />
 
@@ -40,7 +41,8 @@
             android:id="@+id/text_diff_score"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="0.2"
+            android:textAlignment="center"
             android:text="@string/text_diff_score"
             android:textSize="14sp"
             android:textStyle="italic" />
@@ -49,13 +51,31 @@
             android:id="@+id/value_diff_score"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="0.2"
+            android:textAlignment="center"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/text_jump_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:textAlignment="center"
+            android:text="@string/text_jump_score"
+            android:textSize="14sp"
+            android:textStyle="italic" />
+
+        <TextView
+            android:id="@+id/value_jump_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:textAlignment="center"
             android:textSize="14sp" />
 
     </LinearLayout>
-    <fragment
+    <FrameLayout
         android:id="@+id/fragment_switch"
-        class="edu.uab.cvc.huntingwords.screens.fragments.Init"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="5dp"

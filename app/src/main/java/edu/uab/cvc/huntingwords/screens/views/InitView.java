@@ -5,8 +5,9 @@ package edu.uab.cvc.huntingwords.screens.views;
  */
 
 public interface InitView {
-    void updateScore(Integer matchScore, Integer diffScore, Integer matchLevel, Integer diffLevel);
+    void updateScore(Integer matchScore, Integer diffScore, Integer jumpScore, Integer matchLevel, Integer diffLevel, Integer jumpLevel);
     void updateMatchScore();
     void updateDiffScore();
+    void updateJumpScore();
     void initPlay();
 }

@@ -19,4 +19,6 @@ public interface PlayPresenter {
     void updateMatchRanking();
 
     void updateDifferenceRanking();
+
+    void updateJumpRanking();
 }

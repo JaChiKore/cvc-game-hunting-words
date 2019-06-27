@@ -1,6 +1,5 @@
 package edu.uab.cvc.huntingwords.presenters;
 
-import edu.uab.cvc.huntingwords.R;
 import edu.uab.cvc.huntingwords.presenters.callbacks.ConnectCallback;
 import edu.uab.cvc.huntingwords.screens.views.InitView;
 import edu.uab.cvc.huntingwords.tasks.GetRanking;
@@ -24,14 +23,15 @@ public class InitPresenterImpl implements InitPresenter {
             public void updateLogin(String username) {}
 
             @Override
-            public void updateScore(Integer matchScore, Integer diffScore, Integer matchLevel, Integer diffLevel) {
-                view.updateScore(matchScore,diffScore, matchLevel, diffLevel);
+            public void updateScore(Integer matchScore, Integer diffScore, Integer jumpScore, Integer matchLevel, Integer diffLevel, Integer jumpLevel) {
+                view.updateScore(matchScore,diffScore, jumpScore, matchLevel, diffLevel, jumpLevel);
             }
 
             @Override
             public void setUpScores(Boolean playClicked) {
                 view.updateMatchScore();
                 view.updateDiffScore();
+                view.updateJumpScore();
                 if (playClicked) {
                     view.initPlay();
                 }

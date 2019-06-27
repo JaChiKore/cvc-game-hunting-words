@@ -7,7 +7,7 @@ package edu.uab.cvc.huntingwords.presenters.callbacks;
 public interface ConnectCallback {
     void updateLogin(String username);
 
-    void updateScore(Integer matchScore, Integer diffScore, Integer matchLevel, Integer diffLevel);
+    void updateScore(Integer matchScore, Integer diffScore, Integer jumpScore, Integer matchLevel, Integer diffLevel, Integer jumpLevel);
 
     void setUpScores(Boolean playClicked);
 

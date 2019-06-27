@@ -17,7 +17,7 @@ import edu.uab.cvc.huntingwords.screens.fragments.Init;
 import edu.uab.cvc.huntingwords.screens.fragments.Languages;
 import edu.uab.cvc.huntingwords.screens.fragments.Play;
 
-public class FragmentActivity extends Activity {
+public class FragmentFixActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +59,9 @@ public class FragmentActivity extends Activity {
                 .putCustomAttribute("Language", currentLang));
 
         setContentView(R.layout.fragment_activity);
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.replace(R.id.fragment_switch, new Init(), "init");
+        ft.commit();
     }
 
     @Override

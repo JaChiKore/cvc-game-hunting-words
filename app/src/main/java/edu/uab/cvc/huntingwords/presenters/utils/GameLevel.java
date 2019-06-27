@@ -1,5 +1,7 @@
 package edu.uab.cvc.huntingwords.presenters.utils;
 
+import static edu.uab.cvc.huntingwords.Utils.NUM_LIVES;
+
 /**
  * Created by carlosb on 19/04/18.
  */
@@ -21,7 +23,7 @@ public class GameLevel {
     }
 
     public int getLives() {
-        return ((this.numFix <= 5) ? ((this.numFix <= 0) ? 1 : this.numFix) : 5);
+        return ((this.numFix <= NUM_LIVES) ? ((this.numFix <= 0) ? 1 : this.numFix) : NUM_LIVES);
     }
 
     private void calculateDifficult() {

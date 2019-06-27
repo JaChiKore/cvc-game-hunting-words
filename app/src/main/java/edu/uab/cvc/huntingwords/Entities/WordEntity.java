@@ -1,7 +1,9 @@
 package edu.uab.cvc.huntingwords.Entities;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Fixture;
@@ -19,9 +21,14 @@ public class WordEntity extends Actor {
 
     private Fixture fixture;
 
+    private Color color;
+    private ShapeRenderer shapeRenderer;
+
     WordEntity(World world, Texture texture, float x, float y, String idWord, String userId) {
         this.texture = texture;
         id = idWord;
+        shapeRenderer = new ShapeRenderer();
+        color = null;
 
         BodyDef def = new BodyDef();
         def.position.set(x, y + 0.5f);
@@ -42,7 +49,20 @@ public class WordEntity extends Actor {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
+        batch.end();
+        if (this.color != null) {
+            shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
+            shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+            shapeRenderer.setColor(this.color);
+            shapeRenderer.rect(getX()-5,getY()-5,getWidth()+10,getHeight()+10);
+            shapeRenderer.end();
+        }
+        batch.begin();
+        Color color = batch.getColor();
+        batch.setColor(color.r, color.g, color.b, color.a * parentAlpha);
+
         batch.draw(texture, getX(), getY(), getWidth(), getHeight());
+        batch.setColor(color.r, color.g, color.b, 1f);
     }
 
     public Fixture getFixture() {
@@ -51,5 +71,9 @@ public class WordEntity extends Actor {
 
     public String getId() {
         return id;
+    }
+
+    public void setColor(Color c) {
+        color = c;
     }
 }

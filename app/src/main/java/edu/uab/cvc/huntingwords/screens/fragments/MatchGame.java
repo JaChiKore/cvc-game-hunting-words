@@ -36,7 +36,7 @@ import butterknife.Optional;
 import edu.uab.cvc.huntingwords.R;
 import edu.uab.cvc.huntingwords.presenters.MatchGamePresenter;
 import edu.uab.cvc.huntingwords.presenters.MatchGamePresenterImpl;
-import edu.uab.cvc.huntingwords.screens.FragmentActivity;
+import edu.uab.cvc.huntingwords.screens.FragmentFixActivity;
 import edu.uab.cvc.huntingwords.screens.Sounds;
 import edu.uab.cvc.huntingwords.screens.Utils;
 import edu.uab.cvc.huntingwords.screens.views.MatchView;
@@ -74,7 +74,7 @@ public class MatchGame  extends Fragment implements MatchView {
     private Sounds sounds;
     private int currentSound;
     Context context;
-    FragmentActivity fragActivity;
+    FragmentFixActivity fragActivity;
 
     private static int [] idButtons = {R.id.match_but_0, R.id.match_but_1, R.id.match_but_2, R.id.match_but_3};
 
@@ -90,7 +90,7 @@ public class MatchGame  extends Fragment implements MatchView {
     public void onAttach(Activity activity){
         super.onAttach(activity);
         context = getActivity();
-        fragActivity =(FragmentActivity)context;
+        fragActivity =(FragmentFixActivity)context;
     }
 
     @Override
@@ -450,7 +450,6 @@ public class MatchGame  extends Fragment implements MatchView {
         editor.putInt(CURRENT_LEVEL_MATCH,level);
         editor.apply();
     }
-
 
     public float getPreferencesDiffScore() {
         SharedPreferences preferences = getActivity().getSharedPreferences(

@@ -16,18 +16,16 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         android:screenOrientation="sensorLandscape">
-        <activity android:name=".screens.FragmentActivity" android:screenOrientation="landscape">
+        <activity android:name=".screens.FragmentFixActivity" android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".application.JumpGameLauncher" android:screenOrientation="landscape">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
           <meta-data

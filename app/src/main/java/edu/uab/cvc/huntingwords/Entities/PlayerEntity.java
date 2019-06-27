@@ -35,13 +35,12 @@ public class PlayerEntity extends Actor {
         body = world.createBody(def);
 
         PolygonShape box = new PolygonShape();
-        box.setAsBox(0.5f, 0.5f);
+        box.setAsBox(0.15f, 0.5f);
         Fixture fixture = body.createFixture(box, 3);
         fixture.setUserData("player");
         box.dispose();
 
         setSize(Constants.PIXELS_IN_METER, Constants.PIXELS_IN_METER);
-
     }
 
     @Override

@@ -21,6 +21,7 @@ import edu.uab.cvc.huntingwords.tasks.loaders.UpdateMatchGame;
 import timber.log.Timber;
 
 import static edu.uab.cvc.huntingwords.tasks.GetTotalRanking.DIFFERENCE;
+import static edu.uab.cvc.huntingwords.tasks.GetTotalRanking.JUMP;
 import static edu.uab.cvc.huntingwords.tasks.GetTotalRanking.MATCH;
 
 /**
@@ -104,8 +105,11 @@ public class PlayPresenterImpl implements PlayPresenter {
     public void updateDifferenceRanking() {
         TotalRankingCallback callback = (ranking)-> view.totalRanking(ranking);
         new GetTotalRanking(callback).execute(DIFFERENCE);
-
     }
 
-
+    @Override
+    public void updateJumpRanking() {
+        TotalRankingCallback callback = (ranking)-> view.totalRanking(ranking);
+        new GetTotalRanking(callback).execute(JUMP);
+    }
 }

@@ -1,5 +1,6 @@
 package edu.uab.cvc.huntingwords.screens.fragments;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -86,7 +87,9 @@ public class Play extends Fragment implements PlayView {
     }
 
     @OnClick(R.id.ranking_jump)
-    public void rankingJump() {}
+    public void rankingJump() {
+        presenter.updateJumpRanking();
+    }
 
     @OnClick(R.id.how_to_play_match)
     public void helpMatch () {
@@ -151,7 +154,15 @@ public class Play extends Fragment implements PlayView {
 
     public void countDownProgressToStartJumpGame() {
         Intent i = new Intent(getActivity(), JumpGameLauncher.class);
+        i.putExtra("username",getUsername());
         startActivityForResult(i,0);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.replace(R.id.fragment_switch, new Init(), "init");
+        ft.commit();
     }
 
     private void startMatchDialog() {
@@ -168,7 +179,6 @@ public class Play extends Fragment implements PlayView {
 
     private void startDifferenceDialog()
     {
-
         ProgressDialog pd = ProgressDialog.show(getActivity(),getString(R.string.title_loading_info),getString(R.string.downloading_text));
         pd.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         pd.show();

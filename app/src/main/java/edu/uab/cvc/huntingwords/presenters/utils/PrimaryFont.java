@@ -28,7 +28,7 @@ public class PrimaryFont {
         parameters.size = size;
         parameters.borderWidth = 1;
         parameters.color = Color.WHITE;
-        parameters.characters =  " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~主菜單繼續觸碰屏幕可返回主菜單難度分數生命值密碼用戶名登錄註冊退出登錄教學開始加載中主菜单继续触碰屏幕可返回主菜单难度分数生命值密码用户名登录注册退出登录教学开始加载中";
+        parameters.characters =  " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~主菜單繼續觸碰屏幕可返回主菜單難度分數生命值密碼用戶名登錄註冊退出登錄教學開始加載中主菜单继续触碰屏幕可返回主菜单难度分数生命值密码用户名登录注册退出登录教学开始加载中玩家";
         return generator.generateFont(parameters);
     }
 

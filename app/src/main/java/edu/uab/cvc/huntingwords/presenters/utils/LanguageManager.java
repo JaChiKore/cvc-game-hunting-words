@@ -16,8 +16,6 @@ public class LanguageManager {
     private static final String DEFAULT_LANGUAGE_UK = "en_UK";
     private static final String DEFAULT_LANGUAGE_ES = "es_ES";
     private static final String DEFAULT_LANGUAGE_CA = "es_CA";
-    private static final String DEFAULT_LANGUAGE_DE = "es_DE";
-    private static final String DEFAULT_LANGUAGE_FR = "es_FR";
     private static final String DEFAULT_LANGUAGE_CN = "zh_CN";
     private static final String DEFAULT_LANGUAGE_TW = "zh_TW";
 
@@ -41,10 +39,6 @@ public class LanguageManager {
                 loadLanguage(DEFAULT_LANGUAGE_UK);
             }else if (Locale.getDefault().toString().equals("ca_ES")) {
                 loadLanguage(DEFAULT_LANGUAGE_CA);
-            }else if (Locale.getDefault().toString().equals("de_DE")) {
-                loadLanguage(DEFAULT_LANGUAGE_DE);
-            }else if (Locale.getDefault().toString().equals("fr_FR")) {
-                loadLanguage(DEFAULT_LANGUAGE_FR);
             }else if (Locale.getDefault().toString().equals("zh_CN")) {
                 loadLanguage(DEFAULT_LANGUAGE_CN);
             }else if (Locale.getDefault().toString().equals("zh_TW_#Hant")) {

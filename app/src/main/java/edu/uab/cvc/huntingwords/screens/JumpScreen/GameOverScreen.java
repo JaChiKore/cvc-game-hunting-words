@@ -1,5 +1,9 @@
 package edu.uab.cvc.huntingwords.screens.JumpScreen;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.widget.TextView;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -10,10 +14,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
+import edu.uab.cvc.huntingwords.R;
 import edu.uab.cvc.huntingwords.presenters.utils.LanguageManager;
 import edu.uab.cvc.huntingwords.presenters.utils.PrimaryFont;
 import edu.uab.cvc.huntingwords.presenters.utils.ResourceManager;
 import edu.uab.cvc.huntingwords.screens.fragments.JumpGame;
+
+import static edu.uab.cvc.huntingwords.Utils.CURRENT_SCORE_JUMP;
 
 
 public class GameOverScreen extends BaseScreen {
@@ -26,13 +33,13 @@ public class GameOverScreen extends BaseScreen {
 
     private SpriteBatch batch;
 
-    private BaseScreen parent;
-
     private JumpGame game;
 
-    public GameOverScreen(final JumpGame game, BaseScreen parent) {
+    private int score;
+
+    public GameOverScreen(final JumpGame game, Integer finalScore) {
         this.game = game;
-        this.parent = parent;
+        this.score = finalScore;
 
         LanguageManager languages = LanguageManager.getInstance();
         batch = new SpriteBatch();
@@ -84,10 +91,22 @@ public class GameOverScreen extends BaseScreen {
         batch.end();
 
         if (Gdx.input.justTouched()) {
+            updatePreferencesScore(score);
             game.finishActivity();
         }
 
         stage.act();
         stage.draw();
+    }
+
+    private void updatePreferencesScore(Integer scoreJump) {
+        SharedPreferences preferences = game.parentApp.getSharedPreferences(
+                game.parentApp.getString(R.string.preferences_file), Context.MODE_PRIVATE);
+        int oldScore = preferences.getInt(CURRENT_SCORE_JUMP,0);
+        if (scoreJump > oldScore) {
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putInt(CURRENT_SCORE_JUMP, scoreJump);
+            editor.apply();
+        }
     }
 }

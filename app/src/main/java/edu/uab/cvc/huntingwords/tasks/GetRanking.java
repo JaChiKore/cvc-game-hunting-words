@@ -71,7 +71,7 @@ public class GetRanking extends AsyncTask<String, Void, String[]> {
             JSONObject jObj = new JSONObject(buffer.toString());
             next = jObj.getString(SUCCESS);
             rows = next.split(",");
-            onResult.updateScore(Integer.valueOf(rows[0]),Integer.valueOf(rows[1]),Integer.valueOf(rows[2]),Integer.valueOf(rows[3]));
+            onResult.updateScore(Integer.valueOf(rows[0]),Integer.valueOf(rows[1]),Integer.valueOf(rows[2]),Integer.valueOf(rows[3]),Integer.valueOf(rows[4]),Integer.valueOf(rows[5]));
         } catch (Exception e) {
             Timber.e(e);
         }

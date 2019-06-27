@@ -13,9 +13,11 @@ public class Utils {
 
     public static final String CURRENT_SCORE_MATCH = "CURRENT_SCORE_MATCH";
     public static final String CURRENT_SCORE_DIFF = "CURRENT_SCORE_DIFF";
+    public static final String CURRENT_SCORE_JUMP = "CURRENT_SCORE_JUMP";
 
     public static final String CURRENT_LEVEL_MATCH  = "CURRENT_LEVEL_MATCH";
     public static final String CURRENT_LEVEL_DIFFERENCE  = "CURRENT_LEVEL_DIFFERENCE";
+    public static final String CURRENT_LEVEL_JUMP  = "CURRENT_LEVEL_JUMP";
 
     public static final String BASE_URL = "http://158.109.8.91/wordhunter/php";
     public static final String BASE_URL_IMAGES = "http://158.109.8.91/wordhunter/";

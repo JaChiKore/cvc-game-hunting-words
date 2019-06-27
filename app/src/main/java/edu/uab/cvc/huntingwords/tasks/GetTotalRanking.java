@@ -22,6 +22,7 @@ public class GetTotalRanking extends AsyncTask<String, Void, String[]> {
 
     public static final String DIFFERENCE = "difference";
     public static final String MATCH = "match";
+    public static final String JUMP = "jump";
     private final TotalRankingCallback onResult;
     public GetTotalRanking(TotalRankingCallback onResult) {
         this.onResult = onResult;
@@ -58,22 +59,27 @@ public class GetTotalRanking extends AsyncTask<String, Void, String[]> {
             String [] ranks = content.split("separator<br>");
             String [] infoMatch = ranks[0].split("<br>");
             String [] infoDiff = ranks[1].split("<br>");
+            String [] infoJump = ranks[2].split("<br>");
 
+            List<Pair<String, String>> ranking = new ArrayList<>();
             if (arg[0].equals(DIFFERENCE)) {
-                List<Pair<String, String>> rankingDifference = new ArrayList<>();
                 for (String line : infoDiff) {
                     String[] values = line.split(",");
-                    rankingDifference.add(Pair.create(values[0], values[1]));
+                    ranking.add(Pair.create(values[0], values[1]));
                 }
-                onResult.updateTotalRanking(rankingDifference);
             } else if (arg[0].equals(MATCH)) {
-                List<Pair<String,String>> rankingMatch = new ArrayList<>();
                 for (String line: infoMatch) {
                     String[] values = line.split(",");
-                    rankingMatch.add(Pair.create(values[0], values[1]));
+                    ranking.add(Pair.create(values[0], values[1]));
                 }
-                onResult.updateTotalRanking(rankingMatch);
+            } else if (arg[0].equals(JUMP)) {
+                for (String line: infoJump) {
+                    String[] values = line.split(",");
+                    ranking.add(Pair.create(values[0], values[1]));
+                }
             }
+
+            onResult.updateTotalRanking(ranking);
 
         } catch (Exception e) {
             Timber.e(e);

@@ -12,7 +12,12 @@ public class JumpGameLauncher extends AndroidApplication {
     protected void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
-        initialize(new JumpGame(this), config);
+        Bundle b = getIntent().getExtras();
+        String username = "Anonymous";
+        if (b.getString("username") != null) {
+            username = b.getString("username");
+        }
+        initialize(new JumpGame(this, username), config);
 
     }
 }

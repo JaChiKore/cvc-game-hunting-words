@@ -65,4 +65,5 @@
     <string name="back">Back</string>
     <string name="stats">Stats</string>
     <string name="jump_game">Jump Words</string>
+    <string name="text_jump_score">Jump score:</string>
 </resources>

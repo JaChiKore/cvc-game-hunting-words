@@ -1,6 +1,5 @@
 package edu.uab.cvc.huntingwords.screens.JumpScreen;
 
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Preferences;
@@ -8,6 +7,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -43,7 +43,9 @@ import edu.uab.cvc.huntingwords.presenters.utils.PrimaryFont;
 import edu.uab.cvc.huntingwords.presenters.utils.ResourceManager;
 import edu.uab.cvc.huntingwords.screens.fragments.JumpGame;
 
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.fadeOut;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.moveTo;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.parallel;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.removeActor;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.repeat;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
@@ -85,9 +87,9 @@ public class GameScreen extends BaseScreen {
 
     private BitmapFont niveles;
 
-    private int puntuacion;
+    private BitmapFont playerName;
 
-    private int puntuacionMaxima;
+    private int puntuacion;
 
     private int nivel;
 
@@ -121,6 +123,7 @@ public class GameScreen extends BaseScreen {
     private LanguageManager languageManager;
 
     public GameScreen(final JumpGame game) {
+        Gdx.input.setCatchBackKey(true);
         this.game = game;
         manager = ResourceManager.getInstance().getManager();
         languageManager = LanguageManager.getInstance();
@@ -145,6 +148,8 @@ public class GameScreen extends BaseScreen {
 
         //vida = new BitmapFont(Gdx.files.internal("skin/vida.fnt"), Gdx.files.internal("skin/vida.png"), false);
         vida = skin.getFont("default-font");
+
+        playerName = skin.getFont("default-font");
 
         puntuacion = 0;
         nivel = NIVEL;
@@ -258,13 +263,15 @@ public class GameScreen extends BaseScreen {
         }
         batch.begin();
         batch.draw(img, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        puntos.getData().setScale(scale);
 
-        puntos.draw(batch, languageManager.getString("Puntuacion") + puntuacion, screenWidth/45f,screenHeight*23/25f);
+        playerName.getData().setScale(scale+0.5f);
+        playerName.draw(batch, languageManager.getString("Jugador") + game.username, screenWidth/45f,screenHeight*24/25f);
+        puntos.getData().setScale(scale);
+        puntos.draw(batch, languageManager.getString("Puntuacion") + puntuacion, screenWidth/45f,screenHeight*22/25f);
         vida.getData().setScale(scale);
         vida.draw(batch, languageManager.getString("Vidas") + vidas, screenWidth/45f, screenHeight*21/25f);
         niveles.getData().setScale(scale);
-        niveles.draw(batch, languageManager.getString("Nivel") + nivel, screenWidth/45f, screenHeight*19/25f);
+        niveles.draw(batch, languageManager.getString("Nivel") + nivel, screenWidth/45f, screenHeight*20/25f);
         batch.end();
 
         if (player.isAlive()) {
@@ -295,6 +302,8 @@ public class GameScreen extends BaseScreen {
                         if (((WordEntity) a).getFixture().getUserData().toString().contains("palabra0")) {
                             puntuacion++;
                             a.addAction(sequence(moveTo(a.getX(),a.getY()+30,0.5f),removeActor()));
+                            a.setColor(Color.GREEN);
+
 
                             if (puntuacion == 5) {
                                 level.play();
@@ -308,6 +317,7 @@ public class GameScreen extends BaseScreen {
                             vidas--;
                             dieSound.play();
                             a.addAction(sequence(repeat(3,sequence(moveTo(a.getX(),a.getY()+3),moveTo(a.getX(),a.getY()-3))),removeActor()));
+                            a.setColor(Color.RED);
                         }
                         break;
                     }
@@ -317,6 +327,7 @@ public class GameScreen extends BaseScreen {
                         dieSound.play();
 
                         a.addAction(sequence(repeat(3,sequence(moveTo(a.getX(),a.getY()+3),moveTo(a.getX(),a.getY()-3))),removeActor()));
+                        a.setColor(Color.RED);
                     }
                 }
             }
@@ -330,7 +341,7 @@ public class GameScreen extends BaseScreen {
                             Actions.run(new Runnable() {
                                 @Override
                                 public void run() {
-                                    game.setScreen(game.gameOverScreen);
+                                    game.setScreen(new GameOverScreen(game,puntuacion));
                                 }
                             })
                     )
@@ -349,10 +360,12 @@ public class GameScreen extends BaseScreen {
         stage.draw();
 
         boolean all_out = true;
-        for (WordEntity p : playingWords) {
-            if (p.getX()+p.getWidth() > 0) {
-                all_out = false;
-                break;
+        for (Actor a : stage.getActors()) {
+            if (a instanceof WordEntity && !((WordEntity) a).getFixture().getUserData().toString().equals("controlWord")) {
+                if (a.getX()+a.getWidth() > 0) {
+                    all_out = false;
+                    break;
+                }
             }
         }
 
@@ -382,8 +395,6 @@ public class GameScreen extends BaseScreen {
 
     @Override
     public void dispose() {
-        preferences.putInteger("puntuacionMaxima", puntuacionMaxima);
-        preferences.flush();
         stage.dispose();
         skin.dispose();
         world.dispose();
@@ -406,7 +417,7 @@ public class GameScreen extends BaseScreen {
                 String filepath = filename.replace("\\", "/");
                 String[] splitFilename = filename.split(";");
                 if (splitFilename[2].equals("0") && !duplicado) { // this game x = 0 and y = 0 is in the bottom left corner. for x >= screenWidth, right. for y >= screenHeight, top.
-                    controlWords.add(new ControlTuple(factory.createPalabra(world, 5f, 4.75f, filepath, "palabra"+(splitFilename[2])), splitFilename[1]));
+                    controlWords.add(new ControlTuple(factory.createPalabra(world, 5f, 4.75f, filepath, "controlWord"), splitFilename[1]));
                     duplicado = true;
                 } else {
                     if (i > 0 && (splitFilename[1].equals(listFile[i-1].path().split(";")[1]))) {

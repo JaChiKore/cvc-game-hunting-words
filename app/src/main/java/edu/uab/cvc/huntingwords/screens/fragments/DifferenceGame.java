@@ -32,7 +32,7 @@ import butterknife.OnClick;
 import edu.uab.cvc.huntingwords.R;
 import edu.uab.cvc.huntingwords.presenters.DifferenceGamePresenter;
 import edu.uab.cvc.huntingwords.presenters.DifferenceGamePresenterImpl;
-import edu.uab.cvc.huntingwords.screens.FragmentActivity;
+import edu.uab.cvc.huntingwords.screens.FragmentFixActivity;
 import edu.uab.cvc.huntingwords.screens.Sounds;
 import edu.uab.cvc.huntingwords.screens.Utils;
 import edu.uab.cvc.huntingwords.screens.views.DifferenceView;
@@ -65,7 +65,7 @@ public class DifferenceGame extends Fragment implements DifferenceView {
     private Sounds sounds;
     private int currentSound;
     Context context;
-    FragmentActivity fragActivity;
+    FragmentFixActivity fragActivity;
     private boolean pause;
 
 
@@ -77,7 +77,7 @@ public class DifferenceGame extends Fragment implements DifferenceView {
     public void onAttach(Activity activity){
         super.onAttach(activity);
         context = getActivity();
-        fragActivity =(FragmentActivity)context;
+        fragActivity =(FragmentFixActivity)context;
     }
 
     @Override

@@ -60,5 +60,6 @@
     <string name="back">Volver</string>
     <string name="stats">Estadísticas</string>
     <string name="jump_game">Salta-palabras</string>
+    <string name="text_jump_score">Jump puntuación:</string>
 
 </resources>

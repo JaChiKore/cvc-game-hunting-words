@@ -10,7 +10,6 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.crashlytics.android.answers.Answers;
@@ -24,11 +23,12 @@ import edu.uab.cvc.huntingwords.presenters.utils.Token;
 import edu.uab.cvc.huntingwords.screens.Utils;
 import edu.uab.cvc.huntingwords.screens.views.InitView;
 import edu.uab.cvc.huntingwords.tasks.LoginAnonymous;
-import okhttp3.internal.Util;
 
 import static edu.uab.cvc.huntingwords.Utils.CURRENT_LEVEL_DIFFERENCE;
+import static edu.uab.cvc.huntingwords.Utils.CURRENT_LEVEL_JUMP;
 import static edu.uab.cvc.huntingwords.Utils.CURRENT_LEVEL_MATCH;
 import static edu.uab.cvc.huntingwords.Utils.CURRENT_SCORE_DIFF;
+import static edu.uab.cvc.huntingwords.Utils.CURRENT_SCORE_JUMP;
 import static edu.uab.cvc.huntingwords.Utils.CURRENT_SCORE_MATCH;
 import static edu.uab.cvc.huntingwords.Utils.PARAM_TOKEN;
 import static edu.uab.cvc.huntingwords.Utils.PARAM_USERNAME;
@@ -69,11 +69,13 @@ public class Init extends Fragment implements InitView {
                     .putSuccess(true));
             updateMatchScore(getMatchScore());
             updateDiffScore(getDiffScore());
+            updateJumpScore(getJumpScore());
         } else {
             updateUsername(getString(R.string.anonym));
-            updatePreferencesScore(0,0, 1, 1);
+            updatePreferencesScore(0,0, 0, 1, 1, 1);
             updateMatchScore(0);
             updateDiffScore(0);
+            updateJumpScore(0);
         }
     }
 
@@ -90,6 +92,11 @@ public class Init extends Fragment implements InitView {
     private void updateDiffScore(int score) {
         TextView valueDiff = getActivity().findViewById(R.id.value_diff_score);
         valueDiff.setText(String.valueOf(score));
+    }
+
+    private void updateJumpScore(int score) {
+        TextView valueJump = getActivity().findViewById(R.id.value_jump_score);
+        valueJump.setText(String.valueOf(score));
     }
 
     @OnClick(R.id.language)
@@ -169,13 +176,19 @@ public class Init extends Fragment implements InitView {
     private int getMatchScore() {
         SharedPreferences preferences = getActivity().getSharedPreferences(
                 getString(R.string.preferences_file), Context.MODE_PRIVATE);
-        return preferences.getInt(edu.uab.cvc.huntingwords.Utils.CURRENT_SCORE_MATCH,0);
+        return preferences.getInt(CURRENT_SCORE_MATCH,0);
     }
 
     private int getDiffScore() {
         SharedPreferences preferences = getActivity().getSharedPreferences(
                 getString(R.string.preferences_file), Context.MODE_PRIVATE);
-        return preferences.getInt(edu.uab.cvc.huntingwords.Utils.CURRENT_SCORE_DIFF,0);
+        return preferences.getInt(CURRENT_SCORE_DIFF,0);
+    }
+
+    private int getJumpScore() {
+        SharedPreferences preferences = getActivity().getSharedPreferences(
+                getString(R.string.preferences_file), Context.MODE_PRIVATE);
+        return preferences.getInt(CURRENT_SCORE_JUMP,0);
     }
 
     private String getToken() {
@@ -188,7 +201,7 @@ public class Init extends Fragment implements InitView {
         TextView textView = getActivity().findViewById(R.id.value_match_score);
         SharedPreferences preferences = getActivity().getSharedPreferences(
                 getString(R.string.preferences_file), Context.MODE_PRIVATE);
-        int matchValue = preferences.getInt(edu.uab.cvc.huntingwords.Utils.CURRENT_SCORE_MATCH,0);
+        int matchValue = preferences.getInt(CURRENT_SCORE_MATCH,0);
         ((TextView)getActivity().findViewById(R.id.text_match_score)).setText(getString(R.string.text_match_score));
         textView.setText(String.valueOf(matchValue));
     }
@@ -197,8 +210,17 @@ public class Init extends Fragment implements InitView {
         TextView textView = getActivity().findViewById(R.id.value_diff_score);
         SharedPreferences preferences = getActivity().getSharedPreferences(
                 getString(R.string.preferences_file), Context.MODE_PRIVATE);
-        int diffValue = preferences.getInt(edu.uab.cvc.huntingwords.Utils.CURRENT_SCORE_DIFF,0);
+        int diffValue = preferences.getInt(CURRENT_SCORE_DIFF,0);
         ((TextView)getActivity().findViewById(R.id.text_diff_score)).setText(getString(R.string.text_diff_score));
+        textView.setText(String.valueOf(diffValue));
+    }
+
+    public void updateJumpScore() {
+        TextView textView = getActivity().findViewById(R.id.value_jump_score);
+        SharedPreferences preferences = getActivity().getSharedPreferences(
+                getString(R.string.preferences_file), Context.MODE_PRIVATE);
+        int diffValue = preferences.getInt(CURRENT_SCORE_JUMP,0);
+        ((TextView)getActivity().findViewById(R.id.text_jump_score)).setText(getString(R.string.text_jump_score));
         textView.setText(String.valueOf(diffValue));
     }
 
@@ -208,16 +230,16 @@ public class Init extends Fragment implements InitView {
     }
 
     @Override
-    public void updateScore(Integer scoreMatch, Integer scoreDiff, Integer matchLevel, Integer diffLevel) {
+    public void updateScore(Integer scoreMatch, Integer scoreDiff, Integer scoreJump, Integer matchLevel, Integer diffLevel, Integer jumpLevel) {
         new Thread() {
             public void run() {
                 getActivity().runOnUiThread(
-                    () -> updatePreferencesScore(scoreMatch, scoreDiff, matchLevel, diffLevel));
+                    () -> updatePreferencesScore(scoreMatch, scoreDiff, scoreJump, matchLevel, diffLevel, jumpLevel));
             }
         }.start();
     }
 
-    private void updatePreferencesScore(Integer scoreMatch, Integer scoreDiff, Integer matchLevel, Integer diffLevel) {
+    private void updatePreferencesScore(Integer scoreMatch, Integer scoreDiff, Integer scoreJump, Integer matchLevel, Integer diffLevel, Integer jumpLevel) {
         SharedPreferences preferences = getActivity().getSharedPreferences(
             getActivity().getString(R.string.preferences_file), Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
@@ -225,6 +247,8 @@ public class Init extends Fragment implements InitView {
         editor.putInt(CURRENT_SCORE_DIFF,scoreDiff);
         editor.putInt(CURRENT_LEVEL_MATCH,matchLevel);
         editor.putInt(CURRENT_LEVEL_DIFFERENCE,diffLevel);
+        editor.putInt(CURRENT_SCORE_JUMP,scoreJump);
+        editor.putInt(CURRENT_LEVEL_JUMP,jumpLevel);
         editor.apply();
     }
 }

@@ -4,7 +4,7 @@ public class Constants {
 
     public static final float PIXELS_IN_METER = 60f;
 
-    public static final int IMPULSE_JUMP = 20;
+    public static final int IMPULSE_JUMP = 7;
 
     public static final float GAME_SPEED = 1.2f;
 
