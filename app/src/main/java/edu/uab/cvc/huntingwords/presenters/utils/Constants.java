@@ -16,7 +16,5 @@ public class Constants {
      * URL del servidor donde descargar las imágenes
      */
     public static final String BASE_URL = "http://158.109.8.91/wordhunter/php";
-
-    public static final String BASE_URL_IMAGES = "http://158.109.8.91/wordhunter/";
 }
 

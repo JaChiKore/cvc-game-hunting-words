@@ -1,6 +1,5 @@
 package edu.uab.cvc.huntingwords.screens.fragments;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
