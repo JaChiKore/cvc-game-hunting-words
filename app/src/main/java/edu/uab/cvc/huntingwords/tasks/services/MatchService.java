@@ -12,18 +12,14 @@ import edu.uab.cvc.huntingwords.tasks.match.UpdateTranscriptions;
 
 public class MatchService {
     private final String user;
-    private final float scoreDifference;
-    private final int levelDiff;
     private final boolean win;
-    public MatchService(String user, float scoreDifference, int levelDiff, boolean win) {
+    public MatchService(String user, boolean win) {
         this.user = user;
-        this.scoreDifference = scoreDifference;
-        this.levelDiff = levelDiff;
         this.win = win;
     }
 
     public void run (List<MatchResult> values, String level, String startDate, String stopDate, long usedTime, float scoreIni, float scoreEnd, float maxScore) {
-        String [] argsScore = {user,String.valueOf(scoreEnd),String.valueOf(scoreDifference), level, String.valueOf(levelDiff)};
+        String [] argsScore = {user,"1",String.valueOf(scoreEnd), level};
         if (scoreEnd > maxScore) {
             new UpdateScore().execute(argsScore);
         } else {

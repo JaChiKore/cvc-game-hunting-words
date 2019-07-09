@@ -13,7 +13,7 @@ import edu.uab.cvc.huntingwords.screens.JumpScreen.BaseScreen;
 import edu.uab.cvc.huntingwords.screens.JumpScreen.GameScreen;
 import edu.uab.cvc.huntingwords.screens.JumpScreen.LoadingScreen;
 import edu.uab.cvc.huntingwords.screens.JumpScreen.MenuPause;
-import edu.uab.cvc.huntingwords.tasks.loaders.LoaderJumpGameInformation;
+import edu.uab.cvc.huntingwords.tasks.loaders.LoaderJumpGameAssets;
 
 public class JumpGame extends Game {
 
@@ -37,7 +37,7 @@ public class JumpGame extends Game {
     public void create() {
 
         Gdx.input.setCatchBackKey(true);
-        new LoaderJumpGameInformation().load();
+        new LoaderJumpGameAssets().load();
         LanguageManager.getInstance();
 
         setScreen(new LoadingScreen(this));

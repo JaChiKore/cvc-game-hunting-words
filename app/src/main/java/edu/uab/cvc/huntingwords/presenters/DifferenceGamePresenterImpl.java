@@ -282,7 +282,7 @@ public class DifferenceGamePresenterImpl implements DifferenceGamePresenter {
         long diffInMs = stoppedDate.getTime() - startedDate.getTime();
         long diffInSec = TimeUnit.MILLISECONDS.toSeconds(diffInMs);
         String start = startDate;
-        new Thread (() -> new DifferenceService(username,scoreMatch, level.getAnotherLevel(), (numLives > 0)).run(newResults,String.valueOf(level.getLevel()),start,sdf.format(stoppedDate), diffInSec,oldScore,newTotalPoints, maxScore)).start();
+        new Thread (() -> new DifferenceService(username, (numLives > 0)).run(newResults,String.valueOf(level.getLevel()),start,sdf.format(stoppedDate), diffInSec,oldScore,newTotalPoints, maxScore)).start();
         this.results.clear();
     }
 

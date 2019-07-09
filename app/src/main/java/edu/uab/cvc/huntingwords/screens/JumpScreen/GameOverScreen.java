@@ -54,7 +54,7 @@ public class GameOverScreen extends BaseScreen {
         Label goBack = new Label(languages.getString(languages.getString("irMenu")), skin);
         goBack.setPosition(130,150);
 
-        Image gameOver = new Image(ResourceManager.getInstance().getManager().get("gameover.png", Texture.class));
+        Image gameOver = new Image(ResourceManager.getInstance().getAssetManager().get("gameover.png", Texture.class));
 
         gameOver.setPosition(320 - gameOver.getWidth() / 2, 320 - gameOver.getHeight());
 

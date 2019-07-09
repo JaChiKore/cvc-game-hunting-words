@@ -4,7 +4,8 @@ import com.badlogic.gdx.assets.AssetManager;
 
 public class ResourceManager {
     private static ResourceManager instance = null;
-    private AssetManager manager;
+    private AssetManager assetManager;
+    private AssetManager localManager;
 
     private ResourceManager() {}
 
@@ -15,11 +16,19 @@ public class ResourceManager {
         return instance;
     }
 
-    public AssetManager getManager() {
-        return manager;
+    public AssetManager getAssetManager() {
+        return assetManager;
     }
 
-    public void setManager(AssetManager manager) {
-        this.manager = manager;
+    public AssetManager getLocalManager() {
+        return localManager;
+    }
+
+    public void setAssetManager(AssetManager manager) {
+        this.assetManager = manager;
+    }
+
+    public void setLocalManager(AssetManager manager) {
+        this.localManager = manager;
     }
 }

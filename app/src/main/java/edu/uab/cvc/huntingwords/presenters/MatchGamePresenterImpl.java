@@ -287,7 +287,7 @@ public class MatchGamePresenterImpl implements MatchGamePresenter {
         long diffInMs = stoppedDate.getTime() - startedDate.getTime();
         long diffInSec = TimeUnit.MILLISECONDS.toSeconds(diffInMs);
         String start = startDate;
-        new Thread (() -> new MatchService(username,scoreDifference, level.getAnotherLevel(), (numLives > 0)).run(newResults,String.valueOf(level.getLevel()),start,sdf.format(stoppedDate), diffInSec,oldScore,newTotalPoints, maxScore)).start();
+        new Thread (() -> new MatchService(username, (numLives > 0)).run(newResults,String.valueOf(level.getLevel()),start,sdf.format(stoppedDate), diffInSec,oldScore,newTotalPoints, maxScore)).start();
         this.results.clear();
     }
 

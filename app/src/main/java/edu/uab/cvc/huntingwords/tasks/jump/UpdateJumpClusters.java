@@ -1,4 +1,4 @@
-package edu.uab.cvc.huntingwords.tasks;
+package edu.uab.cvc.huntingwords.tasks.jump;
 
 import android.os.AsyncTask;
 
@@ -15,14 +15,14 @@ import java.util.HashMap;
 
 import edu.uab.cvc.huntingwords.Utils;
 import edu.uab.cvc.huntingwords.presenters.utils.Token;
+import edu.uab.cvc.huntingwords.tasks.PostSendBuilder;
 
 import static edu.uab.cvc.huntingwords.Utils.SUCCESS;
-import static edu.uab.cvc.huntingwords.Utils.TOKEN;
 
-@SuppressWarnings("WeakerAccess")
-public class UpdateScore extends AsyncTask<String, Void, Boolean> {
 
-    public UpdateScore() {}
+public class UpdateJumpClusters extends AsyncTask<String, Void, Boolean> {
+
+    public UpdateJumpClusters() {}
 
     protected void onPreExecute() {}
 
@@ -37,21 +37,25 @@ public class UpdateScore extends AsyncTask<String, Void, Boolean> {
         PostSendBuilder psb = PostSendBuilder.getInstance();
 
         try {
-            link = Utils.BASE_URL+"/updateScore.php";  // base link: http://158.109.8.50/app_mobile/ http://158.109.9.209/
+            link = Utils.BASE_URL+"/updateCluster.php";  // base link: http://158.109.8.50/app_mobile/
             URL url = new URL(link);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
-            con.setRequestMethod("POST");
+            con.setRequestMethod("GET");
             con.setDoInput(true);
             con.setDoOutput(true);
 
             HashMap<String, String> values = new HashMap<>();
-            values.put("username", arg[0]);
-            values.put("task", arg[1]);
-            values.put("score", arg[2]);
-            values.put("level", arg[3]);
+            values.put("filename", arg[0]);
+            values.put("answer", arg[1]);
+            values.put("cluster", arg[2]);
+            values.put("user", arg[3]);
+            values.put("level", arg[4]);
+            values.put("startDate", arg[5]);
+            values.put("endDate", arg[6]);
+            values.put("usedTime", arg[7]);
+            values.put("scoreInici", arg[8]);
+            values.put("scoreFinal", arg[9]);
             values.put("token", key.getToken());
-
-            System.out.println("Debug: " + psb.getPostData(values));
 
             OutputStream os = con.getOutputStream();
             BufferedWriter writer = new BufferedWriter(
@@ -70,11 +74,6 @@ public class UpdateScore extends AsyncTask<String, Void, Boolean> {
             JSONObject jObj = new JSONObject(buffer.toString());
 
             String suc = jObj.getString(SUCCESS);
-            String debug = jObj.getString("debug");
-
-            if (!debug.isEmpty()) {
-                System.out.println(debug);
-            }
 
             correct = suc.contentEquals("true");
         } catch (Exception e) {
@@ -87,4 +86,3 @@ public class UpdateScore extends AsyncTask<String, Void, Boolean> {
     @Override
     protected void onPostExecute(Boolean a) {}
 }
-

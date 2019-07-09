@@ -23,13 +23,15 @@ public class LoadingScreen extends BaseScreen {
     private Label loading;
 
 
-    private AssetManager manager;
+    private AssetManager assetManager;
+    private AssetManager localManager;
     private JumpGame game;
     private LanguageManager languageManager;
 
     public LoadingScreen(JumpGame game) {
         this.game = game;
-        manager = ResourceManager.getInstance().getManager();
+        assetManager = ResourceManager.getInstance().getAssetManager();
+        localManager = ResourceManager.getInstance().getLocalManager();
 
         languageManager = LanguageManager.getInstance();
 
@@ -49,10 +51,10 @@ public class LoadingScreen extends BaseScreen {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        if (manager.update()) {
+        if (assetManager.update() && localManager.update()) {
             game.finishedLoading();
         } else {
-            int progress = (int) (manager.getProgress() * 100);
+            int progress = (int) (assetManager.getProgress()*50+localManager.getProgress()*50);
             loading.setText(languageManager.getString("Cargando...") + progress + "%");
         }
 

@@ -31,7 +31,7 @@ public class LoaderDifferenceGameInformation {
                     String filename = columns[0];
                     String numCluster = columns[1];
                     String result = columns[2];
-                    Boolean golden = Integer.valueOf(columns[3])==1;
+                    boolean golden = Integer.valueOf(columns[3])==1;
 
                     if (golden) {
                         List<Pair<String,Boolean>> listFilenames;

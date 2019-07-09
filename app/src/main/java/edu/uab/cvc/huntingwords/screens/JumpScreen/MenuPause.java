@@ -40,7 +40,7 @@ public class MenuPause extends BaseScreen {
         TextButton backToGame = new TextButton(languages.getString("Continuar"), skin);
         TextButton menu = new TextButton(languages.getString("MenuP"), skin);
 
-        Image pause = new Image(ResourceManager.getInstance().getManager().get("pause.png", Texture.class));
+        Image pause = new Image(ResourceManager.getInstance().getAssetManager().get("pause.png", Texture.class));
 
         backToGame.addCaptureListener(new ChangeListener() {
             @Override

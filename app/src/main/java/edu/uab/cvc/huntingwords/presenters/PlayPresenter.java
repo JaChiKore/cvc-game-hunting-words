@@ -10,6 +10,8 @@ public interface PlayPresenter {
 
     void loadDifferenceInfo(String username);
 
+    void loadJumpInfo(String username);
+
     void runMatchGame();
 
     void runDifferenceGame();

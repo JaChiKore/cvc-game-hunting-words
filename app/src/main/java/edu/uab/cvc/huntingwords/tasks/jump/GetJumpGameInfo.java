@@ -1,4 +1,4 @@
-package edu.uab.cvc.huntingwords.tasks.difference;
+package edu.uab.cvc.huntingwords.tasks.jump;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -14,14 +14,14 @@ import java.util.ArrayList;
 
 import edu.uab.cvc.huntingwords.Utils;
 
-@SuppressWarnings({"ResultOfMethodCallIgnored", "WeakerAccess"})
-public class GetDifferenceGameInfo extends AsyncTask<String, Void, String> {
+@SuppressWarnings({"ResultOfMethodCallIgnored"})
+public class GetJumpGameInfo extends AsyncTask<String, Void, String> {
 
     private Context context;
     private String text;
 
-    public GetDifferenceGameInfo(Context context) {
-        this.context = context;
+    public GetJumpGameInfo(Context context) {
+        this.context = context.getApplicationContext();
         this.text = "";
     }
 
@@ -36,7 +36,7 @@ public class GetDifferenceGameInfo extends AsyncTask<String, Void, String> {
         File f;
 
         try {
-            link = Utils.BASE_URL+"/differenceGameInfo.php?username=" + arg[1];  // base link: http://158.109.8.50/app_mobile/
+            link = Utils.BASE_URL+"/jumpGameInfo.php?username=" + arg[1];  // base link: http://158.109.8.50/app_mobile/
             URL url = new URL(link);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
@@ -105,14 +105,14 @@ public class GetDifferenceGameInfo extends AsyncTask<String, Void, String> {
                     f = new File(path);
                     if (!f.exists()) {
                         f.mkdirs();
-                        System.out.println("Directory created (difference game): " + f.getAbsolutePath());
+                        System.out.println("Directory created (jump game): " + f.getAbsolutePath());
                     }
                 }
 
                 fos.flush();
                 fos.close();
 
-                f = new File(context.getFilesDir(), "differenceGame/");
+                f = new File(context.getFilesDir(), "jumpGame/");
                 if (f.exists()) {
                     f.delete();
                     f.mkdirs();
@@ -132,12 +132,13 @@ public class GetDifferenceGameInfo extends AsyncTask<String, Void, String> {
                 br.readLine();
                 next = br.readLine();
                 split = next.split(";");
-                clusterName = split[1];
+                clusterName = split[1]+"_"+split[2];
                 imgNames.add(next);
                 while((next = br.readLine()) != null) {
                     split = next.split(";");
-                    if (!split[1].equals(clusterName)) {
-                        File auxF = new File(context.getFilesDir(), "differenceGame/" + imgNames.size() + "-" + clusterName + ".txt");
+                    String check_cluster = split[1]+"_"+split[2];
+                    if (!check_cluster.equals(clusterName)) {
+                        File auxF = new File(context.getFilesDir(), "jumpGame/" + imgNames.size() + "-" + clusterName + ".txt");
                         fos = new FileOutputStream(auxF);
                         for (int i = 0; i < imgNames.size(); i++) {
                             fos.write(imgNames.get(i).getBytes());
@@ -146,13 +147,13 @@ public class GetDifferenceGameInfo extends AsyncTask<String, Void, String> {
                         fos.flush();
                         fos.close();
 
-                        clusterName = split[1];
+                        clusterName = check_cluster;
                         imgNames = new ArrayList<>();
                     }
                     imgNames.add(next);
                 }
 
-                File auxF = new File(context.getFilesDir(), "differenceGame/" + imgNames.size() + "-" + clusterName + ".txt");
+                File auxF = new File(context.getFilesDir(), "jumpGame/" + imgNames.size() + "-" + clusterName + ".txt");
                 fos = new FileOutputStream(auxF);
                 for (int i = 0; i < imgNames.size(); i++) {
                     fos.write(imgNames.get(i).getBytes());

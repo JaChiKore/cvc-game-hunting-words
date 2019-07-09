@@ -17,6 +17,7 @@ import edu.uab.cvc.huntingwords.tasks.GetTotalRanking;
 import edu.uab.cvc.huntingwords.tasks.loaders.LoaderDifferenceGameInformation;
 import edu.uab.cvc.huntingwords.tasks.loaders.LoaderMatchGameInformation;
 import edu.uab.cvc.huntingwords.tasks.loaders.UpdateDifferenceGame;
+import edu.uab.cvc.huntingwords.tasks.loaders.UpdateJumpGame;
 import edu.uab.cvc.huntingwords.tasks.loaders.UpdateMatchGame;
 import timber.log.Timber;
 
@@ -71,12 +72,18 @@ public class PlayPresenterImpl implements PlayPresenter {
         try {
             new UpdateDifferenceGame().update(appContext, username);
             new LoaderDifferenceGameInformation().load(appContext,differenceInfo, differenceFixInfo);
-
         } catch (FileNotFoundException e) {
             Timber.e(e);
         }
+    }
 
-
+    @Override
+    public void loadJumpInfo(String username) {
+        try {
+            new UpdateJumpGame().update(appContext, username);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
     }
 
     @Override

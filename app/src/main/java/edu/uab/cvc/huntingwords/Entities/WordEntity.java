@@ -46,7 +46,6 @@ public class WordEntity extends Actor {
         setSize(Constants.PIXELS_IN_METER, Constants.PIXELS_IN_METER);
     }
 
-
     @Override
     public void draw(Batch batch, float parentAlpha) {
         batch.end();
@@ -58,11 +57,8 @@ public class WordEntity extends Actor {
             shapeRenderer.end();
         }
         batch.begin();
-        Color color = batch.getColor();
-        batch.setColor(color.r, color.g, color.b, color.a * parentAlpha);
 
         batch.draw(texture, getX(), getY(), getWidth(), getHeight());
-        batch.setColor(color.r, color.g, color.b, 1f);
     }
 
     public Fixture getFixture() {
