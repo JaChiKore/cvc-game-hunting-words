@@ -37,7 +37,7 @@ public class UpdateJumpClusters extends AsyncTask<String, Void, Boolean> {
         PostSendBuilder psb = PostSendBuilder.getInstance();
 
         try {
-            link = Utils.BASE_URL+"/updateCluster.php";  // base link: http://158.109.8.50/app_mobile/
+            link = Utils.BASE_URL+"/updateJump.php";  // base link: http://158.109.8.50/app_mobile/
             URL url = new URL(link);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");

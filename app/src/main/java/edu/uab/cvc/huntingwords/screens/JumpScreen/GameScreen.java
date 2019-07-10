@@ -1,12 +1,11 @@
 package edu.uab.cvc.huntingwords.screens.JumpScreen;
 
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -33,7 +32,6 @@ import java.io.FileReader;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -44,20 +42,16 @@ import edu.uab.cvc.huntingwords.Entities.EntityFactory;
 import edu.uab.cvc.huntingwords.Entities.FloorEntity;
 import edu.uab.cvc.huntingwords.Entities.WordEntity;
 import edu.uab.cvc.huntingwords.Entities.PlayerEntity;
-import edu.uab.cvc.huntingwords.models.ClusterDifferentResult;
 import edu.uab.cvc.huntingwords.models.JumpClusterResult;
 import edu.uab.cvc.huntingwords.presenters.utils.Constants;
 import edu.uab.cvc.huntingwords.presenters.utils.LanguageManager;
 import edu.uab.cvc.huntingwords.presenters.utils.PrimaryFont;
 import edu.uab.cvc.huntingwords.presenters.utils.ResourceManager;
 import edu.uab.cvc.huntingwords.screens.fragments.JumpGame;
-import edu.uab.cvc.huntingwords.tasks.UpdateScore;
-import edu.uab.cvc.huntingwords.tasks.jump.UpdateJumpClusters;
+import edu.uab.cvc.huntingwords.tasks.services.JumpService;
 import timber.log.Timber;
 
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.fadeOut;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.moveTo;
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.parallel;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.removeActor;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.repeat;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
@@ -72,7 +66,9 @@ public class GameScreen extends BaseScreen {
             index = i;
         }
     }
-    private List<JumpClusterResult> results;
+    private ArrayList<JumpClusterResult> results;
+
+    private ArrayList<String> addedResults;
 
     private Stage stage;
 
@@ -108,11 +104,7 @@ public class GameScreen extends BaseScreen {
 
     private int screenWidth, screenHeight;
 
-    private Preferences preferences;
-
     private SpriteBatch batch;
-
-    private boolean duplicado = false;
 
     private float ejeX = 11f, ejeY = 3f;
 
@@ -139,9 +131,9 @@ public class GameScreen extends BaseScreen {
     private Date startedDate;
     private String startDate;
     private SimpleDateFormat sdf;
-
     public GameScreen(final JumpGame game) {
         results = new ArrayList<>();
+        addedResults = new ArrayList<>();
         sdf = new SimpleDateFormat("yyyyMMdd HHmmss");
         startedDate = Calendar.getInstance().getTime();
         startDate = sdf.format(startedDate);
@@ -228,13 +220,10 @@ public class GameScreen extends BaseScreen {
 
         for (WordEntity p : playingWords) {
             stage.addActor(p);
-            System.out.println(p.getId());
-            System.out.println(p.getFixture().getUserData().toString());
         }
 
         stage.addActor(player);
 
-        preferences = Gdx.app.getPreferences("-_PuntuacionJugador_-");
         stage.getCamera().position.set(position);
         stage.getCamera().update();
     }
@@ -326,7 +315,10 @@ public class GameScreen extends BaseScreen {
                             puntuacion++;
                             a.addAction(sequence(moveTo(a.getX(),a.getY()+30,0.5f),removeActor()));
                             a.setColor(Color.GREEN);
-                            results.add(JumpClusterResult.newImageEqual(playingControlWord.index,((WordEntity) a).getId()));
+                            if (!addedResults.contains(((WordEntity) a).getId())) {
+                                results.add(JumpClusterResult.newImageEqual(playingControlWord.index,((WordEntity) a).getId()));
+                                addedResults.add(((WordEntity) a).getId());
+                            }
                         } else {
                             if (((WordEntity) a).getFixture().getUserData().toString().contains("0")) {
                                 puntuacion++;
@@ -351,15 +343,20 @@ public class GameScreen extends BaseScreen {
                         break;
                     }
                 } else {
-                    if (!((WordEntity) a).getFixture().getUserData().toString().contains("golden")) {
-                        results.add(JumpClusterResult.newImageDifferent(playingControlWord.index,((WordEntity) a).getId()));
-                    } else {
-                        if (a.getX() + a.getWidth() < player.getX() && ((WordEntity) a).getFixture().getUserData().toString().contains("0")) {
-                            vidas--;
-                            dieSound.play();
+                    if (a.getX() + a.getWidth() < player.getX() - 10) {
+                        if (!((WordEntity) a).getFixture().getUserData().toString().contains("golden")) {
+                            if (!addedResults.contains(((WordEntity) a).getId())) {
+                                results.add(JumpClusterResult.newImageDifferent(playingControlWord.index, ((WordEntity) a).getId()));
+                                addedResults.add(((WordEntity) a).getId());
+                            }
+                        } else {
+                            if (((WordEntity) a).getFixture().getUserData().toString().contains("0")) {
+                                vidas--;
+                                dieSound.play();
 
-                            a.addAction(sequence(repeat(3, sequence(moveTo(a.getX(), a.getY() + 3), moveTo(a.getX(), a.getY() - 3))), removeActor()));
-                            a.setColor(Color.RED);
+                                a.addAction(sequence(repeat(3, sequence(moveTo(a.getX(), a.getY() + 3), moveTo(a.getX(), a.getY() - 3))), removeActor()));
+                                a.setColor(Color.RED);
+                            }
                         }
                     }
                 }
@@ -367,6 +364,10 @@ public class GameScreen extends BaseScreen {
         }
 
         if (vidas < 1) {
+            Date stoppedDate = Calendar.getInstance().getTime();
+            long diffInMs = stoppedDate.getTime() - startedDate.getTime();
+            long diffInSec = TimeUnit.MILLISECONDS.toSeconds(diffInMs);
+            new Thread (() -> new JumpService(game.username,true).run(results,String.valueOf(nivel),startDate,sdf.format(stoppedDate),diffInSec,0f,puntuacion)).start();
             backgroundMusic.stop();
             stage.addAction(
                     sequence(
@@ -374,15 +375,6 @@ public class GameScreen extends BaseScreen {
                             Actions.run(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Date stoppedDate = Calendar.getInstance().getTime();
-                                    long diffInMs = stoppedDate.getTime() - startedDate.getTime();
-                                    long diffInSec = TimeUnit.MILLISECONDS.toSeconds(diffInMs);
-                                    for (JumpClusterResult j : results) {
-                                        String[] args = {j.getImageName(), j.getAnswer(), j.getClusterName(), game.username, String.valueOf(nivel), startDate, sdf.format(stoppedDate), String.valueOf(diffInSec), "0", String.valueOf(puntuacion)};
-                                        new UpdateJumpClusters().execute(args);
-                                    }
-                                    String[] args = {game.username,"3",String.valueOf(puntuacion),String.valueOf(nivel)};
-                                    new UpdateScore().execute(args);
                                     game.setScreen(new GameOverScreen(game,puntuacion));
                                 }
                             })
@@ -432,8 +424,6 @@ public class GameScreen extends BaseScreen {
             playingWords = words.get(playingControlWord.index);
             for (WordEntity p : playingWords) {
                 stage.addActor(p);
-                System.out.println(p.getId());
-                System.out.println(p.getFixture().getUserData().toString());
             }
         }
     }
@@ -476,7 +466,6 @@ public class GameScreen extends BaseScreen {
 
                     if (reference_image) { // this game x = 0 and y = 0 is in the bottom left corner. for x >= screenWidth, right. for y >= screenHeight, top.
                         controlWords.add(new ControlTuple(factory.createPalabra(world, 5f, 4.75f, filename, "controlWord"), id_jump_cluster));
-                        duplicado = true;
                     } else {
                         if (i > 0) {
                             ejeX = ejeX+2f;

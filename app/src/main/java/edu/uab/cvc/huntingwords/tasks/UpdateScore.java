@@ -15,11 +15,10 @@ import java.util.HashMap;
 
 import edu.uab.cvc.huntingwords.Utils;
 import edu.uab.cvc.huntingwords.presenters.utils.Token;
+import timber.log.Timber;
 
 import static edu.uab.cvc.huntingwords.Utils.SUCCESS;
-import static edu.uab.cvc.huntingwords.Utils.TOKEN;
 
-@SuppressWarnings("WeakerAccess")
 public class UpdateScore extends AsyncTask<String, Void, Boolean> {
 
     public UpdateScore() {}
@@ -51,8 +50,6 @@ public class UpdateScore extends AsyncTask<String, Void, Boolean> {
             values.put("level", arg[3]);
             values.put("token", key.getToken());
 
-            System.out.println("Debug: " + psb.getPostData(values));
-
             OutputStream os = con.getOutputStream();
             BufferedWriter writer = new BufferedWriter(
                     new OutputStreamWriter(os, "UTF-8"));
@@ -67,16 +64,14 @@ public class UpdateScore extends AsyncTask<String, Void, Boolean> {
                 buffer.append(next);
                 buffer.append("\n");
             }
-            JSONObject jObj = new JSONObject(buffer.toString());
+            try {
+                JSONObject jObj = new JSONObject(buffer.toString());
 
-            String suc = jObj.getString(SUCCESS);
-            String debug = jObj.getString("debug");
-
-            if (!debug.isEmpty()) {
-                System.out.println(debug);
+                String suc = jObj.getString(SUCCESS);
+                correct = suc.contentEquals("true");
+            } catch (Exception e) {
+                Timber.e(e);
             }
-
-            correct = suc.contentEquals("true");
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -57,7 +57,6 @@ public class WordEntity extends Actor {
             shapeRenderer.end();
         }
         batch.begin();
-
         batch.draw(texture, getX(), getY(), getWidth(), getHeight());
     }
 
