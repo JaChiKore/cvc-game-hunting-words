@@ -10,15 +10,21 @@ import com.badlogic.gdx.assets.loaders.resolvers.LocalFileHandleResolver;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
+import de.tomgrill.gdxdialogs.core.GDXDialogs;
+import de.tomgrill.gdxdialogs.core.GDXDialogsSystem;
+import de.tomgrill.gdxdialogs.core.dialogs.GDXProgressDialog;
 import edu.uab.cvc.huntingwords.R;
 import edu.uab.cvc.huntingwords.presenters.utils.LanguageManager;
 import edu.uab.cvc.huntingwords.presenters.utils.PrimaryFont;
@@ -27,6 +33,7 @@ import edu.uab.cvc.huntingwords.screens.fragments.JumpGame;
 import edu.uab.cvc.huntingwords.tasks.loaders.LoaderJumpGameAssets;
 import edu.uab.cvc.huntingwords.tasks.loaders.UpdateJumpGame;
 
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
 import static edu.uab.cvc.huntingwords.Utils.CURRENT_SCORE_JUMP;
 
 
@@ -45,6 +52,7 @@ public class GameWinScreen extends BaseScreen {
 
     public GameWinScreen(final JumpGame game, Integer finalScore) {
         this.game = game;
+        GDXDialogs dialogs = GDXDialogsSystem.install();
 
         LanguageManager languages = LanguageManager.getInstance();
         batch = new SpriteBatch();
@@ -58,10 +66,36 @@ public class GameWinScreen extends BaseScreen {
         TextButton backToGame = new TextButton(languages.getString("Continuar"), skin);
         TextButton menu = new TextButton(languages.getString("MenuP"), skin);
 
+
+
         backToGame.addCaptureListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.loadMoreImagesAndStart(finalScore);
+                GDXProgressDialog progressDialog = dialogs.newDialog(GDXProgressDialog.class);
+
+                progressDialog.setTitle(game.context.getString(R.string.title_loading_info));
+                progressDialog.setMessage(game.context.getString(R.string.downloading_text));
+
+                progressDialog.build().show();
+                //start a new thread to process job
+                new Thread(() ->  {
+                    new UpdateJumpGame().update(game.context,game.username);
+                    progressDialog.dismiss();
+                    AssetManager localManager = new AssetManager(new LocalFileHandleResolver());
+                    new LoaderJumpGameAssets().loadImages(localManager);
+                    ResourceManager.getInstance().setLocalManager(localManager);
+                    stage.addAction(
+                        sequence(
+                            Actions.delay(0f),
+                            Actions.run(new Runnable() {
+                                @Override
+                                public void run() {
+                                    game.setScreen(new LoadingScreen(game,finalScore));
+                                }
+                            })
+                        )
+                    );
+                }).start();
             }
         });
 

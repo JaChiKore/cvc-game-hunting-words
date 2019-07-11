@@ -165,8 +165,15 @@ public class GameScreen extends BaseScreen {
 
         playerName = skin.getFont("default-font");
 
-        puntuacion = 0;
+        puntuacion = initialScore;
+
         nivel = NIVEL;
+        if (puntuacion >= 5) {
+            nivel = 2;
+        }
+        if (puntuacion >= 10) {
+            nivel = 3;
+        }
         vidas = VIDA_INICIAL;
 
         // Create a new Box2D world for managing things.
@@ -369,18 +376,18 @@ public class GameScreen extends BaseScreen {
             Date stoppedDate = Calendar.getInstance().getTime();
             long diffInMs = stoppedDate.getTime() - startedDate.getTime();
             long diffInSec = TimeUnit.MILLISECONDS.toSeconds(diffInMs);
-            new Thread (() -> new JumpService(game.username,true).run(results,String.valueOf(nivel),startDate,sdf.format(stoppedDate),diffInSec,initialScore,puntuacion)).start();
+            new Thread (() -> new JumpService(game.username,true).run(results,"0",startDate,sdf.format(stoppedDate),diffInSec,initialScore,puntuacion)).start();
             backgroundMusic.stop();
             stage.addAction(
-                    sequence(
-                            Actions.delay(0f),
-                            Actions.run(new Runnable() {
-                                @Override
-                                public void run() {
-                                    game.setScreen(new GameOverScreen(game,puntuacion));
-                                }
-                            })
-                    )
+                sequence(
+                    Actions.delay(0f),
+                    Actions.run(new Runnable() {
+                        @Override
+                        public void run() {
+                            game.setScreen(new GameOverScreen(game,puntuacion));
+                        }
+                    })
+                )
             );
         }
 
@@ -417,9 +424,19 @@ public class GameScreen extends BaseScreen {
                 Date stoppedDate = Calendar.getInstance().getTime();
                 long diffInMs = stoppedDate.getTime() - startedDate.getTime();
                 long diffInSec = TimeUnit.MILLISECONDS.toSeconds(diffInMs);
-                new Thread (() -> new JumpService(game.username,true).run(results,String.valueOf(nivel),startDate,sdf.format(stoppedDate),diffInSec,initialScore,puntuacion)).start();
+                new Thread (() -> new JumpService(game.username,true).run(results,"1",startDate,sdf.format(stoppedDate),diffInSec,initialScore,puntuacion)).start();
                 backgroundMusic.stop();
-                game.setScreen(new GameWinScreen(game, puntuacion));
+                stage.addAction(
+                    sequence(
+                        Actions.delay(0f),
+                        Actions.run(new Runnable() {
+                            @Override
+                            public void run() {
+                                game.setScreen(new GameWinScreen(game, puntuacion));
+                            }
+                        })
+                    )
+                );
             } else {
                 playingControlWord = controlWordsIterator.next();
                 stage.addActor(playingControlWord.control);

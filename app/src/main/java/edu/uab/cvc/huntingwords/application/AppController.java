@@ -28,11 +28,12 @@ public class AppController extends Application {
         initialiseLogger();
         initAppComponent();
 
+        /*
         if (LeakCanary.isInAnalyzerProcess(this)) {
             return;
         }
         LeakCanary.install(this);
-
+        */
     }
 
     private void initAppComponent() {
