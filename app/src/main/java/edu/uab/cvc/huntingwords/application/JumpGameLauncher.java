@@ -17,7 +17,7 @@ public class JumpGameLauncher extends AndroidApplication {
         if (b.getString("username") != null) {
             username = b.getString("username");
         }
-        initialize(new JumpGame(this, username), config);
+        initialize(new JumpGame(this, username, getApplicationContext()), config);
 
     }
 }

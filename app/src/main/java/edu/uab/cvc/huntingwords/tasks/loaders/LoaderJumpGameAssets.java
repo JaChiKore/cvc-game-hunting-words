@@ -1,9 +1,7 @@
 package edu.uab.cvc.huntingwords.tasks.loaders;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.assets.AssetLoaderParameters;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.assets.loaders.AssetLoader;
 import com.badlogic.gdx.assets.loaders.resolvers.LocalFileHandleResolver;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
@@ -25,6 +23,7 @@ public class LoaderJumpGameAssets {
 
         assetManager.load("floor.png", Texture.class);
         assetManager.load("gameover.png", Texture.class);
+        assetManager.load("win.png", Texture.class);
         assetManager.load("puntuaciones.png", Texture.class);
         assetManager.load("overfloor.png", Texture.class);
         assetManager.load("pause.png", Texture.class);
@@ -40,6 +39,12 @@ public class LoaderJumpGameAssets {
         PrimaryFont.getInstance();
         ResourceManager rm = ResourceManager.getInstance();
 
+        loadImages(localManager);
+        rm.setAssetManager(assetManager);
+        rm.setLocalManager(localManager);
+    }
+
+    public void loadImages(AssetManager am) {
         File f = new File(Gdx.files.getLocalStoragePath(), "jumpGameInfo.txt");
         try {
             BufferedReader br = new BufferedReader(new FileReader(f));
@@ -47,28 +52,11 @@ public class LoaderJumpGameAssets {
                 String row;
                 while ((row = br.readLine()) != null) {
                     String filename = row.split(";")[0];
-                    localManager.load(filename, Texture.class);
+                    am.load(filename, Texture.class);
                 }
             }
         } catch (Exception e) {
             Timber.e(e);
         }
-        rm.setAssetManager(assetManager);
-        rm.setLocalManager(localManager);
     }
-/*
-    private void walk(FileHandle dir) {
-        FileHandle[] listFile = dir.list();
-        if (listFile != null) {
-            for (FileHandle f: listFile) {
-                if (f.isDirectory()) {
-                    walk(f);
-                } else {
-                    String word = String.valueOf(f);
-                    manager.load(word, Texture.class);
-                }
-            }
-        }
-    }
-    */
 }

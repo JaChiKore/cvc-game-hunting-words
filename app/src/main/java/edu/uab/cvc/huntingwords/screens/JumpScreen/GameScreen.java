@@ -131,7 +131,9 @@ public class GameScreen extends BaseScreen {
     private Date startedDate;
     private String startDate;
     private SimpleDateFormat sdf;
-    public GameScreen(final JumpGame game) {
+    private int initialScore;
+    public GameScreen(final JumpGame game, int initialScore) {
+        this.initialScore = initialScore;
         results = new ArrayList<>();
         addedResults = new ArrayList<>();
         sdf = new SimpleDateFormat("yyyyMMdd HHmmss");
@@ -367,7 +369,7 @@ public class GameScreen extends BaseScreen {
             Date stoppedDate = Calendar.getInstance().getTime();
             long diffInMs = stoppedDate.getTime() - startedDate.getTime();
             long diffInSec = TimeUnit.MILLISECONDS.toSeconds(diffInMs);
-            new Thread (() -> new JumpService(game.username,true).run(results,String.valueOf(nivel),startDate,sdf.format(stoppedDate),diffInSec,0f,puntuacion)).start();
+            new Thread (() -> new JumpService(game.username,true).run(results,String.valueOf(nivel),startDate,sdf.format(stoppedDate),diffInSec,initialScore,puntuacion)).start();
             backgroundMusic.stop();
             stage.addAction(
                     sequence(
@@ -412,19 +414,22 @@ public class GameScreen extends BaseScreen {
             }
 
             if (!controlWordsIterator.hasNext()) {
-                controlWords = new ArrayList<>();
-                words = new HashMap<>();
-                getImages();
-                //shuffleAllWords();
-                controlWordsIterator = controlWords.listIterator();
-            }
-            playingControlWord = controlWordsIterator.next();
-            stage.addActor(playingControlWord.control);
+                Date stoppedDate = Calendar.getInstance().getTime();
+                long diffInMs = stoppedDate.getTime() - startedDate.getTime();
+                long diffInSec = TimeUnit.MILLISECONDS.toSeconds(diffInMs);
+                new Thread (() -> new JumpService(game.username,true).run(results,String.valueOf(nivel),startDate,sdf.format(stoppedDate),diffInSec,initialScore,puntuacion)).start();
+                backgroundMusic.stop();
+                game.setScreen(new GameWinScreen(game, puntuacion));
+            } else {
+                playingControlWord = controlWordsIterator.next();
+                stage.addActor(playingControlWord.control);
 
-            playingWords = words.get(playingControlWord.index);
-            for (WordEntity p : playingWords) {
-                stage.addActor(p);
+                playingWords = words.get(playingControlWord.index);
+                for (WordEntity p : playingWords) {
+                    stage.addActor(p);
+                }
             }
+
         }
     }
 

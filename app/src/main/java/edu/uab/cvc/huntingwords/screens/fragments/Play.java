@@ -190,9 +190,7 @@ public class Play extends Fragment implements PlayView {
 
     }
 
-    private void startJumpDialog()
-    {
-
+    private void startJumpDialog() {
         ProgressDialog pd = ProgressDialog.show(getActivity(),getString(R.string.title_loading_info),getString(R.string.downloading_text));
         pd.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         pd.show();
