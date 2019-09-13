@@ -43,6 +43,7 @@ public class ConnectPresenterImpl implements ConnectPresenter {
             public void setUpScores(Boolean playClicked) {
                 view.updateMatchScore();
                 view.updateDiffScore();
+                view.updateJumpScore();
             }
 
             @Override
@@ -76,6 +77,7 @@ public class ConnectPresenterImpl implements ConnectPresenter {
             public void setUpScores(Boolean playClicked) {
                 view.updateMatchScore();
                 view.updateDiffScore();
+                view.updateJumpScore();
             }
 
             @Override

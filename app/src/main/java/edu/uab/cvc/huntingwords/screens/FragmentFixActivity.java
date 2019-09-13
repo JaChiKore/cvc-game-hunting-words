@@ -35,10 +35,6 @@ public class FragmentFixActivity extends Activity {
                 locale = new Locale(Languages.SPANISH_TAG);
                 currentLang = "Spanish";
                 break;
-            case Languages.ENGLISH_TAG:
-                locale = new Locale(Languages.ENGLISH_TAG);
-                currentLang = "English";
-                break;
             case Languages.CHINESE_TAG:
                 locale = new Locale(Languages.CHINESE_TAG);
                 currentLang = "Chinese";

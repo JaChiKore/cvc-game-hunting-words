@@ -7,6 +7,8 @@ import android.content.Intent;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 
+import java.util.Locale;
+
 import edu.uab.cvc.huntingwords.application.JumpGameLauncher;
 import edu.uab.cvc.huntingwords.presenters.utils.LanguageManager;
 import edu.uab.cvc.huntingwords.presenters.utils.PlatformResolver;
@@ -35,6 +37,8 @@ public class JumpGame extends Game {
         parentApp = j;
         this.username = username;
         this.context = context;
+
+        System.out.println("(JumpGame) tracking locale: "+ Locale.getDefault().toString());
     }
 
     @Override

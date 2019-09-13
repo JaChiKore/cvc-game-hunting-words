@@ -3,6 +3,9 @@ package edu.uab.cvc.huntingwords.application;
 import android.os.Bundle;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
+
+import java.util.Locale;
+
 import edu.uab.cvc.huntingwords.screens.fragments.JumpGame;
 
 public class JumpGameLauncher extends AndroidApplication {
@@ -16,6 +19,7 @@ public class JumpGameLauncher extends AndroidApplication {
         if (b.getString("username") != null) {
             username = b.getString("username");
         }
+        System.out.println("(JumpLauncher) tracking locale: "+ Locale.getDefault().toString());
         initialize(new JumpGame(this, username, getApplicationContext()), config);
 
     }

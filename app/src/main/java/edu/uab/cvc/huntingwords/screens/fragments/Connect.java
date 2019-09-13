@@ -149,6 +149,16 @@ public class Connect extends Fragment implements LoginView {
     }
 
     @Override
+    public void updateJumpScore() {
+        TextView textView = getActivity().findViewById(R.id.value_jump_score);
+        SharedPreferences preferences = getActivity().getSharedPreferences(
+                getString(R.string.preferences_file), Context.MODE_PRIVATE);
+        int diffValue = preferences.getInt(edu.uab.cvc.huntingwords.Utils.CURRENT_SCORE_JUMP,0);
+        ((TextView)getActivity().findViewById(R.id.text_jump_score)).setText(getString(R.string.text_jump_score));
+        textView.setText(String.valueOf(diffValue));
+    }
+
+    @Override
     public void goToInit() {
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.replace(R.id.fragment_switch, new Init(), "init");
@@ -176,6 +186,10 @@ public class Connect extends Fragment implements LoginView {
         editor.putInt(CURRENT_LEVEL_DIFFERENCE,diffLevel);
         editor.putInt(CURRENT_LEVEL_JUMP,jumpLevel);
         editor.apply();
+
+        updateMatchScore();
+        updateDiffScore();
+        updateJumpScore();
     }
 
     public void setUpAnonymousParameters() {

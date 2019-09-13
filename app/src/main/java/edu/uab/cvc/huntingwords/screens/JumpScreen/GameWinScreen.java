@@ -66,8 +66,6 @@ public class GameWinScreen extends BaseScreen {
         TextButton backToGame = new TextButton(languages.getString("Continuar"), skin);
         TextButton menu = new TextButton(languages.getString("MenuP"), skin);
 
-
-
         backToGame.addCaptureListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {

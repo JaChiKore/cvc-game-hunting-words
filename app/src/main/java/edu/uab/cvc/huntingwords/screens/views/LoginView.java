@@ -9,6 +9,7 @@ public interface LoginView {
     void updateLogin(String username);
     void updateMatchScore();
     void updateDiffScore();
+    void updateJumpScore();
     void goToInit();
 
     void setUpLoginParameters(String username);

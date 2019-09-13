@@ -15,6 +15,8 @@ import android.widget.TextView;
 import com.crashlytics.android.answers.Answers;
 import com.crashlytics.android.answers.LoginEvent;
 
+import java.util.Locale;
+
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import edu.uab.cvc.huntingwords.R;
@@ -49,6 +51,7 @@ public class Init extends Fragment implements InitView {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        System.out.println("(Init) tracking locale: "+ Locale.getDefault().toString());
         SharedPreferences preferences = getActivity().getSharedPreferences(
                 getString(R.string.preferences_file), Context.MODE_PRIVATE);
         String string = preferences.getString(PARAM_TOKEN, getString(R.string.default_token));
@@ -119,16 +122,8 @@ public class Init extends Fragment implements InitView {
     public void clickPlay(){
         TextView t = getActivity().findViewById(R.id.screenScale);
         switch (t.getText().toString()) {
-            case "default":
-                Utils.imageScale = 450f;break;
             case "sw300dp":
                 Utils.imageScale = 155f;break;
-            case "sw330dp":
-                Utils.imageScale = 450f;break;
-            case "sw480dp":
-                Utils.imageScale = 450f;break;
-            case "sw600dp":
-                Utils.imageScale = 450f;break;
             case "sw600dp-tv":
                 Utils.imageScale = 500f;break;
             case "sw720dp":

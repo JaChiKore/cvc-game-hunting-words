@@ -75,6 +75,7 @@ public class Languages extends Fragment {
     private void updateTextScore() {
         ((TextView)getActivity().findViewById(R.id.text_match_score)).setText(getString(R.string.text_match_score));
         ((TextView)getActivity().findViewById(R.id.text_diff_score)).setText(getString(R.string.text_diff_score));
+        ((TextView)getActivity().findViewById(R.id.text_jump_score)).setText(getString(R.string.text_jump_score));
         SharedPreferences preferences = getActivity().getSharedPreferences(
                 getString(R.string.preferences_file), Context.MODE_PRIVATE);
         String string = preferences.getString(edu.uab.cvc.huntingwords.Utils.PARAM_USERNAME, getString(R.string.anonym));
@@ -89,12 +90,16 @@ public class Languages extends Fragment {
         ft.commit();
     }
 
-    @SuppressWarnings("deprecation")
     private void setLocale(Locale locale) {
         Locale.setDefault(locale);
+        System.out.println("changed to new locale: "+Locale.getDefault().toString());
         Configuration config = new Configuration(getActivity().getBaseContext().getResources().getConfiguration());
         config.locale = locale;
         getActivity().getBaseContext().getResources().updateConfiguration(config,
                 getActivity().getBaseContext().getResources().getDisplayMetrics());
+        config = new Configuration(getActivity().getApplicationContext().getResources().getConfiguration());
+        config.locale = locale;
+        getActivity().getApplicationContext().getResources().updateConfiguration(config,
+                getActivity().getApplicationContext().getResources().getDisplayMetrics());
     }
 }

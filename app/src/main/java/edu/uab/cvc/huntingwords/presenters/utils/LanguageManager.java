@@ -30,16 +30,16 @@ public class LanguageManager {
             _languageName = resolver.getDefaultLanguage();
         }
 
-        System.out.println("locale language: "+Locale.getDefault().toString());
+        System.out.println("(languageManager) tracking locale: "+ Locale.getDefault().toString());
 
         if (!loadLanguage(_languageName)) {
-            if (Locale.getDefault().toString().equals("es_ES")) {
+            if (Locale.getDefault().toString().equals("es")) {
                 loadLanguage(DEFAULT_LANGUAGE_ES);
-            }else if (Locale.getDefault().toString().equals("en_US")) {
+            }else if (Locale.getDefault().toString().equals("en")) {
                 loadLanguage(DEFAULT_LANGUAGE_UK);
-            }else if (Locale.getDefault().toString().equals("ca_ES")) {
+            }else if (Locale.getDefault().toString().equals("ca")) {
                 loadLanguage(DEFAULT_LANGUAGE_CA);
-            }else if (Locale.getDefault().toString().equals("zh_CN")) {
+            }else if (Locale.getDefault().toString().equals("zh")) {
                 loadLanguage(DEFAULT_LANGUAGE_CN);
             }else if (Locale.getDefault().toString().equals("zh_TW_#Hant")) {
                 loadLanguage(DEFAULT_LANGUAGE_TW);
