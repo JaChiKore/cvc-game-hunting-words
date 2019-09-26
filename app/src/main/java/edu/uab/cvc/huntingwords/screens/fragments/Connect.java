@@ -186,10 +186,6 @@ public class Connect extends Fragment implements LoginView {
         editor.putInt(CURRENT_LEVEL_DIFFERENCE,diffLevel);
         editor.putInt(CURRENT_LEVEL_JUMP,jumpLevel);
         editor.apply();
-
-        updateMatchScore();
-        updateDiffScore();
-        updateJumpScore();
     }
 
     public void setUpAnonymousParameters() {
