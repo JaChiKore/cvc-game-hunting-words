@@ -261,10 +261,10 @@ public class GameScreen extends BaseScreen {
         float scale;
         switch (screenWidth) {
             case 320:
-                scale = 0.5f;
+                scale = 0.3f;
                 break;
             case 480:
-                scale = 1f;
+                scale = 0.5f;
                 break;
             case 800:
                 scale = 1.5f;
@@ -279,7 +279,7 @@ public class GameScreen extends BaseScreen {
                 scale = 3f;
                 break;
             default:
-                scale = 1.85f;
+                scale = 1.25f;
                 break;
         }
         batch.begin();

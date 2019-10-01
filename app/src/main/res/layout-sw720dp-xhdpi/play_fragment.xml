@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
@@ -137,8 +137,8 @@
                     android:id="@+id/jump"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="45sp"
-                    android:text="@string/jump_game" />
+                    android:text="@string/jump_game"
+                    android:textSize="45sp" />
 
                 <Button
                     android:id="@+id/how_to_play_jump"

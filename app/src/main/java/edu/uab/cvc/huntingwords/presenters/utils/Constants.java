@@ -1,5 +1,8 @@
 package edu.uab.cvc.huntingwords.presenters.utils;
 
+import javax.inject.Singleton;
+
+@Singleton
 public class Constants {
 
     public static final float PIXELS_IN_METER = 60f;
@@ -16,5 +19,8 @@ public class Constants {
      * URL del servidor donde descargar las imágenes
      */
     public static final String BASE_URL = "http://158.109.8.91/wordhunter/php";
+
+    public static float SCREEN_WIDTH = -1f;
+    public static float SCREEN_HEIGHT = -1f;
 }
 

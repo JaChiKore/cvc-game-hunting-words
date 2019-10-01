@@ -25,7 +25,8 @@
                 android:layout_weight="1"
                 android:text="@string/score"
                 android:textAlignment="viewEnd"
-                android:textSize="20sp" />
+                app:autoSizeTextType="uniform"
+                app:autoSizePresetSizes="@array/autoSize_330" />
 
             <TextView
                 android:id="@+id/value_points"
@@ -33,7 +34,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/zero"
-                android:textSize="20sp" />
+                app:autoSizeTextType="uniform"
+                app:autoSizePresetSizes="@array/autoSize_330" />
 
             <ImageView
                 android:id="@+id/stars"
@@ -51,7 +53,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/zero"
-                android:textSize="20sp" />
+                app:autoSizeTextType="uniform"
+                app:autoSizePresetSizes="@array/autoSize_330" />
 
         </LinearLayout>
 
@@ -85,7 +88,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_toEndOf="@id/scrollid"
-            android:textSize="20sp"
+            app:autoSizeTextType="uniform"
+                app:autoSizePresetSizes="@array/autoSize_330"
              />
 
 
@@ -95,7 +99,8 @@
             android:layout_height="wrap_content"
             android:layout_toEndOf="@id/scrollid"
             android:layout_below="@id/match_but_0"
-            android:textSize="20sp"
+            app:autoSizeTextType="uniform"
+                app:autoSizePresetSizes="@array/autoSize_330"
             />
 
         <Button
@@ -104,7 +109,8 @@
             android:layout_height="wrap_content"
             android:layout_toEndOf="@id/scrollid"
             android:layout_below="@id/match_but_1"
-            android:textSize="20sp"
+            app:autoSizeTextType="uniform"
+                app:autoSizePresetSizes="@array/autoSize_330"
  />
 
         <Button
@@ -113,7 +119,8 @@
             android:layout_height="wrap_content"
             android:layout_toEndOf="@id/scrollid"
             android:layout_below="@id/match_but_2"
-            android:textSize="20sp"
+            app:autoSizeTextType="uniform"
+                app:autoSizePresetSizes="@array/autoSize_330"
              />
 
         <Button
@@ -122,7 +129,8 @@
             android:layout_height="wrap_content"
             android:layout_toEndOf="@id/scrollid"
             android:layout_below="@id/match_but_3"
-            android:textSize="20sp"
+            app:autoSizeTextType="uniform"
+                app:autoSizePresetSizes="@array/autoSize_330"
             android:text="@string/none_of_these" />
 
 

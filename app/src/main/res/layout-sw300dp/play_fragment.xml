@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center"
     android:orientation="horizontal"
-    android:clickable="true"
-    >
+    android:clickable="true">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,8 +29,9 @@
                     android:id="@+id/title_match_game"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="18sp"
-                    android:text="@string/match_game" />
+                    android:text="@string/match_game"
+                    app:autoSizeTextType="uniform"
+                    app:autoSizePresetSizes="@array/autoSize_300" />
 
 
                 <ImageView
@@ -46,21 +46,24 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/match_game"
-                    android:textSize="18sp" />
+                    app:autoSizeTextType="uniform"
+                    app:autoSizePresetSizes="@array/autoSize_300"/>
 
                 <Button
                     android:id="@+id/how_to_play_match"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/how_to_play"
-                    android:textSize="18sp" />
+                    app:autoSizeTextType="uniform"
+                    app:autoSizePresetSizes="@array/autoSize_300" />
 
                 <Button
                     android:id="@+id/ranking_match"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/ranking"
-                    android:textSize="18sp" />
+                    app:autoSizeTextType="uniform"
+                    app:autoSizePresetSizes="@array/autoSize_300" />
 
             </LinearLayout>
 
@@ -76,8 +79,9 @@
                     android:id="@+id/title_difference_game"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="18sp"
-                    android:text="@string/difference_game" />
+                    android:text="@string/difference_game"
+                    app:autoSizeTextType="uniform"
+                    app:autoSizePresetSizes="@array/autoSize_300" />
 
 
                 <ImageView
@@ -93,21 +97,24 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/difference_game"
-                    android:textSize="18sp" />
+                    app:autoSizeTextType="uniform"
+                    app:autoSizePresetSizes="@array/autoSize_300" />
 
                 <Button
                     android:id="@+id/how_to_play_difference"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/how_to_play"
-                    android:textSize="18sp" />
+                    app:autoSizeTextType="uniform"
+                    app:autoSizePresetSizes="@array/autoSize_300" />
 
                 <Button
                     android:id="@+id/ranking_difference"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/ranking"
-                    android:textSize="18sp" />
+                    app:autoSizeTextType="uniform"
+                    app:autoSizePresetSizes="@array/autoSize_300" />
 
             </LinearLayout>
 
@@ -123,7 +130,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/jump_game"
-                    android:textSize="18sp" />
+                    app:autoSizeTextType="uniform"
+                    app:autoSizePresetSizes="@array/autoSize_300" />
 
                 <ImageView
                     android:id="@+id/image_jump"
@@ -137,21 +145,24 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/jump_game"
-                    android:textSize="18sp" />
+                    app:autoSizeTextType="uniform"
+                    app:autoSizePresetSizes="@array/autoSize_300" />
 
                 <Button
                     android:id="@+id/how_to_play_jump"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/how_to_play"
-                    android:textSize="18sp" />
+                    app:autoSizeTextType="uniform"
+                    app:autoSizePresetSizes="@array/autoSize_300" />
 
                 <Button
                     android:id="@+id/ranking_jump"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/ranking"
-                    android:textSize="18sp" />
+                    app:autoSizeTextType="uniform"
+                    app:autoSizePresetSizes="@array/autoSize_300" />
 
             </LinearLayout>
 

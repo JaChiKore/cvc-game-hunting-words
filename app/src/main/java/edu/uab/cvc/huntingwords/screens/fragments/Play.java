@@ -13,6 +13,8 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import androidx.annotation.Nullable;
+import androidx.core.widget.TextViewCompat;
+
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
@@ -22,6 +24,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.TextView;
 
 
 import java.util.ArrayList;

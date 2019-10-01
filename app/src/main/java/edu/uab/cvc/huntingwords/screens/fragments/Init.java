@@ -5,11 +5,15 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Point;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
+
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.crashlytics.android.answers.Answers;
@@ -21,6 +25,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import edu.uab.cvc.huntingwords.R;
 import edu.uab.cvc.huntingwords.presenters.InitPresenterImpl;
+import edu.uab.cvc.huntingwords.presenters.utils.Constants;
 import edu.uab.cvc.huntingwords.presenters.utils.Token;
 import edu.uab.cvc.huntingwords.screens.Utils;
 import edu.uab.cvc.huntingwords.screens.views.InitView;
@@ -45,6 +50,27 @@ public class Init extends Fragment implements InitView {
         ButterKnife.bind(this, view);
         presenter = new InitPresenterImpl(this);
         view.setBackgroundColor(Utils.GetBackgroundColour(this.getActivity()));
+
+        TextView size_view = view.findViewById(R.id.size_view);
+
+        if (Constants.SCREEN_HEIGHT == -1 || Constants.SCREEN_WIDTH == -1) {
+            WindowManager wm = (WindowManager) getActivity().getBaseContext().getSystemService(Context.WINDOW_SERVICE);
+            Display display = wm.getDefaultDisplay();
+            Point size = new Point();
+            display.getSize(size);
+            int width = size.x;
+            int height = size.y;
+            Constants.SCREEN_WIDTH = width;
+            Constants.SCREEN_HEIGHT = height;
+        }
+
+        if (getUsername().equals("Jialuo")) {
+            size_view.setVisibility(View.VISIBLE);
+            size_view.setText(size_view.getText().toString()+" "+Constants.SCREEN_WIDTH+" "+Constants.SCREEN_HEIGHT);
+        } else {
+            size_view.setVisibility(View.GONE);
+        }
+
         return view;
     }
 

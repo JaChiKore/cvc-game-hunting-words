@@ -14,6 +14,8 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -38,10 +40,10 @@ import static edu.uab.cvc.huntingwords.Utils.CURRENT_SCORE_MATCH;
 public class Connect extends Fragment implements LoginView {
     private ConnectPresenter presenter;
 
-    @BindView(R.id.edit_username)
-    EditText username;
-    @BindView(R.id.edit_pasword)
-    EditText password;
+    //@BindView(R.id.edit_username)
+    //EditText username;
+    //@BindView(R.id.edit_pasword)
+    //EditText password;
     Token key = Token.getInstance();
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -81,8 +83,18 @@ public class Connect extends Fragment implements LoginView {
     }
 
     public void login() {
-        String user= username.getText().toString();
-        String pass= password.getText().toString();
+        String user = "";
+        String pass = "";
+        try {
+            TextView tv = getActivity().findViewById(R.id.edit_username);
+            user = tv.getText().toString();
+            tv = getActivity().findViewById(R.id.edit_password);
+            pass = tv.getText().toString();
+        } catch (Exception e) {
+            //user = username.getText().toString();
+            //pass = password.getText().toString();
+        }
+
         if (user.length() > 0 && pass.length() > 0) {
             this.presenter.login(user,pass);
         }
@@ -98,8 +110,18 @@ public class Connect extends Fragment implements LoginView {
     }
 
     public void signin() {
-        String user= username.getText().toString();
-        String pass= password.getText().toString();
+        String user = "";
+        String pass = "";
+        try {
+            TextView tv = getActivity().findViewById(R.id.edit_username);
+            user = tv.getText().toString();
+            tv = getActivity().findViewById(R.id.edit_password);
+            pass = tv.getText().toString();
+        } catch (Exception e) {
+            //user = username.getText().toString();
+            //pass = password.getText().toString();
+        }
+
         if (user.length() > 0 && pass.length() > 0) {
             this.presenter.signin(user, pass);
         }

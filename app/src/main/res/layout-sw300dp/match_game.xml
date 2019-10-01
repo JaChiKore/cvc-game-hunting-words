@@ -25,7 +25,8 @@
                 android:layout_weight="1"
                 android:text="@string/score"
                 android:textAlignment="viewEnd"
-                android:textSize="18sp" />
+                app:autoSizeTextType="uniform"
+                app:autoSizePresetSizes="@array/autoSize_300" />
 
             <TextView
                 android:id="@+id/value_points"
@@ -33,7 +34,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/zero"
-                android:textSize="18sp" />
+                app:autoSizeTextType="uniform"
+                app:autoSizePresetSizes="@array/autoSize_300" />
 
             <ImageView
                 android:id="@+id/stars"
@@ -51,7 +53,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/zero"
-                android:textSize="18sp" />
+                app:autoSizeTextType="uniform"
+                app:autoSizePresetSizes="@array/autoSize_300" />
 
         </LinearLayout>
 
@@ -86,7 +89,8 @@
             android:layout_height="wrap_content"
             android:layout_toEndOf="@id/scrollid"
             android:minHeight="42dip"
-            android:textSize="15sp" />
+            app:autoSizeTextType="uniform"
+            app:autoSizePresetSizes="@array/autoSize_300" />
 
 
         <Button
@@ -96,7 +100,8 @@
             android:layout_toEndOf="@id/scrollid"
             android:layout_below="@id/match_but_0"
             android:minHeight="42dip"
-            android:textSize="15sp"
+            app:autoSizeTextType="uniform"
+            app:autoSizePresetSizes="@array/autoSize_300"
             />
 
         <Button
@@ -106,7 +111,8 @@
             android:layout_toEndOf="@id/scrollid"
             android:layout_below="@id/match_but_1"
             android:minHeight="42dip"
-            android:textSize="15sp"
+            app:autoSizeTextType="uniform"
+            app:autoSizePresetSizes="@array/autoSize_300"
  />
 
         <Button
@@ -116,7 +122,8 @@
             android:layout_toEndOf="@id/scrollid"
             android:layout_below="@id/match_but_2"
             android:minHeight="42dip"
-            android:textSize="15sp"
+            app:autoSizeTextType="uniform"
+            app:autoSizePresetSizes="@array/autoSize_300"
              />
 
         <Button
@@ -126,7 +133,8 @@
             android:layout_toEndOf="@id/scrollid"
             android:layout_below="@id/match_but_3"
             android:minHeight="42dip"
-            android:textSize="15sp"
+            app:autoSizeTextType="uniform"
+            app:autoSizePresetSizes="@array/autoSize_300"
             android:text="@string/none_of_these" />
 
 

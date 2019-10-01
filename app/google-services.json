@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "733884259583",
+    "firebase_url": "https://word-hunter-1.firebaseio.com",
+    "project_id": "word-hunter-1",
+    "storage_bucket": "word-hunter-1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:733884259583:android:6da14c2b1b8c345947c0ca",
+        "android_client_info": {
+          "package_name": "edu.uab.cvc.huntingwords"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "733884259583-44abml7uebi4dgqvuf8rjc0bi0aj62cs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4kIai26nHZ5OHx3_0QUAT-uqCz2CvTxE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "733884259583-44abml7uebi4dgqvuf8rjc0bi0aj62cs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
