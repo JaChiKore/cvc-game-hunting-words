@@ -61,5 +61,9 @@
     <string name="stats">统计</string>
     <string name="jump_game">文字跳跃</string>
     <string name="text_jump_score">Jump 分数:</string>
+    <string name="user_pass_sign_toast">:用户名与密码要多于3个生字或字母</string>
+    <string name="error_neutral_toast">出错</string>
+    <string name="error_low_toast">系统不服</string>
+    <string name="error_medium_toast">嘤嘤嘤</string>
 
 </resources>

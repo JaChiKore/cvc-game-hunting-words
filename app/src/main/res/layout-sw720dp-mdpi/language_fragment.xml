@@ -4,36 +4,63 @@
     android:layout_height="match_parent"
     android:clickable="true">
 
-    <Button
-        android:id="@+id/but_catalan"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_weight="1"
-        android:textSize="40sp"
-        android:text="@string/ca" />
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/but_catalan"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="60sp"
+            android:layout_marginTop="60sp"
+            android:layout_marginEnd="25sp"
+            android:layout_marginBottom="25sp"
+            android:layout_weight="1"
+            android:textSize="70sp"
+            android:text="@string/ca" />
 
-    <Button
-        android:id="@+id/but_spanish"
+        <Button
+            android:id="@+id/but_spanish"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="25sp"
+            android:layout_marginTop="60sp"
+            android:layout_marginEnd="60sp"
+            android:layout_marginBottom="25sp"
+            android:layout_weight="1"
+            android:textSize="70sp"
+            android:text="@string/es" />
+    </LinearLayout>
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_weight="1"
-        android:textSize="40sp"
-        android:text="@string/es" />
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/but_english"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="60sp"
+            android:layout_marginTop="25sp"
+            android:layout_marginEnd="25sp"
+            android:layout_marginBottom="60sp"
+            android:layout_weight="1"
+            android:textSize="70sp"
+            android:text="@string/en" />
 
-    <Button
-        android:id="@+id/but_english"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:textSize="40sp"
-        android:text="@string/en" />
-
-    <Button
-        android:id="@+id/but_chinese"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:textSize="40sp"
-        android:text="@string/zh" />
+        <Button
+            android:id="@+id/but_chinese"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="25sp"
+            android:layout_marginTop="25sp"
+            android:layout_marginEnd="60sp"
+            android:layout_marginBottom="60sp"
+            android:layout_weight="1"
+            android:textSize="70sp"
+            android:text="@string/zh" />
+    </LinearLayout>
 
 </LinearLayout>

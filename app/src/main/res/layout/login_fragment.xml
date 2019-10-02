@@ -24,7 +24,7 @@
                 android:id="@+id/edit_username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="10"
+                android:ems="18"
                 android:inputType="textPersonName"
                 android:textAlignment="viewEnd" />
 
@@ -42,10 +42,10 @@
                 android:textSize="18sp" />
             <!--     android:imeOptions="flagNoExtractUi"  -->
             <EditText
-                android:id="@+id/edit_pasword"
+                android:id="@+id/edit_password"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="10"
+                android:ems="18"
                 android:inputType="textPassword"
                 android:textAlignment="viewEnd" />
         </TableRow>

@@ -14,7 +14,11 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+
 import org.w3c.dom.Text;
+
+import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,10 +44,10 @@ import static edu.uab.cvc.huntingwords.Utils.CURRENT_SCORE_MATCH;
 public class Connect extends Fragment implements LoginView {
     private ConnectPresenter presenter;
 
-    //@BindView(R.id.edit_username)
-    //EditText username;
-    //@BindView(R.id.edit_pasword)
-    //EditText password;
+    @BindView(R.id.edit_username)
+    EditText username;
+    @BindView(R.id.edit_password)
+    EditText password;
     Token key = Token.getInstance();
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -55,7 +59,6 @@ public class Connect extends Fragment implements LoginView {
 
         TableLayout tl = view.findViewById(R.id.user_pass_tl);
         TableLayout tl2 = view.findViewById(R.id.scores_tl);
-
         Button b = view.findViewById(R.id.connect);
         Button b2 = view.findViewById(R.id.signin);
         if (key.getToken().equals(getString(R.string.default_token))) {
@@ -83,20 +86,26 @@ public class Connect extends Fragment implements LoginView {
     }
 
     public void login() {
-        String user = "";
-        String pass = "";
-        try {
-            TextView tv = getActivity().findViewById(R.id.edit_username);
-            user = tv.getText().toString();
-            tv = getActivity().findViewById(R.id.edit_password);
-            pass = tv.getText().toString();
-        } catch (Exception e) {
-            //user = username.getText().toString();
-            //pass = password.getText().toString();
-        }
+        String user = username.getText().toString();
+        String pass = password.getText().toString();
 
-        if (user.length() > 0 && pass.length() > 0) {
+        if (user.length() > 3 && pass.length() > 3) {
             this.presenter.login(user,pass);
+        } else {
+            String text = getString(R.string.user_pass_sign_toast);
+
+            switch (new Random().nextInt(3)) {
+                case 1:
+                    text = getString(R.string.error_low_toast).concat(text);
+                    break;
+                case 2:
+                    text = getString(R.string.error_medium_toast).concat(text);
+                    break;
+                default:
+                    text = getString(R.string.error_neutral_toast).concat(text);
+                    break;
+            }
+            Toast.makeText(getActivity(), text, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -110,20 +119,26 @@ public class Connect extends Fragment implements LoginView {
     }
 
     public void signin() {
-        String user = "";
-        String pass = "";
-        try {
-            TextView tv = getActivity().findViewById(R.id.edit_username);
-            user = tv.getText().toString();
-            tv = getActivity().findViewById(R.id.edit_password);
-            pass = tv.getText().toString();
-        } catch (Exception e) {
-            //user = username.getText().toString();
-            //pass = password.getText().toString();
-        }
+        String user = username.getText().toString();
+        String pass = password.getText().toString();
 
-        if (user.length() > 0 && pass.length() > 0) {
+        if (user.length() > 3 && pass.length() > 3) {
             this.presenter.signin(user, pass);
+        } else {
+            String text = getString(R.string.user_pass_sign_toast);
+
+            switch (new Random().nextInt(3)) {
+                case 1:
+                    text = getString(R.string.error_low_toast).concat(text);
+                    break;
+                case 2:
+                    text = getString(R.string.error_medium_toast).concat(text);
+                    break;
+                default:
+                    text = getString(R.string.error_neutral_toast).concat(text);
+                    break;
+            }
+            Toast.makeText(getActivity(), text, Toast.LENGTH_LONG).show();
         }
     }
 

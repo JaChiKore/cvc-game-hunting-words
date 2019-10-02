@@ -66,4 +66,8 @@
     <string name="stats">Stats</string>
     <string name="jump_game">Jump Words</string>
     <string name="text_jump_score">Jump score:</string>
+    <string name="user_pass_sign_toast">: Username and/or password must have more than 3 chracters</string>
+    <string name="error_neutral_toast">ERROR</string>
+    <string name="error_low_toast">System disagree</string>
+    <string name="error_medium_toast">My deepest apologies</string>
 </resources>

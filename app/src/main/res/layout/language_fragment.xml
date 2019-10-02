@@ -4,36 +4,53 @@
     android:layout_height="match_parent"
     android:clickable="true">
 
-    <Button
-        android:id="@+id/but_catalan"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_weight="1"
-        android:textSize="18sp"
-        android:text="@string/ca" />
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/but_spanish"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:textSize="18sp"
-        android:text="@string/es" />
+        <Button
+            android:id="@+id/but_catalan"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:text="@string/ca"
+            android:textSize="18sp" />
 
-    <Button
-        android:id="@+id/but_english"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:textSize="18sp"
-        android:text="@string/en" />
+        <Button
+            android:id="@+id/but_spanish"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:text="@string/es"
+            android:textSize="18sp" />
 
-    <Button
-        android:id="@+id/but_chinese"
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_weight="1"
-        android:textSize="18sp"
-        android:text="@string/zh" />
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/but_english"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/en"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/but_chinese"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/zh"
+            android:textSize="18sp" />
+    </LinearLayout>
 
 </LinearLayout>

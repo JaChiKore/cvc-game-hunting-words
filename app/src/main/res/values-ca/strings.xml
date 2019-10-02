@@ -61,5 +61,9 @@
     <string name="stats">Estadístiques</string>
     <string name="jump_game">Salta-paraules</string>
     <string name="text_jump_score">Jump puntuació:</string>
+    <string name="user_pass_sign_toast">: El camp \"usuari\" i/o \"contrasenya\" ha de tenir més de 3 lletres</string>
+    <string name="error_neutral_toast">ERROR</string>
+    <string name="error_low_toast">Discrepo</string>
+    <string name="error_medium_toast">Les meves disculpes</string>
 
 </resources>
