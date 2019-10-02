@@ -66,4 +66,19 @@
             android:textSize="20sp" />
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/size_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="sw300dp"
+            android:textSize="12sp" />
+    </LinearLayout>
+
 </RelativeLayout>

@@ -187,6 +187,7 @@ public class GameScreen extends BaseScreen {
                 Fixture fixtureB = contact.getFixtureB();
                 if (fixtureA.getUserData().toString().equals("floor") || fixtureB.getUserData().toString().equals("floor")) {
                     player.setJumping(false);
+                    player.setPosition(2.5f, 1.5f);
                 }
             }
 
@@ -508,47 +509,4 @@ public class GameScreen extends BaseScreen {
             Timber.e(e);
         }
     }
-
-    /*
-
-    private void randomWalk(FileHandle dir) {
-        EntityFactory factory = new EntityFactory(manager);
-        FileHandle[] listFile = dir.list();
-        ArrayList<Integer> ret = new ArrayList<>();
-        for (int i=0; i<listFile.length; i++) {
-            ret.add(i);
-        }
-        Collections.shuffle(ret);
-
-        for (int i=0; i<ret.size(); i++) {
-            if (listFile[ret.get(i)].isDirectory()) {
-                randomWalk(listFile[ret.get(i)]);
-            } else {
-                String filename = String.valueOf(listFile[ret.get(i)].path());
-                String filepath = filename.replace("\\", "/");
-                String[] splitFilename = filename.split(";");
-                if (splitFilename[2].equals("0") && !duplicado) { // this game x = 0 and y = 0 is in the bottom left corner. for x >= screenWidth, right. for y >= screenHeight, top.
-                    controlWords.add(new ControlTuple(factory.createPalabra(world, 5f, 4.75f, filepath, "controlWord"), splitFilename[1]));
-                    duplicado = true;
-                } else {
-                    if (i > 0 && (splitFilename[1].equals(listFile[i-1].path().split(";")[1]))) {
-                        ejeX = ejeX + 2f;
-                    } else {
-                        ejeX = ejeX+4f; // different cluster, put it in stage far
-                    }
-                    ArrayList<WordEntity> aux = words.get(splitFilename[1]);
-                    if (aux == null) {
-                        aux = new ArrayList<>();
-                        words.put(splitFilename[1], aux);
-                    }
-                    aux.add(factory.createPalabra(world, ejeX, ejeY, filepath, "palabra"+(splitFilename[2])));
-                    words.put(splitFilename[1], aux);
-                }
-            }
-        }
-        duplicado = false;
-        ejeX = 11f;
-
-    }
-     */
 }
