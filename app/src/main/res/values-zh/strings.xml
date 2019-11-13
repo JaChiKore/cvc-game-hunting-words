@@ -65,5 +65,6 @@
     <string name="error_neutral_toast">出错</string>
     <string name="error_low_toast">系统不服</string>
     <string name="error_medium_toast">嘤嘤嘤</string>
+    <string name="test_login">这位游客，您正在使用测试用账号，我们推荐您注册一个账号</string>
 
 </resources>

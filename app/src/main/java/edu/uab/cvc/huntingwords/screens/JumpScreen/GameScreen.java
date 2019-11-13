@@ -268,7 +268,7 @@ public class GameScreen extends BaseScreen {
                 scale = 0.5f;
                 break;
             case 800:
-                scale = 1.5f;
+                scale = 1.25f;
                 break;
             case 1280:
                 scale = 2f;
@@ -280,7 +280,7 @@ public class GameScreen extends BaseScreen {
                 scale = 3f;
                 break;
             default:
-                scale = 1.25f;
+                scale = 1f;
                 break;
         }
         batch.begin();

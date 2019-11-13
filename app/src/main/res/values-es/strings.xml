@@ -65,5 +65,6 @@
     <string name="error_neutral_toast">ERROR</string>
     <string name="error_low_toast">Discrepo</string>
     <string name="error_medium_toast">Mis más sinceras disculpas</string>
+    <string name="test_login">Te hemos iniciado sessión en la cuenta de prueba, recomendamos que inicies sessión en tu cuenta</string>
 
 </resources>

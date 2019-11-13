@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.crashlytics.android.answers.Answers;
 import com.crashlytics.android.answers.LoginEvent;
@@ -176,6 +177,7 @@ public class Init extends Fragment implements InitView {
             TextView textView = getActivity().findViewById(R.id.logged_user);
             textView.setText("test");
             presenter.getScore("test", true);
+            Toast.makeText(getActivity().getBaseContext(),getString(R.string.test_login),Toast.LENGTH_LONG).show();
         } else {
             initPlay();
         }
