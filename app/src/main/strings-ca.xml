@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+		<string key="app_key" value="Caça-paraules" />
+		<string key="play" value="Jugar" />
+		<string key="exit" value="Sortir" />
+		<string key="session" value="Compte" />
+		<string key="login" value="Connectar" />
+		<string key="ranking" value="Classificació" />
+		<string key="signin" value="Crear usuari" />
+		<string key="password_text" value="Contrasenya" />
+		<string key="userkey_text" value="Usuari" />
+		<string key="return_text" value="Tornar" />
+		<string key="how_to_play" value="Com es juga?" />
+		<string key="no_more_images" value="S\'han acabat les imatges esperant que posin més..." />
+		<string key="match_game_score" value="Puntuacions Match Game" />
+		<string key="difference_game_score" value="Puntuacions Difference Game" />
+		<string key="downloading_fix_text" value="Descarregant fitxers fixes... (esperi i no apagui la pantalla)" />
+		<string key="downloading_text" value="Descarregant fitxers... (esperi i no apagui la pantalla)" />
+		<string key="no_internet" value="Sense connexió d\'internet" />
+		<string key="minigame_select" value="Sel·lecciona un mini joc" />
+		<string key="highscore" value="Puntuació més alta" />
+		<string key="initializing_game" value="Inicialitzant el joc..." />
+		<string key="logout" value="Desconnectar" />
+		<string key="users_text" value="Usuaris" />
+		<string key="top_10" value="Top 10" />
+		<string key="logged_success" value="T\'has connectat" />
+		<string key="logged_fail" value="Error al connectar-se..." />
+		<string key="signin_success" value="Usuari creat!" />
+		<string key="signin_fail" value="Error al crear l\'usuari..." />
+		<string key="language_text" value="Idioma" />
+		<string key="options" value="Opcions" />
+		<string key="resume" value="Seguir" />
+		<string key="play_again" value="Tornar a jugar" />
+		<string key="none_of_these" value="Cap d\'aquestes" />
+		<string key="score" value="'Puntuació '" />
+		<string key="lose" value="Has perdut!" />
+		<string key="starts_zero" value="Comences amb 0 punts" />
+		<string key="win" value="Has guanyat!" />
+		<string key="starts_x_points" value="Comences amb la puntuació obtinguda" />
+		<string key="more_than_one_different" value="Hi ha més d\'un diferent" />
+		<string key="all_same" value="Tots son iguals" />
+		<string key="next_level" value="Següent nivell" />
+		<string key="round" value="'Ronda '" />
+		<string key="easy" value="Fàcil" />
+		<string key="normal" value="Mitjà" />
+		<string key="hard" value="Difícil" />
+		<string key="level" value="Nivell" />
+		<string key="anonym" value="Anònim" />
+		<string key="title_loading_info" value="Llegint informació del joc" />
+		<string key="not_enough_images" value="No hi ha suficients imatges" />
+		<string key="text_match_score" value="'Match puntuació: '" />
+		<string key="text_diff_score" value="'Diff puntuació: '" />
+		<string key="match_game" value="Joc Match" />
+		<string key="difference_game" value="Joc Difference" />
+		<string key="preferences_file" value="hunting_words_prefs" />
+		<string key="language_type" value="english" />
+		<string key="yes" value="Si" />
+		<string key="no" value="No" />
+		<string key="no_user" value="Si us plau, iniciï sessió." />
+		<string key="back" value="Enrere" />
+		<string key="stats" value="Estadístiques" />
+		<string key="jump_game" value="Salta-paraules" />
+		<string key="text_jump_score" value="Jump puntuació:" />
+		<string key="ca" translatable="false" value="Català" />
+		<string key="default_token" value="-1" />
+		<string key="en" value="English" />
+		<string key="es" value="Español" />
+		<string key="zero" value="0" />
+		<string key="zh" value="中文" />
+
+</resources>

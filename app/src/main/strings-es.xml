@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+		<string key="app_key" value="Caza-palabras" />
+		<string key="play" value="Jugar" />
+		<string key="exit" value="Salir" />
+		<string key="session" value="Cuenta" />
+		<string key="login" value="Conectar" />
+		<string key="ranking" value="Clasificación" />
+		<string key="signin" value="Crear usuario" />
+		<string key="userkey_text" value="Usuario" />
+		<string key="password_text" value="Contraseña" />
+		<string key="return_text" value="Volver" />
+		<string key="how_to_play" value="Como se juega?" />
+		<string key="no_more_images" value="Se han acabado las imágenes esperando que añadan más..." />
+		<string key="match_game_score" value="Puntuaciones Match Game" />
+		<string key="difference_game_score" value="Puntuaciones Difference Game" />
+		<string key="downloading_fix_text" value="Descargando ficheros fijos... (espere y no apague la pantalla)" />
+		<string key="downloading_text" value="Descargando ficheros... (espere y no apague la pantalla)" />
+		<string key="no_internet" value="Sin conexión de internet" />
+		<string key="minigame_select" value="Selecciona un mini juego" />
+		<string key="highscore" value="Puntuación más alta" />
+		<string key="initializing_game" value="Inicializando el juego..." />
+		<string key="logout" value="Desconectar" />
+		<string key="users_text" value="Usuarios" />
+		<string key="top_10" value="Top 10" />
+		<string key="logged_success" value="Te has conectado!" />
+		<string key="logged_fail" value="Error al conectarse..." />
+		<string key="signin_success" value="Usuario creado!" />
+		<string key="signin_fail" value="Error al crear el usuario..." />
+		<string key="language_text" value="Idioma" />
+		<string key="options" value="Opciones" />
+		<string key="resume" value="Seguir" />
+		<string key="play_again" value="Volver a jugar" />
+		<string key="none_of_these" value="Ninguna de estas" />
+		<string key="score" value="'Puntuación '" />
+		<string key="lose" value="Has perdido!" />
+		<string key="starts_zero" value="Comienzas con 0 puntos" />
+		<string key="win" value="Has ganado!" />
+		<string key="starts_x_points" value="Comienzas con la puntuación obtenida" />
+		<string key="more_than_one_different" value="Hay más de uno diferente" />
+		<string key="all_same" value="Todos son iguales" />
+		<string key="next_level" value="Siguiente nivel" />
+		<string key="round" value="'Ronda '" />
+		<string key="easy" value="Fácil" />
+		<string key="normal" value="Medio" />
+		<string key="hard" value="Difícil" />
+		<string key="level" value="Nivel" />
+		<string key="anonym" value="Anónimo" />
+		<string key="title_loading_info" value="Leyendo información del juego" />
+		<string key="not_enough_images" value="No hay suficientes imágenes" />
+		<string key="text_match_score" value="'Match puntuación: '" />
+		<string key="text_diff_score" value="'Diff puntuación: '" />
+		<string key="match_game" value="Juego Match" />
+		<string key="difference_game" value="Juego Difference" />
+		<string key="preferences_file" value="hunting_words_prefs" />
+		<string key="language_type" value="english" />
+		<string key="no" value="No" />
+		<string key="yes" value="Si" />
+		<string key="no_user" value="Por favor, inicie sesión." />
+		<string key="back" value="Volver" />
+		<string key="stats" value="Estadísticas" />
+		<string key="jump_game" value="Salta-palabras" />
+		<string key="text_jump_score" value="Jump puntuación:" />
+		<string key="ca" translatable="false" value="Català" />
+		<string key="default_token" value="-1" />
+		<string key="en" value="English" />
+		<string key="es" value="Español" />
+		<string key="zero" value="0" />
+		<string key="zh" value="中文" />
+
+</resources>

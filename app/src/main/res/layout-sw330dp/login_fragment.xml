@@ -62,7 +62,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/text_match_score"
+                android:id="@+id/text_stats"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/stats"
@@ -72,6 +72,11 @@
         </TableRow>
 
     </TableLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="0sp"
+        android:layout_height="0sp"
+        android:layout_weight="1" />
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+		<string key="app_key" value="Word hunter" />
+		<string key="play" value="Play" />
+		<string key="exit" value="Exit" />
+		<string key="session" value="Account" />
+		<string key="login" value="Login" />
+		<string key="ranking" value="Ranking" />
+		<string key="signin" value="Sign in" />
+		<string key="password_text" value="Password" />
+		<string key="userkey_text" value="Userkey" />
+		<string key="return_text" value="Back" />
+		<string key="how_to_play" value="How to Play?" />
+		<string key="no_more_images" value="No more images to play wait until new images come..." />
+		<string key="match_game_score" value="Match Game Score" />
+		<string key="difference_game_score" value="Difference Game Score" />
+		<string key="downloading_fix_text" value="Downloading static files... (wait and don\'t turn off the screen)" />
+		<string key="downloading_text" value="Downloading files... (wait and don\'t turn off the screen)" />
+		<string key="no_internet" value="No internet connection" />
+		<string key="minigame_select" value="Please select a minigame" />
+		<string key="highscore" value="Highscore" />
+		<string key="initializing_game" value="Initializing the game..." />
+		<string key="logout" value="Logout" />
+		<string key="users_text" value="Users" />
+		<string key="top_10" value="Top 10" />
+		<string key="logged_success" value="Login Success!" />
+		<string key="logged_fail" value="Login failed..." />
+		<string key="signin_success" value="User created successfully!" />
+		<string key="signin_fail" value="User creation failed..." />
+		<string key="language_text" value="Language" />
+		<string key="options" value="Options" />
+		<string key="resume" value="Resume" />
+		<string key="play_again" value="Play Again" />
+		<string key="none_of_these" value="None of these" />
+		<string key="score" value="'Score '" />
+		<string key="lose" value="You lose!" />
+		<string key="starts_zero" value="Starts the game with 0 points" />
+		<string key="win" value="You win!" />
+		<string key="starts_x_points" value="Starts with last game points" />
+		<string key="more_than_one_different" value="More than one different" />
+		<string key="all_same" value="They are the same" />
+		<string key="next_level" value="Next level" />
+		<string key="round" value="'Round '" />
+		<string key="easy" value="Easy" />
+		<string key="normal" value="Normal" />
+		<string key="hard" value="Hard" />
+		<string key="level" value="Level" />
+		<string key="anonym" value="Anonymous" />
+		<string key="title_loading_info" value="loading game information" />
+		<string key="not_enough_images" value="There are not enough images" />
+		<string key="text_match_score" value="'Match Score: '" />
+		<string key="text_diff_score" value="'Diff score: '" />
+		<string key="match_game" value="Match Game" />
+		<string key="difference_game" value="Difference Game" />
+		<string key="preferences_file" value="hunting_words_prefs" />
+		<string key="language_type" value="english" />
+		<string key="yes" value="Yes" />
+		<string key="no" value="No" />
+		<string key="no_user" value="Please, login first." />
+		<string key="back" value="Back" />
+		<string key="stats" value="Stats" />
+		<string key="jump_game" value="Jump Words" />
+		<string key="text_jump_score" value="Jump Score:" />
+		<string key="ca" translatable="false" value="Català" />
+		<string key="default_token" value="-1" />
+		<string key="en" value="English" />
+		<string key="es" value="Español" />
+		<string key="zero" value="0" />
+		<string key="zh" value="中文" />
+
+</resources>

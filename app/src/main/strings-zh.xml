@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+		<string key="app_key" value="文字猎人" />
+		<string key="play" value="开始" />
+		<string key="exit" value="退出" />
+		<string key="login" value="登录" />
+		<string key="ranking" value="排行榜" />
+		<string key="signin" value="注册" />
+		<string key="userkey_text" value="用户名" />
+		<string key="password_text" value="密码" />
+		<string key="return_text" value="返回" />
+		<string key="how_to_play" value="怎么玩?" />
+		<string key="session" value="帐号" />
+		<string key="no_more_images" value="没有更多的图片了 正在等待新的图片..." />
+		<string key="match_game_score" value="Match Game 的分数" />
+		<string key="difference_game_score" value="Difference Game 的分数" />
+		<string key="downloading_fix_text" value="静态文件下载中... (稍等片刻，请别关闭屏幕)" />
+		<string key="downloading_text" value="文件下载中... (稍等片刻，请别关闭屏幕)" />
+		<string key="no_internet" value="没有网络连接" />
+		<string key="minigame_select" value="请选择一个小游戏" />
+		<string key="highscore" value="最高分" />
+		<string key="initializing_game" value="游戏初始化中..." />
+		<string key="logout" value="退出登录" />
+		<string key="users_text" value="玩家" />
+		<string key="top_10" value="十杰" />
+		<string key="logged_success" value="登录成功!" />
+		<string key="logged_fail" value="登录失败..." />
+		<string key="signin_success" value="用户创造成功!" />
+		<string key="signin_fail" value="用户创造失败..." />
+		<string key="language_text" value="语言" />
+		<string key="options" value="选项" />
+		<string key="resume" value="继续" />
+		<string key="play_again" value="再来一局" />
+		<string key="none_of_these" value="都不是" />
+		<string key="score" value="'得分 '" />
+		<string key="lose" value="不好意思，你输啦!" />
+		<string key="starts_zero" value="以零分开始游戏" />
+		<string key="win" value="恭喜你，你赢啦!" />
+		<string key="starts_x_points" value="以原来的分数开始游戏" />
+		<string key="more_than_one_different" value="不止一个 不同" />
+		<string key="all_same" value="都是一样的" />
+		<string key="next_level" value="下一关" />
+		<string key="round" value="'回合 '" />
+		<string key="easy" value="简单" />
+		<string key="normal" value="普通" />
+		<string key="hard" value="难" />
+		<string key="level" value="难度" />
+		<string key="anonym" value="无玩家" />
+		<string key="title_loading_info" value="正在加载数据" />
+		<string key="not_enough_images" value="没有更多可玩的图片了" />
+		<string key="text_match_score" value="Match 分数:" />
+		<string key="text_diff_score" value="Diff 分数:" />
+		<string key="match_game" value="Match 游戏" />
+		<string key="difference_game" value="Difference 游戏" />
+		<string key="preferences_file" value="hunting_words_prefs" />
+		<string key="language_type" value="english" />
+		<string key="yes" value="玩!" />
+		<string key="no" value="不了" />
+		<string key="no_user" value="请先登录" />
+		<string key="back" value="返回" />
+		<string key="stats" value="统计" />
+		<string key="jump_game" value="文字跳跃" />
+		<string key="text_jump_score" value="Jump 分数:" />
+		<string key="ca" translatable="false" value="Català" />
+		<string key="default_token" value="-1" />
+		<string key="en" value="English" />
+		<string key="es" value="Español" />
+		<string key="zero" value="0" />
+		<string key="zh" value="中文" />
+
+</resources>

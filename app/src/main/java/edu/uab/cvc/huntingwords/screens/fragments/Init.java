@@ -171,14 +171,17 @@ public class Init extends Fragment implements InitView {
             SharedPreferences preferences = getActivity().getSharedPreferences(
                     getString(R.string.preferences_file), Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = preferences.edit();
-            editor.putString(edu.uab.cvc.huntingwords.Utils.PARAM_USERNAME,"test");
+            editor.putString(edu.uab.cvc.huntingwords.Utils.PARAM_USERNAME,getString(R.string.test_account_name));
             editor.putString(edu.uab.cvc.huntingwords.Utils.PARAM_TOKEN, Token.getInstance().getToken());
             editor.apply();
             TextView textView = getActivity().findViewById(R.id.logged_user);
-            textView.setText("test");
-            presenter.getScore("test", true);
+            textView.setText(getString(R.string.test_account_name));
+            presenter.getScore(getString(R.string.test_account_name), true);
             Toast.makeText(getActivity().getBaseContext(),getString(R.string.test_login),Toast.LENGTH_LONG).show();
         } else {
+            if (getUsername().equals(getString(R.string.test_account_name))) {
+                Toast.makeText(getActivity().getBaseContext(),getString(R.string.test_login),Toast.LENGTH_LONG).show();
+            }
             initPlay();
         }
     }

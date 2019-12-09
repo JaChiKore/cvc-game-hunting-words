@@ -22,9 +22,6 @@ public class ConnectPresenterImpl implements ConnectPresenter {
         this.view = login;
     }
 
-
-
-
     @Override
     public boolean login(final String username, String password) {
         ConnectCallback callback = new ConnectCallback() {
