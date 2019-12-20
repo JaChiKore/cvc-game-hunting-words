@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/helpConstraintLay"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/packLinerLay"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
+        app:layout_constraintBottom_toTopOf="@id/previousImage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/helpImage"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_weight="0.75"
+            android:contentDescription="@string/session"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/help_account_0" />
+
+        <TextView
+            android:id="@+id/help_account_text"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_weight="0.25"
+            android:clickable="false"
+            android:ems="10"
+            android:focusable="false"
+            android:gravity="start|top" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/previousImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/content_description_left_arrow"
+        android:text="@string/previous_image"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/nextImage"
+        app:layout_constraintStart_toStartOf="@id/packLinerLay"
+        app:layout_constraintTop_toBottomOf="@id/packLinerLay" />
+
+    <Button
+        android:id="@+id/nextImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/content_description_right_arrow"
+        android:text="@string/next_image"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/packLinerLay"
+        app:layout_constraintStart_toEndOf="@id/previousImage"
+        app:layout_constraintTop_toBottomOf="@id/packLinerLay" />
+</androidx.constraintlayout.widget.ConstraintLayout>

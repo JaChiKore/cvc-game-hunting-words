@@ -66,5 +66,8 @@
     <string name="error_low_toast">System disagree</string>
     <string name="error_medium_toast">My deepest apologies</string>
     <string name="test_login">Logged as test account, please log in your own account</string>
+    <string name="help_create_user_button_text">How to create&#10;a account?</string>
+    <string name="previous_image">Previous</string>
+    <string name="next_image">Next</string>
 
 </resources>

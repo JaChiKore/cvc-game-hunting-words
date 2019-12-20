@@ -16,6 +16,15 @@
             android:layout_height="match_parent">
 
             <Button
+                android:id="@+id/help_account"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="13dp"
+                android:layout_marginTop="24dp"
+                android:text="@string/help_create_user_button_text"
+                android:textSize="18sp" />
+
+            <Button
                 android:id="@+id/login"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

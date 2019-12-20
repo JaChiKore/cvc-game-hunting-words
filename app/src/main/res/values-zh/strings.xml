@@ -66,5 +66,8 @@
     <string name="error_low_toast">系统不服</string>
     <string name="error_medium_toast">嘤嘤嘤</string>
     <string name="test_login">这位游客，您正在使用测试用账号，我们推荐您注册一个账号</string>
+    <string name="help_create_user_button_text">如何注册&#10;新账号？</string>
+    <string name="previous_image">上一页</string>
+    <string name="next_image">下一页</string>
 
 </resources>

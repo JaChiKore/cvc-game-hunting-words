@@ -1,10 +1,11 @@
 package edu.uab.cvc.huntingwords.screens.fragments;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import android.app.Fragment;
 
 import butterknife.ButterKnife;
 import edu.uab.cvc.huntingwords.R;
@@ -23,10 +24,7 @@ public class HelpDifference extends Fragment {
         View view =inflater.inflate(R.layout.help_difference_fragment, container, false);
         ButterKnife.bind(this, view);
 
-
         view.setBackgroundColor(Utils.GetBackgroundColour(this.getActivity()));
         return view;
-
     }
-
 }

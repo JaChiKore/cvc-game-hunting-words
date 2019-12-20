@@ -129,6 +129,14 @@ public class Init extends Fragment implements InitView {
         valueJump.setText(String.valueOf(score));
     }
 
+    @OnClick(R.id.help_account)
+    public void clickHelpAccount() {
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fm.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_switch, new HelpAccount());
+        fragmentTransaction.commit();
+    }
+
     @OnClick(R.id.language)
     public void clickLanguage(){
         FragmentManager fm = getFragmentManager();

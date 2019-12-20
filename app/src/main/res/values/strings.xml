@@ -72,4 +72,15 @@
     <string name="error_medium_toast">My deepest apologies</string>
     <string name="test_login">Logged as test account, please log in your own account</string>
     <string name="test_account_name" translatable="false">test</string>
+    <string name="help_create_user_button_text">How to create&#10;a account?</string>
+    <string name="content_description_left_arrow" translatable="false">left arrow</string>
+    <string name="content_description_right_arrow" translatable="false">right arrow</string>
+    <string name="hint_fill_help_text" translatable="false">help text</string>
+    <string name="help_account_text_0" translatable="false">Tenim en la part superior esquerra la paraula “test”. Això vol dir que el sistema t’ha auto iniciat la sessió com a tester perquè l’últim cop que estaves amb el joc, vas jugar directament sense iniciar sessió.</string>
+    <string name="help_account_text_1" translatable="false">Per tancar la sessió que ens l’ha iniciat automàticament el joc o iniciat per nosaltres, li donem al botó “Desconnectar”.</string>
+    <string name="help_account_text_2" translatable="false">Tenim en la part superior esquerra la paraula “Anònim” (si el tens en un altre idioma, tindrà la paraula anònim però escrita en aquell idioma).</string>
+    <string name="help_account_text_3" translatable="false">Ens trobem amb el sistema per iniciar sessió. En aquest cas, tant si volem crear un nou usuari com si volem iniciar la sessió amb un usuari creat, tenim que omplir les dades amb un nom d’usuari i la contrasenya.</string>
+    <string name="help_account_text_4" translatable="false">Si es una nova compte, escollim el nom d’usuari i la consenya que volem. Per iniciar una sessió, li donem a “Connectar”, i si estem creant un nou usuari, li donem a “Crear usuari” (en cas de que ens doni error després de donar-li al botó, potser que el nom d’usuari que has escollit ja està agafat, prova amb un altre).</string>
+    <string name="previous_image">Previous</string>
+    <string name="next_image">Next</string>
 </resources>

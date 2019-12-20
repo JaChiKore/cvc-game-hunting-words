@@ -66,5 +66,8 @@
     <string name="error_low_toast">Discrepo</string>
     <string name="error_medium_toast">Les meves disculpes</string>
     <string name="test_login">T\'hem iniciat sessió en el compte de prova, recomanem que iniciïs sessió al teu compte</string>
+    <string name="help_create_user_button_text">Com es crea&#10;un compte?</string>
+    <string name="previous_image">Enrrere</string>
+    <string name="next_image">Següent</string>
 
 </resources>
