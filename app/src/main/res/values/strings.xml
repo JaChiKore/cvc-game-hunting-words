@@ -76,11 +76,11 @@
     <string name="content_description_left_arrow" translatable="false">left arrow</string>
     <string name="content_description_right_arrow" translatable="false">right arrow</string>
     <string name="hint_fill_help_text" translatable="false">help text</string>
-    <string name="help_account_text_0" translatable="false">Tenim en la part superior esquerra la paraula “test”. Això vol dir que el sistema t’ha auto iniciat la sessió com a tester perquè l’últim cop que estaves amb el joc, vas jugar directament sense iniciar sessió.</string>
-    <string name="help_account_text_1" translatable="false">Per tancar la sessió que ens l’ha iniciat automàticament el joc o iniciat per nosaltres, li donem al botó “Desconnectar”.</string>
-    <string name="help_account_text_2" translatable="false">Tenim en la part superior esquerra la paraula “Anònim” (si el tens en un altre idioma, tindrà la paraula anònim però escrita en aquell idioma).</string>
-    <string name="help_account_text_3" translatable="false">Ens trobem amb el sistema per iniciar sessió. En aquest cas, tant si volem crear un nou usuari com si volem iniciar la sessió amb un usuari creat, tenim que omplir les dades amb un nom d’usuari i la contrasenya.</string>
-    <string name="help_account_text_4" translatable="false">Si es una nova compte, escollim el nom d’usuari i la consenya que volem. Per iniciar una sessió, li donem a “Connectar”, i si estem creant un nou usuari, li donem a “Crear usuari” (en cas de que ens doni error després de donar-li al botó, potser que el nom d’usuari que has escollit ja està agafat, prova amb un altre).</string>
+    <string name="help_account_text_0">We have the word "test" in the upper left corner. This means that the system automatically logged you in as a tester because the last time you opened the game, you played directly without logging in.</string>
+    <string name="help_account_text_1">To logout the session that was started automatically by the game or started by us, we click the button "Disconnect".</string>
+    <string name="help_account_text_2">We have the word “Anonymous” in the top left corner (if you have the game in another language, it will display the word “Anonymous” but written in that language).</string>
+    <string name="help_account_text_3">Here we have the module for log in. In this case, whether we want to sign in or log in, we have to fill a username and password.</string>
+    <string name="help_account_text_4">Si es una nova compte, escollim el nom d’usuari i la consenya que volem. Per iniciar una sessió, li donem a “Connectar”, i si estem creant un nou usuari, li donem a “Crear usuari” (en cas de que ens doni error després de donar-li al botó, potser que el nom d’usuari que has escollit ja està agafat, prova amb un altre).</string>
     <string name="previous_image">Previous</string>
     <string name="next_image">Next</string>
 </resources>

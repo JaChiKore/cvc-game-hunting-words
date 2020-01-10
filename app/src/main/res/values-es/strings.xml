@@ -69,5 +69,10 @@
     <string name="help_create_user_button_text">Como se crea&#10;una cuenta?</string>
     <string name="previous_image">Atrás</string>
     <string name="next_image">Siguiente</string>
+    <string name="help_account_text_0">Tenemos a la parte superior izquierda la palabra “test”. Esto quiere decir que el sistema te ha auto iniciado la sesión como usuario test ya que la última vez que abriste el juego, jugaste directamente sin haber iniciado sesión.</string>
+    <string name="help_account_text_1">Para cerrar la sessión que ha sido iniciado automáticamente por el juego o por nosotros, le damos al botón “Desconnectar”.</string>
+    <string name="help_account_text_2">En la parte superior izquierda tenemos la palabra "Anónimo" (si tienes el juego en otro idioma, la palabra anónimo estará escrita en ese idioma).</string>
+    <string name="help_account_text_3">Aquí tenemos el sistema para iniciar sessión. En este caso, tanto si queremos crear un nuevo usuario com si queremos iniciar sessión con nuestra cuenta, hay que rellenar las cajas con un nombre de usuario y contraseña.</string>
+    <string name="help_account_text_4">Si es una cuenta nueva, escogemos el nombre de usuario y contraseña que queremos. Para iniciar una sessión, le damos a “Conectar”, y si estamos creando un nuevo usuario, le damos a “Crear usuario” (en caso de error después de darle al botón, es posible que el nombre de usuario que has escogido ya no está disponible, prueba con otro).</string>
 
 </resources>

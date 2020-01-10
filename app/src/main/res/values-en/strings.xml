@@ -69,5 +69,10 @@
     <string name="help_create_user_button_text">How to create&#10;a account?</string>
     <string name="previous_image">Previous</string>
     <string name="next_image">Next</string>
+    <string name="help_account_text_0">We have the word “test” in the upper left corner. This means that the system automatically logged you in as a tester because the last time you opened the game, you played directly without logging in.</string>
+    <string name="help_account_text_1">To logout the session that was started automatically by the game or started by us, we click the button “Disconnect”.</string>
+    <string name="help_account_text_2">We have the word “Anonymous” in the top left corner (if you have the game in another language, it will display the word “Anonymous” but written in that language).</string>
+    <string name="help_account_text_3">Here we have the module for log in. In this case, whether we want to sign in or log in, we have to fill a username and password.</string>
+    <string name="help_account_text_4">If you want to create a new account, choose a username and password you want. To start a session, click on “Connect”, and if you are creating a new user, click on “Create user” (in case of error, it is possible that the username you have chosen is not longer available, try another).</string>
 
 </resources>

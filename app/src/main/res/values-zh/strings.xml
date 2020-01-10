@@ -11,22 +11,22 @@
     <string name="return_text">返回</string>
     <string name="how_to_play">怎么玩?</string>
     <string name="session">帐号</string>
-    <string name="no_more_images">没有更多的图片了 正在等待新的图片...</string>
+    <string name="no_more_images">没有更多的图片了 正在等待新的图片..</string>
     <string name="match_game_score">Match Game 的分数</string>
     <string name="difference_game_score">Difference Game 的分数</string>
-    <string name="downloading_fix_text">静态文件下载中... (稍等片刻，请别关闭屏幕)</string>
-    <string name="downloading_text">文件下载中... (稍等片刻，请别关闭屏幕)</string>
+    <string name="downloading_fix_text">静态文件下载中.. (稍等片刻，请别关闭屏幕)</string>
+    <string name="downloading_text">文件下载中.. (稍等片刻，请别关闭屏幕)</string>
     <string name="no_internet">没有网络连接</string>
     <string name="minigame_select">请选择一个小游戏</string>
     <string name="highscore">最高分</string>
-    <string name="initializing_game">游戏初始化中...</string>
-    <string name="logout">退出登录</string>
+    <string name="initializing_game">游戏初始化中..</string>
+    <string name="logout">注销</string>
     <string name="users_text">玩家</string>
     <string name="top_10">十杰</string>
     <string name="logged_success">登录成功!</string>
-    <string name="logged_fail">登录失败...</string>
+    <string name="logged_fail">登录失败..</string>
     <string name="signin_success">用户创造成功!</string>
-    <string name="signin_fail">用户创造失败...</string>
+    <string name="signin_fail">用户创造失败..</string>
     <string name="language_text">语言</string>
     <string name="options">选项</string>
     <string name="resume">继续</string>
@@ -45,7 +45,7 @@
     <string name="normal">普通</string>
     <string name="hard">难</string>
     <string name="level">难度</string>
-    <string name="anonym">无玩家</string>
+    <string name="anonym">匿名</string>
     <string name="title_loading_info">正在加载数据</string>
     <string name="not_enough_images">没有更多可玩的图片了</string>
     <string name="text_match_score">Match 分数:</string>
@@ -69,5 +69,10 @@
     <string name="help_create_user_button_text">如何注册&#10;新账号？</string>
     <string name="previous_image">上一页</string>
     <string name="next_image">下一页</string>
+    <string name="help_account_text_0">在左上角可以看到“test”这一词。 这意味着系统自动帮您登录了测试帐号。因为上一次您在没登录的情况下直接玩了游戏。</string>
+    <string name="help_account_text_1">想要注销由程序自动或人为手动登录的帐号，请点击“注销”按钮。</string>
+    <string name="help_account_text_2">在左上角可以看到“匿名/无名”这一词（如果您在使用其他语言，就会以该语言所显示“匿名”一词）。</string>
+    <string name="help_account_text_3">这是登录系统。 在这种情况下，无论我们是要注册还是登录，都必须填写用户名和密码。</string>
+    <string name="help_account_text_4">如果要创建一个新帐户，请选择一个新的用户名和密码。 要登录的话，请点击“登录”，如果要注册的话，请点击“注册”（假如发生了错误，很有可能您选择的用户名已被使用，请尝试其他的用户名）。</string>
 
 </resources>
