@@ -8,3 +8,7 @@
 /captures
 .externalNativeBuild
 /app/release/*
+.idea/jarRepositories.xml
+original_help_account_images/
+words-hunter/
+.gitignore
