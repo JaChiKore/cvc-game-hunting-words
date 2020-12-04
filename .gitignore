@@ -1,8 +1,6 @@
 *.iml
 .gradle
 /local.properties
-/.idea/workspace.xml
-/.idea/libraries
 .DS_Store
 /build
 /captures
@@ -11,4 +9,5 @@
 .idea/jarRepositories.xml
 original_help_account_images/
 words-hunter/
-.gitignore
+/.idea
+/.gitignore

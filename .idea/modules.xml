@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/github-cvc-game-hunting-words.iml" filepath="$PROJECT_DIR$/github-cvc-game-hunting-words.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="github-cvc-game-hunting-words/app" />
+      <module fileurl="file://$PROJECT_DIR$/github-cvc-game-hunting-words.iml" filepath="$PROJECT_DIR$/github-cvc-game-hunting-words.iml" group="github-cvc-game-hunting-words" />
     </modules>
   </component>
 </project>
